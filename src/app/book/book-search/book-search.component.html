@@ -1,0 +1,12 @@
+<mat-card class="book-search-card">
+    <mat-card-title class="book-search-title">Find a Book</mat-card-title>
+    <mat-card-content class="book-search-content">
+        <mat-form-field class="book-search-form-field">
+            <input matInput placeholder="Search for a book" [value]="value"
+                   (input)="search.next($event.target.value)">
+        </mat-form-field>
+        <mat-spinner class="book-search-spinner" [class.show]="loading"
+                     [diameter]="30" [strokeWidth]="3"></mat-spinner>
+    </mat-card-content>
+    <mat-card-footer class="book-search-footer"><span *ngIf="error">{{error}}</span></mat-card-footer>
+</mat-card>

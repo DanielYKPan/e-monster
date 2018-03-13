@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.book-details-card {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  max-width: 600px;
+}
+
+.book-details-card-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.book-details-card-content {
+  margin-top: 1.5rem;
+}
+
+.book-details-card-footer {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.book-details-card-sub-header {
+  display: flex;
+  box-sizing: border-box;
+  padding: 1rem 1rem 1rem 0;
+  align-items: center;
+  margin-bottom: 5px;
+}

@@ -1,0 +1,14 @@
+<mat-card *ngIf="book" class="book-details-card">
+    <mat-card-title-group class="book-details-card-title">
+        <mat-card-title>{{ title }}</mat-card-title>
+        <mat-card-subtitle *ngIf="subtitle">{{ subtitle }}</mat-card-subtitle>
+        <img mat-card-sm-image *ngIf="thumbnail" [src]="thumbnail"/>
+    </mat-card-title-group>
+    <mat-card-content class="book-details-card-content">
+        <p [innerHtml]="description"></p>
+    </mat-card-content>
+    <mat-card-footer class="book-details-card-footer">
+        <h5 class="book-details-card-sub-header">Written By:</h5>
+        <span>{{ authors | bcAddCommas }}</span>
+    </mat-card-footer>
+</mat-card>
