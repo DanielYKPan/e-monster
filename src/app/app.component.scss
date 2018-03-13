@@ -1,0 +1,33 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.app-sidenav-container {
+  flex: 1;
+}
+
+.app-sidenav-content {
+  width: 250px;
+  background: rgba(0, 0, 0, .01);
+}
+
+.app-is-mobile {
+  .app-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  .app-sidenav-container {
+    margin-top: 56px;
+    flex: 1 0 auto;
+  }
+}
+

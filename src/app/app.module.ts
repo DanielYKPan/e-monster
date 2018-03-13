@@ -9,6 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 @NgModule({
@@ -20,6 +22,13 @@ import { environment } from '../environments/environment';
         BrowserAnimationsModule,
         HttpClientModule,
         AppRoutingModule,
+
+        LayoutModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        MatListModule,
 
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
