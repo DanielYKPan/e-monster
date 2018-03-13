@@ -11,6 +11,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
+import { reducers } from './reducers';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { LayoutModule } from '@angular/cdk/layout';
         MatButtonModule,
         MatListModule,
 
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(reducers),
         EffectsModule.forRoot([]),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states

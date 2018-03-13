@@ -1,14 +1,16 @@
 <div class="app-container" [class.app-is-mobile]="isMobile">
     <mat-toolbar class="app-toolbar" color="primary">
-        <button mat-icon-button (click)="snav.toggle()">
+        <button mat-icon-button (click)="toggleSidenav()">
             <mat-icon>menu</mat-icon>
         </button>
         <span>My Application</span>
     </mat-toolbar>
 
-    <mat-sidenav-container class="app-sidenav-container">
+    <mat-sidenav-container class="app-sidenav-container"
+                           (backdropClick)="closeSidenav()">
 
         <mat-sidenav class="app-sidenav-content"
+                     [opened]="showSidenav$ | async"
                      #snav [mode]="isMobile ? 'over' : 'side'"
                      [fixedInViewport]="isMobile" [fixedTopGap]="56">
             <mat-nav-list>
