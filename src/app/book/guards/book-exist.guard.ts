@@ -9,13 +9,18 @@ import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromBooks from '../reducers';
 import * as BookActions from '../actions';
-import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap, toArray } from 'rxjs/operators';
 import { GoogleBookService } from '../book.service';
 import { of } from 'rxjs/observable/of';
+import * as CollectionActions from '../actions/collection';
+import { Database } from '@ngrx/db';
+import { LoadSuccess } from '../actions/collection';
+import { Book } from '../book';
 
 @Injectable()
 export class BookExistGuard implements CanActivate {
     constructor( private store: Store<fromBooks.State>,
+                 private db: Database,
                  private bookService: GoogleBookService ) {
     }
 
@@ -29,8 +34,21 @@ export class BookExistGuard implements CanActivate {
     private waitForCollectionToLoad(): Observable<boolean> {
         return this.store.pipe(
             select(fromBooks.getCollectionLoaded),
+            switchMap(( loaded: boolean ) => {
+                return loaded ? of(loaded) : this.hasCollectionLoaded();
+            }),
             filter(loaded => loaded),
             take(1)
+        );
+    }
+
+    private hasCollectionLoaded(): Observable<boolean> {
+        return this.db.query('books').pipe(
+            toArray(),
+            map(( books: Book[] ) => new LoadSuccess(books)),
+            tap(( action: CollectionActions.LoadSuccess ) => this.store.dispatch(action)),
+            map(() => true),
+            catchError(() => of(false))
         );
     }
 
