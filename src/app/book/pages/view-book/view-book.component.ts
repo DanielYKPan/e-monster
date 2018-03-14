@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit } fr
 import { select, Store } from '@ngrx/store';
 import * as fromBooks from '../../reducers';
 import * as BookActions from '../../actions';
+import * as CollectionActions from '../../actions/collection';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
@@ -18,6 +19,8 @@ import { Book } from '../../book';
 export class ViewBookComponent implements OnInit, OnDestroy {
 
     public book$: Observable<Book>;
+
+    public isBookInCollection$: Observable<boolean>;
 
     private routeSub = Subscription.EMPTY;
 
@@ -40,9 +43,19 @@ export class ViewBookComponent implements OnInit, OnDestroy {
             });
 
         this.book$ = this.store.pipe(select(fromBooks.getSelectedBook));
+
+        this.isBookInCollection$ = this.store.pipe(select(fromBooks.isBookInCollection));
     }
 
     public ngOnDestroy(): void {
         this.routeSub.unsubscribe();
+    }
+
+    public addBookToCollection( book: Book ) {
+        this.store.dispatch(new CollectionActions.AddBook(book));
+    }
+
+    public removeBookFromCollection( book: Book ) {
+        this.store.dispatch(new CollectionActions.RemoveBook(book));
     }
 }

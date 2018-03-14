@@ -7,6 +7,20 @@
     <mat-card-content class="book-details-card-content">
         <p [innerHtml]="description"></p>
     </mat-card-content>
+
+    <mat-card-actions align="start" class="book-details-card-actions">
+        <button mat-raised-button *ngIf="!inCollection;else elseBlock"
+                color="primary" (click)="add.emit(book)">
+            Add Book to Collection
+        </button>
+
+        <ng-template #elseBlock>
+            <button mat-raised-button color="warn"
+                    (click)="remove.emit(book)">
+                Remove Book from Collection
+            </button>
+        </ng-template>
+    </mat-card-actions>
     <mat-card-footer class="book-details-card-footer">
         <h5 class="book-details-card-sub-header">Written By:</h5>
         <span>{{ authors | bcAddCommas }}</span>

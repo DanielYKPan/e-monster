@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Book } from '../book';
 
 @Component({
@@ -11,6 +11,12 @@ import { Book } from '../book';
 export class BookDetailsComponent implements OnInit {
 
     @Input() book: Book;
+
+    @Input() inCollection: boolean;
+
+    @Output() add = new EventEmitter<Book>();
+
+    @Output() remove = new EventEmitter<Book>();
 
     get id() {
         return this.book.id;

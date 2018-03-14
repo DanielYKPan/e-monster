@@ -4,6 +4,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Book } from './book';
 import { BookActions, BookActionTypes } from './actions';
+import { CollectionActions, CollectionActionTypes } from './actions/collection';
 
 export interface State extends EntityState<Book> {
     selectedBookId: string | null;
@@ -18,9 +19,10 @@ export const initialState: State = adapter.getInitialState({
     selectedBookId: null,
 });
 
-export function reducer( state = initialState, action: BookActions ): State {
+export function reducer( state = initialState, action: BookActions | CollectionActions ): State {
     switch (action.type) {
         case BookActionTypes.SearchComplete:
+        case CollectionActionTypes.LoadSuccess:
 
             return adapter.addMany(action.payload, {
                 ...state,

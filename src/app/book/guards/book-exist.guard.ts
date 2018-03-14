@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromBooks from '../reducers';
 import * as BookActions from '../actions';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
+import { catchError, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { GoogleBookService } from '../book.service';
 import { of } from 'rxjs/observable/of';
 
@@ -20,7 +20,18 @@ export class BookExistGuard implements CanActivate {
     }
 
     public canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
-        return this.hasBook(route.params['id']);
+
+        return this.waitForCollectionToLoad().pipe(
+            switchMap(() => this.hasBook(route.params['id']))
+        );
+    }
+
+    private waitForCollectionToLoad(): Observable<boolean> {
+        return this.store.pipe(
+            select(fromBooks.getCollectionLoaded),
+            filter(loaded => loaded),
+            take(1)
+        );
     }
 
     private hasBook( id: string ): Observable<boolean> {

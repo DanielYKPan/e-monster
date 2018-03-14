@@ -12,6 +12,8 @@ import { environment } from '../environments/environment';
 import { MatButtonModule, MatIconModule, MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { reducers } from './reducers';
+import { schema } from './db';
+import { DBModule } from '@ngrx/db';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { reducers } from './reducers';
 
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([]),
+        DBModule.provideDB(schema),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode

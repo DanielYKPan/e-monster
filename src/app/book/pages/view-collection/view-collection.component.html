@@ -1,0 +1,7 @@
+<mat-card class="book-collection-card">
+    <mat-card-title class="book-collection-card-title">My Collection</mat-card-title>
+</mat-card>
+
+<app-book-preview-list>
+    <app-book-preview *ngFor="let book of books$ | async" [book]="book"></app-book-preview>
+</app-book-preview-list>
