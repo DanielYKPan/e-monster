@@ -31,3 +31,13 @@
   }
 }
 
+.app-sidenav-link.active {
+  color: cornflowerblue;
+}
+
+.app-sidenav-link-hint {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 12px !important;
+  margin-top: 8px !important;
+}
+
