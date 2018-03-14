@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromBooks from '../../reducers';
-import * as BookActions from '../../actions';
+import * as BookActions from '../../actions/book';
 import * as CollectionActions from '../../actions/collection';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { Book } from '../../book';
+import { Book } from '../../book.model';
 
 @Component({
     selector: 'app-view-book',

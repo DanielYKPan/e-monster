@@ -9,7 +9,7 @@ import { BookRoutingModule } from './book.routing';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
-import { BookEffect } from './book.effect';
+import { BookEffect } from './effects/book.effect';
 import { EffectsModule } from '@ngrx/effects';
 import { BookSearchComponent } from './book-search/book-search.component';
 import {

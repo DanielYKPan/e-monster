@@ -1,7 +1,7 @@
 /**
  * search
  */
-import { BookActions, BookActionTypes } from './actions';
+import { BookActions, BookActionTypes } from './actions/book';
 
 export interface State {
     ids: string[];

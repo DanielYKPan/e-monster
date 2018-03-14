@@ -6,8 +6,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
-import * as SearchActions from '../../actions';
-import { Book } from '../../book';
+import * as SearchActions from '../../actions/book';
+import { Book } from '../../book.model';
 
 @Component({
     moduleId: module.id,

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Book } from '../../book';
+import { Book } from '../../book.model';
 import { select, Store } from '@ngrx/store';
 import * as fromBooks from '../../reducers';
 import * as CollectionActions from '../../actions/collection';

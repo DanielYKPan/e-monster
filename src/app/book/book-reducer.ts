@@ -2,8 +2,8 @@
  * book-reducer
  */
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Book } from './book';
-import { BookActions, BookActionTypes } from './actions';
+import { Book } from './book.model';
+import { BookActions, BookActionTypes } from './actions/book';
 import { CollectionActions, CollectionActionTypes } from './actions/collection';
 
 export interface State extends EntityState<Book> {

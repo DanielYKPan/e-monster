@@ -4,10 +4,10 @@
 
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { GoogleBookService } from './book.service';
+import { GoogleBookService } from '../book.service';
 import { catchError, debounceTime, map, skip, switchMap, takeUntil} from 'rxjs/operators';
 import { empty } from 'rxjs/observable/empty';
-import { BookActionTypes, Search, SearchComplete, SearchError } from './actions';
+import { BookActionTypes, Search, SearchComplete, SearchError } from '../actions/book';
 import { of } from 'rxjs/observable/of';
 
 export const SEARCH_DEBOUNCE = new InjectionToken<number>('Search Debounce');

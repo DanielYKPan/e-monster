@@ -8,14 +8,13 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromBooks from '../reducers';
-import * as BookActions from '../actions';
+import * as BookActions from '../actions/book';
+import * as CollectionActions from '../actions/collection';
 import { catchError, filter, map, switchMap, take, tap, toArray } from 'rxjs/operators';
 import { GoogleBookService } from '../book.service';
 import { of } from 'rxjs/observable/of';
-import * as CollectionActions from '../actions/collection';
 import { Database } from '@ngrx/db';
-import { LoadSuccess } from '../actions/collection';
-import { Book } from '../book';
+import { Book } from '../book.model';
 
 @Injectable()
 export class BookExistGuard implements CanActivate {
@@ -45,7 +44,7 @@ export class BookExistGuard implements CanActivate {
     private hasCollectionLoaded(): Observable<boolean> {
         return this.db.query('books').pipe(
             toArray(),
-            map(( books: Book[] ) => new LoadSuccess(books)),
+            map(( books: Book[] ) => new CollectionActions.LoadSuccess(books)),
             tap(( action: CollectionActions.LoadSuccess ) => this.store.dispatch(action)),
             map(() => true),
             catchError(() => of(false))

@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Book } from './book';
+import { Book } from './book.model';
 import { map } from 'rxjs/operators/map';
 
 @Injectable()

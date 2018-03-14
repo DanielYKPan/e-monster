@@ -3,7 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
-import { Book } from '../book';
+import { Book } from '../book.model';
 
 export enum CollectionActionTypes {
     AddBook = '[Collection] Add Book',

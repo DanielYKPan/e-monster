@@ -12,7 +12,7 @@ import {
     RemoveBookSuccess
 } from '../actions/collection';
 import { catchError, map, mergeMap, switchMap, toArray } from 'rxjs/operators';
-import { Book } from '../book';
+import { Book } from '../book.model';
 import { of } from 'rxjs/observable/of';
 import { defer } from 'rxjs/observable/defer';
 
