@@ -28,7 +28,7 @@ export class FindBookComponent implements OnInit {
 
     public books$: Observable<Book[]>;
 
-    constructor( private store: Store<fromRoot.BooksState> ) {
+    constructor( private store: Store<fromRoot.State> ) {
     }
 
     public ngOnInit() {

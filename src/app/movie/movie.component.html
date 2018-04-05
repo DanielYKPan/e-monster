@@ -1,0 +1,13 @@
+<p>
+    movie works!
+</p>
+
+<h1>Top Rated</h1>
+<ul>
+    <li *ngFor="let movie of topRateds$ | async">{{movie.title}}</li>
+</ul>
+
+<h1>Upcoming</h1>
+<ul>
+    <li *ngFor="let movie of upcomings$ | async">{{movie.title}}</li>
+</ul>
