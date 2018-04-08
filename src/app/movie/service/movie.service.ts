@@ -14,6 +14,8 @@ export class MovieService {
 
     private readonly apikey = '0ea0b3ae1ad79cc9e6354410580840c3';
 
+    private readonly region = 'US';
+
     constructor( private http: HttpClient ) {
     }
 
@@ -47,6 +49,7 @@ export class MovieService {
         }
 
         params = params.set('api_key', this.apikey);
+        params = params.set('region', this.region);
 
         return this.http.get(url, {params: params});
     }
