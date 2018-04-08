@@ -4,6 +4,7 @@
 
 import * as fromMovies from './movie';
 import * as fromSearch from './search';
+import * as fromRoot from '../../reducers';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface MoviesState {
@@ -11,7 +12,7 @@ export interface MoviesState {
     movies: fromMovies.State;
 }
 
-export interface State {
+export interface State extends fromRoot.State {
     movies: MoviesState;
 }
 
@@ -27,14 +28,24 @@ export const getSearchState = createSelector(
     ( state: MoviesState ) => state.search
 );
 
-export const getSearchTopRatedIds = createSelector(
+export const getSearchStat = createSelector(
     getSearchState,
-    fromSearch.getTopRatedIds
+    fromSearch.getSearchStat,
 );
 
-export const getSearchUpcomingIds = createSelector(
+export const getSearchQuery = createSelector(
     getSearchState,
-    fromSearch.getUpcomingIds
+    fromSearch.getQuery,
+);
+
+export const getSearchLoading = createSelector(
+    getSearchState,
+    fromSearch.getLoading,
+);
+
+export const getSearchIds = createSelector(
+    getSearchState,
+    fromSearch.getIds,
 );
 
 export const getMovieEntityState = createSelector(
@@ -49,18 +60,39 @@ export const {
     selectTotal: getTotalMovies,
 } = fromMovies.adapter.getSelectors(getMovieEntityState);
 
-export const getTopRatedMovies = createSelector(
+export const getSearchMovieList = createSelector(
     getMovieEntities,
-    getSearchTopRatedIds,
+    getSearchIds,
     ( movies, searchIds ) => {
         return searchIds.map(id => movies[id]);
     }
 );
 
-export const getUpcomingMovies = createSelector(
-    getMovieEntities,
-    getSearchUpcomingIds,
-    ( movies, searchIds ) => {
-        return searchIds.map(id => movies[id]);
+export const getSearchFeaturedMovieList = createSelector(
+    getSearchMovieList,
+    ( movies ) => {
+        return movies.slice(0, 2);
     }
+);
+
+export const getSearchNonFeaturedMovieList = createSelector(
+    getSearchMovieList,
+    ( movies ) => {
+        return movies.slice(2);
+    }
+);
+
+export const getRandomMovieBackdrop = createSelector(
+    getSearchMovieList,
+    ( movies ) => {
+        if (movies && movies.length) {
+            const random = movies[Math.floor(Math.random() * movies.length)];
+            return random.backdrop_path;
+        }
+    }
+);
+
+export const getMovieGenreList = createSelector(
+    getMovieEntityState,
+    fromMovies.getGenreList
 );

@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { MovieService } from '../service/movie.service';
-import { MovieActionTypes, SearchError, SearchListComplete } from '../actions/movie';
+import { MovieActionTypes, SearchError, SearchList, SearchListComplete } from '../actions/movie';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
@@ -13,22 +13,12 @@ import { of } from 'rxjs/observable/of';
 export class MovieEffect {
 
     @Effect()
-    public searchTopRatedList$ = this.actions$.pipe(
-        ofType(MovieActionTypes.SearchTopRatedList),
-        switchMap(() => {
-            return this.movieService.searchList('top_rated').pipe(
-                map(results => new SearchListComplete({results, type: 'top_rated'})),
-                catchError(err => of(new SearchError(err)))
-            );
-        })
-    );
-
-    @Effect()
-    public searchUpcomingList$ = this.actions$.pipe(
-        ofType(MovieActionTypes.SearchTopRatedList),
-        switchMap(() => {
-            return this.movieService.searchList('upcoming').pipe(
-                map(results => new SearchListComplete({results, type: 'upcoming'})),
+    public searchList$ = this.actions$.pipe(
+        ofType(MovieActionTypes.SearchList),
+        map(( action: SearchList ) => action.payload),
+        switchMap(( payload: any ) => {
+            return this.movieService.searchList(payload.query, payload.page).pipe(
+                map(results => new SearchListComplete(results)),
                 catchError(err => of(new SearchError(err)))
             );
         })

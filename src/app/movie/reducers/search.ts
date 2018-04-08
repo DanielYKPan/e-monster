@@ -2,39 +2,54 @@
  * search
  */
 import { MovieActions, MovieActionTypes } from '../actions/movie';
+import { ISearchStat } from '../movie.model';
 
 export interface State {
-    ids_top_rated: number[];
-    ids_upcoming: number[];
+    ids: number[];
+    query: string;
+    loading: boolean;
+    searchStat: ISearchStat;
 }
 
 const initialState: State = {
-    ids_top_rated: [],
-    ids_upcoming: [],
+    ids: [],
+    query: null,
+    loading: false,
+    searchStat: {
+        page: 0,
+        total_results: 0,
+        total_pages: 0,
+    }
 };
 
 export function reducer( state = initialState, action: MovieActions ): State {
     switch (action.type) {
 
-        case MovieActionTypes.SearchListComplete:
-            if (action.payload.type === 'top_rated') {
-                return {
-                    ...state,
-                    ids_top_rated: action.payload.results.map(movie => movie.id),
-                };
-            } else if (action.payload.type === 'upcoming') {
-                return {
-                    ...state,
-                    ids_upcoming: action.payload.results.map(movie => movie.id),
-                };
-            }
+        case MovieActionTypes.SearchList:
+            return {
+                ...state,
+                loading: true
+            };
 
-            return state;
+        case MovieActionTypes.SearchListComplete:
+            return {
+                ...state,
+                ids: action.payload.results.map(movie => movie.id),
+                query: action.payload.query,
+                loading: false,
+                searchStat: {
+                    page: action.payload.page,
+                    total_results: action.payload.total_results,
+                    total_pages: action.payload.total_pages,
+                }
+            };
 
         default:
             return state;
     }
 }
 
-export const getTopRatedIds = ( state: State ) => state.ids_top_rated;
-export const getUpcomingIds = ( state: State ) => state.ids_upcoming;
+export const getSearchStat = ( state: State ) => state.searchStat;
+export const getIds = ( state: State ) => state.ids;
+export const getQuery = ( state: State ) => state.query;
+export const getLoading = ( state: State ) => state.loading;

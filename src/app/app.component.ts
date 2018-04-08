@@ -23,6 +23,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public showSidenav$: Observable<boolean>;
 
+    public showLoader$: Observable<boolean>;
+    public showLoader = false;
+
     constructor( private store: Store<fromRoot.State>,
                  private breakpointObserver: BreakpointObserver ) {
     }
@@ -37,6 +40,8 @@ export class AppComponent implements OnInit, OnDestroy {
             });
 
         this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
+
+        // this.showLoader$ = this.store.pipe(select(fromRoot.getShowLoader));
     }
 
     public ngOnDestroy(): void {

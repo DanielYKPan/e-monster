@@ -14,6 +14,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { reducers } from './reducers';
 import { schema } from './db';
 import { DBModule } from '@ngrx/db';
+import { CoreModule } from './core/core.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { DBModule } from '@ngrx/db';
         BrowserAnimationsModule,
         HttpClientModule,
         AppRoutingModule,
+        CoreModule,
 
         LayoutModule,
         MatSidenavModule,

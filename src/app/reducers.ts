@@ -19,3 +19,8 @@ export const getShowSidenav = createSelector(
     getLayoutState,
     fromLayout.getShowSidenav
 );
+
+export const getShowLoader = createSelector(
+    getLayoutState,
+    fromLayout.getShowLoader
+);

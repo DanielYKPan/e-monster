@@ -1,0 +1,37 @@
+$header-height: 3.2rem;
+
+:host {
+  display: flex;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $header-height;
+  z-index: 1500;
+  background: rgba(0, 0, 0, .6);
+  transition: background .5s;
+  transform: translateZ(0px);
+
+  &:hover {
+    background: rgba(0, 0, 0, .9);
+  }
+}
+
+.app-header-nav {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .app-header-nav-link {
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover{
+      color: #ed1c24;
+    }
+  }
+}

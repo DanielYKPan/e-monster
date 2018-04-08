@@ -1,0 +1,14 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav">
+        <app-movie-list-sidenav [showNavMenu]="!isLargeUp"
+                                [searchStat]="searchStat$ | async"
+                                [query]="query$ | async"
+                                (goToPage)="goToPage($event)"></app-movie-list-sidenav>
+    </div>
+
+    <div class="frame-main">
+        <app-movie-list-content
+                [featuredList]="featuredList$ | async"
+                [list]="list$ | async"></app-movie-list-content>
+    </div>
+</section>

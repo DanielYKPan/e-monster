@@ -1,0 +1,31 @@
+<div class="movie-card-inner">
+    <a class="movie-card-content">
+        <ng-container *ngIf="movie.backdrop_path;else abstractImage">
+            <img class="movie-card-backdrop"
+                 [src]="'https://image.tmdb.org/t/p/w780/' + movie.backdrop_path"
+                 [alt]="movie.title">
+        </ng-container>
+        <ng-template #abstractImage>
+            <img class="movie-card-backdrop"
+                 src="/assets/images/abstract-image.jpg"
+                 [alt]="movie.title">
+        </ng-template>
+        <div class="movie-card-title">
+            <h3>{{movie.title}} <span class="year">{{movie.release_date}}</span></h3>
+        </div>
+    </a>
+    <div class="movie-card-control">
+        <div class="movie-card-actions">
+            <a class="movie-card-action collect" (click)="clickAddCollection($event)">
+                <i class="fas fa-book"></i>
+            </a>
+            <a class="movie-card-action play" (click)="clickPlayVideo($event)">
+                <i class="fas fa-play"></i>
+            </a>
+        </div>
+        <div class="movie-card-rate">
+            <i class="movie-card-rate-heart fas fa-heart"></i>
+            {{movie.vote_average | votePercentage}}
+        </div>
+    </div>
+</div>
