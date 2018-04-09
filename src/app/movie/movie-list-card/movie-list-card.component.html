@@ -16,10 +16,14 @@
     </a>
     <div class="movie-card-control">
         <div class="movie-card-actions">
-            <a class="movie-card-action collect" (click)="clickAddCollection($event)">
+            <a class="movie-card-action collect"
+               owlTooltip="Add To Collection"
+               (click)="clickAddCollection($event)">
                 <i class="fas fa-book"></i>
             </a>
-            <a class="movie-card-action play" (click)="clickPlayVideo($event)">
+            <a class="movie-card-action play"
+               owlTooltip="Watch Trainer"
+               (click)="clickPlayVideo($event)">
                 <i class="fas fa-play"></i>
             </a>
         </div>

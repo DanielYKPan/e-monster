@@ -15,20 +15,20 @@
 </div>
 
 <div *ngIf="showNavMenu;else navList" class="frame-sidenav-menu">
-    <button class="frame-sidenav-menu-button" [matMenuTriggerFor]="menu" #menuTrigger>Menu
+    <button class="frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>Menu
         <span class="frame-sidenav-menu-icon"><i class="fas fa-caret-up"></i></span>
     </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/movies/list/now_playing"
+    <owl-menu #menu="owlMenu">
+        <button owl-menu-item routerLink="/movies/list/now_playing"
                 routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Trending
         </button>
-        <button mat-menu-item routerLink="/movies/list/popular"
+        <button owl-menu-item routerLink="/movies/list/popular"
                 routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Popular
         </button>
-        <button mat-menu-item routerLink="/movies/list/upcoming"
+        <button owl-menu-item routerLink="/movies/list/upcoming"
                 routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Upcoming
         </button>
-    </mat-menu>
+    </owl-menu>
 </div>
 
 <ng-template #navList>

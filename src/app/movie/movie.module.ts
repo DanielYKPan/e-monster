@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-import { MatButtonModule, MatMenuModule } from '@angular/material';
-
 import { MovieRoutingModule } from './movie-routing.module';
 import { MovieComponent } from './movie.component';
 import { MovieService } from './service/movie.service';
@@ -19,18 +17,28 @@ import { MovieListCardComponent } from './movie-list-card/movie-list-card.compon
 import { MovieListSidenavComponent } from './movie-list-sidenav/movie-list-sidenav.component';
 import { LoaderComponent } from './loader/loader.component';
 
+import { OwlMenuModule, OwlTooltipModule } from 'owl-ng';
+
 @NgModule({
     imports: [
         CommonModule,
         MovieRoutingModule,
 
-        MatMenuModule, // TODO: use owl-ng instead
-        MatButtonModule,
+        OwlMenuModule,
+        OwlTooltipModule,
 
         StoreModule.forFeature('movies', reducers),
         EffectsModule.forFeature([MovieEffect])
     ],
-    declarations: [MovieComponent, MovieListComponent, VotePercentagePipe, MovieListContentComponent, MovieListCardComponent, MovieListSidenavComponent, LoaderComponent],
+    declarations: [
+        MovieComponent,
+        MovieListComponent,
+        VotePercentagePipe,
+        MovieListContentComponent,
+        MovieListCardComponent,
+        MovieListSidenavComponent,
+        LoaderComponent
+    ],
     providers: [MovieService, GenreListExistGuard, MovieListExistGuard],
 })
 export class MovieModule {
