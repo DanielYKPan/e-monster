@@ -6,6 +6,8 @@ import { IMovie, ISearchStat } from '../movie.model';
 import { select, Store } from '@ngrx/store';
 import * as fromMovieRoot from '../reducers';
 import * as movieActions from '../actions/movie';
+import { OwlDialogService } from 'owl-ng';
+import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 
 @Component({
     selector: 'app-movie-list',
@@ -31,6 +33,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     private breakpointSub = Subscription.EMPTY;
 
     constructor( private store: Store<fromMovieRoot.State>,
+                 private dialogService: OwlDialogService,
                  private breakpointObserver: BreakpointObserver,
                  private cdRef: ChangeDetectorRef ) {
     }
@@ -57,5 +60,14 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     public goToPage( event: any ): void {
         this.store.dispatch(new movieActions.SearchList({query: event.query, page: event.page}));
+    }
+
+    public openMovieTrailerDialog( res: { movie: IMovie, event: any } ): void {
+        const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
+            data: {movie: res.movie}, // data that would pass to dialog component
+            dialogClass: 'movie-trailer-dialog',
+            transitionX: res.event.clientX,
+            transitionY: res.event.clientY,
+        });
     }
 }

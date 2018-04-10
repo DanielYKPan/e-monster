@@ -5,8 +5,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { catchError, delay, map } from 'rxjs/operators';
-import { IMovie, IMovieGenre } from '../movie.model';
+import { catchError, map } from 'rxjs/operators';
+import { IMovie, IMovieGenre, IMovieVideos } from '../movie.model';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 
 @Injectable()
@@ -35,6 +35,13 @@ export class MovieService {
 
         return this.getResult(url).pipe(
             map(( res: any ) => res.genres),
+            catchError(this.handleError)
+        );
+    }
+
+    public getMovieVideos( id: number ): Observable<IMovieVideos> {
+        const url = `https://api.themoviedb.org/3/movie/${id}/videos`;
+        return this.getResult(url).pipe(
             catchError(this.handleError)
         );
     }

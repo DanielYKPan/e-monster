@@ -1,4 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, OnChanges, SimpleChanges, ElementRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    ChangeDetectionStrategy,
+    Input,
+    OnChanges,
+    SimpleChanges,
+    ElementRef,
+    Output, EventEmitter
+} from '@angular/core';
 import { IMovie } from '../movie.model';
 
 @Component({
@@ -13,6 +22,10 @@ export class MovieListContentComponent implements OnInit, OnChanges {
 
     @Input() list: IMovie[];
 
+    @Output() addCollection = new EventEmitter<{movie: IMovie, event: any}>();
+
+    @Output() playVideo = new EventEmitter<{movie: IMovie, event: any}>();
+
     constructor( private elmRef: ElementRef ) {
     }
 
@@ -26,15 +39,7 @@ export class MovieListContentComponent implements OnInit, OnChanges {
         }
     }
 
-    public addCollection(movie: IMovie): void {
-        console.log(movie.title + ' Not Implemented Yet!!!'); // TODO: need to implement
-    }
-
-    public playVideo(movie: IMovie): void {
-        console.log(movie.title + ' Not Implemented Yet!!!'); // TODO: need to implement
-    }
-
     private scrollBackToTop(): void {
-        this.elmRef.nativeElement.scroll({ top: 0, behavior: 'smooth' });
+        this.elmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }

@@ -1,12 +1,12 @@
 <div class="movie-grid featured">
     <app-movie-list-card *ngFor="let movie of featuredList" class="movie-card"
                          [movie]="movie"
-                         (addCollection)="addCollection($event)"
-                         (playVideo)="playVideo($event)"></app-movie-list-card>
+                         (addCollection)="addCollection.next($event)"
+                         (playVideo)="playVideo.next($event)"></app-movie-list-card>
 </div>
 <div class="movie-grid">
     <app-movie-list-card *ngFor="let movie of list" class="movie-card"
                          [movie]="movie"
-                         (addCollection)="addCollection($event)"
-                         (playVideo)="playVideo($event)"></app-movie-list-card>
+                         (addCollection)="addCollection.next($event)"
+                         (playVideo)="playVideo.next($event)"></app-movie-list-card>
 </div>

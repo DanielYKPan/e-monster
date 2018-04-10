@@ -9,6 +9,7 @@
     <div class="frame-main">
         <app-movie-list-content
                 [featuredList]="featuredList$ | async"
-                [list]="list$ | async"></app-movie-list-content>
+                [list]="list$ | async"
+                (playVideo)="openMovieTrailerDialog($event)"></app-movie-list-content>
     </div>
 </section>

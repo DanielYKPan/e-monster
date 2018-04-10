@@ -8,27 +8,35 @@ import { MovieComponent } from './movie.component';
 import { MovieService } from './service/movie.service';
 import { reducers } from './reducers';
 import { MovieEffect } from './effects/movie';
+import { VideoEffect } from './effects/video';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { GenreListExistGuard } from './guards/genre-list-exist.guard';
 import { MovieListExistGuard } from './guards/movie-list-exist.guard';
-import { VotePercentagePipe } from './vote-percentage.pipe';
+import { VotePercentagePipe } from './pipe/vote-percentage.pipe';
+import { SafePipe } from './pipe/safe.pipe';
 import { MovieListContentComponent } from './movie-list-content/movie-list-content.component';
 import { MovieListCardComponent } from './movie-list-card/movie-list-card.component';
 import { MovieListSidenavComponent } from './movie-list-sidenav/movie-list-sidenav.component';
+import { MovieTrailerDialogComponent } from './movie-trailer-dialog/movie-trailer-dialog.component';
 import { LoaderComponent } from './loader/loader.component';
 
-import { OwlMenuModule, OwlTooltipModule } from 'owl-ng';
+import {
+    OwlDialogModule,
+    OwlMenuModule,
+    OwlTooltipModule
+} from 'owl-ng';
 
 @NgModule({
     imports: [
         CommonModule,
         MovieRoutingModule,
 
+        OwlDialogModule,
         OwlMenuModule,
         OwlTooltipModule,
 
         StoreModule.forFeature('movies', reducers),
-        EffectsModule.forFeature([MovieEffect])
+        EffectsModule.forFeature([MovieEffect, VideoEffect])
     ],
     declarations: [
         MovieComponent,
@@ -37,9 +45,12 @@ import { OwlMenuModule, OwlTooltipModule } from 'owl-ng';
         MovieListContentComponent,
         MovieListCardComponent,
         MovieListSidenavComponent,
-        LoaderComponent
+        LoaderComponent,
+        MovieTrailerDialogComponent,
+        SafePipe
     ],
     providers: [MovieService, GenreListExistGuard, MovieListExistGuard],
+    entryComponents: [MovieTrailerDialogComponent]
 })
 export class MovieModule {
 }

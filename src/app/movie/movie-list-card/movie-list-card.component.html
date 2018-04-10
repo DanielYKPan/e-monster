@@ -1,8 +1,8 @@
 <div class="movie-card-inner">
     <a class="movie-card-content">
-        <ng-container *ngIf="movie.backdrop_path;else abstractImage">
+        <ng-container *ngIf="movieImage;else abstractImage">
             <img class="movie-card-backdrop"
-                 [src]="'https://image.tmdb.org/t/p/w780/' + movie.backdrop_path"
+                 [src]="'https://image.tmdb.org/t/p/w780/' + movieImage"
                  [alt]="movie.title">
         </ng-container>
         <ng-template #abstractImage>
@@ -22,7 +22,7 @@
                 <i class="fas fa-book"></i>
             </a>
             <a class="movie-card-action play"
-               owlTooltip="Watch Trainer"
+               owlTooltip="Watch Trailer"
                (click)="clickPlayVideo($event)">
                 <i class="fas fa-play"></i>
             </a>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IMovie } from '../movie.model';
 
 @Component({
@@ -11,9 +11,14 @@ export class MovieListCardComponent implements OnInit {
 
     @Input() movie: IMovie;
 
-    @Output() addCollection = new EventEmitter<IMovie>();
+    @Output() addCollection = new EventEmitter<{ movie: IMovie, event: any }>();
 
-    @Output() playVideo = new EventEmitter<IMovie>();
+    @Output() playVideo = new EventEmitter<{ movie: IMovie, event: any }>();
+
+
+    get movieImage(): string {
+        return this.movie.backdrop_path || this.movie.poster_path;
+    }
 
     constructor() {
     }
@@ -21,13 +26,13 @@ export class MovieListCardComponent implements OnInit {
     ngOnInit() {
     }
 
-    public clickAddCollection(event: any): void {
-        this.addCollection.emit(this.movie);
+    public clickAddCollection( event: any ): void {
+        this.addCollection.emit({movie: this.movie, event});
         event.preventDefault();
     }
 
-    public clickPlayVideo(event: any): void {
-        this.playVideo.emit(this.movie);
+    public clickPlayVideo( event: any ): void {
+        this.playVideo.emit({movie: this.movie, event});
         event.preventDefault();
     }
 }

@@ -1,0 +1,54 @@
+.movie-trailer-dialog {
+  padding: .5rem;
+  width: 80vw;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.movie-trailer-dialog-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #727575;
+  background: transparent;
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms;
+
+  &:hover {
+    color: #000000;
+    background: rgba(0, 0, 0, .05);
+  }
+}
+
+.movie-trailer-title {
+  margin: 0 0 .5rem;
+  color: #727575;
+}
+
+.embed-responsive {
+  position: relative;
+
+  &.embed-responsive-16by9 {
+    padding-bottom: (9/16)*100%;
+  }
+
+  .embed-responsive-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    border: 0;
+  }
+}
