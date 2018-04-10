@@ -6,14 +6,14 @@ import { ISearchStat } from '../movie.model';
 
 export interface State {
     ids: number[];
-    query: string;
+    type: string;
     loading: boolean;
     searchStat: ISearchStat;
 }
 
 const initialState: State = {
     ids: [],
-    query: null,
+    type: null,
     loading: false,
     searchStat: {
         page: 0,
@@ -35,7 +35,7 @@ export function reducer( state = initialState, action: MovieActions ): State {
             return {
                 ...state,
                 ids: action.payload.results.map(movie => movie.id),
-                query: action.payload.query,
+                type: action.payload.type,
                 loading: false,
                 searchStat: {
                     page: action.payload.page,
@@ -51,5 +51,5 @@ export function reducer( state = initialState, action: MovieActions ): State {
 
 export const getSearchStat = ( state: State ) => state.searchStat;
 export const getIds = ( state: State ) => state.ids;
-export const getQuery = ( state: State ) => state.query;
+export const getType = ( state: State ) => state.type;
 export const getLoading = ( state: State ) => state.loading;

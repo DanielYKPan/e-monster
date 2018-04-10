@@ -23,7 +23,7 @@
 .frame-sidenav-control {
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 130px;
 
   .frame-sidenav-title {
     display: flex;
@@ -67,6 +67,25 @@
       }
     }
   }
+}
+
+.frame-sidenav-main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 3px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  @media #{$large-up} {
+    justify-content: start;
+    align-items: flex-start;
+  }
+}
+
+.frame-sidenav-info {
+  font-size: 1rem;
+  margin: 0 0 .5rem;
 }
 
 .frame-sidenav-list {

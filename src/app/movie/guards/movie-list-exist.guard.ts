@@ -21,34 +21,35 @@ export class MovieListExistGuard implements CanActivate {
     }
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ) {
-        const query = route.params['query'];
-        return this.hasMovieList(query);
+        const type = route.params['type'];
+        return this.hasMovieList(type);
     }
 
-    private hasMovieList( query: string ): Observable<boolean> {
-        return this.hasMovieListInStore(query).pipe(
+    private hasMovieList( type: string ): Observable<boolean> {
+        return this.hasMovieListInStore(type).pipe(
             switchMap(( inStore: boolean ) => {
                 if (inStore) {
                     return of(inStore);
                 }
 
-                return this.hasMovieListInApi(query);
+                return this.hasMovieListInApi(type);
             })
         );
     }
 
-    private hasMovieListInStore( query: string ): Observable<boolean> {
+    private hasMovieListInStore( type: string ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromMoviesRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromMoviesRoot.getSearchType), take(1)),
             this.store.pipe(select(fromMoviesRoot.getSearchStat), take(1)),
             this.store.pipe(select(fromMoviesRoot.getSearchIds), take(1))
         ).pipe(
-            map(( result: any ) => query === result[0] && result[1].page === 1 && result[2] && result[2].length > 0)
+            map(( result: any ) => type === result[0] && result[1].page === 1 && result[2] && result[2].length > 0)
         );
     }
 
-    private hasMovieListInApi( query: string ): Observable<boolean> {
-        return this.movieService.searchList(query).pipe(
+    private hasMovieListInApi( type: string ): Observable<boolean> {
+
+        return this.movieService.searchList(type).pipe(
             map(res => new SearchListComplete(res)),
             tap(action => this.store.dispatch(action)),
             map(res => res.payload.results && res.payload.results.length > 0),

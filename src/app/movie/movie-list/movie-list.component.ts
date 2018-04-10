@@ -23,7 +23,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     public searchStat$: Observable<ISearchStat>;
 
-    public query$: Observable<string>;
+    public searchType$: Observable<string>;
 
     private _isLargeUp = false;
     get isLargeUp(): boolean {
@@ -43,7 +43,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedMovieList));
         this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedMovieList));
         this.searchStat$ = this.store.pipe(select(fromMovieRoot.getSearchStat));
-        this.query$ = this.store.pipe(select(fromMovieRoot.getSearchQuery));
+        this.searchType$ = this.store.pipe(select(fromMovieRoot.getSearchType));
 
         this.breakpointSub = this.breakpointObserver
             .observe([
@@ -59,7 +59,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     }
 
     public goToPage( event: any ): void {
-        this.store.dispatch(new movieActions.SearchList({query: event.query, page: event.page}));
+        this.store.dispatch(new movieActions.SearchList({type: event.type, page: event.page}));
     }
 
     public openMovieTrailerDialog( res: { movie: IMovie, event: any } ): void {

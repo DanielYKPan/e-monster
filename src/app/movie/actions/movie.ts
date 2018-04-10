@@ -15,7 +15,7 @@ export enum MovieActionTypes {
 export class SearchList implements Action {
     readonly type = MovieActionTypes.SearchList;
 
-    constructor( public payload: { query: string, page: number } ) {
+    constructor( public payload: { type: string, page: number } ) {
     }
 }
 

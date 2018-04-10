@@ -17,7 +17,7 @@ export class MovieEffect {
         ofType(MovieActionTypes.SearchList),
         map(( action: SearchList ) => action.payload),
         switchMap(( payload: any ) => {
-            return this.movieService.searchList(payload.query, payload.page).pipe(
+            return this.movieService.searchList(payload.type, payload.page).pipe(
                 map(results => new SearchListComplete(results)),
                 catchError(err => of(new SearchError(err)))
             );

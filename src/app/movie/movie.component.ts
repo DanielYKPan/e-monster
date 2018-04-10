@@ -20,7 +20,7 @@ export class MovieComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.store.dispatch(new SearchActions.SearchList({query: 'now_playing', page: 1}));
+        this.store.dispatch(new SearchActions.SearchList({type: 'now_playing', page: 1}));
 
         this.backdrop$ = this.store.pipe(select(fromMovieRoot.getRandomMovieBackdrop));
 

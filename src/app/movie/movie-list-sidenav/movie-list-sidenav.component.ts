@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ISearchStat } from '../movie.model';
 
 @Component({
@@ -13,9 +13,27 @@ export class MovieListSidenavComponent implements OnInit {
 
     @Input() searchStat: ISearchStat;
 
-    @Input() query: string;
+    @Input() type: string;
 
     @Output() goToPage = new EventEmitter<any>();
+
+    public items = [
+        {name: 'Trending', type: 'now_playing', info: 'The movies currently in theatres'},
+        {name: 'Popular', type: 'popular', info: 'The current popular movies'},
+        {name: 'Upcoming', type: 'upcoming', info: 'The upcoming movies in theatres'},
+        {name: 'Anticipated', type: 'anticipated', info: 'The most anticipated movies in the next couple years'},
+        {name: 'Top Rated', type: 'top_rated', info: 'The top rated movies'},
+    ];
+
+    get sidenavInfo(): string {
+        const current_item = this.items.find(( item ) => item.type === this.type);
+        return current_item ? current_item.info : null;
+    }
+
+    get sidenavMenuName(): string {
+        const current_item = this.items.find(( item ) => item.type === this.type);
+        return current_item ? current_item.name : 'Menu';
+    }
 
     constructor() {
     }
@@ -38,6 +56,6 @@ export class MovieListSidenavComponent implements OnInit {
             return;
         }
 
-        this.goToPage.next({query: this.query, page: page});
+        this.goToPage.next({type: this.type, page: page});
     }
 }

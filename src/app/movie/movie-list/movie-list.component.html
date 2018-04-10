@@ -2,7 +2,7 @@
     <div class="frame-sidenav">
         <app-movie-list-sidenav [showNavMenu]="!isLargeUp"
                                 [searchStat]="searchStat$ | async"
-                                [query]="query$ | async"
+                                [type]="searchType$ | async"
                                 (goToPage)="goToPage($event)"></app-movie-list-sidenav>
     </div>
 

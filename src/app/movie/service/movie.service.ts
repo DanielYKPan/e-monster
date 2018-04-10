@@ -19,12 +19,48 @@ export class MovieService {
     constructor( private http: HttpClient ) {
     }
 
-    public searchList( query: string, page: number = 1 ): Observable<IMovie[]> {
-        const url = `https://api.themoviedb.org/3/movie/${query}`;
+    public searchList( type: string, page: number = 1 ): Observable<IMovie[]> {
+
+        if (type === 'anticipated') {
+            return this.getAnticipatedMovieList(page);
+        }
+
+        const url = `https://api.themoviedb.org/3/movie/${type}`;
 
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
             map(( res: any ) => {
-                return {...res, query};
+                return {...res, type: type};
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    public getAnticipatedMovieList(page: number): Observable<IMovie[]> {
+        const start = new Date();
+        const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
+        const release_date_gte = start.toISOString().slice(0, 10);
+        const release_date_lte = end.toISOString().slice(0, 10);
+
+        const queries = [
+            {name: 'language', value: 'en-US'},
+            {name: 'sort_by', value: 'popularity.desc'},
+            {name: 'include_adult', value: 'false'},
+            {name: 'include_video', value: 'false'},
+            {name: 'page', value: page.toString()},
+            {name: 'release_date.gte', value: release_date_gte},
+            {name: 'release_date.lte', value: release_date_lte},
+            {name: 'with_release_type', value: '2|3'},
+        ];
+
+        return this.discoverMovieList('anticipated', queries);
+    }
+
+    public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IMovie[]> {
+        const url = 'https://api.themoviedb.org/3/discover/movie';
+
+        return this.getResult(url, queries).pipe(
+            map(( res: any ) => {
+                return {...res, type: type};
             }),
             catchError(this.handleError)
         );

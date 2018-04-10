@@ -36,9 +36,9 @@ export const getSearchStat = createSelector(
     fromSearch.getSearchStat,
 );
 
-export const getSearchQuery = createSelector(
+export const getSearchType = createSelector(
     getSearchState,
-    fromSearch.getQuery,
+    fromSearch.getType,
 );
 
 export const getSearchLoading = createSelector(

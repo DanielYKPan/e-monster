@@ -13,43 +13,28 @@
         </button>
     </h1>
 </div>
+<div class="frame-sidenav-main">
+    <h2 class="frame-sidenav-info">{{sidenavInfo}}</h2>
+    <div *ngIf="showNavMenu;else navList" class="frame-sidenav-menu">
+        <button class="frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>{{sidenavMenuName}}
+            <span class="frame-sidenav-menu-icon"><i class="fas fa-caret-up"></i></span>
+        </button>
+        <owl-menu #menu="owlMenu">
+            <button *ngFor="let item of items" owl-menu-item
+                    [routerLink]="'/movies/list/' + item.type"
+                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{item.name}}
+            </button>
+        </owl-menu>
+    </div>
 
-<div *ngIf="showNavMenu;else navList" class="frame-sidenav-menu">
-    <button class="frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>Menu
-        <span class="frame-sidenav-menu-icon"><i class="fas fa-caret-up"></i></span>
-    </button>
-    <owl-menu #menu="owlMenu">
-        <button owl-menu-item routerLink="/movies/list/now_playing"
-                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Trending
-        </button>
-        <button owl-menu-item routerLink="/movies/list/popular"
-                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Popular
-        </button>
-        <button owl-menu-item routerLink="/movies/list/upcoming"
-                routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Upcoming
-        </button>
-    </owl-menu>
+    <ng-template #navList>
+        <ul class="frame-sidenav-list">
+            <li *ngFor="let item of items" class="frame-sidenav-list-item">
+                <a [routerLink]="'/movies/list/' + item.type"
+                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    {{item.name}}
+                </a>
+            </li>
+        </ul>
+    </ng-template>
 </div>
-
-<ng-template #navList>
-    <ul class="frame-sidenav-list">
-        <li class="frame-sidenav-list-item">
-            <a routerLink="/movies/list/now_playing"
-               routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                Trending
-            </a>
-        </li>
-        <li class="frame-sidenav-list-item">
-            <a routerLink="/movies/list/popular"
-               routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                Popular
-            </a>
-        </li>
-        <li class="frame-sidenav-list-item">
-            <a routerLink="/movies/list/upcoming"
-               routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                Upcoming
-            </a>
-        </li>
-    </ul>
-</ng-template>
