@@ -8,7 +8,7 @@ import {
     ElementRef,
     Output, EventEmitter
 } from '@angular/core';
-import { IMovie } from '../movie.model';
+import { IMovieBasic } from '../movie.model';
 
 @Component({
     selector: 'app-movie-list-content',
@@ -18,13 +18,13 @@ import { IMovie } from '../movie.model';
 })
 export class MovieListContentComponent implements OnInit, OnChanges {
 
-    @Input() featuredList: IMovie[];
+    @Input() featuredList: IMovieBasic[];
 
-    @Input() list: IMovie[];
+    @Input() list: IMovieBasic[];
 
-    @Output() addCollection = new EventEmitter<{movie: IMovie, event: any}>();
+    @Output() addCollection = new EventEmitter<{movie: IMovieBasic, event: any}>();
 
-    @Output() playVideo = new EventEmitter<{movie: IMovie, event: any}>();
+    @Output() playVideo = new EventEmitter<{movie: IMovieBasic, event: any}>();
 
     constructor( private elmRef: ElementRef ) {
     }

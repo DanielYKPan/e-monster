@@ -8,7 +8,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
-import { IMovie, IMovieVideo } from '../movie.model';
+import { IMovieVideo } from '../movie.model';
 import * as fromMovieRoot from '../reducers';
 import * as movieVideos from '../actions/video';
 import { select, Store } from '@ngrx/store';
@@ -23,7 +23,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class MovieTrailerDialogComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    public movie: IMovie;
+    public movieTitle: string;
+
+    public videoKey: string;
 
     public movieVideo$: Observable<IMovieVideo>;
 
@@ -36,14 +38,18 @@ export class MovieTrailerDialogComponent implements OnInit, AfterContentInit, On
     }
 
     public ngAfterContentInit(): void {
-        this.movie = this.data.movie;
-        this.store.dispatch(new movieVideos.Search(this.movie.id));
 
-        this.movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
+        this.movieTitle = this.data.movieTitle;
+
+        if (this.data.movieId) {
+            this.store.dispatch(new movieVideos.Search(this.data.movieId));
+            this.movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
+        } else if (this.data.videoKey) {
+            this.videoKey = this.data.videoKey;
+        }
     }
 
     public ngOnDestroy(): void {
-        this.store.dispatch(new movieVideos.Select(null));
     }
 
     public closeDialog( event: any ): void {

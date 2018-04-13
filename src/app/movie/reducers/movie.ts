@@ -29,15 +29,22 @@ export function reducer( state = initialState, action: MovieActions ): State {
                 genres: action.payload
             };
 
-        case MovieActionTypes.SearchListComplete:
-            return adapter.addMany(action.payload.results, {
+        case MovieActionTypes.Load:
+            return adapter.addOne(action.payload, {
                 ...state,
                 selectedMovieId: state.selectedMovieId
             });
+
+        case MovieActionTypes.Select:
+            return {
+                ...state,
+                selectedMovieId: action.payload,
+            };
 
         default:
             return state;
     }
 }
 
-export const getGenreList = (state: State) => state.genres;
+export const getGenreList = ( state: State ) => state.genres;
+export const getSelectedId = ( state: State ) => state.selectedMovieId;

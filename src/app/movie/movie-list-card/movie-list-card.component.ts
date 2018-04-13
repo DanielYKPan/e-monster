@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IMovie } from '../movie.model';
+import { IMovieBasic } from '../movie.model';
 
 @Component({
     selector: 'app-movie-list-card',
@@ -9,12 +9,11 @@ import { IMovie } from '../movie.model';
 })
 export class MovieListCardComponent implements OnInit {
 
-    @Input() movie: IMovie;
+    @Input() movie: IMovieBasic;
 
-    @Output() addCollection = new EventEmitter<{ movie: IMovie, event: any }>();
+    @Output() addCollection = new EventEmitter<{ movie: IMovieBasic, event: any }>();
 
-    @Output() playVideo = new EventEmitter<{ movie: IMovie, event: any }>();
-
+    @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
 
     get movieImage(): string {
         return this.movie.backdrop_path || this.movie.poster_path;

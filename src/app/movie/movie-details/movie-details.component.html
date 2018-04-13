@@ -1,0 +1,231 @@
+<ng-container *ngIf="(movie$ | async) as movie">
+    <section class="movie-details-header">
+        <div class="movie-details-header-backdrop"
+             [style.background-image]="'url(https://image.tmdb.org/t/p/w1280/' + movie.backdrop_path  + ')'"></div>
+        <div class="movie-details-header-wrapper">
+            <div class="movie-details-header-container movie-details-header-summary">
+                <div class="movie-details-poster movie-details-mobile-poster">
+                    <img [src]="'https://image.tmdb.org/t/p/w780/' + movie.poster_path " alt="Poster">
+                </div>
+                <div class="movie-details-header-title">
+                    <h1>
+                        {{movie.title}}
+                        <span class="year">{{movie.release_date | yearString}}</span>
+                    </h1>
+                </div>
+            </div>
+            <div class="movie-details-header-ratings">
+                <div class="movie-details-header-container">
+                    <ul class="movie-details-header-ratings-list">
+                        <li class="movie-details-header-ratings-list-item">
+                            <i class="movie-details-rate-heart red fas fa-heart"></i>
+                            <div class="movie-details-rate-number">
+                                <div class="main">{{movie.vote_average | votePercentage}}</div>
+                                <div class="vote">{{movie.vote_count}} votes</div>
+                            </div>
+                        </li>
+                        <li class="movie-details-header-ratings-list-item">
+                            <i class="movie-details-rate-heart far fa-heart"></i>
+                            <div class="movie-details-rate-number">
+                                <div class="main">Rate this movie</div>
+                                <div class="vote">What did you think?</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="movie-details-content">
+        <div class="movie-details-sidenav">
+            <div class="movie-details-sidenav-container">
+                <div class="movie-details-poster movie-details-sidenav-poster">
+                    <img [src]="'https://image.tmdb.org/t/p/w780/' + movie.poster_path "
+                         alt="Poster">
+                </div>
+                <button class="movie-details-button movie-details-sidenav-button">
+                    <i class="icon fas fa-plus"></i> Add to Collection
+                </button>
+
+                <ul class="movie-details-sidenav-externals">
+                    <li *ngIf="movie.homepage"
+                        [ngStyle]="{background: '#ed1c24'}"
+                        class="movie-details-sidenav-external-link">
+                        <a [href]="movie.homepage" target="_blank">Official Website</a>
+                    </li>
+
+                    <li *ngIf="movie.external.imdb_id"
+                        [ngStyle]="{background: '#ffb300'}"
+                        class="movie-details-sidenav-external-link">
+                        <a [href]="'http://www.imdb.com/title/' + movie.external.imdb_id"
+                           target="_blank">IMDB</a>
+                    </li>
+
+                    <li *ngIf="movie.external.id"
+                        [ngStyle]="{background: '#00897b'}"
+                        class="movie-details-sidenav-external-link">
+                        <a [href]="'https://www.themoviedb.org/movie/' + movie.external.id"
+                           target="_blank">TMDB</a>
+                    </li>
+
+                    <li *ngIf="movie.external.facebook_id"
+                        [ngStyle]="{background: '#0073f0'}"
+                        class="movie-details-sidenav-external-link">
+                        <a [href]="'http://www.facebook.com/' + movie.external.facebook_id"
+                           target="_blank">Facebook</a>
+                    </li>
+
+                    <li *ngIf="movie.external.instagram_id"
+                        [ngStyle]="{background: '#b60080'}"
+                        class="movie-details-sidenav-external-link">
+                        <a [href]="'http://www.instagram.com/' + movie.external.instagram_id"
+                           target="_blank">Instagram</a>
+                    </li>
+
+                    <li *ngIf="movie.external.twitter_id"
+                        [ngStyle]="{background: '#2676c5'}"
+                        class="movie-details-sidenav-external-link">
+                        <a [href]="'http://www.twitter.com/' + movie.external.twitter_id"
+                           target="_blank">Twitter</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="movie-details-main">
+            <ul class="movie-details-stats">
+                <li class="movie-details-stats-item release">
+                    <label>release:</label>
+                    {{movie.release_date}}
+                </li>
+
+                <li class="movie-details-stats-item runtime">
+                    <label>runtime:</label>
+                    {{movie.runtime}} mins
+                </li>
+
+                <li class="movie-details-stats-item country">
+                    <label>country:</label>
+                    {{movie.production_countries | arrayToString: 'name'}}
+                </li>
+
+                <li class="movie-details-stats-item directors">
+                    <label>directors:</label>
+                    {{movieDirectors$ | async | arrayToString: 'name'}}
+                </li>
+
+                <li class="movie-details-stats-item writers">
+                    <label>writers:</label>
+                    {{movieWriters$ | async | arrayToString: 'name'}}
+                </li>
+
+                <li class="movie-details-stats-item language">
+                    <label>language:</label>
+                    {{movie.spoken_languages | arrayToString: 'name'}}
+                </li>
+
+                <li class="movie-details-stats-item genres">
+                    <label>genres:</label>
+                    {{movie.genres | arrayToString: 'name'}}
+                </li>
+
+                <li class="movie-details-stats-item links">
+                    <label>links:</label>
+                    <a *ngIf="movie.homepage" [href]="movie.homepage" target="_blank">Official</a>
+                    <a *ngIf="movie.external.imdb_id"
+                       [href]="'http://www.imdb.com/title/' + movie.external.imdb_id"
+                       target="_blank">IMDB</a>
+                    <a *ngIf="movie.external.id"
+                       [href]="'https://www.themoviedb.org/movie/' + movie.external.id"
+                       target="_blank">TMDB</a>
+                    <a *ngIf="movie.external.facebook_id"
+                       [href]="'http://www.facebook.com/' + movie.external.facebook_id"
+                       target="_blank">Facebook</a>
+                    <a *ngIf="movie.external.twitter_id"
+                       [href]="'http://www.twitter.com/' + movie.external.twitter_id"
+                       target="_blank">Twitter</a>
+                    <a *ngIf="movie.external.instagram_id"
+                       [href]="'http://www.instagram.com/' + movie.external.instagram_id"
+                       target="_blank">Instagram</a>
+                </li>
+            </ul>
+
+            <p class="movie-details-tagline">
+                {{movie.tagline}}
+            </p>
+
+            <p class="movie-details-overview">
+                {{movie.overview}}
+            </p>
+
+            <div class="movie-details-videos-wrapper">
+                <h2>Videos</h2>
+                <ul class="movie-details-videos">
+                    <li *ngFor="let video of movieVideos$ | async as videos"
+                        class="movie-details-button movie-details-video"
+                        (click)="openMovieVideoDialog(movie.title, video.key, $event)">
+                        <i class="icon fab fa-youtube"></i>
+                        {{video.type}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="movie-details-cast-crew-wrapper">
+                <div class="movie-details-cast-crew-title">
+                    <h2>Casts & Crews</h2>
+                    <button class="movie-details-button movie-details-cast-crew-full"
+                            (click)="openMovieCastDialog(movie, $event)">
+                        » See full cast & crew
+                    </button>
+                </div>
+                <div class="movie-details-cast-crew-content">
+                    <button class="movie-details-button movie-details-cast-crew-control"
+                            (click)="slideLeftCastList($event)">
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                    <div class="movie-details-cast-crew" #castListWrapper>
+                        <ul class="movie-details-cast-crew-list"
+                            [style.width.px]="movie.casts.length * castProfileWidth"
+                            [style.transform]="'translateX(' + -castListSlideDistance + 'px)'"
+                            #castList>
+                            <li *ngFor="let cast of movie.casts"
+                                [style.width.px]="castProfileWidth"
+                                class="movie-details-cast-crew-list-item">
+                                <img *ngIf="cast.profile_path;else abstractImg" class="movie-details-cast-crew-post"
+                                     [src]="'https://image.tmdb.org/t/p/w185/' + cast.profile_path" alt="Poster"/>
+                                <ng-template #abstractImg>
+                                    <img class="movie-details-cast-crew-post"
+                                         src="/assets/images/abstract-profile.png"/>
+                                </ng-template>
+                                <h4 class="name">{{cast.name}}</h4>
+                                <h4 class="character">{{cast.character}}</h4>
+                            </li>
+                        </ul>
+                    </div>
+                    <button class="movie-details-button movie-details-cast-crew-control"
+                            (click)="slideRightCastList($event)">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="movie-details-reviews">
+                <ng-container *ngIf="movie.reviews.total_results > 0;else noReviewsTemplate">
+                    <h2 class="movie-details-reviews-title">Reviews</h2>
+
+                    <div *ngFor="let review of movie.reviews.results" class="movie-details-review-card">
+                        <div class="movie-details-review-card-author">
+                            {{review.author}}
+                        </div>
+                        <div class="movie-details-review-card-content">
+                            {{review.content}}
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-template #noReviewsTemplate>
+                    <h2 class="movie-details-no-review-title">No Reviews found</h2>
+                </ng-template>
+            </div>
+        </div>
+
+    </section>
+</ng-container>

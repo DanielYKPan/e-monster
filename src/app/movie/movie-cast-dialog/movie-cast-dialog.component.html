@@ -1,0 +1,137 @@
+<button type="button" class="movie-cast-dialog-close" (click)="closeDialog($event)">
+    <i class="fas fa-times"></i>
+</button>
+
+<div class="movie-cast-summary">
+    <div class="movie-cast-poster">
+        <img [src]="'https://image.tmdb.org/t/p/w780/' + movie.poster_path "
+             alt="Poster">
+    </div>
+
+    <div class="movie-cast-title">
+        <h3>
+            {{movie.title}}
+            <span class="year">{{movie.release_date | yearString}}</span>
+        </h3>
+        <h1>Full Cast & Crew</h1>
+    </div>
+</div>
+<div class="movie-cast-content">
+    <h4 class="movie-cast-header-with-border">
+        Directed by
+    </h4>
+    <table class="movie-credit-table">
+        <colgroup>
+            <col class="column1">
+            <col class="column2">
+            <col class="column3">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let director of movieDirectors">
+            <td class="name">
+                <a>{{director.name}}</a>
+            </td>
+            <td colspan="2"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 class="movie-cast-header-with-border">
+        Producers
+    </h4>
+    <table class="movie-credit-table">
+        <colgroup>
+            <col class="column1">
+            <col class="column2">
+            <col class="column3">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let producer of movieProducers">
+            <td class="name">
+                <a>{{producer.name}}</a>
+            </td>
+            <td>...</td>
+            <td class="credit">{{producer.job}}</td>
+        </tr>
+        <tr *ngFor="let producer of movieExProducers">
+            <td class="name">
+                <a>{{producer.name}}</a>
+            </td>
+            <td>...</td>
+            <td class="credit">{{producer.job}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 class="movie-cast-header-with-border">
+        Writing Credits
+    </h4>
+    <table class="movie-credit-table">
+        <colgroup>
+            <col class="column1">
+            <col class="column2">
+            <col class="column3">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let writer of movieWriters">
+            <td class="name">
+                <a>{{writer.name}}</a>
+            </td>
+            <td>...</td>
+            <td class="credit">{{writer.job}}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 class="movie-cast-header-with-border">
+        Cast
+    </h4>
+    <table class="movie-cast-table">
+        <tbody>
+        <tr>
+            <td colspan="4"></td>
+        </tr>
+        <tr *ngFor="let cast of movie.casts">
+            <td class="profile-photo">
+                <a>
+                    <img *ngIf="cast.profile_path;else abstractImg"
+                         [src]="'https://image.tmdb.org/t/p/w45/' + cast.profile_path" [alt]="cast.name"/>
+                    <ng-template #abstractImg>
+                        <img class="movie-details-cast-crew-post"
+                             src="/assets/images/abstract-profile.png"/>
+                    </ng-template>
+                </a>
+            </td>
+            <td class="name">
+                <a>
+                    {{cast.name}}
+                </a>
+            </td>
+            <td colspan="ellipsis">...</td>
+            <td class="character">
+                {{cast.character}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 class="movie-cast-header-with-border">
+        Crew
+    </h4>
+    <table class="movie-credit-table">
+        <colgroup>
+            <col class="column1">
+            <col class="column2">
+            <col class="column3">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let crew of movie.crews">
+            <td class="name">
+                <a>{{crew.name}}</a>
+            </td>
+            <td>...</td>
+            <td class="credit">{{crew.job}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

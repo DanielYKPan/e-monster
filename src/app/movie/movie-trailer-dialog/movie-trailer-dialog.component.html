@@ -1,11 +1,17 @@
 <button type="button" class="movie-trailer-dialog-close" (click)="closeDialog($event)">
     <i class="fas fa-times"></i>
 </button>
-<h2 class="movie-trailer-title">{{movie.title}}</h2>
+<h2 class="movie-trailer-title">{{movieTitle}}</h2>
 <div class="movie-trailer-embed embed-responsive embed-responsive-16by9">
     <ng-container *ngIf="movieVideo$ | async as video">
         <iframe class="embed-responsive-item"
                 [attr.src]="('https://www.youtube.com/embed/' + video.key) | safe"
+                frameborder="0"></iframe>
+    </ng-container>
+
+    <ng-container *ngIf="videoKey">
+        <iframe class="embed-responsive-item"
+                [attr.src]="('https://www.youtube.com/embed/' + videoKey) | safe"
                 frameborder="0"></iframe>
     </ng-container>
 </div>

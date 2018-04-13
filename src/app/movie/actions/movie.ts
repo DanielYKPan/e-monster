@@ -10,6 +10,8 @@ export enum MovieActionTypes {
     SearchListComplete = '[Movies] Search List Complete',
     SearchError = '[Movies] Search Error',
     GetGenreListComplete = '[Movies] Get Genre List Complete',
+    Select = '[Movies] Select',
+    Load = '[Movies] Load',
 }
 
 export class SearchList implements Action {
@@ -40,8 +42,24 @@ export class GetGenreListComplete implements Action {
     }
 }
 
+export class Select implements Action {
+    readonly type = MovieActionTypes.Select;
+
+    constructor( public payload: number ) {
+    }
+}
+
+export class Load implements Action {
+    readonly type = MovieActionTypes.Load;
+
+    constructor( public payload: IMovie ) {
+    }
+}
+
 export type MovieActions =
     SearchList |
     SearchListComplete |
     SearchError |
-    GetGenreListComplete;
+    GetGenreListComplete |
+    Select |
+    Load;

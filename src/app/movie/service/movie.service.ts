@@ -6,8 +6,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { IMovie, IMovieGenre, IMovieVideos } from '../movie.model';
+import { IMovie, IMovieBasic, IMovieCast, IMovieCrew, IMovieGenre, IMovieReviews, IMovieVideos } from '../movie.model';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { forkJoin } from 'rxjs/observable/forkJoin';
 
 @Injectable()
 export class MovieService {
@@ -19,7 +20,7 @@ export class MovieService {
     constructor( private http: HttpClient ) {
     }
 
-    public searchList( type: string, page: number = 1 ): Observable<IMovie[]> {
+    public searchList( type: string, page: number = 1 ): Observable<IMovieBasic[]> {
 
         if (type === 'anticipated') {
             return this.getAnticipatedMovieList(page);
@@ -35,7 +36,7 @@ export class MovieService {
         );
     }
 
-    public getAnticipatedMovieList(page: number): Observable<IMovie[]> {
+    public getAnticipatedMovieList( page: number ): Observable<IMovieBasic[]> {
         const start = new Date();
         const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
         const release_date_gte = start.toISOString().slice(0, 10);
@@ -55,7 +56,7 @@ export class MovieService {
         return this.discoverMovieList('anticipated', queries);
     }
 
-    public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IMovie[]> {
+    public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IMovieBasic[]> {
         const url = 'https://api.themoviedb.org/3/discover/movie';
 
         return this.getResult(url, queries).pipe(
@@ -78,6 +79,36 @@ export class MovieService {
     public getMovieVideos( id: number ): Observable<IMovieVideos> {
         const url = `https://api.themoviedb.org/3/movie/${id}/videos`;
         return this.getResult(url).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    public getMovieReviews( id: number, page: number = 1 ): Observable<IMovieReviews[]> {
+        const url = `https://api.themoviedb.org/3/movie/${id}/reviews`;
+        return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    public getMovie( id: number ): Observable<[
+        IMovie,
+        { id: number, cast: IMovieCast[], crew: IMovieCrew[] },
+        IMovieReviews,
+        { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string }]> {
+        const details_url = `https://api.themoviedb.org/3/movie/${id}`;
+
+        const credits_url = `https://api.themoviedb.org/3/movie/${id}/credits`;
+
+        const reviews_url = `https://api.themoviedb.org/3/movie/${id}/reviews`;
+
+        const external_url = `https://api.themoviedb.org/3/movie/${id}/external_ids`;
+
+        return forkJoin(
+            this.getResult(details_url),
+            this.getResult(credits_url),
+            this.getResult(reviews_url),
+            this.getResult(external_url)
+        ).pipe(
             catchError(this.handleError)
         );
     }

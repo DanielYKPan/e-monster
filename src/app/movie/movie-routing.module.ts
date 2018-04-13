@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { MovieComponent } from './movie.component';
 import { MovieListComponent } from './movie-list/movie-list.component';
-import { MovieListExistGuard } from './guards/movie-list-exist.guard';
+import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { SearchResultsExistGuard } from './guards/search-results-exist.guard';
+import { MovieExistGuard } from './guards/movie-exist.guard';
 
 const routes: Routes = [
     {path: '', component: MovieComponent},
-    {path: 'list/:type', component: MovieListComponent, canActivate: [MovieListExistGuard]},
+    {path: 'list/:type', component: MovieListComponent, canActivate: [SearchResultsExistGuard]},
+    {path: ':id/details', component: MovieDetailsComponent, canActivate: [MovieExistGuard]},
 ];
 
 @NgModule({

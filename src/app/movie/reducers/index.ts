@@ -46,9 +46,9 @@ export const getSearchLoading = createSelector(
     fromSearch.getLoading,
 );
 
-export const getSearchIds = createSelector(
+export const getSearchResults = createSelector(
     getSearchState,
-    fromSearch.getIds,
+    fromSearch.getSearchResults
 );
 
 export const getMovieEntityState = createSelector(
@@ -56,37 +56,22 @@ export const getMovieEntityState = createSelector(
     ( state: MoviesState ) => state.movies
 );
 
-export const {
-    selectIds: getMovieIds,
-    selectEntities: getMovieEntities,
-    selectAll: getAllMovies,
-    selectTotal: getTotalMovies,
-} = fromMovies.adapter.getSelectors(getMovieEntityState);
-
-export const getSearchMovieList = createSelector(
-    getMovieEntities,
-    getSearchIds,
-    ( movies, searchIds ) => {
-        return searchIds.map(id => movies[id]);
-    }
-);
-
 export const getSearchFeaturedMovieList = createSelector(
-    getSearchMovieList,
+    getSearchResults,
     ( movies ) => {
         return movies.slice(0, 2);
     }
 );
 
 export const getSearchNonFeaturedMovieList = createSelector(
-    getSearchMovieList,
+    getSearchResults,
     ( movies ) => {
         return movies.slice(2);
     }
 );
 
 export const getRandomMovieBackdrop = createSelector(
-    getSearchMovieList,
+    getSearchResults,
     ( movies ) => {
         if (movies && movies.length) {
             const random = movies[Math.floor(Math.random() * movies.length)];
@@ -149,4 +134,42 @@ export const getSelectedMovieVideo = createSelector(
     getSelectedMovieTrailer,
     getSelectedMovieTeaser,
     ( trailer, teaser ) => trailer ? trailer : teaser
+);
+
+export const {
+    selectIds: getMovieIds,
+    selectEntities: getMovieEntities,
+    selectAll: getAllMovies,
+    selectTotal: getTotalMovies,
+} = fromMovies.adapter.getSelectors(getMovieEntityState);
+
+export const getSelectedMovieId = createSelector(
+    getMovieEntityState,
+    fromMovies.getSelectedId
+);
+
+export const getSelectedMovie = createSelector(
+    getMovieEntities,
+    getSelectedMovieId,
+    ( entities, selectedId ) => {
+        return selectedId && entities[selectedId];
+    }
+);
+
+export const getSelectedMovieDirectors = createSelector(
+    getSelectedMovie,
+    ( movie ) => {
+        if (movie) {
+            return movie.crews.filter(( crew ) => crew.job === 'Director');
+        }
+    }
+);
+
+export const getSelectedMovieWriters = createSelector(
+    getSelectedMovie,
+    ( movie ) => {
+        if (movie) {
+            return movie.crews.filter(( crew ) => crew.department === 'Writing');
+        }
+    }
 );

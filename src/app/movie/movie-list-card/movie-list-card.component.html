@@ -1,5 +1,5 @@
 <div class="movie-card-inner">
-    <a class="movie-card-content">
+    <a class="movie-card-content" [routerLink]="['/movies', movie.id, 'details']">
         <ng-container *ngIf="movieImage;else abstractImage">
             <img class="movie-card-backdrop"
                  [src]="'https://image.tmdb.org/t/p/w780/' + movieImage"
@@ -11,7 +11,7 @@
                  [alt]="movie.title">
         </ng-template>
         <div class="movie-card-title">
-            <h3>{{movie.title}} <span class="year">{{movie.release_date}}</span></h3>
+            <h3>{{movie.title}} <span class="year">{{movie.release_date | yearString}}</span></h3>
         </div>
     </a>
     <div class="movie-card-control">
