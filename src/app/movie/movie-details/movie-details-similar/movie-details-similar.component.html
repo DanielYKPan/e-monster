@@ -6,7 +6,7 @@
 
         <div class="movie-list-content">
             <button class="movie-details-button movie-list-control"
-                    (click)="slideLeftMovieList($event)">
+                    (click)="slideLeftMovieList($event)" #sliderLeftBtn>
                 <i class="icon fas fa-angle-left"></i>
             </button>
 
@@ -19,6 +19,7 @@
                         <app-movie-list-card [movie]="m"
                                              imageType="poster"
                                              [showTitle]="false"
+                                             [scrollObservable]="scrollObservable"
                                              (playVideo)="playVideo.next($event)"></app-movie-list-card>
                         <h3 class="movie-title">{{m.title}}</h3>
                     </li>
@@ -26,7 +27,7 @@
             </div>
 
             <button class="movie-details-button movie-list-control"
-                    (click)="slideRightMovieList($event)">
+                    (click)="slideRightMovieList($event)" #sliderRightBtn>
                 <i class="icon fas fa-angle-right"></i>
             </button>
         </div>

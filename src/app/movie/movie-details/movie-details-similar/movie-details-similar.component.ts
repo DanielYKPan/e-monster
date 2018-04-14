@@ -9,6 +9,9 @@ import {
     ViewChild
 } from '@angular/core';
 import { IMovie, IMovieBasic } from '../../movie.model';
+import { Observable } from 'rxjs/Observable';
+import { merge } from 'rxjs/observable/merge';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 
 @Component({
     selector: 'app-movie-details-similar',
@@ -22,6 +25,10 @@ export class MovieDetailsSimilarComponent implements OnInit {
 
     @ViewChild('movieListWrapper') movieListWrapperRef: ElementRef;
 
+    @ViewChild('sliderLeftBtn') sliderLeftBtnRef: ElementRef;
+
+    @ViewChild('sliderRightBtn') sliderRightBtnRef: ElementRef;
+
     @Input() movie: IMovie;
 
     @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
@@ -29,6 +36,16 @@ export class MovieDetailsSimilarComponent implements OnInit {
     public movieItemWidth = 196;
 
     public movieListSlideDistance = 0;
+
+    get scrollObservable(): Observable<any> {
+        return this.sliderLeftBtnRef && this.sliderLeftBtnRef ?
+            merge(
+                fromEvent(window, 'scroll'),
+                fromEvent(this.sliderLeftBtnRef.nativeElement, 'click'),
+                fromEvent(this.sliderRightBtnRef.nativeElement, 'click')
+            ) :
+            fromEvent(window, 'scroll');
+    }
 
     constructor() {
     }

@@ -1,12 +1,13 @@
 import {
-    Component,
-    OnInit,
     ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
     Input,
     OnChanges,
-    SimpleChanges,
-    ElementRef,
-    Output, EventEmitter
+    OnInit,
+    Output,
+    SimpleChanges
 } from '@angular/core';
 import { IMovieBasic } from '../../movie.model';
 
@@ -22,9 +23,13 @@ export class MovieListContentComponent implements OnInit, OnChanges {
 
     @Input() list: IMovieBasic[];
 
-    @Output() addCollection = new EventEmitter<{movie: IMovieBasic, event: any}>();
+    @Output() addCollection = new EventEmitter<{ movie: IMovieBasic, event: any }>();
 
-    @Output() playVideo = new EventEmitter<{movie: IMovieBasic, event: any}>();
+    @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
+
+    get hostElm(): HTMLElement {
+        return this.elmRef.nativeElement;
+    }
 
     constructor( private elmRef: ElementRef ) {
     }

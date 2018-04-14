@@ -2,7 +2,8 @@
     <div class="sidenav">
         <div class="sidenav-container">
             <div class="poster">
-                <img [src]="'https://image.tmdb.org/t/p/w780' + movie.poster_path "
+                <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + movie.poster_path"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
                      alt="Poster">
             </div>
 
@@ -162,7 +163,7 @@
                 </div>
 
                 <button class="movie-details-button cast-crew-control"
-                        (click)="slideRightCastList($event)">
+                        (click)="slideRightCastList($event)" #rightControlBtn>
                     <i class="fas fa-angle-right"></i>
                 </button>
             </div>

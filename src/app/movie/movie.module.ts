@@ -30,11 +30,14 @@ import { MovieDetailsSimilarComponent } from './movie-details/movie-details-simi
 import { LoaderComponent } from './loader/loader.component';
 
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
     imports: [
         CommonModule,
         MovieRoutingModule,
+
+        LazyLoadImageModule,
 
         OwlDialogModule,
         OwlMenuModule,

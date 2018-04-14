@@ -1,5 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output
+} from '@angular/core';
 import { IMovieBasic } from '../movie.model';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-movie-list-card',
@@ -14,6 +23,10 @@ export class MovieListCardComponent implements OnInit {
     @Input() imageType: 'backdrop' | 'poster' = 'backdrop';
 
     @Input() showTitle = true;
+
+    @Input() scrollTarget: HTMLElement;
+
+    @Input() scrollObservable: Observable<any>;
 
     @Output() addCollection = new EventEmitter<{ movie: IMovieBasic, event: any }>();
 

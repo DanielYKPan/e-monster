@@ -46,15 +46,23 @@ $sidenav-width: 170px;
 
   .poster {
     width: $sidenav-width;
+    min-height: 252px;
     border: solid 3px #fff;
     box-sizing: border-box;
     margin-bottom: 1rem;
+    background-color: #000000;
     box-shadow: 0 0 20px 0 #000;
 
     img {
       display: block;
       width: 100%;
       height: auto;
+      transition: all 1s;
+      opacity: 0;
+
+      &.ng-lazyloaded {
+        opacity: 1;
+      }
     }
   }
 

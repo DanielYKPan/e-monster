@@ -27,6 +27,11 @@
   background-position: 50% 10%;
   transition: all 1s;
   z-index: 1;
+  opacity: 0;
+
+  &.ng-lazyloaded {
+    opacity: 1;
+  }
 }
 
 .movie-header-shade {

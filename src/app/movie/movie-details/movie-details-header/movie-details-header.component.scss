@@ -26,6 +26,11 @@ $sidenav-width: 170px;
   background-position: center;
   background-position: 50% 10%;
   transition: all 1s;
+  opacity: 0;
+
+  &.ng-lazyloaded {
+    opacity: 1;
+  }
 }
 
 .content {

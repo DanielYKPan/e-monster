@@ -1,15 +1,10 @@
 <div class="movie-card-inner">
     <a class="movie-card-content" [routerLink]="['/movies', movie.id, 'details']">
-        <ng-container *ngIf="movieImage;else abstractImage">
-            <img class="movie-card-backdrop"
-                 [src]="'https://image.tmdb.org/t/p/w780' + movieImage"
-                 [alt]="movie.title">
-        </ng-container>
-        <ng-template #abstractImage>
-            <img class="movie-card-backdrop"
-                 src="/assets/images/abstract-image.jpg"
-                 [alt]="movie.title">
-        </ng-template>
+        <img class="movie-card-backdrop"
+             [defaultImage]="'/assets/images/abstract-image.jpg'"
+             [lazyLoad]="'https://image.tmdb.org/t/p/w780' + movieImage"
+             [scrollObservable]="scrollObservable"
+             [scrollTarget]="scrollTarget" [alt]="movie.title">
         <div *ngIf="showTitle" class="movie-card-title">
             <h3>{{movie.title}} <span class="year">{{movie.release_date | yearString}}</span></h3>
         </div>
