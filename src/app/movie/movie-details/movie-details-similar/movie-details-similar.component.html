@@ -1,4 +1,4 @@
-<section class="movie-details-similar-wrapper">
+<section *ngIf="movie.similar.length > 0" class="movie-details-similar-wrapper">
     <div class="movie-details-container">
         <h2 class="header">
             If you like <strong>{{movie.title}}</strong>, check out ...
