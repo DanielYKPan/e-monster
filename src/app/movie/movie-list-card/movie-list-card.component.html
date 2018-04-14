@@ -2,7 +2,7 @@
     <a class="movie-card-content" [routerLink]="['/movies', movie.id, 'details']">
         <ng-container *ngIf="movieImage;else abstractImage">
             <img class="movie-card-backdrop"
-                 [src]="'https://image.tmdb.org/t/p/w780/' + movieImage"
+                 [src]="'https://image.tmdb.org/t/p/w780' + movieImage"
                  [alt]="movie.title">
         </ng-container>
         <ng-template #abstractImage>

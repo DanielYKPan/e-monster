@@ -1,7 +1,7 @@
 <section class="movie-header">
     <ng-container *ngIf="(backdrop$ | async) as backdrop">
         <div class="movie-header-backdrop"
-             [style.background-image]="'url(https://image.tmdb.org/t/p/w1280/' + backdrop  + ')'"></div>
+             [style.background-image]="'url(https://image.tmdb.org/t/p/w1280' + backdrop  + ')'"></div>
     </ng-container>
     <div class="movie-header-shade"></div>
 

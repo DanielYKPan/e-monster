@@ -1,12 +1,12 @@
 <section class="movie-details-header">
     <div class="backdrop"
-         [style.background-image]="'url(https://image.tmdb.org/t/p/w1280/' + movie.backdrop_path  + ')'"></div>
+         [style.background-image]="'url(https://image.tmdb.org/t/p/w1280' + movie.backdrop_path  + ')'"></div>
 
 
     <div class="content">
         <div class="movie-details-container summary">
             <div class="poster">
-                <img [src]="'https://image.tmdb.org/t/p/w780/' + movie.poster_path " alt="Poster">
+                <img [src]="'https://image.tmdb.org/t/p/w780' + movie.poster_path " alt="Poster">
             </div>
             <h1 class="title">
                 {{movie.title}}
