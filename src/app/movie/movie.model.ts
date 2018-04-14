@@ -49,6 +49,7 @@ export interface IMovie {
     crews: IMovieCrew[];
     reviews: IMovieReviews;
     external: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
+    similar: IMovieBasic[];
 }
 
 export interface IMovieCast {

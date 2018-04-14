@@ -1,0 +1,34 @@
+<section class="movie-details-similar-wrapper">
+    <div class="movie-details-container">
+        <h2 class="header">
+            If you like <strong>{{movie.title}}</strong>, check out ...
+        </h2>
+
+        <div class="movie-list-content">
+            <button class="movie-details-button movie-list-control"
+                    (click)="slideLeftMovieList($event)">
+                <i class="icon fas fa-angle-left"></i>
+            </button>
+
+            <div class="movie-list-wrapper" #movieListWrapper>
+                <ul class="movie-list"
+                    [style.width.px]="movie.similar.length * movieItemWidth"
+                    [style.transform]="'translateX(' + -movieListSlideDistance + 'px)'" #movieList>
+                    <li *ngFor="let m of movie.similar" class="movie-list-item"
+                        [style.width.px]="movieItemWidth">
+                        <app-movie-list-card [movie]="m"
+                                             imageType="poster"
+                                             [showTitle]="false"
+                                             (playVideo)="playVideo.next($event)"></app-movie-list-card>
+                        <h3 class="movie-title">{{m.title}}</h3>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="movie-details-button movie-list-control"
+                    (click)="slideRightMovieList($event)">
+                <i class="icon fas fa-angle-right"></i>
+            </button>
+        </div>
+    </div>
+</section>

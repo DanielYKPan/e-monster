@@ -10,7 +10,7 @@
                  src="/assets/images/abstract-image.jpg"
                  [alt]="movie.title">
         </ng-template>
-        <div class="movie-card-title">
+        <div *ngIf="showTitle" class="movie-card-title">
             <h3>{{movie.title}} <span class="year">{{movie.release_date | yearString}}</span></h3>
         </div>
     </a>

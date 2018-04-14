@@ -11,12 +11,17 @@ export class MovieListCardComponent implements OnInit {
 
     @Input() movie: IMovieBasic;
 
+    @Input() imageType: 'backdrop' | 'poster' = 'backdrop';
+
+    @Input() showTitle = true;
+
     @Output() addCollection = new EventEmitter<{ movie: IMovieBasic, event: any }>();
 
     @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
 
     get movieImage(): string {
-        return this.movie.backdrop_path || this.movie.poster_path;
+        return this.imageType === 'backdrop' ?
+            this.movie.backdrop_path : this.movie.poster_path;
     }
 
     constructor() {

@@ -94,7 +94,9 @@ export class MovieService {
         IMovie,
         { id: number, cast: IMovieCast[], crew: IMovieCrew[] },
         IMovieReviews,
-        { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string }]> {
+        { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string },
+        { page: number, results: IMovieBasic[], total_pages: number, total_results: number }]> {
+
         const details_url = `https://api.themoviedb.org/3/movie/${id}`;
 
         const credits_url = `https://api.themoviedb.org/3/movie/${id}/credits`;
@@ -103,11 +105,14 @@ export class MovieService {
 
         const external_url = `https://api.themoviedb.org/3/movie/${id}/external_ids`;
 
+        const similar_url = `https://api.themoviedb.org/3/movie/${id}/similar`;
+
         return forkJoin(
             this.getResult(details_url),
             this.getResult(credits_url),
             this.getResult(reviews_url),
-            this.getResult(external_url)
+            this.getResult(external_url),
+            this.getResult(similar_url),
         ).pipe(
             catchError(this.handleError)
         );

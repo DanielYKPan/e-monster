@@ -53,6 +53,7 @@ export class MovieExistGuard implements CanActivate {
                 movie.crews = res[1].crew;
                 movie.reviews = res[2];
                 movie.external = res[3];
+                movie.similar = res[4].results;
                 return new movieActions.Load(movie);
             }),
             tap(( action: movieActions.Load ) => this.store.dispatch(action)),

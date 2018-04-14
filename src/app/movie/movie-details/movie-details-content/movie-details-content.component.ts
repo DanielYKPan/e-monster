@@ -4,8 +4,10 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     OnInit,
     Output,
+    SimpleChanges,
     ViewChild
 } from '@angular/core';
 import { IMovie, IMovieCrew, IMovieVideo } from '../../movie.model';
@@ -16,7 +18,7 @@ import { IMovie, IMovieCrew, IMovieVideo } from '../../movie.model';
     styleUrls: ['./movie-details-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieDetailsContentComponent implements OnInit {
+export class MovieDetailsContentComponent implements OnInit, OnChanges {
 
     @ViewChild('castList') castListRef: ElementRef;
 
@@ -51,7 +53,13 @@ export class MovieDetailsContentComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
+    }
+
+    public ngOnChanges( changes: SimpleChanges ): void {
+        if ((changes['movie'] && !changes['movie'].isFirstChange())) {
+            this.scrollBackToTop();
+        }
     }
 
     public clickVideo( video: IMovieVideo, event: any ): void {
@@ -62,7 +70,7 @@ export class MovieDetailsContentComponent implements OnInit {
         });
     }
 
-    public clickFullCastCrew(event: any): void {
+    public clickFullCastCrew( event: any ): void {
         this.fullCastCrewClick.emit({
             movie: this.movie,
             event
@@ -89,5 +97,9 @@ export class MovieDetailsContentComponent implements OnInit {
                 slideDistance : remainDistance;
         }
         event.preventDefault();
+    }
+
+    private scrollBackToTop(): void {
+        window.scrollTo({top: 0, behavior: 'smooth'});
     }
 }

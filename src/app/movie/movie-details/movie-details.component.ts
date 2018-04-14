@@ -9,7 +9,7 @@ import * as movieVideoActions from '../actions/video';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { IMovie, IMovieVideo } from '../movie.model';
+import { IMovie, IMovieBasic, IMovieVideo } from '../movie.model';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 import { MovieCastDialogComponent } from '../movie-cast-dialog/movie-cast-dialog.component';
 import { OwlDialogService } from 'owl-ng';
@@ -31,13 +31,18 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
     private actionsSubscription: Subscription;
 
+    private movieId: number;
+
     constructor( private store: Store<fromMoviesRoot.State>,
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
                  @Inject(DOCUMENT) private document: any,
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
-            .pipe(map(params => new movieAction.Select(params.id)))
+            .pipe(map(params => {
+                this.movieId = params.id;
+                return new movieAction.Select(params.id);
+            }))
             .subscribe(this.store);
     }
 
@@ -67,5 +72,18 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
         e.event.preventDefault();
+    }
+
+    public openSimilarMovieVideoDialog( res: { movie: IMovieBasic, event: any } ): void {
+        const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
+            data: {movieId: res.movie.id, movieTitle: res.movie.title},
+            dialogClass: 'movie-trailer-dialog',
+            transitionX: res.event.clientX,
+            transitionY: res.event.clientY,
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            this.store.dispatch(new movieVideoActions.Select(this.movieId));
+        });
     }
 }

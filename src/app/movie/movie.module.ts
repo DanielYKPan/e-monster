@@ -28,6 +28,7 @@ import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { LoaderComponent } from './loader/loader.component';
 
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
+import { MovieDetailsSimilarComponent } from './movie-details/movie-details-similar/movie-details-similar.component';
 
 @NgModule({
     imports: [
@@ -58,6 +59,7 @@ import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from
         MovieDetailsHeaderComponent,
         MovieDetailsContentComponent,
         ToDatePipe,
+        MovieDetailsSimilarComponent,
     ],
     providers: [
         MovieService,
