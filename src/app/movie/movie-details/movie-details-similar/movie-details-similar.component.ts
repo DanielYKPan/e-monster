@@ -12,6 +12,7 @@ import { IMovie, IMovieBasic } from '../../movie.model';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     selector: 'app-movie-details-similar',
@@ -25,10 +26,6 @@ export class MovieDetailsSimilarComponent implements OnInit {
 
     @ViewChild('movieListWrapper') movieListWrapperRef: ElementRef;
 
-    @ViewChild('sliderLeftBtn') sliderLeftBtnRef: ElementRef;
-
-    @ViewChild('sliderRightBtn') sliderRightBtnRef: ElementRef;
-
     @Input() movie: IMovie;
 
     @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
@@ -37,14 +34,13 @@ export class MovieDetailsSimilarComponent implements OnInit {
 
     public movieListSlideDistance = 0;
 
+    private sliding$ = new Subject<boolean>();
+
     get scrollObservable(): Observable<any> {
-        return this.sliderLeftBtnRef && this.sliderLeftBtnRef ?
-            merge(
-                fromEvent(window, 'scroll'),
-                fromEvent(this.sliderLeftBtnRef.nativeElement, 'click'),
-                fromEvent(this.sliderRightBtnRef.nativeElement, 'click')
-            ) :
-            fromEvent(window, 'scroll');
+        return merge(
+            fromEvent(window, 'scroll'),
+            this.sliding$.asObservable()
+        );
     }
 
     constructor() {
@@ -58,6 +54,7 @@ export class MovieDetailsSimilarComponent implements OnInit {
             const slideDistance = this.movieItemWidth * 2;
             this.movieListSlideDistance -= this.movieListSlideDistance > slideDistance ?
                 slideDistance : this.movieListSlideDistance;
+            this.sliding$.next(true);
         }
         event.preventDefault();
     }
@@ -71,6 +68,7 @@ export class MovieDetailsSimilarComponent implements OnInit {
         if (remainDistance > 0) {
             this.movieListSlideDistance += remainDistance > slideDistance ?
                 slideDistance : remainDistance;
+            this.sliding$.next(true);
         }
         event.preventDefault();
     }
