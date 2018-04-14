@@ -155,21 +155,3 @@ export const getSelectedMovie = createSelector(
         return selectedId && entities[selectedId];
     }
 );
-
-export const getSelectedMovieDirectors = createSelector(
-    getSelectedMovie,
-    ( movie ) => {
-        if (movie) {
-            return movie.crews.filter(( crew ) => crew.job === 'Director');
-        }
-    }
-);
-
-export const getSelectedMovieWriters = createSelector(
-    getSelectedMovie,
-    ( movie ) => {
-        if (movie) {
-            return movie.crews.filter(( crew ) => crew.department === 'Writing');
-        }
-    }
-);

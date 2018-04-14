@@ -12,6 +12,8 @@ export enum MovieActionTypes {
     GetGenreListComplete = '[Movies] Get Genre List Complete',
     Select = '[Movies] Select',
     Load = '[Movies] Load',
+    LoadingStart = '[Movies] Loading Start',
+    LoadingCompleted = '[Movies] Loading Completed',
 }
 
 export class SearchList implements Action {
@@ -25,6 +27,20 @@ export class SearchListComplete implements Action {
     readonly type = MovieActionTypes.SearchListComplete;
 
     constructor( public payload: any ) {
+    }
+}
+
+export class LoadingStart implements Action {
+    readonly type = MovieActionTypes.LoadingStart;
+
+    constructor() {
+    }
+}
+
+export class LoadingCompleted implements Action {
+    readonly type = MovieActionTypes.LoadingCompleted;
+
+    constructor() {
     }
 }
 
@@ -62,4 +78,6 @@ export type MovieActions =
     SearchError |
     GetGenreListComplete |
     Select |
-    Load;
+    Load |
+    LoadingStart |
+    LoadingCompleted;

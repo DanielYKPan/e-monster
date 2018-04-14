@@ -11,18 +11,12 @@ import { Observable } from 'rxjs/Observable';
 })
 export class MovieComponent implements OnInit {
 
-    // public backdrop$: Observable<string>;
-
     public showLoader$: Observable<boolean>;
 
     constructor( private store: Store<fromMovieRoot.State> ) {
     }
 
     public ngOnInit() {
-        // this.store.dispatch(new SearchActions.SearchList({type: 'now_playing', page: 1}));
-
-        // this.backdrop$ = this.store.pipe(select(fromMovieRoot.getRandomMovieBackdrop));
-
         this.showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchLoading));
     }
 

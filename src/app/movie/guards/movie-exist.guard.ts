@@ -46,6 +46,8 @@ export class MovieExistGuard implements CanActivate {
     }
 
     private hasMovieInApi( id: number ): Observable<boolean> {
+
+        this.store.dispatch(new movieActions.LoadingStart());
         return this.movieService.getMovie(id).pipe(
             map(res => {
                 const movie = res[0];
@@ -56,7 +58,10 @@ export class MovieExistGuard implements CanActivate {
                 movie.similar = res[4].results;
                 return new movieActions.Load(movie);
             }),
-            tap(( action: movieActions.Load ) => this.store.dispatch(action)),
+            tap(( action: movieActions.Load ) => {
+                this.store.dispatch(action);
+                this.store.dispatch(new movieActions.LoadingCompleted());
+            }),
             map(movie => !!movie),
             catchError(() => {
                 // TODO: navigate to 404

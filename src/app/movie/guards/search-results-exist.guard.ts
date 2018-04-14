@@ -11,7 +11,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { SearchListComplete } from '../actions/movie';
+import { SearchListComplete, LoadingStart } from '../actions/movie';
 
 @Injectable()
 export class SearchResultsExistGuard implements CanActivate {
@@ -53,6 +53,7 @@ export class SearchResultsExistGuard implements CanActivate {
 
     private hasSearchResultsInApi( type: string ): Observable<boolean> {
 
+        this.store.dispatch(new LoadingStart());
         return this.movieService.searchList(type).pipe(
             map(res => new SearchListComplete(res)),
             tap(action => this.store.dispatch(action)),

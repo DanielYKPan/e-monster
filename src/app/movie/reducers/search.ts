@@ -25,6 +25,7 @@ const initialState: State = {
 export function reducer( state = initialState, action: MovieActions ): State {
     switch (action.type) {
 
+        case MovieActionTypes.LoadingStart:
         case MovieActionTypes.SearchList:
             return {
                 ...state,
@@ -42,6 +43,12 @@ export function reducer( state = initialState, action: MovieActions ): State {
                     total_pages: action.payload.total_pages,
                 },
                 searchResults: action.payload.results
+            };
+
+        case MovieActionTypes.LoadingCompleted:
+            return {
+                ...state,
+                loading: false
             };
 
         default:
