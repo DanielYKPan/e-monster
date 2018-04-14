@@ -17,18 +17,19 @@ import { VotePercentagePipe } from './pipe/vote-percentage.pipe';
 import { SafePipe } from './pipe/safe.pipe';
 import { YearStringPipe } from './pipe/year-string.pipe';
 import { ToDatePipe } from './pipe/date-string.pipe';
-import { MovieListContentComponent } from './movie-list-content/movie-list-content.component';
+import { MovieHomeComponent } from './movie-home/movie-home.component';
 import { MovieListCardComponent } from './movie-list-card/movie-list-card.component';
-import { MovieListSidenavComponent } from './movie-list-sidenav/movie-list-sidenav.component';
+import { MovieListContentComponent } from './movie-list/movie-list-content/movie-list-content.component';
+import { MovieListSidenavComponent } from './movie-list/movie-list-sidenav/movie-list-sidenav.component';
 import { MovieTrailerDialogComponent } from './movie-trailer-dialog/movie-trailer-dialog.component';
 import { MovieCastDialogComponent } from './movie-cast-dialog/movie-cast-dialog.component';
 import { MovieDetailsHeaderComponent } from './movie-details/movie-details-header/movie-details-header.component';
 import { MovieDetailsContentComponent } from './movie-details/movie-details-content/movie-details-content.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
+import { MovieDetailsSimilarComponent } from './movie-details/movie-details-similar/movie-details-similar.component';
 import { LoaderComponent } from './loader/loader.component';
 
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
-import { MovieDetailsSimilarComponent } from './movie-details/movie-details-similar/movie-details-similar.component';
 
 @NgModule({
     imports: [
@@ -60,6 +61,7 @@ import { MovieDetailsSimilarComponent } from './movie-details/movie-details-simi
         MovieDetailsContentComponent,
         ToDatePipe,
         MovieDetailsSimilarComponent,
+        MovieHomeComponent,
     ],
     providers: [
         MovieService,

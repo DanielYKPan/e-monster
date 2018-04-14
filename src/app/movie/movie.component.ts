@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromMovieRoot from './reducers';
-import * as SearchActions from './actions/movie';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -12,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 })
 export class MovieComponent implements OnInit {
 
-    public backdrop$: Observable<string>;
+    // public backdrop$: Observable<string>;
 
     public showLoader$: Observable<boolean>;
 
@@ -20,10 +19,14 @@ export class MovieComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.store.dispatch(new SearchActions.SearchList({type: 'now_playing', page: 1}));
+        // this.store.dispatch(new SearchActions.SearchList({type: 'now_playing', page: 1}));
 
-        this.backdrop$ = this.store.pipe(select(fromMovieRoot.getRandomMovieBackdrop));
+        // this.backdrop$ = this.store.pipe(select(fromMovieRoot.getRandomMovieBackdrop));
 
         this.showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchLoading));
+    }
+
+    public onDeactivate() {
+        window.scrollTo(0, 0);
     }
 }

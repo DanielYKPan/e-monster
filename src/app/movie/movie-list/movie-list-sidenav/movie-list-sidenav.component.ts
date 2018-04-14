@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISearchStat } from '../movie.model';
+import { ISearchStat } from '../../movie.model';
 
 @Component({
     selector: 'app-movie-list-sidenav',

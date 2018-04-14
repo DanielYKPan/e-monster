@@ -8,7 +8,7 @@ import {
     ElementRef,
     Output, EventEmitter
 } from '@angular/core';
-import { IMovieBasic } from '../movie.model';
+import { IMovieBasic } from '../../movie.model';
 
 @Component({
     selector: 'app-movie-list-content',

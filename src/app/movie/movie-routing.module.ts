@@ -5,11 +5,18 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { SearchResultsExistGuard } from './guards/search-results-exist.guard';
 import { MovieExistGuard } from './guards/movie-exist.guard';
+import { MovieHomeComponent } from './movie-home/movie-home.component';
 
 const routes: Routes = [
-    {path: '', component: MovieComponent},
-    {path: 'list/:type', component: MovieListComponent, canActivate: [SearchResultsExistGuard]},
-    {path: ':id/details', component: MovieDetailsComponent, canActivate: [MovieExistGuard]},
+    {
+        path: '',
+        component: MovieComponent,
+        children: [
+            {path: '', component: MovieHomeComponent, canActivate: [SearchResultsExistGuard]},
+            {path: 'list/:type', component: MovieListComponent, canActivate: [SearchResultsExistGuard]},
+            {path: ':id/details', component: MovieDetailsComponent, canActivate: [MovieExistGuard]},
+        ]
+    },
 ];
 
 @NgModule({

@@ -26,6 +26,9 @@ export class SearchResultsExistGuard implements CanActivate {
     }
 
     private hasSearchResults( type: string ): Observable<boolean> {
+        if (!type) {
+            type = 'now_playing';
+        }
         return this.hasSearchResultsInStore(type).pipe(
             switchMap(( inStore: boolean ) => {
                 if (inStore) {
