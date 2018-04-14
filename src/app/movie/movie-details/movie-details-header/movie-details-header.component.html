@@ -1,0 +1,39 @@
+<section class="movie-details-header">
+    <div class="backdrop"
+         [style.background-image]="'url(https://image.tmdb.org/t/p/w1280/' + movie.backdrop_path  + ')'"></div>
+
+
+    <div class="content">
+        <div class="movie-details-container summary">
+            <div class="poster">
+                <img [src]="'https://image.tmdb.org/t/p/w780/' + movie.poster_path " alt="Poster">
+            </div>
+            <h1 class="title">
+                {{movie.title}}
+                <span class="year">{{movie.release_date | yearString}}</span>
+            </h1>
+        </div>
+
+        <div class="ratings-wrapper">
+            <div class="movie-details-container">
+                <ul class="ratings-list">
+                    <li class="ratings-list-item">
+                        <i class="heart-icon red fas fa-heart"></i>
+                        <div class="number">
+                            <div class="main">{{movie.vote_average | votePercentage}}</div>
+                            <div class="vote">{{movie.vote_count}} votes</div>
+                        </div>
+                    </li>
+
+                    <li class="ratings-list-item">
+                        <i class="heart-icon far fa-heart"></i>
+                        <div class="number">
+                            <div class="main">Rate this movie</div>
+                            <div class="vote">What did you think?</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
