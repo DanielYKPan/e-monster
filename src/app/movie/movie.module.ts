@@ -12,12 +12,9 @@ import { VideoEffect } from './effects/video';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { SearchResultsExistGuard } from './guards/search-results-exist.guard';
 import { MovieExistGuard } from './guards/movie-exist.guard';
-import { VotePercentagePipe } from './pipe/vote-percentage.pipe';
 import { SafePipe } from './pipe/safe.pipe';
-import { YearStringPipe } from './pipe/year-string.pipe';
 import { ToDatePipe } from './pipe/date-string.pipe';
 import { MovieHomeComponent } from './movie-home/movie-home.component';
-import { MovieListCardComponent } from './movie-list-card/movie-list-card.component';
 import { MovieListContentComponent } from './movie-list/movie-list-content/movie-list-content.component';
 import { MovieListSidenavComponent } from './movie-list/movie-list-sidenav/movie-list-sidenav.component';
 import { MovieTrailerDialogComponent } from './movie-trailer-dialog/movie-trailer-dialog.component';
@@ -29,14 +26,13 @@ import { MovieDetailsSimilarComponent } from './movie-details/movie-details-simi
 import { LoaderComponent } from './loader/loader.component';
 
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
-import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { ShareModule } from '../share/share.module';
 
 @NgModule({
     imports: [
         CommonModule,
         MovieRoutingModule,
-
-        LazyLoadImageModule,
+        ShareModule,
 
         OwlDialogModule,
         OwlMenuModule,
@@ -49,15 +45,12 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     declarations: [
         MovieComponent,
         MovieListComponent,
-        VotePercentagePipe,
         MovieListContentComponent,
-        MovieListCardComponent,
         MovieListSidenavComponent,
         LoaderComponent,
         MovieTrailerDialogComponent,
         SafePipe,
         MovieDetailsComponent,
-        YearStringPipe,
         MovieCastDialogComponent,
         MovieDetailsHeaderComponent,
         MovieDetailsContentComponent,

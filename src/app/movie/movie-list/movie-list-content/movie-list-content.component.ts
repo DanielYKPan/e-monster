@@ -9,7 +9,7 @@ import {
     Output,
     SimpleChanges
 } from '@angular/core';
-import { IMovieBasic } from '../../movie.model';
+import { IAudio } from '../../../model/audio';
 
 @Component({
     selector: 'app-movie-list-content',
@@ -19,13 +19,13 @@ import { IMovieBasic } from '../../movie.model';
 })
 export class MovieListContentComponent implements OnInit, OnChanges {
 
-    @Input() featuredList: IMovieBasic[];
+    @Input() featuredList: IAudio[];
 
-    @Input() list: IMovieBasic[];
+    @Input() list: IAudio[];
 
-    @Output() addCollection = new EventEmitter<{ movie: IMovieBasic, event: any }>();
+    @Output() addCollection = new EventEmitter<{ movie: IAudio, event: any }>();
 
-    @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
+    @Output() playVideo = new EventEmitter<{ movie: IAudio, event: any }>();
 
     get hostElm(): HTMLElement {
         return this.elmRef.nativeElement;

@@ -1,0 +1,30 @@
+<div class="card-inner">
+    <a class="card-content">
+        <img class="card-backdrop"
+             [defaultImage]="'/assets/images/abstract-image.jpg'"
+             [lazyLoad]="'https://image.tmdb.org/t/p/w780' + image"
+             [scrollObservable]="scrollObservable"
+             [scrollTarget]="scrollTarget" [alt]="title">
+        <div *ngIf="showTitle" class="card-title">
+            <h3>{{title}} <span class="year">{{date | yearString}}</span></h3>
+        </div>
+    </a>
+    <div class="card-control">
+        <div class="card-actions">
+            <a class="card-action collect"
+               owlTooltip="Add To Collection"
+               (click)="clickAddCollection($event)">
+                <i class="fas fa-book"></i>
+            </a>
+            <a class="card-action play"
+               owlTooltip="Watch Trailer"
+               (click)="clickPlayVideo($event)">
+                <i class="fas fa-play"></i>
+            </a>
+        </div>
+        <div class="card-rate">
+            <i class="card-rate-heart fas fa-heart"></i>
+            {{audio.vote_average | votePercentage}}
+        </div>
+    </div>
+</div>

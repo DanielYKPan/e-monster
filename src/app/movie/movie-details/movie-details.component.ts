@@ -9,10 +9,11 @@ import * as movieVideoActions from '../actions/video';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { IMovie, IMovieBasic, IMovieVideo } from '../movie.model';
+import { IMovie, IMovieVideo } from '../movie.model';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 import { MovieCastDialogComponent } from '../movie-cast-dialog/movie-cast-dialog.component';
 import { OwlDialogService } from 'owl-ng';
+import { IAudio } from '../../model/audio';
 
 @Component({
     selector: 'app-movie-details',
@@ -74,9 +75,9 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         e.event.preventDefault();
     }
 
-    public openSimilarMovieVideoDialog( res: { movie: IMovieBasic, event: any } ): void {
+    public openSimilarMovieVideoDialog( res: { audio: IAudio, event: any } ): void {
         const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
-            data: {movieId: res.movie.id, movieTitle: res.movie.title},
+            data: {movieId: res.audio.id, movieTitle: res.audio.title},
             dialogClass: 'movie-trailer-dialog',
             transitionX: res.event.clientX,
             transitionY: res.event.clientY,

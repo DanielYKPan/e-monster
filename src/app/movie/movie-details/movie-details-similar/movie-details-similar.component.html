@@ -16,11 +16,11 @@
                     [style.transform]="'translateX(' + -movieListSlideDistance + 'px)'" #movieList>
                     <li *ngFor="let m of movie.similar" class="movie-list-item"
                         [style.width.px]="movieItemWidth">
-                        <app-movie-list-card [movie]="m"
-                                             imageType="poster"
-                                             [showTitle]="false"
-                                             [scrollObservable]="scrollObservable"
-                                             (playVideo)="playVideo.next($event)"></app-movie-list-card>
+                        <app-audio-card [audio]="m"
+                                        imageType="poster"
+                                        [showTitle]="false"
+                                        [scrollObservable]="scrollObservable"
+                                        (playVideo)="playVideo.next($event)"></app-audio-card>
                         <h3 class="movie-title">{{m.title}}</h3>
                     </li>
                 </ul>

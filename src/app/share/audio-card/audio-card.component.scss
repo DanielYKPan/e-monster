@@ -1,11 +1,11 @@
-.movie-card-inner {
+.card-inner {
   display: flex;
   flex-direction: column;
   width: 100%;
   height: 100%;
   background-color: #282828;
 
-  .movie-card-content {
+  .card-content {
     flex: 1;
     position: relative;
     width: 100%;
@@ -16,7 +16,7 @@
     text-decoration: none;
     color: currentColor;
 
-    .movie-card-backdrop {
+    .card-backdrop {
       display: block;
       position: absolute;
       top: 0;
@@ -32,7 +32,7 @@
       }
     }
 
-    .movie-card-title {
+    .card-title {
       display: flex;
       align-items: flex-end;
       padding: .5rem 1rem;
@@ -53,7 +53,7 @@
         margin: 0;
 
         .year {
-          font-size: .8rem;
+          font-size: .9rem;
           color: #999;
           margin-left: .5rem;
         }
@@ -61,16 +61,16 @@
     }
   }
 
-  .movie-card-control {
+  .card-control {
     display: flex;
     height: 2.5rem;
     box-sizing: border-box;
 
-    .movie-card-actions {
+    .card-actions {
       flex: 1;
       display: flex;
 
-      .movie-card-action {
+      .card-action {
         display: flex;
         width: 2.2rem;
         height: 100%;
@@ -101,12 +101,12 @@
       }
     }
 
-    .movie-card-rate {
+    .card-rate {
       display: flex;
       justify-content: center;
       align-items: center;
       font-size: 1.2rem;
-      .movie-card-rate-heart {
+      .card-rate-heart {
         font-size: 1rem;
         color: #922f30;
         margin-right: 5px;

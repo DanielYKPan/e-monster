@@ -2,13 +2,14 @@
  * search
  */
 import { MovieActions, MovieActionTypes } from '../actions/movie';
-import { IMovieBasic, ISearchStat } from '../movie.model';
+import { ISearchStat } from '../movie.model';
+import { IAudio } from '../../model/audio';
 
 export interface State {
     type: string;
     loading: boolean;
     searchStat: ISearchStat;
-    searchResults: IMovieBasic[];
+    searchResults: IAudio[];
 }
 
 const initialState: State = {

@@ -6,9 +6,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { IMovie, IMovieBasic, IMovieCast, IMovieCrew, IMovieGenre, IMovieReviews, IMovieVideos } from '../movie.model';
+import { IMovie, IMovieCast, IMovieCrew, IMovieGenre, IMovieReviews, IMovieVideos } from '../movie.model';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
+import { IAudio } from '../../model/audio';
 
 @Injectable()
 export class MovieService {
@@ -22,7 +23,7 @@ export class MovieService {
     constructor( private http: HttpClient ) {
     }
 
-    public searchList( type: string, page: number = 1 ): Observable<IMovieBasic[]> {
+    public searchList( type: string, page: number = 1 ): Observable<IAudio[]> {
 
         if (type === 'anticipated') {
             return this.getAnticipatedMovieList(page);
@@ -38,7 +39,7 @@ export class MovieService {
         );
     }
 
-    public getAnticipatedMovieList( page: number ): Observable<IMovieBasic[]> {
+    public getAnticipatedMovieList( page: number ): Observable<IAudio[]> {
         const start = new Date();
         const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
         const release_date_gte = start.toISOString().slice(0, 10);
@@ -58,7 +59,7 @@ export class MovieService {
         return this.discoverMovieList('anticipated', queries);
     }
 
-    public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IMovieBasic[]> {
+    public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
         const url = this.base_url + 'discover/movie';
 
         return this.getResult(url, queries).pipe(
@@ -99,7 +100,7 @@ export class MovieService {
         { id: number, cast: IMovieCast[], crew: IMovieCrew[] },
         IMovieReviews,
         { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string },
-        { page: number, results: IMovieBasic[], total_pages: number, total_results: number }]> {
+        { page: number, results: IAudio[], total_pages: number, total_results: number }]> {
 
         const details_url = this.base_url + `movie/${id}`;
 

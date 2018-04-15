@@ -1,6 +1,7 @@
 /**
  * movie.model
  */
+import { IAudio } from '../model/audio';
 
 export interface IMovieBasic {
     adult: boolean;
@@ -49,7 +50,7 @@ export interface IMovie {
     crews: IMovieCrew[];
     reviews: IMovieReviews;
     external: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
-    similar: IMovieBasic[];
+    similar: IAudio[];
 }
 
 export interface IMovieCast {

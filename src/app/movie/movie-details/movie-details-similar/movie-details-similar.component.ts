@@ -8,11 +8,12 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { IMovie, IMovieBasic } from '../../movie.model';
+import { IMovie } from '../../movie.model';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
+import { IAudio } from '../../../model/audio';
 
 @Component({
     selector: 'app-movie-details-similar',
@@ -28,7 +29,7 @@ export class MovieDetailsSimilarComponent implements OnInit {
 
     @Input() movie: IMovie;
 
-    @Output() playVideo = new EventEmitter<{ movie: IMovieBasic, event: any }>();
+    @Output() playVideo = new EventEmitter<{ audio: IAudio, event: any }>();
 
     public movieItemWidth = 196;
 

@@ -2,13 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { IMovieBasic, ISearchStat } from '../movie.model';
+import { ISearchStat } from '../movie.model';
 import { select, Store } from '@ngrx/store';
 import * as fromMovieRoot from '../reducers';
 import * as movieActions from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
+import { IAudio } from '../../model/audio';
 
 @Component({
     selector: 'app-movie-list',
@@ -18,9 +19,9 @@ import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trail
 })
 export class MovieListComponent implements OnInit, OnDestroy {
 
-    public list$: Observable<IMovieBasic[]>;
+    public list$: Observable<IAudio[]>;
 
-    public featuredList$: Observable<IMovieBasic[]>;
+    public featuredList$: Observable<IAudio[]>;
 
     public searchStat$: Observable<ISearchStat>;
 
@@ -63,9 +64,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.store.dispatch(new movieActions.SearchList({type: event.type, page: event.page}));
     }
 
-    public openMovieTrailerDialog( res: { movie: IMovieBasic, event: any } ): void {
+    public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
-            data: {movieId: res.movie.id, movieTitle: res.movie.title}, // data that would pass to dialog component
+            data: {movieId: res.audio.id, movieTitle: res.audio.title}, // data that would pass to dialog component
             dialogClass: 'movie-trailer-dialog',
             transitionX: res.event.clientX,
             transitionY: res.event.clientY,
