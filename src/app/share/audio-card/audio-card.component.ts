@@ -12,6 +12,8 @@ export class AudioCardComponent implements OnInit {
 
     @Input() audio: IAudio;
 
+    @Input() audioType: 'movies' | 'tv' = 'movies';
+
     @Input() imageType: 'backdrop' | 'poster' = 'backdrop';
 
     @Input() showTitle = true;
