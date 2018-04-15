@@ -9,7 +9,6 @@ export enum MovieActionTypes {
     SearchList = '[Movies] Search List',
     SearchListComplete = '[Movies] Search List Complete',
     SearchError = '[Movies] Search Error',
-    GetGenreListComplete = '[Movies] Get Genre List Complete',
     Select = '[Movies] Select',
     Load = '[Movies] Load',
     LoadingStart = '[Movies] Loading Start',
@@ -51,13 +50,6 @@ export class SearchError implements Action {
     }
 }
 
-export class GetGenreListComplete implements Action {
-    readonly type = MovieActionTypes.GetGenreListComplete;
-
-    constructor( public payload: IMovieGenre[] ) {
-    }
-}
-
 export class Select implements Action {
     readonly type = MovieActionTypes.Select;
 
@@ -76,7 +68,6 @@ export type MovieActions =
     SearchList |
     SearchListComplete |
     SearchError |
-    GetGenreListComplete |
     Select |
     Load |
     LoadingStart |

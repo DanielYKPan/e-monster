@@ -17,6 +17,8 @@ export class MovieService {
 
     private readonly region = 'US';
 
+    private readonly base_url = 'https://api.themoviedb.org/3/';
+
     constructor( private http: HttpClient ) {
     }
 
@@ -26,7 +28,7 @@ export class MovieService {
             return this.getAnticipatedMovieList(page);
         }
 
-        const url = `https://api.themoviedb.org/3/movie/${type}`;
+        const url = this.base_url + `movie/${type}`;
 
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
             map(( res: any ) => {
@@ -57,7 +59,7 @@ export class MovieService {
     }
 
     public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IMovieBasic[]> {
-        const url = 'https://api.themoviedb.org/3/discover/movie';
+        const url = this.base_url + 'discover/movie';
 
         return this.getResult(url, queries).pipe(
             map(( res: any ) => {
@@ -77,14 +79,16 @@ export class MovieService {
     }
 
     public getMovieVideos( id: number ): Observable<IMovieVideos> {
-        const url = `https://api.themoviedb.org/3/movie/${id}/videos`;
+
+        const url = this.base_url + `movie/${id}/videos`;
+
         return this.getResult(url).pipe(
             catchError(this.handleError)
         );
     }
 
     public getMovieReviews( id: number, page: number = 1 ): Observable<IMovieReviews[]> {
-        const url = `https://api.themoviedb.org/3/movie/${id}/reviews`;
+        const url = this.base_url + `movie/${id}/reviews`;
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
             catchError(this.handleError)
         );
@@ -97,15 +101,15 @@ export class MovieService {
         { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string },
         { page: number, results: IMovieBasic[], total_pages: number, total_results: number }]> {
 
-        const details_url = `https://api.themoviedb.org/3/movie/${id}`;
+        const details_url = this.base_url + `movie/${id}`;
 
-        const credits_url = `https://api.themoviedb.org/3/movie/${id}/credits`;
+        const credits_url = this.base_url + `movie/${id}/credits`;
 
-        const reviews_url = `https://api.themoviedb.org/3/movie/${id}/reviews`;
+        const reviews_url = this.base_url + `movie/${id}/reviews`;
 
-        const external_url = `https://api.themoviedb.org/3/movie/${id}/external_ids`;
+        const external_url = this.base_url + `movie/${id}/external_ids`;
 
-        const similar_url = `https://api.themoviedb.org/3/movie/${id}/similar`;
+        const similar_url = this.base_url + `movie/${id}/similar`;
 
         return forkJoin(
             this.getResult(details_url),

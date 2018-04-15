@@ -80,11 +80,6 @@ export const getRandomMovieBackdrop = createSelector(
     }
 );
 
-export const getMovieGenreList = createSelector(
-    getMovieEntityState,
-    fromMovies.getGenreList
-);
-
 export const getMovieVideosEntityState = createSelector(
     getMoviesState,
     ( state: MoviesState ) => state.videos

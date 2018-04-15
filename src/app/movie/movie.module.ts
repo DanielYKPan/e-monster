@@ -10,7 +10,6 @@ import { reducers } from './reducers';
 import { MovieEffect } from './effects/movie';
 import { VideoEffect } from './effects/video';
 import { MovieListComponent } from './movie-list/movie-list.component';
-import { GenreListExistGuard } from './guards/genre-list-exist.guard';
 import { SearchResultsExistGuard } from './guards/search-results-exist.guard';
 import { MovieExistGuard } from './guards/movie-exist.guard';
 import { VotePercentagePipe } from './pipe/vote-percentage.pipe';
@@ -68,7 +67,6 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     ],
     providers: [
         MovieService,
-        GenreListExistGuard,
         SearchResultsExistGuard,
         MovieExistGuard,
     ],
