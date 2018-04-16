@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, HostBinding } from '@angular/core';
 
 @Component({
-    selector: 'app-movie-loader',
+    selector: 'app-loader',
     templateUrl: './loader.component.html',
     styleUrls: ['./loader.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

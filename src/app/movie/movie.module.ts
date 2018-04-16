@@ -12,8 +12,6 @@ import { VideoEffect } from './effects/video';
 import { MovieListComponent } from './movie-list/movie-list.component';
 import { SearchResultsExistGuard } from './guards/search-results-exist.guard';
 import { MovieExistGuard } from './guards/movie-exist.guard';
-import { SafePipe } from './pipe/safe.pipe';
-import { ToDatePipe } from './pipe/date-string.pipe';
 import { MovieHomeComponent } from './movie-home/movie-home.component';
 import { MovieListContentComponent } from './movie-list/movie-list-content/movie-list-content.component';
 import { MovieListSidenavComponent } from './movie-list/movie-list-sidenav/movie-list-sidenav.component';
@@ -23,7 +21,6 @@ import { MovieDetailsHeaderComponent } from './movie-details/movie-details-heade
 import { MovieDetailsContentComponent } from './movie-details/movie-details-content/movie-details-content.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MovieDetailsSimilarComponent } from './movie-details/movie-details-similar/movie-details-similar.component';
-import { LoaderComponent } from './loader/loader.component';
 
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
 import { ShareModule } from '../share/share.module';
@@ -47,14 +44,11 @@ import { ShareModule } from '../share/share.module';
         MovieListComponent,
         MovieListContentComponent,
         MovieListSidenavComponent,
-        LoaderComponent,
         MovieTrailerDialogComponent,
-        SafePipe,
         MovieDetailsComponent,
         MovieCastDialogComponent,
         MovieDetailsHeaderComponent,
         MovieDetailsContentComponent,
-        ToDatePipe,
         MovieDetailsSimilarComponent,
         MovieHomeComponent,
     ],
