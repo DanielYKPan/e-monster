@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as fromMovieRoot from './reducers';
+import * as fromRoot from '../reducers';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -17,7 +18,7 @@ export class MovieComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchLoading));
+        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchLoading));
     }
 
     public onDeactivate() {

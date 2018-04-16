@@ -2,12 +2,12 @@
     <h1 class="frame-sidenav-title">
         Movies
         <button class="paginator prev"
-                [class.paginator-hidden]="searchStat.page === 1"
+                [class.paginator-hidden]="searchPage === 1"
                 (click)="prev($event)">
             <i class="fas fa-caret-left"></i>
         </button>
         <button class="paginator next"
-                [class.paginator-hidden]="searchStat.page === searchStat.total_pages"
+                [class.paginator-hidden]="searchPage === searchTotalPages"
                 (click)="next($event)">
             <i class="fas fa-caret-right"></i>
         </button>

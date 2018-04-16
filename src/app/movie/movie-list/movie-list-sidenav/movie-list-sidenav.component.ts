@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ISearchStat } from '../../movie.model';
 
 @Component({
     selector: 'app-movie-list-sidenav',
@@ -11,7 +10,9 @@ export class MovieListSidenavComponent implements OnInit {
 
     @Input() showNavMenu: boolean;
 
-    @Input() searchStat: ISearchStat;
+    @Input() searchPage: number;
+
+    @Input() searchTotalPages: number;
 
     @Input() type: string;
 
@@ -42,17 +43,17 @@ export class MovieListSidenavComponent implements OnInit {
     }
 
     public prev( event: any ): void {
-        this.toPage(this.searchStat.page - 1);
+        this.toPage(this.searchPage - 1);
         event.preventDefault();
     }
 
     public next( event: any ): void {
-        this.toPage(this.searchStat.page + 1);
+        this.toPage(this.searchPage + 1);
         event.preventDefault();
     }
 
     private toPage( page: number ): void {
-        if (page < 1 || page > this.searchStat.total_pages) {
+        if (page < 1 || page > this.searchTotalPages) {
             return;
         }
 

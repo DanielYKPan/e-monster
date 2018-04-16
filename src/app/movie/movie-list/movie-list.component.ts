@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { ISearchStat } from '../movie.model';
 import { select, Store } from '@ngrx/store';
 import * as fromMovieRoot from '../reducers';
+import * as fromRoot from '../../reducers';
+import * as searchActions from '../../search/actions';
 import * as movieActions from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
@@ -27,6 +29,10 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     public searchType$: Observable<string>;
 
+    public searchPage$: Observable<number>;
+
+    public searchTotalPages$: Observable<number>;
+
     private _isLargeUp = false;
     get isLargeUp(): boolean {
         return this._isLargeUp;
@@ -42,10 +48,17 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedMovieList));
-        this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedMovieList));
-        this.searchStat$ = this.store.pipe(select(fromMovieRoot.getSearchStat));
-        this.searchType$ = this.store.pipe(select(fromMovieRoot.getSearchType));
+        // this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedMovieList));
+        // this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedMovieList));
+        // this.searchStat$ = this.store.pipe(select(fromMovieRoot.getSearchStat));
+        // this.searchType$ = this.store.pipe(select(fromMovieRoot.getSearchType));
+
+        this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
+        this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
+        this.searchType$ = this.store.pipe(select(fromRoot.getSearchQuery));
+        this.searchPage$ = this.store.pipe(select(fromRoot.getSearchPage));
+        this.searchTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
+        this.searchType$ = this.store.pipe(select(fromRoot.getSearchQuery));
 
         this.breakpointSub = this.breakpointObserver
             .observe([
@@ -61,7 +74,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     }
 
     public goToPage( event: any ): void {
-        this.store.dispatch(new movieActions.SearchList({type: event.type, page: event.page}));
+        this.store.dispatch(new searchActions.SearchList({query: event.type, page: event.page}));
     }
 
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {

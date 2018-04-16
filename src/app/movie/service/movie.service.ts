@@ -23,17 +23,17 @@ export class MovieService {
     constructor( private http: HttpClient ) {
     }
 
-    public searchList( type: string, page: number = 1 ): Observable<IAudio[]> {
+    public searchList( query: string, page: number = 1 ): Observable<IAudio[]> {
 
-        if (type === 'anticipated') {
+        if (query === 'anticipated') {
             return this.getAnticipatedMovieList(page);
         }
 
-        const url = this.base_url + `movie/${type}`;
+        const url = this.base_url + `movie/${query}`;
 
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
             map(( res: any ) => {
-                return {...res, type: type};
+                return {...res, query: query, type: 'movie'};
             }),
             catchError(this.handleError)
         );
@@ -59,12 +59,12 @@ export class MovieService {
         return this.discoverMovieList('anticipated', queries);
     }
 
-    public discoverMovieList( type: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
+    public discoverMovieList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
         const url = this.base_url + 'discover/movie';
 
         return this.getResult(url, queries).pipe(
             map(( res: any ) => {
-                return {...res, type: type};
+                return {...res, query: query, type: 'movie'};
             }),
             catchError(this.handleError)
         );

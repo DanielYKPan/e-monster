@@ -1,7 +1,8 @@
 <section class="frame-wrapper">
     <div class="frame-sidenav">
         <app-movie-list-sidenav [showNavMenu]="!isLargeUp"
-                                [searchStat]="searchStat$ | async"
+                                [searchPage]="searchPage$ | async"
+                                [searchTotalPages]="searchTotalPages$ | async"
                                 [type]="searchType$ | async"
                                 (goToPage)="goToPage($event)"></app-movie-list-sidenav>
     </div>

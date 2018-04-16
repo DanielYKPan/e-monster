@@ -9,6 +9,7 @@ import { MovieService } from '../service/movie.service';
 import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import * as movieActions from '../actions/movie';
+import * as searchActions from '../../search/actions';
 import * as movieVideoActions from '../actions/video';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -47,7 +48,7 @@ export class MovieExistGuard implements CanActivate {
 
     private hasMovieInApi( id: number ): Observable<boolean> {
 
-        this.store.dispatch(new movieActions.LoadingStart());
+        this.store.dispatch(new searchActions.LoadingStart());
         return this.movieService.getMovie(id).pipe(
             map(res => {
                 const movie = res[0];
@@ -60,7 +61,7 @@ export class MovieExistGuard implements CanActivate {
             }),
             tap(( action: movieActions.Load ) => {
                 this.store.dispatch(action);
-                this.store.dispatch(new movieActions.LoadingCompleted());
+                this.store.dispatch(new searchActions.LoadingCompleted());
             }),
             map(movie => !!movie),
             catchError(() => {

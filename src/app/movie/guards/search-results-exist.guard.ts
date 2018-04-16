@@ -9,9 +9,10 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 import { MovieService } from '../service/movie.service';
 import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
+import * as fromRoot from '../../reducers';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { SearchListComplete, LoadingStart } from '../actions/movie';
+import { LoadingStart, SearchListComplete } from '../../search/actions';
 
 @Injectable()
 export class SearchResultsExistGuard implements CanActivate {
@@ -43,11 +44,11 @@ export class SearchResultsExistGuard implements CanActivate {
     private hasSearchResultsInStore( type: string ): Observable<boolean> {
 
         return forkJoin(
-            this.store.pipe(select(fromMoviesRoot.getSearchType), take(1)),
-            this.store.pipe(select(fromMoviesRoot.getSearchStat), take(1)),
-            this.store.pipe(select(fromMoviesRoot.getSearchResults), take(1))
+            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => type === result[0] && result[1].page === 1 && result[2] && result[2].length > 0)
+            map(( result: any ) => type === result[0] && result[1] === 1 && result[2] && result[2].length > 0)
         );
     }
 

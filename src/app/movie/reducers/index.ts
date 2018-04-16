@@ -3,13 +3,11 @@
  */
 
 import * as fromMovies from './movie';
-import * as fromSearch from './search';
 import * as fromVideos from './video';
 import * as fromRoot from '../../reducers';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface MoviesState {
-    search: fromSearch.State;
     movies: fromMovies.State;
     videos: fromVideos.State;
 }
@@ -19,66 +17,17 @@ export interface State extends fromRoot.State {
 }
 
 export const reducers: ActionReducerMap<MoviesState> = {
-    search: fromSearch.reducer,
     movies: fromMovies.reducer,
     videos: fromVideos.reducer,
 };
 
 export const getMoviesState = createFeatureSelector<MoviesState>('movies');
 
-export const getSearchState = createSelector(
-    getMoviesState,
-    ( state: MoviesState ) => state.search
-);
-
-export const getSearchStat = createSelector(
-    getSearchState,
-    fromSearch.getSearchStat,
-);
-
-export const getSearchType = createSelector(
-    getSearchState,
-    fromSearch.getType,
-);
-
-export const getSearchLoading = createSelector(
-    getSearchState,
-    fromSearch.getLoading,
-);
-
-export const getSearchResults = createSelector(
-    getSearchState,
-    fromSearch.getSearchResults
-);
-
 export const getMovieEntityState = createSelector(
     getMoviesState,
     ( state: MoviesState ) => state.movies
 );
 
-export const getSearchFeaturedMovieList = createSelector(
-    getSearchResults,
-    ( movies ) => {
-        return movies.slice(0, 2);
-    }
-);
-
-export const getSearchNonFeaturedMovieList = createSelector(
-    getSearchResults,
-    ( movies ) => {
-        return movies.slice(2);
-    }
-);
-
-export const getRandomMovieBackdrop = createSelector(
-    getSearchResults,
-    ( movies ) => {
-        if (movies && movies.length) {
-            const random = movies[Math.floor(Math.random() * movies.length)];
-            return random.backdrop_path;
-        }
-    }
-);
 
 export const getMovieVideosEntityState = createSelector(
     getMoviesState,
