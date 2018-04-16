@@ -10,17 +10,13 @@ import { IMovie, IMovieCast, IMovieCrew, IMovieGenre, IMovieReviews, IMovieVideo
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { IAudio } from '../../model/audio';
+import { TMDBService } from '../../tmdb';
 
 @Injectable()
-export class MovieService {
-
-    private readonly apikey = '0ea0b3ae1ad79cc9e6354410580840c3';
-
-    private readonly region = 'US';
-
-    private readonly base_url = 'https://api.themoviedb.org/3/';
+export class MovieService extends TMDBService {
 
     constructor( private http: HttpClient ) {
+        super();
     }
 
     public searchList( query: string, page: number = 1 ): Observable<IAudio[]> {
