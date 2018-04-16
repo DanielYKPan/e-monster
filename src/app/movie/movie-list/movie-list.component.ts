@@ -2,16 +2,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import { ISearchStat } from '../movie.model';
 import { select, Store } from '@ngrx/store';
 import * as fromMovieRoot from '../reducers';
 import * as fromRoot from '../../reducers';
 import * as searchActions from '../../search/actions';
-import * as movieActions from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
-import { IAudio } from '../../model/audio';
+import { IAudio } from '../../model';
 
 @Component({
     selector: 'app-movie-list',
@@ -24,8 +22,6 @@ export class MovieListComponent implements OnInit, OnDestroy {
     public list$: Observable<IAudio[]>;
 
     public featuredList$: Observable<IAudio[]>;
-
-    public searchStat$: Observable<ISearchStat>;
 
     public searchType$: Observable<string>;
 
@@ -47,11 +43,6 @@ export class MovieListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-
-        // this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedMovieList));
-        // this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedMovieList));
-        // this.searchStat$ = this.store.pipe(select(fromMovieRoot.getSearchStat));
-        // this.searchType$ = this.store.pipe(select(fromMovieRoot.getSearchType));
 
         this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));

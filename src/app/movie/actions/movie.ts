@@ -3,7 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
-import { IMovie } from '../movie.model';
+import { IMovie } from '../../model';
 
 export enum MovieActionTypes {
     Select = '[Movies] Select',

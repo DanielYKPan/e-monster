@@ -1,6 +1,7 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
-import { IMovie, IMovieCrew } from '../movie.model';
+import { ICrew } from '../../model/crew';
+import { IMovie } from '../../model/movie';
 
 @Component({
     selector: 'app-movie-cast-dialog',
@@ -13,19 +14,19 @@ export class MovieCastDialogComponent implements OnInit, AfterContentInit {
 
     public movie: IMovie;
 
-    get movieDirectors(): IMovieCrew[] {
+    get movieDirectors(): ICrew[] {
         return this.movie.crews.filter(( p ) => p.job === 'Director');
     }
 
-    get movieExProducers(): IMovieCrew[] {
+    get movieExProducers(): ICrew[] {
         return this.movie.crews.filter(( p ) => p.job === 'Executive Producer');
     }
 
-    get movieProducers(): IMovieCrew[] {
+    get movieProducers(): ICrew[] {
         return this.movie.crews.filter(( p ) => p.job === 'Producer');
     }
 
-    get movieWriters(): IMovieCrew[] {
+    get movieWriters(): ICrew[] {
         return this.movie.crews.filter(( p ) => p.department === 'Writing');
     }
 

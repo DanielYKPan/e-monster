@@ -2,14 +2,14 @@
  * video
  */
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IMovieVideos } from '../movie.model';
 import { MovieVideosActions, MovieVideosActionTypes } from '../actions/video';
+import { IVideos } from '../../model';
 
-export interface State extends EntityState<IMovieVideos> {
+export interface State extends EntityState<IVideos> {
     selectedMovieId: number | null;
 }
 
-export const adapter: EntityAdapter<IMovieVideos> = createEntityAdapter<IMovieVideos>({
+export const adapter: EntityAdapter<IVideos> = createEntityAdapter<IVideos>({
     selectId: movieVideos => movieVideos.id,
     sortComparer: false,
 });

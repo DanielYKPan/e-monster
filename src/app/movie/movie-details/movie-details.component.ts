@@ -9,11 +9,10 @@ import * as movieVideoActions from '../actions/video';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { IMovie, IMovieVideo } from '../movie.model';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 import { MovieCastDialogComponent } from '../movie-cast-dialog/movie-cast-dialog.component';
 import { OwlDialogService } from 'owl-ng';
-import { IAudio } from '../../model/audio';
+import { IAudio, IMovie, IVideo } from '../../model';
 
 @Component({
     selector: 'app-movie-details',
@@ -28,7 +27,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     @ViewChild('castListWrapper') castListWrapperRef: ElementRef;
 
     public movie$: Observable<IMovie>;
-    public movieVideos$: Observable<IMovieVideo[]>;
+    public movieVideos$: Observable<IVideo[]>;
 
     private actionsSubscription: Subscription;
 

@@ -10,7 +10,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { IMovie, IMovieCrew, IMovieVideo } from '../../movie.model';
+import { IMovie, IVideo, ICrew } from '../../../model';
 
 @Component({
     selector: 'app-movie-details-content',
@@ -26,7 +26,7 @@ export class MovieDetailsContentComponent implements OnInit, OnChanges {
 
     @Input() movie: IMovie;
 
-    @Input() movieVideos: IMovieVideo[];
+    @Input() movieVideos: IVideo[];
 
     @Output() movieVideoClick = new EventEmitter<any>();
 
@@ -37,14 +37,14 @@ export class MovieDetailsContentComponent implements OnInit, OnChanges {
     public castListSlideDistance = 0;
 
     // TODO: change it to link in html template
-    get movieDirectors(): IMovieCrew[] {
+    get movieDirectors(): ICrew[] {
         if (this.movie) {
             return this.movie.crews.filter(( crew ) => crew.job === 'Director');
         }
     }
 
     // TODO: change it to link in html template
-    get movieWriters(): IMovieCrew[] {
+    get movieWriters(): ICrew[] {
         if (this.movie) {
             return this.movie.crews.filter(( crew ) => crew.department === 'Writing');
         }
@@ -62,7 +62,7 @@ export class MovieDetailsContentComponent implements OnInit, OnChanges {
         }
     }
 
-    public clickVideo( video: IMovieVideo, event: any ): void {
+    public clickVideo( video: IVideo, event: any ): void {
         this.movieVideoClick.emit({
             title: this.movie.title,
             videoKey: video.key,

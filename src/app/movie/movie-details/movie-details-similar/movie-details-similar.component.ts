@@ -8,12 +8,11 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { IMovie } from '../../movie.model';
 import { Observable } from 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
-import { IAudio } from '../../../model/audio';
+import { IAudio, IMovie } from '../../../model';
 
 @Component({
     selector: 'app-movie-details-similar',

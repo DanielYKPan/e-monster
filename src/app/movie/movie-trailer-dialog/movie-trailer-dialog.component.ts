@@ -8,11 +8,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
-import { IMovieVideo } from '../movie.model';
 import * as fromMovieRoot from '../reducers';
 import * as movieVideos from '../actions/video';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { IVideo } from '../../model';
 
 @Component({
     selector: 'app-movie-trailer-dialog',
@@ -27,7 +27,7 @@ export class MovieTrailerDialogComponent implements OnInit, AfterContentInit, On
 
     public videoKey: string;
 
-    public movieVideo$: Observable<IMovieVideo>;
+    public movieVideo$: Observable<IVideo>;
 
     constructor( public dialogRef: OwlDialogRef<MovieTrailerDialogComponent>,
                  private store: Store<fromMovieRoot.State>,

@@ -6,10 +6,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { IMovie, IMovieCast, IMovieCrew, IMovieGenre, IMovieReviews, IMovieVideos } from '../movie.model';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { IAudio } from '../../model/audio';
+import { IAudio, ICast, ICrew, IGenre, IMovie, IReviews, IVideos } from '../../model';
 import { TMDBService } from '../../tmdb';
 
 @Injectable()
@@ -66,7 +65,7 @@ export class MovieService extends TMDBService {
         );
     }
 
-    public getMovieGenreList(): Observable<IMovieGenre[]> {
+    public getMovieGenreList(): Observable<IGenre[]> {
         const url = 'https://api.themoviedb.org/3/genre/movie/list';
 
         return this.getResult(url).pipe(
@@ -75,7 +74,7 @@ export class MovieService extends TMDBService {
         );
     }
 
-    public getMovieVideos( id: number ): Observable<IMovieVideos> {
+    public getMovieVideos( id: number ): Observable<IVideos> {
 
         const url = this.base_url + `movie/${id}/videos`;
 
@@ -84,7 +83,7 @@ export class MovieService extends TMDBService {
         );
     }
 
-    public getMovieReviews( id: number, page: number = 1 ): Observable<IMovieReviews[]> {
+    public getMovieReviews( id: number, page: number = 1 ): Observable<IReviews[]> {
         const url = this.base_url + `movie/${id}/reviews`;
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
             catchError(this.handleError)
@@ -93,8 +92,8 @@ export class MovieService extends TMDBService {
 
     public getMovie( id: number ): Observable<[
         IMovie,
-        { id: number, cast: IMovieCast[], crew: IMovieCrew[] },
-        IMovieReviews,
+        { id: number, cast: ICast[], crew: ICrew[] },
+        IReviews,
         { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string },
         { page: number, results: IAudio[], total_pages: number, total_results: number }]> {
 

@@ -2,8 +2,8 @@
  * movie
  */
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IMovie } from '../movie.model';
 import { MovieActions, MovieActionTypes } from '../actions/movie';
+import { IMovie } from '../../model';
 
 export interface State extends EntityState<IMovie> {
     selectedMovieId: number | null;

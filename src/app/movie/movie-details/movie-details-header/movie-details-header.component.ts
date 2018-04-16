@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { IMovie } from '../../movie.model';
+import { IMovie } from '../../../model';
 
 @Component({
     selector: 'app-movie-details-header',
