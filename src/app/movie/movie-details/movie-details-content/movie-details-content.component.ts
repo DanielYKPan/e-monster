@@ -39,14 +39,14 @@ export class MovieDetailsContentComponent implements OnInit, OnChanges {
     // TODO: change it to link in html template
     get movieDirectors(): ICrew[] {
         if (this.movie) {
-            return this.movie.crews.filter(( crew ) => crew.job === 'Director');
+            return this.movie.credits.crew.filter(( crew ) => crew.job === 'Director');
         }
     }
 
     // TODO: change it to link in html template
     get movieWriters(): ICrew[] {
         if (this.movie) {
-            return this.movie.crews.filter(( crew ) => crew.department === 'Writing');
+            return this.movie.credits.crew.filter(( crew ) => crew.department === 'Writing');
         }
     }
 

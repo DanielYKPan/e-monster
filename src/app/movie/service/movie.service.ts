@@ -7,8 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { IAudio, ICast, ICrew, IGenre, IMovie, IReviews, IVideos } from '../../model';
+import { IAudio, IGenre, IMovie, IReviews, IVideos } from '../../model';
 import { TMDBService } from '../../tmdb';
 
 @Injectable()
@@ -90,30 +89,14 @@ export class MovieService extends TMDBService {
         );
     }
 
-    public getMovie( id: number ): Observable<[
-        IMovie,
-        { id: number, cast: ICast[], crew: ICrew[] },
-        IReviews,
-        { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string },
-        { page: number, results: IAudio[], total_pages: number, total_results: number }]> {
+    public getMovie( id: number ): Observable<IMovie> {
 
         const details_url = this.base_url + `movie/${id}`;
+        const queries = [
+            {name: 'append_to_response', value: 'credits,reviews,external_ids,similar'},
+        ];
 
-        const credits_url = this.base_url + `movie/${id}/credits`;
-
-        const reviews_url = this.base_url + `movie/${id}/reviews`;
-
-        const external_url = this.base_url + `movie/${id}/external_ids`;
-
-        const similar_url = this.base_url + `movie/${id}/similar`;
-
-        return forkJoin(
-            this.getResult(details_url),
-            this.getResult(credits_url),
-            this.getResult(reviews_url),
-            this.getResult(external_url),
-            this.getResult(similar_url),
-        ).pipe(
+        return this.getResult(details_url, queries).pipe(
             catchError(this.handleError)
         );
     }

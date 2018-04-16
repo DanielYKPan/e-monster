@@ -29,9 +29,8 @@ export interface IMovie {
     video: boolean;
     vote_average: number;
     vote_count: number;
-    casts: ICast[];
-    crews: ICrew[];
+    credits: {cast: ICast[], crew: ICrew[]};
     reviews: IReviews;
-    external: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
-    similar: IAudio[];
+    external_ids: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
+    similar: {page: number, results: IAudio[], total_pages: number, total_results: number};
 }

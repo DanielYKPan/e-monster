@@ -50,15 +50,7 @@ export class MovieExistGuard implements CanActivate {
 
         this.store.dispatch(new searchActions.LoadingStart());
         return this.movieService.getMovie(id).pipe(
-            map(res => {
-                const movie = res[0];
-                movie.casts = res[1].cast;
-                movie.crews = res[1].crew;
-                movie.reviews = res[2];
-                movie.external = res[3];
-                movie.similar = res[4].results;
-                return new movieActions.Load(movie);
-            }),
+            map(res => new movieActions.Load(res)),
             tap(( action: movieActions.Load ) => {
                 this.store.dispatch(action);
                 this.store.dispatch(new searchActions.LoadingCompleted());

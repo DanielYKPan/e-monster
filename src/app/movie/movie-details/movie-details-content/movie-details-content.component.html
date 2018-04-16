@@ -17,33 +17,33 @@
                     <a [href]="movie.homepage" target="_blank">Official</a>
                 </li>
 
-                <li *ngIf="movie.external.imdb_id"
+                <li *ngIf="movie.external_ids.imdb_id"
                     class="external-item" owlTooltip="IMDB">
-                    <a [href]="'http://www.imdb.com/title/' + movie.external.imdb_id"
+                    <a [href]="'http://www.imdb.com/title/' + movie.external_ids.imdb_id"
                        target="_blank">IMDB</a>
                 </li>
 
-                <li *ngIf="movie.external.id"
+                <li *ngIf="movie.external_ids.id"
                     class="external-item" owlTooltip="TMDB">
-                    <a [href]="'https://www.themoviedb.org/movie/' + movie.external.id"
+                    <a [href]="'https://www.themoviedb.org/movie/' + movie.external_ids.id"
                        target="_blank">TMDB</a>
                 </li>
 
-                <li *ngIf="movie.external.facebook_id"
-                    class="external-item" [owlTooltip]="'Facebook @' + movie.external.facebook_id">
-                    <a [href]="'http://www.facebook.com/' + movie.external.facebook_id"
+                <li *ngIf="movie.external_ids.facebook_id"
+                    class="external-item" [owlTooltip]="'Facebook @' + movie.external_ids.facebook_id">
+                    <a [href]="'http://www.facebook.com/' + movie.external_ids.facebook_id"
                        target="_blank"><i class="fab fa-facebook-f"></i></a>
                 </li>
 
-                <li *ngIf="movie.external.instagram_id"
-                    class="external-item" [owlTooltip]="'Instagram @' + movie.external.instagram_id">
-                    <a [href]="'http://www.instagram.com/' + movie.external.instagram_id"
+                <li *ngIf="movie.external_ids.instagram_id"
+                    class="external-item" [owlTooltip]="'Instagram @' + movie.external_ids.instagram_id">
+                    <a [href]="'http://www.instagram.com/' + movie.external_ids.instagram_id"
                        target="_blank"><i class="fab fa-instagram"></i></a>
                 </li>
 
-                <li *ngIf="movie.external.twitter_id"
-                    class="external-item" [owlTooltip]="'Twitter @' + movie.external.twitter_id">
-                    <a [href]="'http://www.twitter.com/' + movie.external.twitter_id"
+                <li *ngIf="movie.external_ids.twitter_id"
+                    class="external-item" [owlTooltip]="'Twitter @' + movie.external_ids.twitter_id">
+                    <a [href]="'http://www.twitter.com/' + movie.external_ids.twitter_id"
                        target="_blank"><i class="fab fa-twitter"></i></a>
                 </li>
             </ul>
@@ -89,20 +89,20 @@
             <li class="stats-item links">
                 <label>links:</label>
                 <a *ngIf="movie.homepage" [href]="movie.homepage" target="_blank">Official</a>
-                <a *ngIf="movie.external.imdb_id"
-                   [href]="'http://www.imdb.com/title/' + movie.external.imdb_id"
+                <a *ngIf="movie.external_ids.imdb_id"
+                   [href]="'http://www.imdb.com/title/' + movie.external_ids.imdb_id"
                    target="_blank">IMDB</a>
-                <a *ngIf="movie.external.id"
-                   [href]="'https://www.themoviedb.org/movie/' + movie.external.id"
+                <a *ngIf="movie.external_ids.id"
+                   [href]="'https://www.themoviedb.org/movie/' + movie.external_ids.id"
                    target="_blank">TMDB</a>
-                <a *ngIf="movie.external.facebook_id"
-                   [href]="'http://www.facebook.com/' + movie.external.facebook_id"
+                <a *ngIf="movie.external_ids.facebook_id"
+                   [href]="'http://www.facebook.com/' + movie.external_ids.facebook_id"
                    target="_blank">Facebook</a>
-                <a *ngIf="movie.external.twitter_id"
-                   [href]="'http://www.twitter.com/' + movie.external.twitter_id"
+                <a *ngIf="movie.external_ids.twitter_id"
+                   [href]="'http://www.twitter.com/' + movie.external_ids.twitter_id"
                    target="_blank">Twitter</a>
-                <a *ngIf="movie.external.instagram_id"
-                   [href]="'http://www.instagram.com/' + movie.external.instagram_id"
+                <a *ngIf="movie.external_ids.instagram_id"
+                   [href]="'http://www.instagram.com/' + movie.external_ids.instagram_id"
                    target="_blank">Instagram</a>
             </li>
         </ul>
@@ -144,9 +144,9 @@
 
                 <div class="cast-crew-wrapper" #castListWrapper>
                     <ul class="cast-crew-list"
-                        [style.width.px]="movie.casts.length * castProfileWidth"
+                        [style.width.px]="movie.credits.cast.length * castProfileWidth"
                         [style.transform]="'translateX(' + -castListSlideDistance + 'px)'" #castList>
-                        <li *ngFor="let cast of movie.casts" class="cast-crew-list-item"
+                        <li *ngFor="let cast of movie.credits.cast" class="cast-crew-list-item"
                             [style.width.px]="castProfileWidth">
 
                             <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"

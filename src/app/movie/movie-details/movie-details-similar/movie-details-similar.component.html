@@ -1,4 +1,4 @@
-<section *ngIf="movie.similar.length > 0" class="movie-details-similar-wrapper">
+<section *ngIf="movie.similar.results.length > 0" class="movie-details-similar-wrapper">
     <div class="movie-details-container">
         <h2 class="header">
             If you like <strong>{{movie.title}}</strong>, check out ...
@@ -12,9 +12,9 @@
 
             <div class="movie-list-wrapper" #movieListWrapper>
                 <ul class="movie-list"
-                    [style.width.px]="movie.similar.length * movieItemWidth"
+                    [style.width.px]="movie.similar.results.length * movieItemWidth"
                     [style.transform]="'translateX(' + -movieListSlideDistance + 'px)'" #movieList>
-                    <li *ngFor="let m of movie.similar" class="movie-list-item"
+                    <li *ngFor="let m of movie.similar.results" class="movie-list-item"
                         [style.width.px]="movieItemWidth">
                         <app-audio-card [audio]="m"
                                         imageType="poster"

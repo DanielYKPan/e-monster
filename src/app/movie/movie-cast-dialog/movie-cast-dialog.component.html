@@ -91,7 +91,7 @@
         <tr>
             <td colspan="4"></td>
         </tr>
-        <tr *ngFor="let cast of movie.casts">
+        <tr *ngFor="let cast of movie.credits.cast">
             <td class="profile-photo">
                 <a>
                     <img *ngIf="cast.profile_path;else abstractImg"
@@ -125,7 +125,7 @@
             <col class="column3">
         </colgroup>
         <tbody>
-        <tr *ngFor="let crew of movie.crews">
+        <tr *ngFor="let crew of movie.credits.crew">
             <td class="name">
                 <a>{{crew.name}}</a>
             </td>
