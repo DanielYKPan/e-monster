@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { IAudio } from '../../model/audio';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, map } from 'rxjs/operators';
+import { ITv } from '../../model';
 
 @Injectable()
 export class TvService extends TMDBService {
@@ -58,6 +59,18 @@ export class TvService extends TMDBService {
             map(( res: any ) => {
                 return {...res, query: query, type: 'tv'};
             }),
+            catchError(this.handleError)
+        );
+    }
+
+    public getTv( id: number ): Observable<ITv> {
+        const details_url = this.base_url + `tv/${id}`;
+
+        const queries = [
+            {name: 'append_to_response', value: 'credits,reviews,external_ids,similar,videos'},
+        ];
+
+        return this.getResult(details_url, queries).pipe(
             catchError(this.handleError)
         );
     }

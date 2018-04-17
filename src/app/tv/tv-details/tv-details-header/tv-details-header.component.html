@@ -1,0 +1,40 @@
+<section class="tv-details-header">
+    <div class="backdrop"
+         [lazyLoad]="'https://image.tmdb.org/t/p/w1280' + tv.backdrop_path"></div>
+
+    <div class="content">
+        <div class="tv-details-container summary">
+            <div class="poster">
+                <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + tv.poster_path"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     alt="Poster">
+            </div>
+            <h1 class="title">
+                {{tv.name}}
+                <span class="year">{{tv.first_air_date | yearString}}</span>
+            </h1>
+        </div>
+
+        <div class="ratings-wrapper">
+            <div class="tv-details-container">
+                <ul class="ratings-list">
+                    <li class="ratings-list-item">
+                        <i class="heart-icon red fas fa-heart"></i>
+                        <div class="number">
+                            <div class="main">{{tv.vote_average | votePercentage}}</div>
+                            <div class="vote">{{tv.vote_count}} votes</div>
+                        </div>
+                    </li>
+
+                    <li class="ratings-list-item">
+                        <i class="heart-icon far fa-heart"></i>
+                        <div class="number">
+                            <div class="main">Rate this TV series</div>
+                            <div class="vote">What did you think?</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>

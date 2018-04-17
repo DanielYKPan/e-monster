@@ -3,6 +3,8 @@
  */
 import { ICrew } from './crew';
 import { IGenre } from './genre';
+import { ICast } from './cast';
+import { IReviews } from './review';
 
 export interface ITv {
     backdrop_path: string;
@@ -39,4 +41,7 @@ export interface ITv {
     type: string;
     vote_average: number;
     vote_count: number;
+    external_ids: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
+    credits: {cast: ICast[], crew: ICrew[]};
+    reviews: IReviews;
 }

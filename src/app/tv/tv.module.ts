@@ -14,6 +14,10 @@ import { TvListExistGuard } from './guards/tv-list-exist.guard';
 import { TvListSidenavComponent } from './tv-list/tv-list-sidenav/tv-list-sidenav.component';
 import { TvListContentComponent } from './tv-list/tv-list-content/tv-list-content.component';
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
+import { TvDetailsComponent } from './tv-details/tv-details.component';
+import { TvExistGuard } from './guards/tv-exist.guard';
+import { TvDetailsHeaderComponent } from './tv-details/tv-details-header/tv-details-header.component';
+import { TvDetailsContentComponent } from './tv-details/tv-details-content/tv-details-content.component';
 
 @NgModule({
     imports: [
@@ -33,11 +37,15 @@ import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from
         TvComponent,
         TvListComponent,
         TvListSidenavComponent,
-        TvListContentComponent
+        TvListContentComponent,
+        TvDetailsComponent,
+        TvDetailsHeaderComponent,
+        TvDetailsContentComponent
     ],
     providers: [
         TvService,
         TvListExistGuard,
+        TvExistGuard,
     ]
 })
 export class TvModule {
