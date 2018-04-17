@@ -13,7 +13,7 @@ const routes: Routes = [
         component: MovieComponent,
         children: [
             {path: '', component: MovieHomeComponent, canActivate: [SearchResultsExistGuard]},
-            {path: 'list/:type', component: MovieListComponent, canActivate: [SearchResultsExistGuard]},
+            {path: 'list/:query', component: MovieListComponent, canActivate: [SearchResultsExistGuard]},
             {path: ':id/details', component: MovieDetailsComponent, canActivate: [MovieExistGuard]},
         ]
     },

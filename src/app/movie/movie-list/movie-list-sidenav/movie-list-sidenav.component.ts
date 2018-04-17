@@ -10,29 +10,29 @@ export class MovieListSidenavComponent implements OnInit {
 
     @Input() showNavMenu: boolean;
 
-    @Input() searchPage: number;
+    @Input() listPage: number;
 
-    @Input() searchTotalPages: number;
+    @Input() listTotalPages: number;
 
-    @Input() type: string;
+    @Input() listQuery: string;
 
     @Output() goToPage = new EventEmitter<any>();
 
     public items = [
-        {name: 'Trending', type: 'now_playing', info: 'The movies currently in theatres'},
-        {name: 'Popular', type: 'popular', info: 'The current popular movies'},
-        {name: 'Upcoming', type: 'upcoming', info: 'The upcoming movies in theatres'},
-        {name: 'Anticipated', type: 'anticipated', info: 'The most anticipated movies in the next couple years'},
-        {name: 'Top Rated', type: 'top_rated', info: 'The top rated movies'},
+        {name: 'Trending', listQuery: 'now_playing', info: 'The movies currently in theatres'},
+        {name: 'Popular', listQuery: 'popular', info: 'The current popular movies'},
+        {name: 'Upcoming', listQuery: 'upcoming', info: 'The upcoming movies in theatres'},
+        {name: 'Anticipated', listQuery: 'anticipated', info: 'The most anticipated movies in the next couple years'},
+        {name: 'Top Rated', listQuery: 'top_rated', info: 'The top rated movies'},
     ];
 
     get sidenavInfo(): string {
-        const current_item = this.items.find(( item ) => item.type === this.type);
+        const current_item = this.items.find(( item ) => item.listQuery === this.listQuery);
         return current_item ? current_item.info : null;
     }
 
     get sidenavMenuName(): string {
-        const current_item = this.items.find(( item ) => item.type === this.type);
+        const current_item = this.items.find(( item ) => item.listQuery === this.listQuery);
         return current_item ? current_item.name : 'Menu';
     }
 
@@ -43,20 +43,20 @@ export class MovieListSidenavComponent implements OnInit {
     }
 
     public prev( event: any ): void {
-        this.toPage(this.searchPage - 1);
+        this.toPage(this.listPage - 1);
         event.preventDefault();
     }
 
     public next( event: any ): void {
-        this.toPage(this.searchPage + 1);
+        this.toPage(this.listPage + 1);
         event.preventDefault();
     }
 
     private toPage( page: number ): void {
-        if (page < 1 || page > this.searchTotalPages) {
+        if (page < 1 || page > this.listTotalPages) {
             return;
         }
 
-        this.goToPage.next({type: this.type, page: page});
+        this.goToPage.next({listQuery: this.listQuery, page: page});
     }
 }

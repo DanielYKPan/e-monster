@@ -2,12 +2,12 @@
     <h1 class="frame-sidenav-title">
         Movies
         <button class="paginator prev"
-                [class.paginator-hidden]="searchPage === 1"
+                [class.paginator-hidden]="listPage === 1"
                 (click)="prev($event)">
             <i class="fas fa-caret-left"></i>
         </button>
         <button class="paginator next"
-                [class.paginator-hidden]="searchPage === searchTotalPages"
+                [class.paginator-hidden]="listPage === listTotalPages"
                 (click)="next($event)">
             <i class="fas fa-caret-right"></i>
         </button>
@@ -21,7 +21,7 @@
         </button>
         <owl-menu #menu="owlMenu">
             <button *ngFor="let item of items" owl-menu-item
-                    [routerLink]="'/movies/list/' + item.type"
+                    [routerLink]="'/movies/list/' + item.listQuery"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{item.name}}
             </button>
         </owl-menu>
@@ -30,7 +30,7 @@
     <ng-template #navList>
         <ul class="frame-sidenav-list">
             <li *ngFor="let item of items" class="frame-sidenav-list-item">
-                <a [routerLink]="'/movies/list/' + item.type"
+                <a [routerLink]="'/movies/list/' + item.listQuery"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                     {{item.name}}
                 </a>

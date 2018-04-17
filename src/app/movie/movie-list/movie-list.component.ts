@@ -23,11 +23,11 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>;
 
-    public searchType$: Observable<string>;
+    public listQuery$: Observable<string>;
 
-    public searchPage$: Observable<number>;
+    public listPage$: Observable<number>;
 
-    public searchTotalPages$: Observable<number>;
+    public listTotalPages$: Observable<number>;
 
     private _isLargeUp = false;
     get isLargeUp(): boolean {
@@ -46,9 +46,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
         this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.searchType$ = this.store.pipe(select(fromRoot.getSearchQuery));
-        this.searchPage$ = this.store.pipe(select(fromRoot.getSearchPage));
-        this.searchTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
+        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
+        this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
+        this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
 
         this.breakpointSub = this.breakpointObserver
             .observe([
@@ -64,7 +64,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     }
 
     public goToPage( event: any ): void {
-        this.store.dispatch(new searchActions.SearchList({query: event.type, page: event.page}));
+        this.store.dispatch(new searchActions.SearchList({query: event.listQuery, page: event.page}));
     }
 
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
