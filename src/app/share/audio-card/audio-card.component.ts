@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IAudio } from '../../model/audio';
+import { IAudio } from '../../model';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -12,8 +12,6 @@ export class AudioCardComponent implements OnInit {
 
     @Input() audio: IAudio;
 
-    @Input() audioType: 'movies' | 'tv' = 'movies';
-
     @Input() imageType: 'backdrop' | 'poster' = 'backdrop';
 
     @Input() showTitle = true;
@@ -21,6 +19,8 @@ export class AudioCardComponent implements OnInit {
     @Input() scrollTarget: HTMLElement;
 
     @Input() scrollObservable: Observable<any>;
+
+    @Input() cardLink: string;
 
     @Output() addCollection = new EventEmitter<{ audio: IAudio, event: any }>();
 

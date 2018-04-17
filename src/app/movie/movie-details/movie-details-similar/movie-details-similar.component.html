@@ -19,6 +19,7 @@
                         <app-audio-card [audio]="m"
                                         imageType="poster"
                                         [showTitle]="false"
+                                        [cardLink]="'/movies/' + m.id + '/details'"
                                         [scrollObservable]="scrollObservable"
                                         (playVideo)="playVideo.next($event)"></app-audio-card>
                         <h3 class="movie-title">{{m.title}}</h3>
