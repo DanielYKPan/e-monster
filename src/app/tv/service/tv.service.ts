@@ -18,11 +18,45 @@ export class TvService extends TMDBService {
     }
 
     public getTvList( query: string, page: number = 1 ): Observable<IAudio[]> {
+
+        if (query === 'anticipated') {
+            return this.getAnticipatedTvList(page);
+        }
+
         const url = this.base_url + `tv/${query}`;
 
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'movie'};
+                return {...res, query: query, type: 'tv'};
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    public getAnticipatedTvList( page: number ): Observable<IAudio[]> {
+        const start = new Date();
+        const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
+        const air_date_gte = start.toISOString().slice(0, 10);
+        const air_date_lte = end.toISOString().slice(0, 10);
+
+        const queries = [
+            {name: 'language', value: 'en-US'},
+            {name: 'sort_by', value: 'popularity.desc'},
+            {name: 'page', value: page.toString()},
+            {name: 'air_date.gte', value: air_date_gte},
+            {name: 'air_date.lte', value: air_date_lte},
+            {name: 'include_null_first_air_dates', value: 'true'},
+        ];
+
+        return this.discoverTvList('anticipated', queries);
+    }
+
+    public discoverTvList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
+        const url = this.base_url + 'discover/tv';
+
+        return this.getResult(url, queries).pipe(
+            map(( res: any ) => {
+                return {...res, query: query, type: 'tv'};
             }),
             catchError(this.handleError)
         );

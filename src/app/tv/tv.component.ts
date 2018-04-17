@@ -1,4 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { select, Store } from '@ngrx/store';
+import * as fromTvRoot from './reducers';
+import * as fromRoot from '../reducers';
 
 @Component({
     selector: 'app-tv',
@@ -8,10 +12,16 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class TvComponent implements OnInit {
 
-    constructor() {
+    public showLoader$: Observable<boolean>;
+
+    constructor( private store: Store<fromTvRoot.State> ) {
     }
 
     ngOnInit() {
+        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchLoading));
     }
 
+    public onDeactivate() {
+        window.scrollTo(0, 0);
+    }
 }

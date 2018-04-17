@@ -1,0 +1,12 @@
+<div class="tv-grid featured">
+    <app-audio-card *ngFor="let tv of featuredList" class="tv-card"
+                    [audio]="tv" [scrollTarget]="hostElm"
+                    (addCollection)="addCollection.next($event)"
+                    (playVideo)="playVideo.next($event)"></app-audio-card>
+</div>
+<div class="tv-grid">
+    <app-audio-card *ngFor="let tv of list" class="tv-card"
+                    [audio]="tv" [scrollTarget]="hostElm"
+                    (addCollection)="addCollection.next($event)"
+                    (playVideo)="playVideo.next($event)"></app-audio-card>
+</div>

@@ -49,7 +49,6 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.searchType$ = this.store.pipe(select(fromRoot.getSearchQuery));
         this.searchPage$ = this.store.pipe(select(fromRoot.getSearchPage));
         this.searchTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
-        this.searchType$ = this.store.pipe(select(fromRoot.getSearchQuery));
 
         this.breakpointSub = this.breakpointObserver
             .observe([

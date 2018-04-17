@@ -12,12 +12,12 @@ import {
 import { IAudio } from '../../../model';
 
 @Component({
-    selector: 'app-movie-list-content',
-    templateUrl: './movie-list-content.component.html',
-    styleUrls: ['./movie-list-content.component.scss'],
+    selector: 'app-tv-list-content',
+    templateUrl: './tv-list-content.component.html',
+    styleUrls: ['./tv-list-content.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListContentComponent implements OnInit, OnChanges {
+export class TvListContentComponent implements OnInit, OnChanges {
 
     @Input() featuredList: IAudio[];
 

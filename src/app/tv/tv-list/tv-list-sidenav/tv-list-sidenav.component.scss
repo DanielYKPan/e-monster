@@ -1,0 +1,151 @@
+@import "../../../../sass/base/breakPoints";
+
+:host {
+  display: flex;
+  padding: 0 .5rem;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+
+  @media #{$large-up} {
+    & {
+      flex-direction: column;
+      padding-top: 3.2rem;
+    }
+
+    .frame-sidenav-control {
+      width: 100%;
+      margin: 1rem 0;
+    }
+  }
+}
+
+.frame-sidenav-control {
+  display: flex;
+  align-items: center;
+  width: 130px;
+
+  .frame-sidenav-title {
+    display: flex;
+    align-items: flex-end;
+    font-size: 2rem;
+    margin: 0;
+
+    .paginator {
+      user-select: none;
+      cursor: pointer;
+      outline: 0;
+      border: none;
+      -webkit-tap-highlight-color: transparent;
+      display: inline-block;
+      white-space: nowrap;
+      text-decoration: none;
+      vertical-align: baseline;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-size: 1.2rem;
+      color: #ed1c24;
+      background: none;
+
+      &.prev {
+        margin-right: .5rem;
+        order: -1;
+      }
+
+      &.next {
+        margin-left: .5rem;
+        order: 1;
+      }
+
+      &.paginator-hidden {
+        visibility: hidden;
+      }
+
+      &:hover {
+        color: #af0e14;
+      }
+    }
+  }
+}
+
+.frame-sidenav-main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 3px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  @media #{$large-up} {
+    justify-content: start;
+    align-items: flex-start;
+  }
+}
+
+.frame-sidenav-info {
+  font-size: 1rem;
+  margin: 0 0 .5rem;
+}
+
+.frame-sidenav-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  font-size: 1.2rem;
+  overflow-y: scroll;
+
+  .frame-sidenav-list-item {
+    padding: .5rem;
+    a {
+      display: block;
+      font-size: 1.6rem;
+      cursor: pointer;
+      color: currentColor;
+      text-decoration: none;
+
+      &.active {
+        color: #ed1c24;
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.frame-sidenav-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .frame-sidenav-menu-button {
+    box-sizing: border-box;
+    position: relative;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 88px;
+    line-height: 36px;
+    padding: 0 16px;
+    color: currentColor;
+    background: 0 0;
+    font-size: 1.4rem;
+  }
+
+  .frame-sidenav-menu-icon {
+    margin-left: .5rem;
+    color: #ed1c24;
+  }
+}

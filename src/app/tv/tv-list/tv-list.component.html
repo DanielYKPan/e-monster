@@ -1,3 +1,15 @@
-<p>
-    tv-list works!
-</p>
+<section class="frame-wrapper">
+    <div class="frame-sidenav">
+        <app-tv-list-sidenav [showNavMenu]="!isLargeUp"
+                             [listPage]="listPage$ | async"
+                             [listTotalPages]="listTotalPages$ | async"
+                             [listQuery]="listQuery$ | async"
+                             (goToPage)="goToPage($event)"></app-tv-list-sidenav>
+    </div>
+
+    <div class="frame-main">
+        <app-tv-list-content [featuredList]="featuredList$ | async"
+                             [list]="list$ | async">
+        </app-tv-list-content>
+    </div>
+</section>

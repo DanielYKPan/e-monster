@@ -1,5 +1,3 @@
-<p>
-    tv works!
-</p>
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>
 
-<router-outlet></router-outlet>
+<app-loader [show]="showLoader$ | async"></app-loader>
