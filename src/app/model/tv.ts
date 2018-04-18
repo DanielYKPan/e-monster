@@ -42,6 +42,33 @@ export interface ITv {
     vote_average: number;
     vote_count: number;
     external_ids: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
-    credits: {cast: ICast[], crew: ICrew[]};
+    credits: { cast: ICast[], crew: ICrew[] };
     reviews: IReviews;
+}
+
+export interface ISeason {
+    _id: string;
+    air_date: string;
+    episodes: IEpisode[];
+    name: string;
+    overview: string;
+    id: number;
+    poster_path: string;
+    season_number: number;
+    external_ids: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
+}
+
+export interface IEpisode {
+    air_date: string;
+    crew: ICrew[];
+    episode_number: number;
+    guest_stars: ICast[];
+    name: string;
+    overview: string;
+    id: number;
+    production_code: string;
+    season_number: number;
+    still_path: number;
+    vote_average: number;
+    vote_count: number;
 }

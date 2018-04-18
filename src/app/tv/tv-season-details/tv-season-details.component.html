@@ -1,3 +1,4 @@
-<p>
-  tv-season-details works!
-</p>
+<app-tv-season-details-header
+        [tv]="tv$ | async"
+        [season]="season$ | async"
+        [seasonNumber]="seasonNumber"></app-tv-season-details-header>

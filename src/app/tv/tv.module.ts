@@ -19,6 +19,7 @@ import { TvExistGuard } from './guards/tv-exist.guard';
 import { TvDetailsHeaderComponent } from './tv-details/tv-details-header/tv-details-header.component';
 import { TvDetailsContentComponent } from './tv-details/tv-details-content/tv-details-content.component';
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
+import { TvSeasonDetailsHeaderComponent } from './tv-season-details/tv-season-details-header/tv-season-details-header.component';
 
 @NgModule({
     imports: [
@@ -42,7 +43,8 @@ import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.
         TvDetailsComponent,
         TvDetailsHeaderComponent,
         TvDetailsContentComponent,
-        TvSeasonDetailsComponent
+        TvSeasonDetailsComponent,
+        TvSeasonDetailsHeaderComponent
     ],
     providers: [
         TvService,

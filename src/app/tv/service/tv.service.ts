@@ -6,10 +6,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { TMDBService } from '../../tmdb';
 import { Observable } from 'rxjs/Observable';
-import { IAudio } from '../../model/audio';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, map } from 'rxjs/operators';
-import { ITv } from '../../model';
+import { IAudio, ISeason, ITv } from '../../model';
 
 @Injectable()
 export class TvService extends TMDBService {
@@ -71,6 +70,18 @@ export class TvService extends TMDBService {
         ];
 
         return this.getResult(details_url, queries).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    public getTvSeason( id: number, season_number: number ): Observable<ISeason> {
+        const url = this.base_url + `tv/${id}/season/${season_number}`;
+
+        const queries = [
+            {name: 'append_to_response', value: 'external_ids,videos'},
+        ];
+
+        return this.getResult(url, queries).pipe(
             catchError(this.handleError)
         );
     }
