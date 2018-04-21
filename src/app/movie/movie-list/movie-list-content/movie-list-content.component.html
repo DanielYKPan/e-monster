@@ -2,6 +2,10 @@
     <app-audio-card *ngFor="let movie of featuredList" class="movie-card"
                     [audio]="movie" [scrollTarget]="hostElm"
                     [cardLink]="'/movies/' + movie.id + '/details'"
+                    [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                    [title]="movie.title"
+                    [date]="movie.release_date"
+                    [vote]="movie.vote_average"
                     (addCollection)="addCollection.next($event)"
                     (playVideo)="playVideo.next($event)"></app-audio-card>
 </div>
@@ -9,6 +13,10 @@
     <app-audio-card *ngFor="let movie of list" class="movie-card"
                     [audio]="movie" [scrollTarget]="hostElm"
                     [cardLink]="'/movies/' + movie.id + '/details'"
+                    [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                    [title]="movie.title"
+                    [date]="movie.release_date"
+                    [vote]="movie.vote_average"
                     (addCollection)="addCollection.next($event)"
                     (playVideo)="playVideo.next($event)"></app-audio-card>
 </div>

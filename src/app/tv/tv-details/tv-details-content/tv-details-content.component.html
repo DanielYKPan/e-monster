@@ -140,8 +140,8 @@
             <ul class="season-list">
                 <li *ngFor="let season of tv.seasons" class="season-list-item">
                     <app-audio-card class="season-card"
-                                    [imageType]="'poster'" [showTitle]="false"
                                     [cardLink]="'/tv/' + tv.id + '/season/' + season.season_number"
+                                    [imageLink]="'https://image.tmdb.org/t/p/w780' + season.poster_path"
                                     [audio]="season"></app-audio-card>
                     <h4>{{season.episode_count}} episodes</h4>
                     <h5>

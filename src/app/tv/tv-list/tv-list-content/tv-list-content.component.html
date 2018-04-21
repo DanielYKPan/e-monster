@@ -2,6 +2,10 @@
     <app-audio-card *ngFor="let tv of featuredList" class="tv-card"
                     [audio]="tv" [scrollTarget]="hostElm"
                     [cardLink]="'/tv/' + tv.id + '/details'"
+                    [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                    [title]="tv.name"
+                    [date]="tv.first_air_date"
+                    [vote]="tv.vote_average"
                     (addCollection)="addCollection.next($event)"
                     (playVideo)="playVideo.next($event)"></app-audio-card>
 </div>
@@ -9,6 +13,10 @@
     <app-audio-card *ngFor="let tv of list" class="tv-card"
                     [audio]="tv" [scrollTarget]="hostElm"
                     [cardLink]="'/tv/' + tv.id + '/details'"
+                    [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                    [title]="tv.name"
+                    [date]="tv.first_air_date"
+                    [vote]="tv.vote_average"
                     (addCollection)="addCollection.next($event)"
                     (playVideo)="playVideo.next($event)"></app-audio-card>
 </div>

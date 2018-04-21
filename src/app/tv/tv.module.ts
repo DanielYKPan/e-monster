@@ -20,6 +20,7 @@ import { TvDetailsHeaderComponent } from './tv-details/tv-details-header/tv-deta
 import { TvDetailsContentComponent } from './tv-details/tv-details-content/tv-details-content.component';
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
 import { TvSeasonDetailsHeaderComponent } from './tv-season-details/tv-season-details-header/tv-season-details-header.component';
+import { TvSeasonDetailsContentComponent } from './tv-season-details/tv-season-details-content/tv-season-details-content.component';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { TvSeasonDetailsHeaderComponent } from './tv-season-details/tv-season-de
         TvDetailsHeaderComponent,
         TvDetailsContentComponent,
         TvSeasonDetailsComponent,
-        TvSeasonDetailsHeaderComponent
+        TvSeasonDetailsHeaderComponent,
+        TvSeasonDetailsContentComponent
     ],
     providers: [
         TvService,

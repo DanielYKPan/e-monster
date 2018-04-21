@@ -17,10 +17,10 @@
                     <li *ngFor="let m of movie.similar.results" class="movie-list-item"
                         [style.width.px]="movieItemWidth">
                         <app-audio-card [audio]="m"
-                                        imageType="poster"
-                                        [showTitle]="false"
                                         [cardLink]="'/movies/' + m.id + '/details'"
                                         [scrollObservable]="scrollObservable"
+                                        [imageLink]="'https://image.tmdb.org/t/p/w780' + m.poster_path"
+                                        [vote]="m.vote_average"
                                         (playVideo)="playVideo.next($event)"></app-audio-card>
                         <h3 class="movie-title">{{m.title}}</h3>
                     </li>

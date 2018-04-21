@@ -1,0 +1,144 @@
+<section class="tv-details-container tv-details-content">
+    <div class="sidenav">
+        <div class="sidenav-container">
+            <div class="poster">
+                <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + season.poster_path"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     alt="Poster">
+            </div>
+
+            <button class="tv-details-button collection-button">
+                <i class="icon fas fa-plus"></i> Add to Collection
+            </button>
+
+            <ul class="external-list">
+                <li *ngIf="tv.homepage"
+                    class="external-item" owlTooltip="Official Homepage">
+                    <a [href]="tv.homepage" target="_blank">Official</a>
+                </li>
+
+                <li *ngIf="season.external_ids.imdb_id"
+                    class="external-item" owlTooltip="IMDB">
+                    <a [href]="'http://www.imdb.com/title/' + season.external_ids.imdb_id"
+                       target="_blank">IMDB</a>
+                </li>
+
+                <li *ngIf="season.external_ids.id"
+                    class="external-item" owlTooltip="TMDB">
+                    <a [href]="'https://www.themoviedb.org/tv/' + tv.external_ids.id + '/season/' + season.season_number"
+                       target="_blank">TMDB</a>
+                </li>
+
+                <li *ngIf="season.external_ids.facebook_id"
+                    class="external-item" [owlTooltip]="'Facebook @' + season.external_ids.facebook_id">
+                    <a [href]="'http://www.facebook.com/' + season.external_ids.facebook_id"
+                       target="_blank"><i class="fab fa-facebook-f"></i></a>
+                </li>
+
+                <li *ngIf="season.external_ids.instagram_id"
+                    class="external-item" [owlTooltip]="'Instagram @' + season.external_ids.instagram_id">
+                    <a [href]="'http://www.instagram.com/' + season.external_ids.instagram_id"
+                       target="_blank"><i class="fab fa-instagram"></i></a>
+                </li>
+
+                <li *ngIf="season.external_ids.twitter_id"
+                    class="external-item" [owlTooltip]="'Twitter @' + season.external_ids.twitter_id">
+                    <a [href]="'http://www.twitter.com/' + season.external_ids.twitter_id"
+                       target="_blank"><i class="fab fa-twitter"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main">
+        <ul class="season-list">
+            <li *ngFor="let s of tv.seasons"
+                class="season-list-item">
+                <a [routerLink]="'/tv/' + tv.id + '/season/' + s.season_number"
+                   [class.selected]="s.season_number === season.season_number">
+                    {{s.name}}
+                </a>
+            </li>
+            <li class="season-list-item">
+                <a [routerLink]="'/tv/' + tv.id + '/details'">
+                    All
+                </a>
+            </li>
+        </ul>
+
+        <ul class="stats">
+            <li class="stats-item status">
+                <label>premiered:</label>
+                {{season.air_date | toDate | date}}
+            </li>
+        </ul>
+
+        <p class="overview">
+            {{season.overview}}
+        </p>
+
+        <section class="cast-crew-wrapper">
+            <div class="cast-crew-title">
+                <h2>Cast & Crew</h2>
+                <button class="tv-details-button cast-crew-full-button">
+                    » See full cast & crew
+                </button>
+            </div>
+
+            <div class="cast-crew-content">
+                <button *ngIf="showSlideButtons" class="tv-details-button cast-crew-control"
+                        (click)="slideLeftCastList($event)">
+                    <i class="fas fa-angle-left"></i>
+                </button>
+
+                <div class="cast-crew-wrapper" #castListWrapper>
+                    <ul class="cast-crew-list"
+                        [style.width.px]="tv.credits.cast.length * castProfileWidth"
+                        [style.transform]="'translateX(' + -castListSlideDistance + 'px)'" #castList>
+                        <li *ngFor="let cast of tv.credits.cast" class="cast-crew-list-item"
+                            [style.width.px]="castProfileWidth">
+
+                            <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"
+                                 [src]="'https://image.tmdb.org/t/p/w185/' + cast.profile_path" alt="Poster"/>
+                            <ng-template #abstractImg>
+                                <img class="cast-crew-poster"
+                                     src="/assets/images/abstract-profile.png"/>
+                            </ng-template>
+                            <h4 class="name">{{cast.name}}</h4>
+                            <h4 class="character">{{cast.character}}</h4>
+
+                        </li>
+                    </ul>
+                </div>
+
+                <button *ngIf="showSlideButtons" class="tv-details-button cast-crew-control"
+                        (click)="slideRightCastList($event)" #rightControlBtn>
+                    <i class="fas fa-angle-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <section class="episode-list-wrapper">
+            <h2>{{season.episodes.length}} Episodes</h2>
+            <ul class="episode-list">
+                <li *ngFor="let episode of season.episodes" class="episode-list-item">
+                    <app-audio-card
+                            class="episode-card"
+                            [imageLink]="'https://image.tmdb.org/t/p/w300' + episode.still_path"
+                            [vote]="episode.vote_average"></app-audio-card>
+                    <div class="episode-inform">
+                        <div class="episode-title">
+                            <h3>
+                                <span>{{episode.season_number}}x{{episode.episode_number}}</span>{{episode.name}}
+                            </h3>
+                            <h4>{{episode.air_date | toDate | date: 'longDate'}}</h4>
+                        </div>
+                        <div class="episode-overview">
+                            {{episode.overview}}
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</section>

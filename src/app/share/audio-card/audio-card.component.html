@@ -2,10 +2,10 @@
     <a class="card-content" [routerLink]="cardLink">
         <img class="card-backdrop"
              [defaultImage]="'/assets/images/abstract-image.jpg'"
-             [lazyLoad]="'https://image.tmdb.org/t/p/w780' + image"
+             [lazyLoad]="imageLink"
              [scrollObservable]="scrollObservable"
              [scrollTarget]="scrollTarget" [alt]="title">
-        <div *ngIf="showTitle" class="card-title">
+        <div *ngIf="title" class="card-title">
             <h3>{{title}} <span class="year">{{date | yearString}}</span></h3>
         </div>
     </a>
@@ -22,9 +22,9 @@
                 <i class="fas fa-play"></i>
             </a>
         </div>
-        <div *ngIf="audio.vote_average" class="card-rate">
+        <div *ngIf="vote" class="card-rate">
             <i class="card-rate-heart fas fa-heart"></i>
-            {{audio.vote_average | votePercentage}}
+            {{vote | votePercentage}}
         </div>
     </div>
 </div>
