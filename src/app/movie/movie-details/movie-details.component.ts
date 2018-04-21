@@ -10,9 +10,9 @@ import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
-import { MovieCastDialogComponent } from '../movie-cast-dialog/movie-cast-dialog.component';
 import { OwlDialogService } from 'owl-ng';
 import { IAudio, IMovie, IVideo } from '../../model';
+import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 
 @Component({
     selector: 'app-movie-details',
@@ -65,10 +65,16 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
-    public openMovieCastDialog( e: { movie: IMovie, event: any } ): void {
-        const dialogRef = this.dialogService.open(MovieCastDialogComponent, {
-            data: {movie: e.movie},
-            dialogClass: 'movie-cast-dialog',
+    public openMovieCreditsDialog( e: { movie: IMovie, event: any } ): void {
+        const dialogRef = this.dialogService.open(CreditsDialogComponent, {
+            data: {
+                title: e.movie.title,
+                date: e.movie.release_date,
+                cast: e.movie.credits.cast,
+                crew: e.movie.credits.crew,
+                imagePath: 'https://image.tmdb.org/t/p/w92/' + e.movie.poster_path,
+            },
+            dialogClass: 'credits-dialog',
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
         e.event.preventDefault();

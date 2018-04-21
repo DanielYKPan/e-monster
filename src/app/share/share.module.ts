@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 import { AudioCardComponent } from './audio-card/audio-card.component';
 import { LoaderComponent } from './loader/loader.component';
+import { CreditsDialogComponent } from './credits-dialog/credits-dialog.component';
 import { YearStringPipe } from './pipe/year-string.pipe';
 import { VotePercentagePipe } from './pipe/vote-percentage.pipe';
 import { SafePipe } from './pipe/safe.pipe';
@@ -25,6 +26,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
         VotePercentagePipe,
         SafePipe,
         ToDatePipe,
+        CreditsDialogComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -33,6 +35,10 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
         VotePercentagePipe,
         SafePipe,
         ToDatePipe,
+        CreditsDialogComponent,
+    ],
+    entryComponents: [
+        CreditsDialogComponent
     ]
 })
 export class ShareModule {

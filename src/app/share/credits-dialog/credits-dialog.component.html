@@ -1,0 +1,130 @@
+<button type="button" class="credits-dialog-close" (click)="closeDialog($event)">
+    <i class="fas fa-times"></i>
+</button>
+
+<div class="credits-summary">
+    <div class="poster">
+        <img [defaultImage]="'/assets/images/abstract-image.jpg'"
+             [lazyLoad]="imagePath" alt="Poster">
+    </div>
+
+    <div class="title">
+        <h3>{{title}}<span class="year">{{date | yearString}}</span></h3>
+        <h1>Full Cast & Crew</h1>
+    </div>
+</div>
+<div class="credits-content">
+    <ng-container *ngIf="directors && directors.length > 0">
+        <h4 class="credits-header-with-border">Directed by</h4>
+        <table class="credits-table">
+            <colgroup>
+                <col class="column1">
+                <col class="column2">
+                <col class="column3">
+            </colgroup>
+            <tbody>
+            <tr *ngFor="let director of directors">
+                <td class="name">
+                    <a>{{director.name}}</a>
+                </td>
+                <td colspan="2"></td>
+            </tr>
+            </tbody>
+        </table>
+    </ng-container>
+
+    <ng-container *ngIf="(producers || exProducers) && (producers.length > 0 || exProducers.length > 0)">
+        <h4 class="credits-header-with-border">Producers</h4>
+        <table class="credits-table">
+            <colgroup>
+                <col class="column1">
+                <col class="column2">
+                <col class="column3">
+            </colgroup>
+            <tbody>
+            <tr *ngFor="let producer of producers">
+                <td class="name">
+                    <a>{{producer.name}}</a>
+                </td>
+                <td>...</td>
+                <td class="credit">{{producer.job}}</td>
+            </tr>
+            <tr *ngFor="let producer of exProducers">
+                <td class="name">
+                    <a>{{producer.name}}</a>
+                </td>
+                <td>...</td>
+                <td class="credit">{{producer.job}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </ng-container>
+
+    <ng-container *ngIf="writers && writers.length > 0">
+        <h4 class="credits-header-with-border">Writing Credits</h4>
+        <table class="credits-table">
+            <colgroup>
+                <col class="column1">
+                <col class="column2">
+                <col class="column3">
+            </colgroup>
+            <tbody>
+            <tr *ngFor="let writer of writers">
+                <td class="name">
+                    <a>{{writer.name}}</a>
+                </td>
+                <td>...</td>
+                <td class="credit">{{writer.job}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </ng-container>
+
+    <h4 class="credits-header-with-border">Cast</h4>
+    <table class="cast-table">
+        <tbody>
+        <tr>
+            <td colspan="4"></td>
+        </tr>
+        <tr *ngFor="let people of cast">
+            <td colspan="profile-photo">
+                <a>
+                    <img *ngIf="people.profile_path;else abstractImg"
+                         [src]="'https://image.tmdb.org/t/p/w45/' + people.profile_path" [alt]="people.name"/>
+                    <ng-template #abstractImg>
+                        <img class="movie-details-cast-crew-post"
+                             src="/assets/images/abstract-profile.png"/>
+                    </ng-template>
+                </a>
+            </td>
+            <td class="name">
+                <a>
+                    {{people.name}}
+                </a>
+            </td>
+            <td colspan="ellipsis">...</td>
+            <td class="character">
+                {{people.character}}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4 class="credits-header-with-border">Crew</h4>
+    <table class="credits-table">
+        <colgroup>
+            <col class="column1">
+            <col class="column2">
+            <col class="column3">
+        </colgroup>
+        <tbody>
+        <tr *ngFor="let people of crew">
+            <td class="name">
+                <a>{{people.name}}</a>
+            </td>
+            <td>...</td>
+            <td class="credit">{{people.job}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

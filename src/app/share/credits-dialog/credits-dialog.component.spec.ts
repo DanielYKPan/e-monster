@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MovieCastDialogComponent } from './movie-cast-dialog.component';
+import { CreditsDialogComponent } from './credits-dialog.component';
 
-describe('MovieCastDialogComponent', () => {
-  let component: MovieCastDialogComponent;
-  let fixture: ComponentFixture<MovieCastDialogComponent>;
+describe('CreditsDialogComponent', () => {
+  let component: CreditsDialogComponent;
+  let fixture: ComponentFixture<CreditsDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MovieCastDialogComponent ]
+      declarations: [ CreditsDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MovieCastDialogComponent);
+    fixture = TestBed.createComponent(CreditsDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

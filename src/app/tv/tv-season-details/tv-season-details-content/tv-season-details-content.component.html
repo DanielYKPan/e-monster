@@ -80,7 +80,7 @@
         <section class="cast-crew-wrapper">
             <div class="cast-crew-title">
                 <h2>Cast & Crew</h2>
-                <button class="tv-details-button cast-crew-full-button">
+                <button class="tv-details-button cast-crew-full-button" (click)="clickFullCastCrew($event)">
                     » See full cast & crew
                 </button>
             </div>
@@ -93,9 +93,9 @@
 
                 <div class="cast-crew-wrapper" #castListWrapper>
                     <ul class="cast-crew-list"
-                        [style.width.px]="tv.credits.cast.length * castProfileWidth"
+                        [style.width.px]="season.credits.cast.length * castProfileWidth"
                         [style.transform]="'translateX(' + -castListSlideDistance + 'px)'" #castList>
-                        <li *ngFor="let cast of tv.credits.cast" class="cast-crew-list-item"
+                        <li *ngFor="let cast of season.credits.cast" class="cast-crew-list-item"
                             [style.width.px]="castProfileWidth">
 
                             <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"

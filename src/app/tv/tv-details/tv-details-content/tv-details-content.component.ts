@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { ITv } from '../../../model';
 
 @Component({
@@ -15,6 +24,8 @@ export class TvDetailsContentComponent implements OnInit {
 
     @Input() tv: ITv;
 
+    @Output() fullCastCrewClick = new EventEmitter<any>();
+
     public castProfileWidth = 96;
 
     public castListSlideDistance = 0;
@@ -28,6 +39,13 @@ export class TvDetailsContentComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    public clickFullCastCrew( event: any ): void {
+        this.fullCastCrewClick.emit({
+            tv: this.tv,
+            event
+        });
     }
 
     public slideLeftCastList( event: any ): void {

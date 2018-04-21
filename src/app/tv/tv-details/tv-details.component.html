@@ -1,2 +1,3 @@
 <app-tv-details-header [tv]="tv$ | async"></app-tv-details-header>
-<app-tv-details-content [tv]="tv$ | async"></app-tv-details-content>
+<app-tv-details-content [tv]="tv$ | async"
+                        (fullCastCrewClick)="openTvCreditsDialog($event)"></app-tv-details-content>

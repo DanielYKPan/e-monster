@@ -56,6 +56,7 @@ export interface ISeason {
     poster_path: string;
     season_number: number;
     external_ids: { id: string, imdb_id: string, facebook_id: string, instagram_id: string, twitter_id: string };
+    credits: { cast: ICast[], crew: ICrew[] };
 }
 
 export interface IEpisode {

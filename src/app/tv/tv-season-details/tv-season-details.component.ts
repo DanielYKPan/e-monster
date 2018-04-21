@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ISeason, ITv } from '../../model';
 import { Subscription } from 'rxjs/Subscription';
@@ -7,6 +7,10 @@ import { map } from 'rxjs/operators';
 import * as fromTvRoot from '../reducers';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { DOCUMENT } from '@angular/common';
+import { OwlDialogService } from 'owl-ng';
+import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 
 @Component({
     selector: 'app-tv-season-details',
@@ -26,7 +30,10 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     private tvId: number;
 
     constructor( private route: ActivatedRoute,
-                 private store: Store<fromTvRoot.State> ) {
+                 private store: Store<fromTvRoot.State>,
+                 private dialogService: OwlDialogService,
+                 private viewportRuler: ViewportRuler,
+                 @Inject(DOCUMENT) private document: any, ) {
     }
 
     public ngOnInit() {
@@ -40,7 +47,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
             .subscribe(this.store);
 
         this.season$ = this.route.data.pipe(
-            map((data: {season: ISeason}) => data.season)
+            map(( data: { season: ISeason } ) => data.season)
         );
 
         this.tv$ = this.store.pipe(select(fromTvRoot.getSelectedTv));
@@ -50,6 +57,21 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
 
         this.dataSubscription.unsubscribe();
         this.paramsSubscription.unsubscribe();
+    }
+
+    public openTvSeasonCreditsDialog( e: { tv: ITv, tvSeason: ISeason, event: any } ): void {
+        const dialogRef = this.dialogService.open(CreditsDialogComponent, {
+            data: {
+                title: e.tv.name + ' ' + e.tvSeason.name,
+                date: e.tvSeason.air_date,
+                cast: e.tvSeason.credits.cast,
+                crew: e.tvSeason.credits.crew,
+                imagePath: 'https://image.tmdb.org/t/p/w92/' + e.tvSeason.poster_path,
+            },
+            dialogClass: 'credits-dialog',
+            scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
+        });
+        e.event.preventDefault();
     }
 
 }

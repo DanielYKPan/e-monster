@@ -78,7 +78,7 @@ export class TvService extends TMDBService {
         const url = this.base_url + `tv/${id}/season/${season_number}`;
 
         const queries = [
-            {name: 'append_to_response', value: 'external_ids,videos'},
+            {name: 'append_to_response', value: 'credits,external_ids,videos'},
         ];
 
         return this.getResult(url, queries).pipe(

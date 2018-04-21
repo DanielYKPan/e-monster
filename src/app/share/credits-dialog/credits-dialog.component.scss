@@ -1,0 +1,159 @@
+$bg-color: #FFFFFF;
+
+.credits-dialog-close {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #727575;
+  background: transparent;
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 300ms;
+
+  &:hover {
+    color: #000000;
+    background: rgba(0, 0, 0, .05);
+  }
+}
+
+.credits-dialog {
+  position: relative;
+  padding: .5rem 1rem;
+  width: 80vw;
+  height: 95vh;
+  max-width: 600px;
+  box-sizing: border-box;
+  background-color: $bg-color;
+  overflow-y: scroll;
+}
+
+.credits-summary {
+  display: flex;
+
+  .poster {
+    box-shadow: 0 0 20px 0 #000;
+    width: 100px;
+    margin-right: 5px;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  h1 {
+    margin: 3px;
+    font-size: 1.4rem;
+  }
+
+  h3 {
+    margin: 3px;
+    font-size: 1.1rem;
+    color: #136CB2;
+
+    .year {
+      font-size: .8em;
+      color: #999;
+      margin-left: .5rem;
+      font-weight: 400;
+    }
+  }
+}
+
+.credits-content {
+  background-color: $bg-color;
+
+  .credits-header-with-border {
+    color: #666666;
+    font-size: 13px;
+    margin: 0.35em 0 0.25em;
+    padding: 0;
+    background-color: inherit;
+    display: inline;
+    line-height: 2.6em;
+
+    &:before {
+      content: "";
+      border-bottom: 1px dotted #CCC;
+      width: 100%;
+      float: left;
+      margin-top: 1.6em;
+      margin-bottom: -1.5em;
+    }
+  }
+
+  .credits-table {
+    margin: 0 0 9px 0;
+
+    col.column1 {
+      width: 150px;
+    }
+
+    col.column2 {
+      width: 20px;
+    }
+
+    td {
+      padding: 1px 0 1px 12px;
+      vertical-align: top;
+      box-sizing: border-box;
+      font-size: 13px;
+    }
+  }
+
+  .cast-table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: -12px;
+
+    tr.odd {
+      background-color: #f6f6f5;
+      border: #fff 1px solid;
+    }
+
+    tr.even {
+      background-color: #fbfbfb;
+      border: #fff 1px solid;
+    }
+
+    td {
+      padding: 4px 6px 6px 6px;
+      font-size: 13px;
+    }
+
+    .profile-photo {
+      width: 32px;
+      padding: 0 4px 0 0;
+
+      img {
+        width: 100%;
+        border: none;
+      }
+    }
+
+    .ellipsis {
+      color: #999;
+      text-align: center;
+    }
+  }
+}
+
+a {
+  color: #136CB2;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

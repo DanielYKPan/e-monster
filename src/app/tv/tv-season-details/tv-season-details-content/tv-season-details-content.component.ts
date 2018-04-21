@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild
+} from '@angular/core';
 import { ISeason, ITv } from '../../../model';
 
 @Component({
@@ -17,6 +26,8 @@ export class TvSeasonDetailsContentComponent implements OnInit {
 
     @Input() season: ISeason;
 
+    @Output() fullCastCrewClick = new EventEmitter<any>();
+
     public castProfileWidth = 96;
 
     public castListSlideDistance = 0;
@@ -30,6 +41,14 @@ export class TvSeasonDetailsContentComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    public clickFullCastCrew( event: any ): void {
+        this.fullCastCrewClick.emit({
+            tv: this.tv,
+            tvSeason: this.season,
+            event
+        });
     }
 
     public slideLeftCastList( event: any ): void {

@@ -16,7 +16,6 @@ import { MovieHomeComponent } from './movie-home/movie-home.component';
 import { MovieListContentComponent } from './movie-list/movie-list-content/movie-list-content.component';
 import { MovieListSidenavComponent } from './movie-list/movie-list-sidenav/movie-list-sidenav.component';
 import { MovieTrailerDialogComponent } from './movie-trailer-dialog/movie-trailer-dialog.component';
-import { MovieCastDialogComponent } from './movie-cast-dialog/movie-cast-dialog.component';
 import { MovieDetailsHeaderComponent } from './movie-details/movie-details-header/movie-details-header.component';
 import { MovieDetailsContentComponent } from './movie-details/movie-details-content/movie-details-content.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
@@ -46,7 +45,6 @@ import { ShareModule } from '../share/share.module';
         MovieListSidenavComponent,
         MovieTrailerDialogComponent,
         MovieDetailsComponent,
-        MovieCastDialogComponent,
         MovieDetailsHeaderComponent,
         MovieDetailsContentComponent,
         MovieDetailsSimilarComponent,
@@ -59,7 +57,6 @@ import { ShareModule } from '../share/share.module';
     ],
     entryComponents: [
         MovieTrailerDialogComponent,
-        MovieCastDialogComponent
     ]
 })
 export class MovieModule {

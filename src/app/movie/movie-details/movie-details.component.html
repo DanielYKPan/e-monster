@@ -2,6 +2,6 @@
 <app-movie-details-content [movie]="movie$ | async"
                            [movieVideos]="movieVideos$ | async"
                            (movieVideoClick)="openMovieVideoDialog($event)"
-                           (fullCastCrewClick)="openMovieCastDialog($event)"></app-movie-details-content>
+                           (fullCastCrewClick)="openMovieCreditsDialog($event)"></app-movie-details-content>
 <app-movie-details-similar [movie]="movie$ | async"
                            (playVideo)="openSimilarMovieVideoDialog($event)"></app-movie-details-similar>
