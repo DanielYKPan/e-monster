@@ -11,6 +11,7 @@ import { SafePipe } from './pipe/safe.pipe';
 import { ToDatePipe } from './pipe/date-string.pipe';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { VoteInformComponent } from './vote-inform/vote-inform.component';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
         SafePipe,
         ToDatePipe,
         CreditsDialogComponent,
+        VoteInformComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -36,6 +38,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
         SafePipe,
         ToDatePipe,
         CreditsDialogComponent,
+        VoteInformComponent,
     ],
     entryComponents: [
         CreditsDialogComponent

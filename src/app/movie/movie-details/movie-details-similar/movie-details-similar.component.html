@@ -20,7 +20,8 @@
                                         [cardLink]="'/movies/' + m.id + '/details'"
                                         [scrollObservable]="scrollObservable"
                                         [imageLink]="'https://image.tmdb.org/t/p/w780' + m.poster_path"
-                                        [vote]="m.vote_average"
+                                        [vote_average]="m.vote_average"
+                                        [vote_count]="m.vote_count"
                                         (playVideo)="playVideo.next($event)"></app-audio-card>
                         <h3 class="movie-title">{{m.title}}</h3>
                     </li>

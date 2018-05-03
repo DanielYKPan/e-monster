@@ -24,7 +24,9 @@ export class AudioCardComponent implements OnInit {
 
     @Input() date: string;
 
-    @Input() vote: number;
+    @Input() vote_average: number;
+
+    @Input() vote_count: number;
 
     @Output() addCollection = new EventEmitter<{ audio: IAudio, event: any }>();
 

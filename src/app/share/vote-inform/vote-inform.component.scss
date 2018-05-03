@@ -1,0 +1,41 @@
+$heart-color: #9e2424;
+$vote-count-color: silver;
+$vote-highest-color: #8a8a8a;
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1rem;
+}
+
+.heart-icon {
+  font-size: 1.875em;
+  margin-right: .2em;
+
+  &.red {
+    color: $heart-color;
+  }
+}
+
+.number {
+  color: #fff;
+  text-shadow: 0 0 1.25em #000;
+
+  .vote-average {
+    font-size: 1.125em;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+
+  .vote-highest {
+    color: $vote-highest-color;
+    font-size: .7em;
+  }
+
+  .vote-count {
+    font-size: .75em;
+    color: $vote-count-color;
+  }
+}

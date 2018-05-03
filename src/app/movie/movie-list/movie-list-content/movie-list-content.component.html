@@ -5,7 +5,8 @@
                     [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
                     [title]="movie.title"
                     [date]="movie.release_date"
-                    [vote]="movie.vote_average"
+                    [vote_average]="movie.vote_average"
+                    [vote_count]="movie.vote_count"
                     (addCollection)="addCollection.next($event)"
                     (playVideo)="playVideo.next($event)"></app-audio-card>
 </div>
@@ -16,7 +17,8 @@
                     [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
                     [title]="movie.title"
                     [date]="movie.release_date"
-                    [vote]="movie.vote_average"
+                    [vote_average]="movie.vote_average"
+                    [vote_count]="movie.vote_count"
                     (addCollection)="addCollection.next($event)"
                     (playVideo)="playVideo.next($event)"></app-audio-card>
 </div>

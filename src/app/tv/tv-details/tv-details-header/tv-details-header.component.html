@@ -19,11 +19,8 @@
             <div class="tv-details-container">
                 <ul class="ratings-list">
                     <li class="ratings-list-item">
-                        <i class="heart-icon red fas fa-heart"></i>
-                        <div class="number">
-                            <div class="main">{{tv.vote_average | votePercentage}}</div>
-                            <div class="vote">{{tv.vote_count}} votes</div>
-                        </div>
+                        <app-vote-inform [vote_average]="tv.vote_average"
+                                         [vote_count]="tv.vote_count"></app-vote-inform>
                     </li>
 
                     <li class="ratings-list-item">

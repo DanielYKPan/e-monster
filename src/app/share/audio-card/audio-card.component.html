@@ -22,9 +22,11 @@
                 <i class="fas fa-play"></i>
             </a>
         </div>
-        <div *ngIf="vote" class="card-rate">
-            <i class="card-rate-heart fas fa-heart"></i>
-            {{vote | votePercentage}}
+        <div *ngIf="vote_average" class="card-rate">
+            <app-vote-inform
+                    [style.font-size]="'.8rem'"
+                    [vote_average]="vote_average"
+                    [vote_count]="vote_count"></app-vote-inform>
         </div>
     </div>
 </div>
