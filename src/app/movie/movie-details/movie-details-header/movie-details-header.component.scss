@@ -77,49 +77,6 @@ $sidenav-width: 170px;
   }
 }
 
-.ratings-wrapper {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.4);
-
-  .ratings-list {
-    display: flex;
-    margin: 0;
-    padding: .5rem 0;
-    list-style: none;
-  }
-
-  .ratings-list-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 .5rem;
-  }
-
-  .heart-icon {
-    font-size: 30px;
-    margin-right: 7px;
-
-    &.red {
-      color: #9e2424;
-    }
-  }
-
-  .number {
-    color: #fff;
-    text-shadow: 0 0 20px #000;
-
-    .main {
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .vote {
-      font-size: 12px;
-      color: #aaa;
-    }
-  }
-}
-
 @media #{$medium-up} {
   .movie-details-header {
     height: 550px;
@@ -131,10 +88,6 @@ $sidenav-width: 170px;
 
   .title {
     font-size: 2rem;
-  }
-
-  .title,
-  .ratings-wrapper .ratings-list {
     margin-left: $sidenav-width;
   }
 }

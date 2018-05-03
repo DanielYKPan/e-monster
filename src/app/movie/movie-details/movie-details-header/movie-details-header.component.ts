@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IMovie } from '../../../model';
 
 @Component({
@@ -10,6 +10,8 @@ import { IMovie } from '../../../model';
 export class MovieDetailsHeaderComponent implements OnInit {
 
     @Input() movie: IMovie;
+
+    @Output() rate = new EventEmitter<IMovie>();
 
     constructor() {
     }

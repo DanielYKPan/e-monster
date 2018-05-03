@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ITv } from '../../../model';
 
 @Component({
@@ -10,6 +10,8 @@ import { ITv } from '../../../model';
 export class TvDetailsHeaderComponent implements OnInit {
 
     @Input() tv: ITv;
+
+    @Output() rate = new EventEmitter<ITv>();
 
     constructor() {
     }

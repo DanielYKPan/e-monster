@@ -15,23 +15,9 @@
             </h1>
         </div>
 
-        <div class="ratings-wrapper">
-            <div class="movie-details-container">
-                <ul class="ratings-list">
-                    <li class="ratings-list-item">
-                        <app-vote-inform [vote_average]="movie.vote_average"
-                                         [vote_count]="movie.vote_count"></app-vote-inform>
-                    </li>
-
-                    <li class="ratings-list-item">
-                        <i class="heart-icon far fa-heart"></i>
-                        <div class="number">
-                            <div class="main">Rate this movie</div>
-                            <div class="vote">What did you think?</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <app-audio-rating-list [vote_average]="movie.vote_average"
+                               [vote_count]="movie.vote_count"
+                               [type]="'movie'"
+                               (rate)="rate.emit(movie)"></app-audio-rating-list>
     </div>
 </section>

@@ -92,4 +92,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             this.store.dispatch(new movieVideoActions.Select(this.movieId));
         });
     }
+
+    public rate( movie: IMovie ): void {
+        console.log(movie.id);
+    }
 }

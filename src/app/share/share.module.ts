@@ -12,6 +12,7 @@ import { ToDatePipe } from './pipe/date-string.pipe';
 
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { VoteInformComponent } from './vote-inform/vote-inform.component';
+import { RatingListComponent } from './rating-list/rating-list.component';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { VoteInformComponent } from './vote-inform/vote-inform.component';
         ToDatePipe,
         CreditsDialogComponent,
         VoteInformComponent,
+        RatingListComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -39,6 +41,7 @@ import { VoteInformComponent } from './vote-inform/vote-inform.component';
         ToDatePipe,
         CreditsDialogComponent,
         VoteInformComponent,
+        RatingListComponent,
     ],
     entryComponents: [
         CreditsDialogComponent

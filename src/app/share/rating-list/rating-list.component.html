@@ -1,0 +1,25 @@
+<div class="rating-wrapper">
+    <div class="rating-container">
+        <ul class="rating-list">
+            <li class="rating-list-item">
+                <app-vote-inform [vote_average]="vote_average"
+                                 [vote_count]="vote_count"></app-vote-inform>
+            </li>
+
+            <li class="rating-list-item clickable" (click)="rate.emit()">
+                <i class="heart-icon far fa-heart"></i>
+                <div class="rating-text">
+                    <div class="rating-text-main">
+                        <ng-container *ngIf="type === 'movie';else tvText" >
+                            Rate this movie
+                        </ng-container>
+                        <ng-template #tvText>
+                            Rate this TV series
+                        </ng-template>
+                    </div>
+                    <div class="rating-text-small">What did you think?</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

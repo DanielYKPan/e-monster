@@ -62,4 +62,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
         e.event.preventDefault();
     }
 
+    public rate( tv: ITv ): void {
+        console.log(tv.id);
+    }
 }

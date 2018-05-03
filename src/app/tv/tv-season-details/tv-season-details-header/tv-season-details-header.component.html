@@ -15,27 +15,10 @@
             </h1>
         </div>
 
-        <div class="ratings-wrapper">
-            <div class="tv-details-container">
-                <ul class="ratings-list">
-                    <li class="ratings-list-item">
-                        <i class="heart-icon red fas fa-heart"></i>
-                        <div class="number">
-                            <div class="main">{{tv.vote_average | votePercentage}}</div>
-                            <div class="vote">{{tv.vote_count}} votes</div>
-                        </div>
-                    </li>
-
-                    <li class="ratings-list-item">
-                        <i class="heart-icon far fa-heart"></i>
-                        <div class="number">
-                            <div class="main">Rate this TV series</div>
-                            <div class="vote">What did you think?</div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        <app-audio-rating-list [vote_average]="tv.vote_average"
+                               [vote_count]="tv.vote_count"
+                               [type]="'tv'"
+                               (rate)="rate.emit(tv)"></app-audio-rating-list>
     </div>
 
     <a class="previous-item-link"

@@ -1,4 +1,4 @@
-<app-movie-details-header [movie]="movie$ | async"></app-movie-details-header>
+<app-movie-details-header [movie]="movie$ | async" (rate)="rate($event)"></app-movie-details-header>
 <app-movie-details-content [movie]="movie$ | async"
                            [movieVideos]="movieVideos$ | async"
                            (movieVideoClick)="openMovieVideoDialog($event)"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ISeason, ITv } from '../../../model';
 
 @Component({
@@ -14,6 +14,8 @@ export class TvSeasonDetailsHeaderComponent implements OnInit {
     @Input() season: ISeason;
 
     @Input() seasonNumber: number;
+
+    @Output() rate = new EventEmitter<ITv>();
 
     get seasonIndex(): number {
         return this.tv.seasons.findIndex(( season ) => {
