@@ -68,8 +68,14 @@ export class MovieListComponent implements OnInit, OnDestroy {
     }
 
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
+        // search the movie videos
+        this.store.dispatch(new movieVideoActions.Search(res.audio.id));
+        const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
         const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
-            data: {movieId: res.audio.id, movieTitle: res.audio.title}, // data that would pass to dialog component
+            data: {
+                movieTitle: res.audio.title,
+                movieVideo$: movieVideo$
+            }, // data that would pass to dialog component
             dialogClass: 'movie-trailer-dialog',
             transitionX: res.event.clientX,
             transitionY: res.event.clientY,

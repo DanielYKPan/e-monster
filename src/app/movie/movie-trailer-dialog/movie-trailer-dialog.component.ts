@@ -8,9 +8,6 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
-import * as fromMovieRoot from '../reducers';
-import * as movieVideos from '../actions/video';
-import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { IVideo } from '../../model';
 
@@ -30,7 +27,6 @@ export class MovieTrailerDialogComponent implements OnInit, AfterContentInit, On
     public movieVideo$: Observable<IVideo>;
 
     constructor( public dialogRef: OwlDialogRef<MovieTrailerDialogComponent>,
-                 private store: Store<fromMovieRoot.State>,
                  @Inject(OWL_DIALOG_DATA) public data: any ) {
     }
 
@@ -41,9 +37,8 @@ export class MovieTrailerDialogComponent implements OnInit, AfterContentInit, On
 
         this.movieTitle = this.data.movieTitle;
 
-        if (this.data.movieId) {
-            this.store.dispatch(new movieVideos.Search(this.data.movieId));
-            this.movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
+        if (this.data.movieVideo$) {
+            this.movieVideo$ = this.data.movieVideo$;
         } else if (this.data.videoKey) {
             this.videoKey = this.data.videoKey;
         }
