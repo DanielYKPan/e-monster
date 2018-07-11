@@ -14,4 +14,6 @@
                 [attr.src]="('https://www.youtube.com/embed/' + videoKey) | safe"
                 frameborder="0"></iframe>
     </ng-container>
+
+    <h3 *ngIf="!video$ && !videoKey" class="no-audio">No Video Found</h3>
 </div>
