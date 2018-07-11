@@ -15,5 +15,5 @@
                 frameborder="0"></iframe>
     </ng-container>
 
-    <h3 *ngIf="!video$ && !videoKey" class="no-audio">No Video Found</h3>
+    <h3 *ngIf="!(video$ | async) && !videoKey" class="no-audio">No Video Found</h3>
 </div>

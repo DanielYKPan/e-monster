@@ -21,6 +21,7 @@ import { TvDetailsContentComponent } from './tv-details/tv-details-content/tv-de
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
 import { TvSeasonDetailsHeaderComponent } from './tv-season-details/tv-season-details-header/tv-season-details-header.component';
 import { TvSeasonDetailsContentComponent } from './tv-season-details/tv-season-details-content/tv-season-details-content.component';
+import { VideoEffect } from './effects/video';
 
 @NgModule({
     imports: [
@@ -34,7 +35,7 @@ import { TvSeasonDetailsContentComponent } from './tv-season-details/tv-season-d
         OwlChipsModule,
 
         StoreModule.forFeature('tvs', reducers),
-        EffectsModule.forFeature([TvEffect])
+        EffectsModule.forFeature([TvEffect, VideoEffect])
     ],
     declarations: [
         TvComponent,

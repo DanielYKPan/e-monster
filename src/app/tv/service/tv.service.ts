@@ -8,7 +8,7 @@ import { TMDBService } from '../../tmdb';
 import { Observable } from 'rxjs/Observable';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError, map } from 'rxjs/operators';
-import { IAudio, ISeason, ITv } from '../../model';
+import { IAudio, ISeason, ITv, IVideos } from '../../model';
 
 @Injectable()
 export class TvService extends TMDBService {
@@ -82,6 +82,14 @@ export class TvService extends TMDBService {
         ];
 
         return this.getResult(url, queries).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    public getTvVideos( id: number ): Observable<IVideos> {
+        const url = this.base_url + `tv/${id}/videos`;
+
+        return this.getResult(url).pipe(
             catchError(this.handleError)
         );
     }
