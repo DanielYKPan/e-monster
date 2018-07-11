@@ -9,10 +9,10 @@ import * as movieVideoActions from '../actions/video';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
-import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 import { OwlDialogService } from 'owl-ng';
 import { IAudio, IMovie, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
+import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 
 @Component({
     selector: 'app-movie-details',
@@ -57,9 +57,12 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     public openMovieVideoDialog( e: { title: string, videoKey: string, event: any } ): void {
-        const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
-            data: {movieTitle: e.title, videoKey: e.videoKey}, // data that would pass to dialog component
-            dialogClass: 'movie-trailer-dialog',
+        const dialogRef = this.dialogService.open(AudioDialogComponent, {
+            data: {
+                title: e.title,
+                videoKey: e.videoKey
+            }, // data that would pass to dialog component
+            dialogClass: 'audio-dialog',
             transitionX: e.event.clientX,
             transitionY: e.event.clientY,
         });
@@ -81,9 +84,17 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     public openSimilarMovieVideoDialog( res: { audio: IAudio, event: any } ): void {
-        const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
-            data: {movieId: res.audio.id, movieTitle: res.audio.title},
-            dialogClass: 'movie-trailer-dialog',
+
+        // search the movie videos
+        this.store.dispatch(new movieVideoActions.Search(res.audio.id));
+        const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
+
+        const dialogRef = this.dialogService.open(AudioDialogComponent, {
+            data: {
+                title: res.audio.title,
+                video$: movieVideo$
+            },
+            dialogClass: 'audio-dialog',
             transitionX: res.event.clientX,
             transitionY: res.event.clientY,
         });

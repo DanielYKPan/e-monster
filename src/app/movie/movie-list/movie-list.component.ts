@@ -3,13 +3,13 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
-import * as fromMovieRoot from '../reducers';
+import * as fromMoviesRoot from '../reducers';
 import * as fromRoot from '../../reducers';
 import * as searchActions from '../../search/actions';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
-import { MovieTrailerDialogComponent } from '../movie-trailer-dialog/movie-trailer-dialog.component';
 import { IAudio } from '../../model';
+import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 
 @Component({
     selector: 'app-movie-list',
@@ -36,7 +36,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     private breakpointSub = Subscription.EMPTY;
 
-    constructor( private store: Store<fromMovieRoot.State>,
+    constructor( private store: Store<fromMoviesRoot.State>,
                  private dialogService: OwlDialogService,
                  private breakpointObserver: BreakpointObserver,
                  private cdRef: ChangeDetectorRef ) {
@@ -70,13 +70,14 @@ export class MovieListComponent implements OnInit, OnDestroy {
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         // search the movie videos
         this.store.dispatch(new movieVideoActions.Search(res.audio.id));
-        const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
-        const dialogRef = this.dialogService.open(MovieTrailerDialogComponent, {
+        const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
+
+        const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
-                movieTitle: res.audio.title,
-                movieVideo$: movieVideo$
+                title: res.audio.title,
+                video$: movieVideo$
             }, // data that would pass to dialog component
-            dialogClass: 'movie-trailer-dialog',
+            dialogClass: 'audio-dialog',
             transitionX: res.event.clientX,
             transitionY: res.event.clientY,
         });
