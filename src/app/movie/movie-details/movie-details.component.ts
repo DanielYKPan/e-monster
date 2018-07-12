@@ -7,6 +7,7 @@ import * as fromMoviesRoot from '../reducers';
 import * as movieAction from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
 import * as searchActions from '../../search/actions';
+import * as fromRoot from '../../reducers';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -58,10 +59,12 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     public openMovieVideoDialog( e: { title: string, videoKey: string, event: any } ): void {
+        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
                 title: e.title,
-                videoKey: e.videoKey
+                videoKey: e.videoKey,
+                showLoader$: showLoader$,
             }, // data that would pass to dialog component
             dialogClass: 'audio-dialog',
             transitionX: e.event.clientX,
@@ -89,11 +92,13 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         // search the movie videos
         this.store.dispatch(new searchActions.SearchVideos(res.audio.id));
         const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
+        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
                 title: res.audio.title,
-                video$: movieVideo$
+                video$: movieVideo$,
+                showLoader$: showLoader$,
             },
             dialogClass: 'audio-dialog',
             transitionX: res.event.clientX,

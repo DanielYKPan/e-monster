@@ -71,11 +71,13 @@ export class MovieListComponent implements OnInit, OnDestroy {
         // search the movie videos
         this.store.dispatch(new searchActions.SearchVideos(res.audio.id));
         const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
+        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
                 title: res.audio.title,
-                video$: movieVideo$
+                video$: movieVideo$,
+                showLoader$: showLoader$,
             }, // data that would pass to dialog component
             dialogClass: 'audio-dialog',
             transitionX: res.event.clientX,

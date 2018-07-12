@@ -3,17 +3,26 @@
 </button>
 <h2 class="audio-title">{{title}}</h2>
 <div class="audio-embed embed-responsive embed-responsive-16by9">
-    <ng-container *ngIf="video$ | async as video">
-        <iframe class="embed-responsive-item"
-                [attr.src]="('https://www.youtube.com/embed/' + video.key) | safe"
-                frameborder="0"></iframe>
-    </ng-container>
+    <ng-container *ngIf="!(showLoader$ | async); else loaderBlock">
+        <ng-container *ngIf="video$ | async as video">
+            <iframe class="embed-responsive-item"
+                    [attr.src]="('https://www.youtube.com/embed/' + video.key) | safe"
+                    frameborder="0"></iframe>
+        </ng-container>
 
-    <ng-container *ngIf="videoKey">
-        <iframe class="embed-responsive-item"
-                [attr.src]="('https://www.youtube.com/embed/' + videoKey) | safe"
-                frameborder="0"></iframe>
-    </ng-container>
+        <ng-container *ngIf="videoKey">
+            <iframe class="embed-responsive-item"
+                    [attr.src]="('https://www.youtube.com/embed/' + videoKey) | safe"
+                    frameborder="0"></iframe>
+        </ng-container>
 
-    <h3 *ngIf="!(video$ | async) && !videoKey" class="no-audio">No Video Found</h3>
+        <h3 *ngIf="!(video$ | async) && !videoKey" class="no-audio">No Video Found</h3>
+    </ng-container>
+    <ng-template #loaderBlock>
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+            </svg>
+        </div>
+    </ng-template>
 </div>

@@ -70,11 +70,13 @@ export class TvListComponent implements OnInit, OnDestroy {
         // search the tv video
         this.store.dispatch(new searchActions.SearchVideos(res.audio.id));
         const tvVideo$ = this.store.pipe(select(fromTvsRoot.getSelectedTvVideo));
+        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
                 title: res.audio.name,
-                video$: tvVideo$
+                video$: tvVideo$,
+                showLoader$: showLoader$,
             },
             dialogClass: 'audio-dialog',
             transitionX: res.event.clientX,

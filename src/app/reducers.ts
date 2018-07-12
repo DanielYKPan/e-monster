@@ -96,3 +96,9 @@ export const getSearchTvTypeLoader = createSelector(
     getSearchLoading,
     (type, loading) => type === 'tv' && loading
 );
+
+export const getSearchVideoTypeLoader = createSelector(
+    getSearchType,
+    getSearchLoading,
+    (type, loading) => type === 'video' && loading
+);

@@ -23,6 +23,8 @@ export class AudioDialogComponent implements OnInit, AfterContentInit {
 
     public video$: Observable<IVideo>;
 
+    public showLoader$: Observable<boolean>;
+
     constructor( public dialogRef: OwlDialogRef<AudioDialogComponent>,
                  @Inject(OWL_DIALOG_DATA) public data: any ) {
     }
@@ -32,6 +34,7 @@ export class AudioDialogComponent implements OnInit, AfterContentInit {
 
     public ngAfterContentInit(): void {
         this.title = this.data.title;
+        this.showLoader$ = this.data.showLoader$;
 
         if (this.data.video$) {
             this.video$ = this.data.video$;

@@ -31,7 +31,7 @@ export class VideoEffect {
             let obs;
             if (inStore) {
                 obs = of(new Select(id)).pipe(
-                    tap(() => new LoadingCompleted())
+                    tap(() => this.store.dispatch(new LoadingCompleted()))
                 );
             } else {
                 obs = this.tvService.getTvVideos(id).pipe(
