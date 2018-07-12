@@ -24,6 +24,8 @@ export class AudioCardComponent implements OnInit {
 
     @Input() date: string;
 
+    @Input() hidePlayBtn: boolean;
+
     @Input() vote_average: number;
 
     @Input() vote_count: number;

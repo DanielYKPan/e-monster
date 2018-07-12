@@ -16,7 +16,8 @@
                (click)="clickAddCollection($event)">
                 <i class="fas fa-book"></i>
             </a>
-            <a class="card-action play"
+            <a *ngIf="!hidePlayBtn"
+               class="card-action play"
                owlTooltip="Watch Trailer"
                (click)="clickPlayVideo($event)">
                 <i class="fas fa-play"></i>
