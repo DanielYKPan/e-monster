@@ -2,7 +2,7 @@
  * reducer
  */
 import { IAudio } from '../model/audio';
-import { AudioSearchActions, AudioSearchActionTypes } from './actions';
+import { SearchActions, SearchActionTypes } from './actions';
 
 
 export interface State {
@@ -25,17 +25,17 @@ const initialState: State = {
     searchResults: [],
 };
 
-export function reducer( state = initialState, action: AudioSearchActions ): State {
+export function reducer( state = initialState, action: SearchActions ): State {
     switch (action.type) {
 
-        case AudioSearchActionTypes.LoadingStart:
-        case AudioSearchActionTypes.SearchList:
+        case SearchActionTypes.LoadingStart:
+        case SearchActionTypes.SearchList:
             return {
                 ...state,
                 loading: true
             };
 
-        case AudioSearchActionTypes.SearchListComplete:
+        case SearchActionTypes.SearchListComplete:
             return {
                 ...state,
                 type: action.payload.type,
@@ -47,7 +47,7 @@ export function reducer( state = initialState, action: AudioSearchActions ): Sta
                 searchResults: action.payload.results,
             };
 
-        case AudioSearchActionTypes.LoadingCompleted:
+        case SearchActionTypes.LoadingCompleted:
             return {
                 ...state,
                 loading: false
