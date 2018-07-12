@@ -1,28 +1,31 @@
 /**
  * reducer
  */
-import { IAudio } from '../model/audio';
+import { IAudio } from '../model';
 import { SearchActions, SearchActionTypes } from './actions';
 
-
 export interface State {
-    type: string;
-    query: string;
-    loading: boolean;
-    page: number;
-    total_results: number;
-    total_pages: number;
-    searchResults: IAudio[];
+    type: string; // Search Type: 'movie', 'tv', 'video'
+    loading: boolean; // whether the search process is completed
+    searchListResult: {
+        query: string;
+        page: number;
+        total_results: number;
+        total_pages: number;
+        results: IAudio[]
+    };
 }
 
 const initialState: State = {
     type: null,
-    query: null,
     loading: false,
-    page: 0,
-    total_results: 0,
-    total_pages: 0,
-    searchResults: [],
+    searchListResult: {
+        query: null,
+        page: 0,
+        total_results: 0,
+        total_pages: 0,
+        results: []
+    },
 };
 
 export function reducer( state = initialState, action: SearchActions ): State {
@@ -39,12 +42,14 @@ export function reducer( state = initialState, action: SearchActions ): State {
             return {
                 ...state,
                 type: action.payload.type,
-                query: action.payload.query,
                 loading: false,
-                page: action.payload.page,
-                total_results: action.payload.total_results,
-                total_pages: action.payload.total_pages,
-                searchResults: action.payload.results,
+                searchListResult: {
+                    query: action.payload.query,
+                    page: action.payload.page,
+                    total_results: action.payload.total_results,
+                    total_pages: action.payload.total_pages,
+                    results: action.payload.results,
+                }
             };
 
         case SearchActionTypes.LoadingCompleted:
@@ -58,9 +63,9 @@ export function reducer( state = initialState, action: SearchActions ): State {
     }
 }
 
-export const getSearchResults = ( state: State ) => state.searchResults;
-export const getQuery = ( state: State ) => state.query;
-export const getType = (state: State) => state.type;
+export const getSearchResults = ( state: State ) => state.searchListResult.results;
+export const getQuery = ( state: State ) => state.searchListResult.query;
+export const getType = ( state: State ) => state.type;
 export const getLoading = ( state: State ) => state.loading;
-export const getPage = ( state: State ) => state.page;
-export const getTotalPage = ( state: State ) => state.total_pages;
+export const getPage = ( state: State ) => state.searchListResult.page;
+export const getTotalPage = ( state: State ) => state.searchListResult.total_pages;
