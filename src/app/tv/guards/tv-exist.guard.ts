@@ -9,6 +9,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
 import * as searchActions from '../../search/actions';
 import * as tvActions from '../actions/tv';
+import * as videoActions from '../actions/video';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { TvService } from '../service/tv.service';
@@ -26,7 +27,7 @@ export class TvExistGuard implements CanActivate {
     private hasTv( id: number ): Observable<boolean> {
         return this.hasTvInStore(id).pipe(
             tap(() => {
-                this.store.dispatch(new searchActions.SearchVideos(id));
+                this.store.dispatch(new videoActions.SearchTvVideos(id));
                 this.store.dispatch(new searchActions.SetSearchType('tv'));
             }),
             switchMap(inStore => {
