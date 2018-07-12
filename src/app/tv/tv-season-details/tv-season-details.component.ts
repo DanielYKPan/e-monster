@@ -1,8 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ISeason, ITv } from '../../model';
-import { Subscription } from 'rxjs/Subscription';
-import * as tvActions from '../actions/tv';
+import { ISeason, ITv, IVideo } from '../../model';
 import { map } from 'rxjs/operators';
 import * as fromTvRoot from '../reducers';
 import { select, Store } from '@ngrx/store';
@@ -21,13 +19,8 @@ import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialo
 export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
 
     public tv$: Observable<ITv>;
+    public tvSeasonVideos$: Observable<IVideo[]>;
     public season$: Observable<ISeason>;
-    public seasonNumber: number;
-
-    private dataSubscription = Subscription.EMPTY;
-    private paramsSubscription = Subscription.EMPTY;
-
-    private tvId: number;
 
     constructor( private route: ActivatedRoute,
                  private store: Store<fromTvRoot.State>,
@@ -37,26 +30,15 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-
-        this.paramsSubscription = this.route.params
-            .pipe(map(params => {
-                this.tvId = +params.id;
-                this.seasonNumber = +params.number;
-                return new tvActions.Select(params.id);
-            }))
-            .subscribe(this.store);
-
         this.season$ = this.route.data.pipe(
             map(( data: { season: ISeason } ) => data.season)
         );
 
         this.tv$ = this.store.pipe(select(fromTvRoot.getSelectedTv));
+        this.tvSeasonVideos$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideos));
     }
 
     public ngOnDestroy(): void {
-
-        this.dataSubscription.unsubscribe();
-        this.paramsSubscription.unsubscribe();
     }
 
     public openTvSeasonCreditsDialog( e: { tv: ITv, tvSeason: ISeason, event: any } ): void {

@@ -12,6 +12,7 @@ import { of } from 'rxjs/observable/of';
 import * as fromTvRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import { LoadingCompleted, LoadingStart } from '../../search/actions';
+import { Select } from '../actions/tv';
 
 @Injectable()
 export class TvSeasonResolver implements Resolve<ISeason> {
@@ -29,6 +30,7 @@ export class TvSeasonResolver implements Resolve<ISeason> {
                 tap(() => this.store.dispatch(new LoadingCompleted())),
                 map(( season ) => {
                     if (season) {
+                        this.store.dispatch(new Select(tv_id));
                         return season;
                     } else {
                         // TODO: navigate to 404

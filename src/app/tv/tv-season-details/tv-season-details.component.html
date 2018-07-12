@@ -1,7 +1,6 @@
 <app-tv-season-details-header
         [tv]="tv$ | async"
         [season]="season$ | async"
-        [seasonNumber]="seasonNumber"
         (rate)="rate($event)"></app-tv-season-details-header>
 
 <app-tv-season-details-content [tv]="tv$ | async"
