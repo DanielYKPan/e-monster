@@ -5,4 +5,6 @@
 
 <app-tv-season-details-content [tv]="tv$ | async"
                                [season]="season$ | async"
+                               [seasonVideos]="tvSeasonVideos$ | async"
+                               (seasonVideoClick)="openSeasonVideoDialog($event)"
                                (fullCastCrewClick)="openTvSeasonCreditsDialog($event)"></app-tv-season-details-content>

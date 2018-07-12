@@ -5,9 +5,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import {
+    SearchTvSeasonVideos,
     SearchTvVideos,
-    SearchTvVideosCompleted,
-    SearchTvVideosError,
+    SearchVideosCompleted,
+    SearchVideosError,
     Select,
     TvVideosActionTypes
 } from '../actions/video';
@@ -35,8 +36,30 @@ export class VideoEffect {
                 );
             } else {
                 obs = this.tvService.getTvVideos(id).pipe(
-                    map(( res ) => new SearchTvVideosCompleted(res)),
-                    catchError(err => of(new SearchTvVideosError(err)))
+                    map(( res ) => new SearchVideosCompleted(res)),
+                    catchError(err => of(new SearchVideosError(err)))
+                );
+            }
+            return obs;
+        })
+    );
+
+    @Effect()
+    public searchSeasonVideos$ = this.actions$.pipe(
+        ofType(TvVideosActionTypes.SearchTvSeasonVideos),
+        withLatestFrom(this.store.pipe(select(fromTvRoot.getTvVideosEntities))),
+        map(( [action, entities]: [SearchTvSeasonVideos, any] ) => [action.payload, entities]),
+        switchMap(( [inform, entities] ) => {
+            const inStore = entities && !!entities[inform.season_id];
+            let obs;
+            if (inStore) {
+                obs = of(new Select(inform.season_id)).pipe(
+                    tap(() => this.store.dispatch(new LoadingCompleted()))
+                );
+            } else {
+                obs = this.tvService.getTvSeasonVideos(inform.tv_id, inform.season_number).pipe(
+                    map(( res ) => new SearchVideosCompleted(res)),
+                    catchError(err => of(new SearchVideosError(err)))
                 );
             }
             return obs;

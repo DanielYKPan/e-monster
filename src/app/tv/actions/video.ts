@@ -7,8 +7,9 @@ import { Action } from '@ngrx/store';
 export enum TvVideosActionTypes {
     Select = '[Tv Videos] Select',
     SearchTvVideos = '[Tv Videos] Search Tv Videos',
-    SearchTvVideosCompleted = '[Tv Videos] Search Tv Videos Completed',
-    SearchTvVideosError = '[Tv Videos] Search Tv Videos Error',
+    SearchTvSeasonVideos = '[Tv Videos] Search Tv Season Videos',
+    SearchVideosCompleted = '[Tv Videos] Search Tv Videos Completed',
+    SearchVideosError = '[Tv Videos] Search Tv Videos Error',
 }
 
 export class Select implements Action {
@@ -25,15 +26,22 @@ export class SearchTvVideos implements Action {
     }
 }
 
-export class SearchTvVideosCompleted implements Action {
-    readonly type = TvVideosActionTypes.SearchTvVideosCompleted;
+export class SearchTvSeasonVideos implements Action {
+    readonly type = TvVideosActionTypes.SearchTvSeasonVideos;
+
+    constructor( public payload: { tv_id: number, season_number: number, season_id: number } ) {
+    }
+}
+
+export class SearchVideosCompleted implements Action {
+    readonly type = TvVideosActionTypes.SearchVideosCompleted;
 
     constructor( public payload: any ) {
     }
 }
 
-export class SearchTvVideosError implements Action {
-    readonly type = TvVideosActionTypes.SearchTvVideosError;
+export class SearchVideosError implements Action {
+    readonly type = TvVideosActionTypes.SearchVideosError;
 
     constructor( public payload: any ) {
     }
@@ -42,5 +50,6 @@ export class SearchTvVideosError implements Action {
 export type TvVideosActions =
     Select |
     SearchTvVideos |
-    SearchTvVideosCompleted |
-    SearchTvVideosError;
+    SearchTvSeasonVideos |
+    SearchVideosCompleted |
+    SearchVideosError;

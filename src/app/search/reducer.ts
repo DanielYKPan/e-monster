@@ -62,7 +62,7 @@ export function reducer( state = initialState, action: SearchActions | MovieVide
                 loading: true
             };
 
-        case TvVideosActionTypes.SearchTvVideosCompleted:
+        case TvVideosActionTypes.SearchVideosCompleted:
         case MovieVideosActionTypes.SearchVideosCompleted:
         case SearchActionTypes.LoadingCompleted:
             return {

@@ -77,6 +77,19 @@
             {{season.overview}}
         </p>
 
+        <section class="videos-wrapper">
+            <h2>Videos</h2>
+
+            <ul class="video-list">
+                <li *ngFor="let video of seasonVideos"
+                    class="movie-details-button video"
+                    (click)="clickVideo(video, $event)">
+                    <i class="icon fab fa-youtube"></i>
+                    {{video.type}}
+                </li>
+            </ul>
+        </section>
+
         <section class="cast-crew-wrapper">
             <div class="cast-crew-title">
                 <h2>Cast & Crew</h2>

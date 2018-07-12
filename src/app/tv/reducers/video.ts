@@ -20,7 +20,7 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer( state = initialState, action: TvVideosActions ): State {
     switch (action.type) {
-        case TvVideosActionTypes.SearchTvVideosCompleted:
+        case TvVideosActionTypes.SearchVideosCompleted:
             return adapter.addOne(action.payload, {
                 ...state,
                 selectedTvId: action.payload.id

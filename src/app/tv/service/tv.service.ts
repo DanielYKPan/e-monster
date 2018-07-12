@@ -94,6 +94,14 @@ export class TvService extends TMDBService {
         );
     }
 
+    public getTvSeasonVideos( tv_id: number, season_number: number ): Observable<IVideos> {
+        const url = this.base_url + `tv/${tv_id}/season/${season_number}/videos`;
+
+        return this.getResult(url).pipe(
+            catchError(this.handleError)
+        );
+    }
+
     private getResult( url: string, queries?: Array<{ name: string, value: string }>, setRegion?: boolean ): Observable<any> {
         let params = new HttpParams();
 

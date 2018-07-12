@@ -8,7 +8,7 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { ISeason, ITv } from '../../../model';
+import { ISeason, ITv, IVideo } from '../../../model';
 
 @Component({
     selector: 'app-tv-season-details-content',
@@ -26,6 +26,10 @@ export class TvSeasonDetailsContentComponent implements OnInit {
 
     @Input() season: ISeason;
 
+    @Input() seasonVideos: IVideo[];
+
+    @Output() seasonVideoClick = new EventEmitter<any>();
+
     @Output() fullCastCrewClick = new EventEmitter<any>();
 
     public castProfileWidth = 96;
@@ -41,6 +45,14 @@ export class TvSeasonDetailsContentComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    public clickVideo( video: IVideo, event: any ): void {
+        this.seasonVideoClick.emit({
+            title: this.tv.name + ' ' + this.season.name,
+            videoKey: video.key,
+            event
+        });
     }
 
     public clickFullCastCrew( event: any ): void {

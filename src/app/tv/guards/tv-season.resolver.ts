@@ -13,6 +13,7 @@ import * as fromTvRoot from '../reducers';
 import { Store } from '@ngrx/store';
 import { LoadingCompleted, LoadingStart } from '../../search/actions';
 import { Select } from '../actions/tv';
+import { SearchTvSeasonVideos } from '../actions/video';
 
 @Injectable()
 export class TvSeasonResolver implements Resolve<ISeason> {
@@ -31,6 +32,7 @@ export class TvSeasonResolver implements Resolve<ISeason> {
                 map(( season ) => {
                     if (season) {
                         this.store.dispatch(new Select(tv_id));
+                        this.store.dispatch(new SearchTvSeasonVideos({tv_id, season_number, season_id: season.id}));
                         return season;
                     } else {
                         // TODO: navigate to 404
