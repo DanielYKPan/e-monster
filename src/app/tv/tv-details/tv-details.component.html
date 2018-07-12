@@ -2,4 +2,5 @@
 <app-tv-details-content [tv]="tv$ | async"
                         [tvVideos]="tvVideos$ | async"
                         (tvVideoClick)="openTvVideoDialog($event)"
+                        (tvSeasonVideoClick)="openTvSeasonVideoDialog($event)"
                         (fullCastCrewClick)="openTvCreditsDialog($event)"></app-tv-details-content>

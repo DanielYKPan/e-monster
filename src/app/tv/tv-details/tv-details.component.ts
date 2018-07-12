@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
 import * as tvActions from '../actions/tv';
+import * as tvVideoActions from '../actions/video';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { ITv, IVideo } from '../../model';
@@ -62,6 +63,32 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
             dialogClass: 'audio-dialog',
             transitionX: e.event.clientX,
             transitionY: e.event.clientY,
+        });
+    }
+
+    public openTvSeasonVideoDialog( e: { tv: ITv, season: any, event: any } ) {
+        this.store.dispatch(new tvVideoActions.SearchTvSeasonVideos({
+            tv_id: e.tv.id,
+            season_number: e.season.season_number,
+            season_id: e.season.id
+        }));
+
+        const seasonVideo$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideo));
+        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
+
+        const dialogRef = this.dialogService.open(AudioDialogComponent, {
+            data: {
+                title: e.tv.name + ' ' + e.season.name,
+                video$: seasonVideo$,
+                showLoader$: showLoader$,
+            },
+            dialogClass: 'audio-dialog',
+            transitionX: e.event.clientX,
+            transitionY: e.event.clientY,
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            this.store.dispatch(new tvVideoActions.Select(e.tv.id));
         });
     }
 

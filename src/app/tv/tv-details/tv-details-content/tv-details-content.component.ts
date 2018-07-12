@@ -9,6 +9,9 @@ import {
     ViewChild
 } from '@angular/core';
 import { ITv, IVideo } from '../../../model';
+import { OwlDialogService } from 'owl-ng';
+import * as fromTvRoot from '../../reducers';
+import { Store } from '@ngrx/store';
 
 @Component({
     selector: 'app-tv-details-content',
@@ -28,6 +31,8 @@ export class TvDetailsContentComponent implements OnInit {
 
     @Output() tvVideoClick = new EventEmitter<any>();
 
+    @Output() tvSeasonVideoClick = new EventEmitter<any>();
+
     @Output() fullCastCrewClick = new EventEmitter<any>();
 
     public castProfileWidth = 96;
@@ -39,7 +44,8 @@ export class TvDetailsContentComponent implements OnInit {
             this.tv.credits.cast.length * this.castProfileWidth > this.castListWrapperRef.nativeElement.offsetWidth;
     }
 
-    constructor() {
+    constructor( private store: Store<fromTvRoot.State>,
+                 private dialogService: OwlDialogService ) {
     }
 
     ngOnInit() {
@@ -82,4 +88,11 @@ export class TvDetailsContentComponent implements OnInit {
         event.preventDefault();
     }
 
+    public playTvSeasonVideo( res: { audio: any; event: any } ) {
+        this.tvSeasonVideoClick.emit({
+            tv: this.tv,
+            season: res.audio,
+            event: res.event
+        });
+    }
 }

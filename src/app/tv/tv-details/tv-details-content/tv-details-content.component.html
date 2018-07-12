@@ -155,7 +155,8 @@
                     <app-audio-card class="season-card"
                                     [cardLink]="'/tv/' + tv.id + '/season/' + season.season_number"
                                     [imageLink]="'https://image.tmdb.org/t/p/w780' + season.poster_path"
-                                    [audio]="season"></app-audio-card>
+                                    [audio]="season"
+                                    (playVideo)="playTvSeasonVideo($event)"></app-audio-card>
                     <h4>{{season.episode_count}} episodes</h4>
                     <h5>
                         {{season.name}}</h5>
