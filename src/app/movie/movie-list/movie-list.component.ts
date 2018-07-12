@@ -69,7 +69,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         // search the movie videos
-        this.store.dispatch(new searchActions.SearchVideos(res.audio.id));
+        this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
         const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
         const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
 

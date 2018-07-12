@@ -5,25 +5,25 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { Select } from '../actions/video';
+import {
+    MovieVideosActionTypes,
+    SearchVideos,
+    SearchVideosCompleted,
+    SearchVideosError,
+    Select
+} from '../actions/video';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import * as fromMovieRoot from '../reducers';
 import { MovieService } from '../service/movie.service';
 import { of } from 'rxjs/observable/of';
-import {
-    LoadingCompleted,
-    SearchActionTypes,
-    SearchError,
-    SearchVideos,
-    SearchVideosCompleted
-} from '../../search/actions';
+import { LoadingCompleted, } from '../../search/actions';
 
 @Injectable()
 export class VideoEffect {
 
     @Effect()
     public search$ = this.actions$.pipe(
-        ofType(SearchActionTypes.SearchVideos),
+        ofType(MovieVideosActionTypes.SearchVideos),
         withLatestFrom(this.store$.pipe(select(fromMovieRoot.getMovieVideosEntities))),
         map(( [action, entities]: [SearchVideos, any] ) => [action.payload, entities]),
         switchMap(( [id, entities] ) => {
@@ -36,7 +36,7 @@ export class VideoEffect {
             } else {
                 obs = this.movieService.getMovieVideos(id).pipe(
                     map(( res ) => new SearchVideosCompleted(res)),
-                    catchError(err => of(new SearchError(err)))
+                    catchError(err => of(new SearchVideosError(err)))
                 );
             }
             return obs;

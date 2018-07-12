@@ -4,7 +4,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { MovieVideosActions, MovieVideosActionTypes } from '../actions/video';
 import { IVideos } from '../../model';
-import { SearchActions, SearchActionTypes } from '../../search/actions';
 
 export interface State extends EntityState<IVideos> {
     selectedMovieId: number | null;
@@ -19,10 +18,10 @@ export const initialState: State = adapter.getInitialState({
     selectedMovieId: null
 });
 
-export function reducer( state = initialState, action: MovieVideosActions | SearchActions ): State {
+export function reducer( state = initialState, action: MovieVideosActions ): State {
     switch (action.type) {
 
-        case SearchActionTypes.SearchVideosCompleted:
+        case MovieVideosActionTypes.SearchVideosCompleted:
             return adapter.addOne(action.payload, {
                 ...state,
                 selectedMovieId: action.payload.id
