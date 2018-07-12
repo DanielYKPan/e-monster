@@ -1,7 +1,6 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    ElementRef,
     EventEmitter,
     Input,
     OnChanges,
@@ -23,15 +22,13 @@ export class MovieListContentComponent implements OnInit, OnChanges {
 
     @Input() list: IAudio[];
 
+    @Input() frameMainElm: HTMLElement;
+
     @Output() addCollection = new EventEmitter<{ audio: IAudio, event: any }>();
 
     @Output() playVideo = new EventEmitter<{ audio: IAudio, event: any }>();
 
-    get hostElm(): HTMLElement {
-        return this.elmRef.nativeElement;
-    }
-
-    constructor( private elmRef: ElementRef ) {
+    constructor() {
     }
 
     public ngOnInit() {
@@ -45,6 +42,6 @@ export class MovieListContentComponent implements OnInit, OnChanges {
     }
 
     private scrollBackToTop(): void {
-        this.elmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
+        this.frameMainElm.scroll({top: 0, behavior: 'smooth'});
     }
 }

@@ -1,6 +1,6 @@
 <div class="movie-grid featured">
     <app-audio-card *ngFor="let movie of featuredList" class="movie-card"
-                    [audio]="movie" [scrollTarget]="hostElm"
+                    [audio]="movie" [scrollTarget]="frameMainElm"
                     [cardLink]="'/movies/' + movie.id + '/details'"
                     [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
                     [title]="movie.title"
@@ -12,7 +12,7 @@
 </div>
 <div class="movie-grid">
     <app-audio-card *ngFor="let movie of list" class="movie-card"
-                    [audio]="movie" [scrollTarget]="hostElm"
+                    [audio]="movie" [scrollTarget]="frameMainElm"
                     [cardLink]="'/movies/' + movie.id + '/details'"
                     [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
                     [title]="movie.title"

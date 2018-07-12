@@ -1,6 +1,6 @@
 <div class="tv-grid featured">
     <app-audio-card *ngFor="let tv of featuredList" class="tv-card"
-                    [audio]="tv" [scrollTarget]="hostElm"
+                    [audio]="tv" [scrollTarget]="frameMainElm"
                     [cardLink]="'/tv/' + tv.id + '/details'"
                     [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
                     [title]="tv.name"
@@ -12,7 +12,7 @@
 </div>
 <div class="tv-grid">
     <app-audio-card *ngFor="let tv of list" class="tv-card"
-                    [audio]="tv" [scrollTarget]="hostElm"
+                    [audio]="tv" [scrollTarget]="frameMainElm"
                     [cardLink]="'/tv/' + tv.id + '/details'"
                     [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
                     [title]="tv.name"

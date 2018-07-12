@@ -7,9 +7,10 @@
                              (goToPage)="goToPage($event)"></app-tv-list-sidenav>
     </div>
 
-    <div class="frame-main">
+    <div class="frame-main" #frameMainElm>
         <app-tv-list-content [featuredList]="featuredList$ | async"
                              [list]="list$ | async"
+                             [frameMainElm]="frameMainElm"
                              (playVideo)="openTvTrailerDialog($event)">
         </app-tv-list-content>
     </div>

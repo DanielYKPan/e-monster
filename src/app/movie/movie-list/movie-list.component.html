@@ -7,10 +7,11 @@
                                 (goToPage)="goToPage($event)"></app-movie-list-sidenav>
     </div>
 
-    <div class="frame-main">
+    <div class="frame-main" #frameMainElm>
         <app-movie-list-content
                 [featuredList]="featuredList$ | async"
                 [list]="list$ | async"
+                [frameMainElm]="frameMainElm"
                 (playVideo)="openMovieTrailerDialog($event)"></app-movie-list-content>
     </div>
 </section>
