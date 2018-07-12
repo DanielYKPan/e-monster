@@ -8,7 +8,7 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { ITv } from '../../../model';
+import { ITv, IVideo } from '../../../model';
 
 @Component({
     selector: 'app-tv-details-content',
@@ -23,6 +23,10 @@ export class TvDetailsContentComponent implements OnInit {
     @ViewChild('castListWrapper') castListWrapperRef: ElementRef;
 
     @Input() tv: ITv;
+
+    @Input() tvVideos: IVideo[];
+
+    @Output() tvVideoClick = new EventEmitter<any>();
 
     @Output() fullCastCrewClick = new EventEmitter<any>();
 
@@ -39,6 +43,14 @@ export class TvDetailsContentComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    public clickVideo( video: IVideo, event: any ): void {
+        this.tvVideoClick.emit({
+            title: this.tv.name,
+            videoKey: video.key,
+            event
+        });
     }
 
     public clickFullCastCrew( event: any ): void {

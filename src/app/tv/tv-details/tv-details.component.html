@@ -1,3 +1,5 @@
 <app-tv-details-header [tv]="tv$ | async" (rate)="rate($event)"></app-tv-details-header>
 <app-tv-details-content [tv]="tv$ | async"
+                        [tvVideos]="tvVideos$ | async"
+                        (tvVideoClick)="openTvVideoDialog($event)"
                         (fullCastCrewClick)="openTvCreditsDialog($event)"></app-tv-details-content>
