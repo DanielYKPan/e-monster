@@ -10,7 +10,6 @@ import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import * as movieActions from '../actions/movie';
 import * as searchActions from '../../search/actions';
-import * as movieVideoActions from '../actions/video';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
@@ -28,8 +27,8 @@ export class MovieExistGuard implements CanActivate {
     private hasMovie( id: number ): Observable<boolean> {
         return this.hasMovieInStore(id).pipe(
             tap(() => {
+                this.store.dispatch(new searchActions.SearchVideos(id));
                 this.store.dispatch(new searchActions.SetSearchType('movie'));
-                this.store.dispatch(new movieVideoActions.Search(id));
             }),
             switchMap(inStore => {
                 if (inStore) {

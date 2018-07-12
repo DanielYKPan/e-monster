@@ -5,28 +5,37 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { MovieVideosActionTypes, Search, SearchComplete, SearchError, Select } from '../actions/video';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { Select } from '../actions/video';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import * as fromMovieRoot from '../reducers';
 import { MovieService } from '../service/movie.service';
 import { of } from 'rxjs/observable/of';
+import {
+    LoadingCompleted,
+    SearchActionTypes,
+    SearchError,
+    SearchVideos,
+    SearchVideosCompleted
+} from '../../search/actions';
 
 @Injectable()
 export class VideoEffect {
 
     @Effect()
     public search$ = this.actions$.pipe(
-        ofType(MovieVideosActionTypes.Search),
+        ofType(SearchActionTypes.SearchVideos),
         withLatestFrom(this.store$.pipe(select(fromMovieRoot.getMovieVideosEntities))),
-        map(( [action, entities]: [Search, any] ) => [action.payload, entities]),
+        map(( [action, entities]: [SearchVideos, any] ) => [action.payload, entities]),
         switchMap(( [id, entities] ) => {
             const inStore = entities && !!entities[id];
             let obs;
             if (inStore) {
-                obs = of(new Select(id));
+                obs = of(new Select(id)).pipe(
+                    tap(() => new LoadingCompleted())
+                );
             } else {
                 obs = this.movieService.getMovieVideos(id).pipe(
-                    map(( res ) => new SearchComplete(res)),
+                    map(( res ) => new SearchVideosCompleted(res)),
                     catchError(err => of(new SearchError(err)))
                 );
             }

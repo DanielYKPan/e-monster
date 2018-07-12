@@ -8,5 +8,6 @@ export * from './crew';
 export * from './genre';
 export * from './movie';
 export * from './review';
+export * from './search';
 export * from './tv';
 export * from './video';

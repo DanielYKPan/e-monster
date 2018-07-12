@@ -3,12 +3,14 @@
  */
 
 import { Action } from '@ngrx/store';
-import { SearchType } from '../model/search';
+import { SearchType } from '../model';
 
 export enum SearchActionTypes {
     SearchList = '[Audio] Search List',
     SearchListComplete = '[Audio] Search List Complete',
     SearchError = '[Audio] Search Error',
+    SearchVideos = '[Audio] Search Videos',
+    SearchVideosCompleted = '[Audio] Search Videos Completed',
     SetSearchType = '[Search] Set Search Type',
     LoadingStart = '[Search] Loading Start',
     LoadingCompleted = '[Search] Loading Completed',
@@ -23,6 +25,20 @@ export class SearchList implements Action {
 
 export class SearchListComplete implements Action {
     readonly type = SearchActionTypes.SearchListComplete;
+
+    constructor( public payload: any ) {
+    }
+}
+
+export class SearchVideos implements Action {
+    readonly type = SearchActionTypes.SearchVideos;
+
+    constructor( public payload: number ) {
+    }
+}
+
+export class SearchVideosCompleted implements Action {
+    readonly type = SearchActionTypes.SearchVideosCompleted;
 
     constructor( public payload: any ) {
     }
@@ -60,6 +76,8 @@ export type SearchActions =
     SearchList |
     SearchListComplete |
     SearchError |
+    SearchVideos |
+    SearchVideosCompleted |
     SetSearchType |
     LoadingStart |
     LoadingCompleted ;

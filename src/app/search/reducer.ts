@@ -1,9 +1,8 @@
 /**
  * reducer
  */
-import { IAudio } from '../model';
+import { IAudio, SearchType } from '../model';
 import { SearchActions, SearchActionTypes } from './actions';
-import { SearchType } from '../model/search';
 
 export interface State {
     type: SearchType; // Search Type: 'movie', 'tv', 'video'
@@ -53,6 +52,14 @@ export function reducer( state = initialState, action: SearchActions ): State {
                 }
             };
 
+        case SearchActionTypes.SearchVideos:
+            return {
+                ...state,
+                type: 'video',
+                loading: true
+            };
+
+        case SearchActionTypes.SearchVideosCompleted:
         case SearchActionTypes.LoadingCompleted:
             return {
                 ...state,
