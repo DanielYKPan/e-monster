@@ -25,7 +25,7 @@ export class MovieService extends TMDBService {
 
         const url = this.base_url + `movie/${query}`;
 
-        return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
+        return this.getResult(url, [{name: 'page', value: page.toString()}], true).pipe(
             map(( res: any ) => {
                 return {...res, query: query, type: 'movie'};
             }),
@@ -56,7 +56,7 @@ export class MovieService extends TMDBService {
     public discoverMovieList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
         const url = this.base_url + 'discover/movie';
 
-        return this.getResult(url, queries).pipe(
+        return this.getResult(url, queries, true).pipe(
             map(( res: any ) => {
                 return {...res, query: query, type: 'movie'};
             }),
@@ -101,7 +101,7 @@ export class MovieService extends TMDBService {
         );
     }
 
-    private getResult( url: string, queries?: Array<{ name: string, value: string }> ): Observable<any> {
+    private getResult( url: string, queries?: Array<{ name: string, value: string }>, setRegion?: boolean ): Observable<any> {
         let params = new HttpParams();
 
         if (queries) {
@@ -110,8 +110,11 @@ export class MovieService extends TMDBService {
             }
         }
 
+        if (setRegion) {
+            params = params.set('region', this.region);
+        }
+
         params = params.set('api_key', this.apikey);
-        params = params.set('region', this.region);
 
         return this.http.get(url, {params: params});
     }
