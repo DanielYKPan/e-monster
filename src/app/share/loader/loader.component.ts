@@ -10,10 +10,7 @@ export class LoaderComponent implements OnInit {
 
     @Input() show = false;
 
-    @HostBinding('class.show')
-    get loaderShowClass(): boolean {
-        return this.show;
-    }
+    @Input() standAlone: boolean;
 
     constructor() {
     }

@@ -1,4 +1,4 @@
-:host {
+.loader-page {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,13 +13,13 @@
     display: block;
     opacity: 1;
   }
-}
 
-.loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  .loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .line {

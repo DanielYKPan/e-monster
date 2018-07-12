@@ -1,4 +1,4 @@
-<div class="loader">
+<div *ngIf="standAlone; else loaderPageBlock" class="loader">
     <div class="line"></div>
     <div class="line"></div>
     <div class="line"></div>
@@ -9,3 +9,19 @@
     <div class="line"></div>
     <div class="line"></div>
 </div>
+
+<ng-template #loaderPageBlock>
+    <div class="loader-page" [ngClass]="{'show': show}">
+        <div class="loader">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+</ng-template>
