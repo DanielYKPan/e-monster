@@ -2,7 +2,7 @@
  * audio-dialog.component
  */
 
-import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IVideo } from '../../model';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
@@ -11,7 +11,6 @@ import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
     selector: 'app-audio-dialog-component',
     styleUrls: ['./audio-dialog.component.scss'],
     templateUrl: './audio-dialog.component.html',
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 

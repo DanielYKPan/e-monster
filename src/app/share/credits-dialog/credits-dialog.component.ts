@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { ICast, ICrew } from '../../model';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
 
@@ -6,7 +6,6 @@ import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
     selector: 'app-credits-dialog',
     templateUrl: './credits-dialog.component.html',
     styleUrls: ['./credits-dialog.component.scss'],
-    encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreditsDialogComponent implements OnInit, AfterContentInit {

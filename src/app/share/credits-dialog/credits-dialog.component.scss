@@ -25,17 +25,6 @@ $bg-color: #FFFFFF;
   }
 }
 
-.credits-dialog {
-  position: relative;
-  padding: .5rem 1rem;
-  width: 80vw;
-  height: 95vh;
-  max-width: 600px;
-  box-sizing: border-box;
-  background-color: $bg-color;
-  overflow-y: scroll;
-}
-
 .credits-summary {
   display: flex;
 
