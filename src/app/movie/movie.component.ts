@@ -18,7 +18,7 @@ export class MovieComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchLoading));
+        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchMovieTypeLoader));
     }
 
     public onDeactivate() {

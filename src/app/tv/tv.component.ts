@@ -18,7 +18,7 @@ export class TvComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchLoading));
+        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchTvTypeLoader));
     }
 
     public onDeactivate() {

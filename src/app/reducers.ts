@@ -84,3 +84,15 @@ export const getRandomMovieBackdrop = createSelector(
         }
     }
 );
+
+export const getSearchMovieTypeLoader = createSelector(
+    getSearchType,
+    getSearchLoading,
+    (type, loading) => type === 'movie' && loading
+);
+
+export const getSearchTvTypeLoader = createSelector(
+    getSearchType,
+    getSearchLoading,
+    (type, loading) => type === 'tv' && loading
+);

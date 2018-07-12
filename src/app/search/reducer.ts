@@ -3,9 +3,10 @@
  */
 import { IAudio } from '../model';
 import { SearchActions, SearchActionTypes } from './actions';
+import { SearchType } from '../model/search';
 
 export interface State {
-    type: string; // Search Type: 'movie', 'tv', 'video'
+    type: SearchType; // Search Type: 'movie', 'tv', 'video'
     loading: boolean; // whether the search process is completed
     searchListResult: {
         query: string;
@@ -56,6 +57,12 @@ export function reducer( state = initialState, action: SearchActions ): State {
             return {
                 ...state,
                 loading: false
+            };
+
+        case SearchActionTypes.SetSearchType:
+            return {
+                ...state,
+                type: action.payload
             };
 
         default:

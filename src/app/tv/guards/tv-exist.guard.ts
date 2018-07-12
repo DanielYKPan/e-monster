@@ -25,6 +25,7 @@ export class TvExistGuard implements CanActivate {
 
     private hasTv( id: number ): Observable<boolean> {
         return this.hasTvInStore(id).pipe(
+            tap(() => this.store.dispatch(new searchActions.SetSearchType('tv'))),
             switchMap(inStore => {
                 if (inStore) {
                     return of(inStore);

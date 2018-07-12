@@ -27,7 +27,10 @@ export class MovieExistGuard implements CanActivate {
 
     private hasMovie( id: number ): Observable<boolean> {
         return this.hasMovieInStore(id).pipe(
-            tap(() => this.store.dispatch(new movieVideoActions.Search(id))),
+            tap(() => {
+                this.store.dispatch(new searchActions.SetSearchType('movie'));
+                this.store.dispatch(new movieVideoActions.Search(id));
+            }),
             switchMap(inStore => {
                 if (inStore) {
                     return of(inStore);
