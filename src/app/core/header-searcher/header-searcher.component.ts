@@ -27,11 +27,11 @@ export class HeaderSearcherComponent implements OnInit {
     public inputValue: string;
 
     public searchQueryOptions = [
-        {value: 'movie&tv', name: 'Movies & TV'},
         {value: 'movie', name: 'Movies'},
         {value: 'tv', name: 'TV'},
         {value: 'music', name: 'Music'},
         {value: 'books', name: 'Books'},
+        {value: 'people', name: 'People'},
     ];
 
     public searchQueryOption = this.searchQueryOptions[0];
