@@ -19,15 +19,15 @@ import { Router } from '@angular/router';
 })
 export class MovieListComponent implements OnInit, OnDestroy {
 
-    public list$: Observable<IAudio[]>;
+    public list$: Observable<IAudio[]>; // Movie List Observable
 
-    public featuredList$: Observable<IAudio[]>;
+    public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public listQuery$: Observable<string>;
+    public listQuery$: Observable<string>; // list query
 
-    public listPage$: Observable<number>;
+    public listPage$: Observable<number>; // list page
 
-    public listTotalPages$: Observable<number>;
+    public listTotalPages$: Observable<number>; // list total pages
 
     private _isLargeUp = false;
     get isLargeUp(): boolean {
@@ -64,10 +64,16 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.breakpointSub.unsubscribe();
     }
 
+    /**
+     * Go a specific page of the list
+     * */
     public goToPage( event: any ): void {
         this.router.navigate(['movies/list', event.listQuery, {page: event.page}]);
     }
 
+    /**
+     * Open a trailer dialog for a specific movie
+     * */
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         // search the movie videos
         this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));

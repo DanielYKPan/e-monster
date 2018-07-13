@@ -35,6 +35,9 @@ export class MovieListContentComponent implements OnInit, OnChanges {
     }
 
     public ngOnChanges( changes: SimpleChanges ): void {
+
+        // Whenever the input list of featuredList value changed, it means the list is freshed.
+        // We scroll back to the top of the page
         if ((changes['list'] && !changes['list'].isFirstChange()) ||
             (changes['featuredList'] && !changes['featuredList'].isFirstChange())) {
             this.scrollBackToTop();

@@ -17,6 +17,12 @@ export class MovieService extends TMDBService {
         super();
     }
 
+    /**
+     * Search Movie List
+     * @param{string} query -- list query valid value: 'now_playing', 'popular', 'upcoming', 'anticipated' and 'top_rated'
+     * @param{number} page -- page number
+     * @return {Observable<IAudio[]>}
+     * */
     public searchList( query: string, page: number = 1 ): Observable<IAudio[]> {
 
         if (query === 'anticipated') {
@@ -33,6 +39,12 @@ export class MovieService extends TMDBService {
         );
     }
 
+    /**
+     * Search Anticipated Movies
+     * Anticipated movies include those are released between now and two years later.
+     * @param{number} page
+     * @return {Observable<IAudio[]>}
+     * */
     public getAnticipatedMovieList( page: number ): Observable<IAudio[]> {
         const start = new Date();
         const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
@@ -53,6 +65,12 @@ export class MovieService extends TMDBService {
         return this.discoverMovieList('anticipated', queries);
     }
 
+    /**
+     * Discover movies by different types of data like average rating, number of votes, genres and certifications.
+     * @param {string} query -- query list name
+     * @param {Array<any>} queries -- query type
+     * @return {Observable<IAudio[]>}
+     * */
     public discoverMovieList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
         const url = this.base_url + 'discover/movie';
 
@@ -73,6 +91,11 @@ export class MovieService extends TMDBService {
         );
     }
 
+    /**
+     * Get videos of a specific movie
+     * @param {number} id -- movie id
+     * @return {Observable<IVideos>}
+     * */
     public getMovieVideos( id: number ): Observable<IVideos> {
 
         const url = this.base_url + `movie/${id}/videos`;
@@ -82,6 +105,12 @@ export class MovieService extends TMDBService {
         );
     }
 
+    /**
+     * Get reviews of a specific movie
+     * @param {number} id -- movie id
+     * @param {number} page -- page number, default 1
+     * @return {Observable<IReviews[]>}
+     * */
     public getMovieReviews( id: number, page: number = 1 ): Observable<IReviews[]> {
         const url = this.base_url + `movie/${id}/reviews`;
         return this.getResult(url, [{name: 'page', value: page.toString()}]).pipe(
@@ -89,6 +118,11 @@ export class MovieService extends TMDBService {
         );
     }
 
+    /**
+     * Get the details of a specific movie
+     * @param {number} id -- movie id
+     * @return {Observable<IMovie>}
+     * */
     public getMovie( id: number ): Observable<IMovie> {
 
         const details_url = this.base_url + `movie/${id}`;

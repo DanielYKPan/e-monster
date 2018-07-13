@@ -42,6 +42,9 @@ export class SearchResultsExistGuard implements CanActivate {
         );
     }
 
+    /**
+     * Check whether the search result is already in the store.
+     * */
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
 
         return forkJoin(
@@ -54,6 +57,9 @@ export class SearchResultsExistGuard implements CanActivate {
         );
     }
 
+    /**
+     * Check whether there is search result in API.
+     * */
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
 
         this.store.dispatch(new LoadingStart());
