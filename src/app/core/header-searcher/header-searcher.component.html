@@ -1,3 +1,38 @@
-<button type="button" class="basic-btn header-searcher-btn">
-    <i class="fas fa-search"></i>
+<button type="button" class="basic-btn header-searcher-btn"
+        [class.on]="showSearchInput" tabindex="0"
+        (click)="toggleSearchInput($event)">
+    <span class="header-searcher-btn-content" tabindex="-1">
+        <i class="fas fa-search"></i>
+    </span>
 </button>
+<div class="header-searcher-input-wrapper"
+     [class.show]="showSearchInput">
+    <input type="search" class="header-searcher-input"
+           placeholder="What are you looking for?"
+           [(ngModel)]="inputValue"
+           (keydown)="handleKeydownOnSearchInput($event)" #searchInputElm/>
+    <button type="button"
+            class="basic-btn header-searcher-input-cleaner"
+            [class.visible]="!!inputValue"
+            (click)="cleanSearchInput($event)">
+        <i class="fas fa-times-circle"></i>
+    </button>
+</div>
+<button type="button"
+        owlRipple tabindex="0"
+        class="basic-btn header-searcher-dropdown-btn"
+        [class.hidden]="!showSearchInput"
+        [owlMenuTriggerFor]="menu" #menuTrigger>
+    <span class="header-searcher-dropdown-btn-content" tabindex="-1">
+        {{searchQueryOption.name}}
+        <i class="fas fa-sort-down"></i>
+    </span>
+</button>
+
+<owl-menu #menu="owlMenu">
+    <button type="button"
+            *ngFor="let option of searchQueryOptions"
+            owlRipple owl-menu-item
+            (click)="chooseSearchQuery(option, $event)">{{option.name}}
+    </button>
+</owl-menu>

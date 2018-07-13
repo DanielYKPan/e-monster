@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-header',
@@ -14,4 +14,7 @@ export class HeaderComponent implements OnInit {
     ngOnInit() {
     }
 
+    public handleSearchConfirm( e: any ) {
+        console.log(e);
+    }
 }
