@@ -1,0 +1,13 @@
+<button type="button" class="list-paginator-btn"
+        [disabled]="prevBtnDisable"
+        (click)="prev($event)">
+    <i class="btn-icon btn-icon-left fas fa-long-arrow-alt-left"></i>
+    <span class="btn-text">Previous page</span>
+</button>
+
+<button type="button" class="list-paginator-btn"
+        [disabled]="nextBtnDisable"
+        (click)="next($event)">
+    <span class="btn-text">Next page</span>
+    <i class="btn-icon btn-icon-right fas fa-long-arrow-alt-right"></i>
+</button>

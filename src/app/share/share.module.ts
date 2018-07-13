@@ -11,6 +11,7 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { VoteInformComponent } from './vote-inform/vote-inform.component';
 import { RatingListComponent } from './rating-list/rating-list.component';
 import { AudioDialogComponent } from './audio-dialog/audio-dialog.component';
+import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
 
 @NgModule({
     imports: [
@@ -29,6 +30,7 @@ import { AudioDialogComponent } from './audio-dialog/audio-dialog.component';
         AudioDialogComponent,
         VoteInformComponent,
         RatingListComponent,
+        ListPaginatorComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -40,6 +42,7 @@ import { AudioDialogComponent } from './audio-dialog/audio-dialog.component';
         AudioDialogComponent,
         VoteInformComponent,
         RatingListComponent,
+        ListPaginatorComponent,
     ],
     entryComponents: [
         CreditsDialogComponent,

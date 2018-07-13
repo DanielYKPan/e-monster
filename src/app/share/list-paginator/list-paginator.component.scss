@@ -1,0 +1,48 @@
+$text-color: #ed1c24;
+
+:host {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+  border-top: 1px solid #2d2d2d;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.list-paginator-btn {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  color: $text-color;
+  background: none;
+
+  &:disabled {
+    cursor: default;
+    color: #444;
+  }
+
+  &:not(:disabled):hover {
+    color: darken($text-color, 20%);
+
+    .btn-text {
+      text-decoration: underline;
+    }
+  }
+
+  .btn-icon-left {
+    margin-right: .5rem;
+  }
+
+  .btn-icon-right {
+    margin-left: .5rem;
+  }
+}
