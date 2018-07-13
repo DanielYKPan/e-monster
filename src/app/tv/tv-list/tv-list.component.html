@@ -1,10 +1,11 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav">
-        <app-tv-list-sidenav [showNavMenu]="!isLargeUp"
-                             [listPage]="listPage$ | async"
-                             [listTotalPages]="listTotalPages$ | async"
-                             [listQuery]="listQuery$ | async"
-                             (goToPage)="goToPage($event)"></app-tv-list-sidenav>
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'TV Series'" [listPage]="listPage$ | async"
+                           [listTotalPages]="listTotalPages$ | async"
+                           [currentOption]="listName$ | async"
+                           [navList]="navList"
+                           (clickOption)="handleNavListOptionClick($event)"
+                           (goToPage)="goToPage($event)"></app-frame-sidenav>
     </div>
 
     <div class="frame-main" #frameMainElm>
@@ -15,7 +16,7 @@
         </app-tv-list-content>
         <app-list-paginator [listPage]="listPage$ | async"
                             [listTotalPages]="listTotalPages$ | async"
-                            [listQuery]="listQuery$ | async"
+                            [listQuery]="listName$ | async"
                             (goToPage)="goToPage($event)"></app-list-paginator>
     </div>
 </section>

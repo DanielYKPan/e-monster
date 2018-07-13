@@ -17,7 +17,7 @@
   overflow: auto;
 }
 
-.frame-sidenav {
+.frame-sidenav-wrapper {
   grid-area: sidenav;
   box-sizing: border-box;
   overflow: hidden;
@@ -38,7 +38,7 @@
     border-left: solid 1px #2d2d2d;
   }
 
-  .frame-sidenav {
+  .frame-sidenav-wrapper {
     grid-area: sidenav;
   }
 }

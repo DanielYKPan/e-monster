@@ -1,6 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Subscription } from 'rxjs/Subscription';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
@@ -23,52 +21,45 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public listQuery$: Observable<string>; // list query
+    public listName$: Observable<string>; // list query
 
     public listPage$: Observable<number>; // list page
 
     public listTotalPages$: Observable<number>; // list total pages
 
-    private _isLargeUp = false;
-    get isLargeUp(): boolean {
-        return this._isLargeUp;
-    }
-
-    private breakpointSub = Subscription.EMPTY;
+    public navList = [
+        {name: 'Trending', value: 'now_playing', inform: 'The movies currently in theatres'},
+        {name: 'Popular', value: 'popular', inform: 'The current popular movies'},
+        {name: 'Upcoming', value: 'upcoming', inform: 'The upcoming movies in theatres'},
+        {name: 'Anticipated', value: 'anticipated', inform: 'The most anticipated movies in the next couple years'},
+        {name: 'Top Rated', value: 'top_rated', inform: 'The top rated movies'},
+    ];
 
     constructor( private router: Router,
                  private store: Store<fromMoviesRoot.State>,
-                 private dialogService: OwlDialogService,
-                 private breakpointObserver: BreakpointObserver,
-                 private cdRef: ChangeDetectorRef ) {
+                 private dialogService: OwlDialogService ) {
     }
 
     ngOnInit() {
-
         this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
+        this.listName$ = this.store.pipe(select(fromRoot.getSearchName));
         this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
         this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
-
-        this.breakpointSub = this.breakpointObserver
-            .observe([
-                '(min-width: 1024px)'
-            ]).subscribe(result => {
-                this._isLargeUp = result.matches;
-                this.cdRef.markForCheck();
-            });
     }
 
     public ngOnDestroy(): void {
-        this.breakpointSub.unsubscribe();
+    }
+
+    public handleNavListOptionClick( option: string ) {
+        this.router.navigate(['movies/list', option]);
     }
 
     /**
      * Go a specific page of the list
      * */
     public goToPage( event: any ): void {
-        this.router.navigate(['movies/list', event.listQuery, {page: event.page}]);
+        this.router.navigate(['movies/list', event.name, {page: event.page}]);
     }
 
     /**

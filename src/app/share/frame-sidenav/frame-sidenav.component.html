@@ -1,6 +1,6 @@
 <div class="frame-sidenav-control">
     <h1 class="frame-sidenav-title">
-        TV Series
+        {{title}}
         <button type="button" class="basic-btn paginator prev"
                 [class.paginator-hidden]="listPage === 1"
                 (click)="prev($event)">
@@ -14,26 +14,27 @@
     </h1>
 </div>
 <div class="frame-sidenav-main">
-    <h2 class="frame-sidenav-info">{{sidenavInfo}}</h2>
-    <div *ngIf="showNavMenu;else navList" class="frame-sidenav-menu">
+    <h2 class="frame-sidenav-inform">{{sidenavInfo}}</h2>
+    <div *ngIf="showNavMenu;else navListElm" class="frame-sidenav-menu">
         <button type="button" class="basic-btn frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>{{sidenavMenuName}}
             <span class="frame-sidenav-menu-icon"><i class="fas fa-caret-up"></i></span>
         </button>
         <owl-menu #menu="owlMenu">
-            <button type="button" *ngFor="let item of items" owl-menu-item
-                    [routerLink]="'/tv/list/' + item.listQuery"
-                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{item.name}}
+            <button type="button" *ngFor="let option of navList" owl-menu-item
+                    (click)="handleOptionClick(option, $event)">
+                {{option.name}}
             </button>
         </owl-menu>
     </div>
 
-    <ng-template #navList>
+    <ng-template #navListElm>
         <ul class="frame-sidenav-list">
-            <li *ngFor="let item of items" class="frame-sidenav-list-item">
-                <a [routerLink]="'/tv/list/' + item.listQuery"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-                    {{item.name}}
-                </a>
+            <li *ngFor="let option of navList" class="frame-sidenav-list-item">
+                <button type="button" class="basic-btn"
+                        [class.active]="option.value === currentOption"
+                        (click)="handleOptionClick(option, $event)">
+                    {{option.name}}
+                </button>
             </li>
         </ul>
     </ng-template>

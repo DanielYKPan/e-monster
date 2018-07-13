@@ -1,4 +1,4 @@
-@import "../../../../sass/base/breakPoints";
+@import "../../../sass/base/breakPoints";
 
 :host {
   display: flex;
@@ -71,7 +71,7 @@
   }
 }
 
-.frame-sidenav-info {
+.frame-sidenav-inform {
   font-size: 1rem;
   margin: 0 0 .5rem;
 }
@@ -87,12 +87,16 @@
 
   .frame-sidenav-list-item {
     padding: .5rem;
-    a {
+
+    button {
       display: block;
+      font-family: inherit;
       font-size: 1.6rem;
+      width: 100%;
       cursor: pointer;
       color: currentColor;
       text-decoration: none;
+      text-align: left;
 
       &.active {
         color: #ed1c24;

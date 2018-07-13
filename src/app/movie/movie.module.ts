@@ -14,7 +14,6 @@ import { SearchResultsExistGuard } from './guards/search-results-exist.guard';
 import { MovieExistGuard } from './guards/movie-exist.guard';
 import { MovieHomeComponent } from './movie-home/movie-home.component';
 import { MovieListContentComponent } from './movie-list/movie-list-content/movie-list-content.component';
-import { MovieListSidenavComponent } from './movie-list/movie-list-sidenav/movie-list-sidenav.component';
 import { MovieDetailsHeaderComponent } from './movie-details/movie-details-header/movie-details-header.component';
 import { MovieDetailsContentComponent } from './movie-details/movie-details-content/movie-details-content.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
@@ -41,7 +40,6 @@ import { ShareModule } from '../share/share.module';
         MovieComponent,
         MovieListComponent,
         MovieListContentComponent,
-        MovieListSidenavComponent,
         MovieDetailsComponent,
         MovieDetailsHeaderComponent,
         MovieDetailsContentComponent,

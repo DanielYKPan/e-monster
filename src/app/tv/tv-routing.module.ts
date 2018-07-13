@@ -14,7 +14,7 @@ const routes: Routes = [
         component: TvComponent,
         children: [
             {path: '', redirectTo: 'list/on_the_air', pathMatch: 'full'},
-            {path: 'list/:query', component: TvListComponent, canActivate: [TvListExistGuard]},
+            {path: 'list/:name', component: TvListComponent, canActivate: [TvListExistGuard]},
             {path: ':id/details', component: TvDetailsComponent, canActivate: [TvExistGuard]},
             {
                 path: ':id/season/:number',

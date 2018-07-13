@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { IAudio } from '../../model';
 import { Observable } from 'rxjs/Observable';
 import * as fromTvsRoot from '../reducers';
 import * as fromRoot from '../../reducers';
 import * as videoActions from '../actions/video';
-import { Subscription } from 'rxjs/Subscription';
 import { OwlDialogService } from 'owl-ng';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import { Router } from '@angular/router';
@@ -23,48 +21,42 @@ export class TvListComponent implements OnInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>;
 
-    public listQuery$: Observable<string>;
+    public listName$: Observable<string>;
 
     public listPage$: Observable<number>;
 
     public listTotalPages$: Observable<number>;
 
-    private _isLargeUp = false;
-    get isLargeUp(): boolean {
-        return this._isLargeUp;
-    }
-
-    private breakpointSub = Subscription.EMPTY;
+    public navList = [
+        {name: 'Trending', value: 'on_the_air', inform: 'The TV series currently on the air'},
+        {name: 'Popular', value: 'popular', inform: 'The current popular TV series'},
+        {name: 'Airing Today', value: 'airing_today', inform: 'TV shows that are airing today'},
+        {name: 'Anticipated', value: 'anticipated', inform: 'The most anticipated TV series in the next couple years'},
+        {name: 'Top Rated', value: 'top_rated', inform: 'The top rated TV series'},
+    ];
 
     constructor( private router: Router,
                  private store: Store<fromTvsRoot.State>,
-                 private dialogService: OwlDialogService,
-                 private breakpointObserver: BreakpointObserver,
-                 private cdRef: ChangeDetectorRef ) {
+                 private dialogService: OwlDialogService ) {
     }
 
     public ngOnInit() {
         this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
+        this.listName$ = this.store.pipe(select(fromRoot.getSearchName));
         this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
         this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
-
-        this.breakpointSub = this.breakpointObserver
-            .observe([
-                '(min-width: 1024px)'
-            ]).subscribe(result => {
-                this._isLargeUp = result.matches;
-                this.cdRef.markForCheck();
-            });
     }
 
     public ngOnDestroy(): void {
-        this.breakpointSub.unsubscribe();
+    }
+
+    public handleNavListOptionClick( name: string ) {
+        this.router.navigate(['tv/list', name]);
     }
 
     public goToPage( event: any ): void {
-        this.router.navigate(['tv/list', event.listQuery, {page: event.page}]);
+        this.router.navigate(['tv/list', event.name, {page: event.page}]);
     }
 
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {

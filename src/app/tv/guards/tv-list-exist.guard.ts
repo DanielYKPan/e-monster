@@ -23,41 +23,41 @@ export class TvListExistGuard implements CanActivate {
     }
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
-        const query = route.params['query'];
+        const name = route.params['name'];
         const page = route.params['page'] || 1;
-        return this.hasTvList(query, page);
+        return this.hasTvList(name, page);
     }
 
-    private hasTvList( query: string, page: number ): Observable<boolean> {
-        if (!query) {
-            query = 'on_the_air';
+    private hasTvList( name: string, page: number ): Observable<boolean> {
+        if (!name) {
+            name = 'on_the_air';
         }
 
-        return this.hasTvListInStore(query, page).pipe(
+        return this.hasTvListInStore(name, page).pipe(
             switchMap(( inStore: boolean ) => {
                 if (inStore) {
                     return of(inStore);
                 }
 
-                return this.hasTvListInApi(query, page);
+                return this.hasTvListInApi(name, page);
             })
         );
     }
 
-    private hasTvListInStore( query: string, page: number ): Observable<boolean> {
+    private hasTvListInStore( name: string, page: number ): Observable<boolean> {
         return forkJoin(
             this.store.pipe(select(fromRoot.getSearchType), take(1)),
-            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromRoot.getSearchName), take(1)),
             this.store.pipe(select(fromRoot.getSearchPage), take(1)),
             this.store.pipe(select(fromRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === 'tv' && result[1] === query && result[2] === page && result[3].length > 0)
+            map(( result: any ) => result[0] === 'tv' && result[1] === name && result[2] === page && result[3].length > 0)
         );
     }
 
-    private hasTvListInApi( query: string, page: number ): Observable<boolean> {
+    private hasTvListInApi( name: string, page: number ): Observable<boolean> {
         this.store.dispatch(new LoadingStart());
-        return this.tvService.getTvList(query, page).pipe(
+        return this.tvService.getTvList(name, page).pipe(
             map(res => new SearchListComplete(res)),
             tap(action => this.store.dispatch(action)),
             map(res => res.payload.results && res.payload.results.length > 0),

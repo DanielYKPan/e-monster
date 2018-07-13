@@ -12,12 +12,18 @@ import { VoteInformComponent } from './vote-inform/vote-inform.component';
 import { RatingListComponent } from './rating-list/rating-list.component';
 import { AudioDialogComponent } from './audio-dialog/audio-dialog.component';
 import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
+import { FrameSidenavComponent } from './frame-sidenav/frame-sidenav.component';
+import { FrameMainComponent } from './frame-main/frame-main.component';
+import { OwlMenuModule } from 'owl-ng';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
         LazyLoadImageModule,
+
+        // Owl NG
+        OwlMenuModule,
     ],
     exports: [
         LazyLoadImageModule,
@@ -31,6 +37,8 @@ import { ListPaginatorComponent } from './list-paginator/list-paginator.componen
         VoteInformComponent,
         RatingListComponent,
         ListPaginatorComponent,
+        FrameSidenavComponent,
+        FrameMainComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -43,6 +51,8 @@ import { ListPaginatorComponent } from './list-paginator/list-paginator.componen
         VoteInformComponent,
         RatingListComponent,
         ListPaginatorComponent,
+        FrameSidenavComponent,
+        FrameMainComponent,
     ],
     entryComponents: [
         CreditsDialogComponent,

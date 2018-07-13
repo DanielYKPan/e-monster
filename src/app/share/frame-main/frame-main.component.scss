@@ -1,0 +1,10 @@
+@import "../../../sass/base/breakPoints";
+
+$header-height: 3.2rem;
+
+:host {
+  display: block;
+  width: 100%;
+  padding: $header-height 0 0;
+  box-sizing: border-box;
+}

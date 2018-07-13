@@ -17,17 +17,17 @@ export class TvService extends TMDBService {
         super();
     }
 
-    public getTvList( query: string, page: number = 1 ): Observable<IAudio[]> {
+    public getTvList( name: string, page: number = 1 ): Observable<IAudio[]> {
 
-        if (query === 'anticipated') {
+        if (name === 'anticipated') {
             return this.getAnticipatedTvList(page);
         }
 
-        const url = this.base_url + `tv/${query}`;
+        const url = this.base_url + `tv/${name}`;
 
         return this.getResult(url, [{name: 'page', value: page.toString()}], true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'tv'};
+                return {...res, name: name, type: 'tv'};
             }),
             catchError(this.handleError)
         );
@@ -51,12 +51,12 @@ export class TvService extends TMDBService {
         return this.discoverTvList('anticipated', queries);
     }
 
-    public discoverTvList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
+    public discoverTvList( name: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
         const url = this.base_url + 'discover/tv';
 
         return this.getResult(url, queries, true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'tv'};
+                return {...res, name: name, type: 'tv'};
             }),
             catchError(this.handleError)
         );

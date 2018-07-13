@@ -10,7 +10,7 @@ export interface State {
     type: SearchType; // Search Type: 'movie', 'tv', 'video'
     loading: boolean; // whether the search process is completed
     searchListResult: {
-        query: string;
+        name: string;
         page: number;
         total_results: number;
         total_pages: number;
@@ -22,7 +22,7 @@ const initialState: State = {
     type: null,
     loading: false,
     searchListResult: {
-        query: null,
+        name: null,
         page: 0,
         total_results: 0,
         total_pages: 0,
@@ -46,7 +46,7 @@ export function reducer( state = initialState, action: SearchActions | MovieVide
                 type: action.payload.type,
                 loading: false,
                 searchListResult: {
-                    query: action.payload.query,
+                    name: action.payload.name,
                     page: action.payload.page,
                     total_results: action.payload.total_results,
                     total_pages: action.payload.total_pages,
@@ -82,7 +82,7 @@ export function reducer( state = initialState, action: SearchActions | MovieVide
 }
 
 export const getSearchResults = ( state: State ) => state.searchListResult.results;
-export const getQuery = ( state: State ) => state.searchListResult.query;
+export const getSearchName = ( state: State ) => state.searchListResult.name;
 export const getType = ( state: State ) => state.type;
 export const getLoading = ( state: State ) => state.loading;
 export const getPage = ( state: State ) => state.searchListResult.page;

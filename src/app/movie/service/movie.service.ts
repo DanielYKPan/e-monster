@@ -19,21 +19,21 @@ export class MovieService extends TMDBService {
 
     /**
      * Search Movie List
-     * @param{string} query -- list query valid value: 'now_playing', 'popular', 'upcoming', 'anticipated' and 'top_rated'
+     * @param{string} name -- list name valid value: 'now_playing', 'popular', 'upcoming', 'anticipated' and 'top_rated'
      * @param{number} page -- page number
      * @return {Observable<IAudio[]>}
      * */
-    public searchList( query: string, page: number = 1 ): Observable<IAudio[]> {
+    public searchList( name: string, page: number = 1 ): Observable<IAudio[]> {
 
-        if (query === 'anticipated') {
+        if (name === 'anticipated') {
             return this.getAnticipatedMovieList(page);
         }
 
-        const url = this.base_url + `movie/${query}`;
+        const url = this.base_url + `movie/${name}`;
 
         return this.getResult(url, [{name: 'page', value: page.toString()}], true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'movie'};
+                return {...res, name: name, type: 'movie'};
             }),
             catchError(this.handleError)
         );
@@ -67,16 +67,16 @@ export class MovieService extends TMDBService {
 
     /**
      * Discover movies by different types of data like average rating, number of votes, genres and certifications.
-     * @param {string} query -- query list name
+     * @param {string} name -- list name
      * @param {Array<any>} queries -- query type
      * @return {Observable<IAudio[]>}
      * */
-    public discoverMovieList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
+    public discoverMovieList( name: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
         const url = this.base_url + 'discover/movie';
 
         return this.getResult(url, queries, true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'movie'};
+                return {...res, name: name, type: 'movie'};
             }),
             catchError(this.handleError)
         );
