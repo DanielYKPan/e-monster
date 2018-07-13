@@ -32,7 +32,7 @@ $header-height: 3.2rem;
     cursor: pointer;
     text-decoration: none;
 
-    &:hover{
+    &:hover, &.active {
       color: #ed1c24;
     }
   }

@@ -13,6 +13,7 @@ const routes: Routes = [
         component: MovieComponent,
         children: [
             {path: '', component: MovieHomeComponent, canActivate: [SearchResultsExistGuard]},
+            {path: 'list', redirectTo: 'list/now_playing', pathMatch: 'full'},
             {path: 'list/:name', component: MovieListComponent, canActivate: [SearchResultsExistGuard]},
             {path: ':id/details', component: MovieDetailsComponent, canActivate: [MovieExistGuard]},
         ]
