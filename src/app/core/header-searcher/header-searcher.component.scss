@@ -1,0 +1,24 @@
+$header-height: 3.2rem;
+$red: #ed1c24;
+
+:host {
+  position: absolute;
+  left: 0;
+  display: flex;
+  height: $header-height;
+  border-right: solid 1px #2d2d2d;
+}
+
+.header-searcher-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: $header-height;
+  height: $header-height;
+  color: #FFFFFF;
+  transition: background-color .5s;
+
+  &:hover {
+    background-color: $red;
+  }
+}
