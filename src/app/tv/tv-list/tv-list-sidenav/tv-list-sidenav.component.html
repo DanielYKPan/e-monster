@@ -1,12 +1,12 @@
 <div class="frame-sidenav-control">
     <h1 class="frame-sidenav-title">
         TV Series
-        <button class="paginator prev"
+        <button type="button" class="basic-btn paginator prev"
                 [class.paginator-hidden]="listPage === 1"
                 (click)="prev($event)">
             <i class="fas fa-caret-left"></i>
         </button>
-        <button class="paginator next"
+        <button type="button" class="basic-btn paginator next"
                 [class.paginator-hidden]="listPage === listTotalPages"
                 (click)="next($event)">
             <i class="fas fa-caret-right"></i>
@@ -16,11 +16,11 @@
 <div class="frame-sidenav-main">
     <h2 class="frame-sidenav-info">{{sidenavInfo}}</h2>
     <div *ngIf="showNavMenu;else navList" class="frame-sidenav-menu">
-        <button class="frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>{{sidenavMenuName}}
+        <button type="button" class="basic-btn frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>{{sidenavMenuName}}
             <span class="frame-sidenav-menu-icon"><i class="fas fa-caret-up"></i></span>
         </button>
         <owl-menu #menu="owlMenu">
-            <button *ngFor="let item of items" owl-menu-item
+            <button type="button" *ngFor="let item of items" owl-menu-item
                     [routerLink]="'/tv/list/' + item.listQuery"
                     routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{item.name}}
             </button>

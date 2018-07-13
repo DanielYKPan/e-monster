@@ -18,3 +18,20 @@
   box-sizing: border-box;
   overflow-y: scroll;
 }
+
+// Basic Btn Setting
+.basic-btn {
+  user-select: none;
+  cursor: pointer;
+  outline: 0;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  background: none;
+  box-sizing: border-box;
+  text-decoration: none;
+  vertical-align: baseline;
+  text-align: center;
+}

@@ -32,21 +32,9 @@
     margin: 0;
 
     .paginator {
-      user-select: none;
-      cursor: pointer;
-      outline: 0;
-      border: none;
-      -webkit-tap-highlight-color: transparent;
       display: inline-block;
-      white-space: nowrap;
-      text-decoration: none;
-      vertical-align: baseline;
-      text-align: center;
-      margin: 0;
-      padding: 0;
       font-size: 1.2rem;
       color: #ed1c24;
-      background: none;
 
       &.prev {
         margin-right: .5rem;
@@ -123,24 +111,12 @@
   align-items: center;
 
   .frame-sidenav-menu-button {
-    box-sizing: border-box;
     position: relative;
-    user-select: none;
-    cursor: pointer;
-    outline: 0;
-    border: none;
-    -webkit-tap-highlight-color: transparent;
     display: inline-block;
-    white-space: nowrap;
-    text-decoration: none;
-    vertical-align: baseline;
-    text-align: center;
-    margin: 0;
     min-width: 88px;
     line-height: 36px;
     padding: 0 16px;
     color: currentColor;
-    background: 0 0;
     font-size: 1.4rem;
   }
 
