@@ -24,39 +24,40 @@ export class TvListExistGuard implements CanActivate {
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
         const query = route.params['query'];
-        return this.hasTvList(query);
+        const page = route.params['page'] || 1;
+        return this.hasTvList(query, page);
     }
 
-    private hasTvList( query: string ): Observable<boolean> {
+    private hasTvList( query: string, page: number ): Observable<boolean> {
         if (!query) {
             query = 'on_the_air';
         }
 
-        return this.hasTvListInStore(query).pipe(
+        return this.hasTvListInStore(query, page).pipe(
             switchMap(( inStore: boolean ) => {
                 if (inStore) {
                     return of(inStore);
                 }
 
-                return this.hasTvListInApi(query);
+                return this.hasTvListInApi(query, page);
             })
         );
     }
 
-    private hasTvListInStore( query: string ): Observable<boolean> {
+    private hasTvListInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
             this.store.pipe(select(fromRoot.getSearchType), take(1)),
             this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
             this.store.pipe(select(fromRoot.getSearchPage), take(1)),
             this.store.pipe(select(fromRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === 'tv' && result[1] === query && result[2] === 1 && result[3].length > 0)
+            map(( result: any ) => result[0] === 'tv' && result[1] === query && result[2] === page && result[3].length > 0)
         );
     }
 
-    private hasTvListInApi( query: string ): Observable<boolean> {
+    private hasTvListInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new LoadingStart());
-        return this.tvService.getTvList(query).pipe(
+        return this.tvService.getTvList(query, page).pipe(
             map(res => new SearchListComplete(res)),
             tap(action => this.store.dispatch(action)),
             map(res => res.payload.results && res.payload.results.length > 0),

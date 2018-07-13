@@ -13,5 +13,9 @@
                              [frameMainElm]="frameMainElm"
                              (playVideo)="openTvTrailerDialog($event)">
         </app-tv-list-content>
+        <app-list-paginator [listPage]="listPage$ | async"
+                            [listTotalPages]="listTotalPages$ | async"
+                            [listQuery]="listQuery$ | async"
+                            (goToPage)="goToPage($event)"></app-list-paginator>
     </div>
 </section>

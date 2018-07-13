@@ -5,11 +5,11 @@ import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import * as fromRoot from '../../reducers';
-import * as searchActions from '../../search/actions';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
 import { IAudio } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-movie-list',
@@ -36,7 +36,8 @@ export class MovieListComponent implements OnInit, OnDestroy {
 
     private breakpointSub = Subscription.EMPTY;
 
-    constructor( private store: Store<fromMoviesRoot.State>,
+    constructor( private router: Router,
+                 private store: Store<fromMoviesRoot.State>,
                  private dialogService: OwlDialogService,
                  private breakpointObserver: BreakpointObserver,
                  private cdRef: ChangeDetectorRef ) {
@@ -64,7 +65,7 @@ export class MovieListComponent implements OnInit, OnDestroy {
     }
 
     public goToPage( event: any ): void {
-        this.store.dispatch(new searchActions.SearchList({query: event.listQuery, page: event.page}));
+        this.router.navigate(['movies/list', event.listQuery, {page: event.page}]);
     }
 
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {

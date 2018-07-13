@@ -5,11 +5,11 @@ import { IAudio } from '../../model';
 import { Observable } from 'rxjs/Observable';
 import * as fromTvsRoot from '../reducers';
 import * as fromRoot from '../../reducers';
-import * as searchActions from '../../search/actions';
 import * as videoActions from '../actions/video';
 import { Subscription } from 'rxjs/Subscription';
 import { OwlDialogService } from 'owl-ng';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-tv-list',
@@ -36,7 +36,8 @@ export class TvListComponent implements OnInit, OnDestroy {
 
     private breakpointSub = Subscription.EMPTY;
 
-    constructor( private store: Store<fromTvsRoot.State>,
+    constructor( private router: Router,
+                 private store: Store<fromTvsRoot.State>,
                  private dialogService: OwlDialogService,
                  private breakpointObserver: BreakpointObserver,
                  private cdRef: ChangeDetectorRef ) {
@@ -63,7 +64,7 @@ export class TvListComponent implements OnInit, OnDestroy {
     }
 
     public goToPage( event: any ): void {
-        this.store.dispatch(new searchActions.SearchList({query: event.listQuery, page: event.page}));
+        this.router.navigate(['tv/list', event.listQuery, {page: event.page}]);
     }
 
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {
