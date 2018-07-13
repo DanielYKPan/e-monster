@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import * as movieAction from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
-import * as searchActions from '../../search/actions';
+import * as searchActions from '../../search-store/actions';
 import * as fromRoot from '../../reducers';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';

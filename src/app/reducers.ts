@@ -3,7 +3,7 @@
  */
 
 import * as fromLayout from './layout/reducer';
-import * as fromSearch from './search/reducer';
+import * as fromSearch from './search-store/reducer';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface State {

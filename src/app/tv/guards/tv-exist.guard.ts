@@ -7,7 +7,7 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angul
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
-import * as searchActions from '../../search/actions';
+import * as searchActions from '../../search-store/actions';
 import * as tvActions from '../actions/tv';
 import * as videoActions from '../actions/video';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';

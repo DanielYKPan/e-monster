@@ -12,7 +12,7 @@ import * as fromMoviesRoot from '../reducers';
 import * as fromRoot from '../../reducers';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { LoadingStart, SearchListComplete } from '../../search/actions';
+import { LoadingStart, SearchListComplete } from '../../search-store/actions';
 
 @Injectable()
 export class SearchResultsExistGuard implements CanActivate {

@@ -16,7 +16,7 @@ import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators'
 import * as fromMovieRoot from '../reducers';
 import { MovieService } from '../service/movie.service';
 import { of } from 'rxjs/observable/of';
-import { LoadingCompleted, } from '../../search/actions';
+import { LoadingCompleted, } from '../../search-store/actions';
 
 @Injectable()
 export class VideoEffect {

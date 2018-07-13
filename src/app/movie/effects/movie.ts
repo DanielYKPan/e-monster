@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { MovieService } from '../service/movie.service';
-import { SearchActionTypes, SearchError, SearchList, SearchListComplete } from '../../search/actions';
+import { SearchActionTypes, SearchError, SearchList, SearchListComplete } from '../../search-store/actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 

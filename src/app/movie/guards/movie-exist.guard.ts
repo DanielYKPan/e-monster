@@ -10,7 +10,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import * as movieActions from '../actions/movie';
 import * as videoActions from '../actions/video';
-import * as searchActions from '../../search/actions';
+import * as searchActions from '../../search-store/actions';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 

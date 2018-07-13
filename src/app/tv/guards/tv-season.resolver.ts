@@ -11,7 +11,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import * as fromTvRoot from '../reducers';
 import { Store } from '@ngrx/store';
-import { LoadingCompleted, LoadingStart } from '../../search/actions';
+import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 import { Select } from '../actions/tv';
 import { SearchTvSeasonVideos } from '../actions/video';
 

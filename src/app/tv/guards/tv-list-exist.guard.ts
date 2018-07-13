@@ -13,7 +13,7 @@ import * as fromRoot from '../../reducers';
 import { TvService } from '../service/tv.service';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
-import { LoadingStart, SearchListComplete } from '../../search/actions';
+import { LoadingStart, SearchListComplete } from '../../search-store/actions';
 
 @Injectable()
 export class TvListExistGuard implements CanActivate {

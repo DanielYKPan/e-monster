@@ -17,7 +17,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
 import { of } from 'rxjs/observable/of';
 import { TvService } from '../service/tv.service';
-import { LoadingCompleted } from '../../search/actions';
+import { LoadingCompleted } from '../../search-store/actions';
 
 @Injectable()
 export class VideoEffect {
