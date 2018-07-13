@@ -43,7 +43,7 @@ export class SearchResultsExistGuard implements CanActivate {
     }
 
     /**
-     * Check whether the search result is already in the store.
+     * Check whether the search result is already in the search store.
      * */
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
 

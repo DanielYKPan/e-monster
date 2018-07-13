@@ -41,6 +41,9 @@ export class MovieExistGuard implements CanActivate {
         );
     }
 
+    /**
+     * Check whether the movie is in movie store
+     * */
     private hasMovieInStore( id: number ): Observable<boolean> {
         return this.store.pipe(
             select(fromMoviesRoot.getMovieEntities),
@@ -49,6 +52,9 @@ export class MovieExistGuard implements CanActivate {
         );
     }
 
+    /**
+     * Check whether the movie is in API
+     * */
     private hasMovieInApi( id: number ): Observable<boolean> {
 
         this.store.dispatch(new searchActions.LoadingStart());
