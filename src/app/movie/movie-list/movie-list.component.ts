@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
@@ -8,6 +16,8 @@ import { OwlDialogService } from 'owl-ng';
 import { IAudio } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import { Router } from '@angular/router';
+import { skip } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-movie-list',
@@ -15,7 +25,9 @@ import { Router } from '@angular/router';
     styleUrls: ['./movie-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListComponent implements OnInit, OnDestroy {
+export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
+
+    @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
     public list$: Observable<IAudio[]>; // Movie List Observable
 
@@ -35,6 +47,8 @@ export class MovieListComponent implements OnInit, OnDestroy {
         {name: 'Top Rated', value: 'top_rated', inform: 'The top rated movies'},
     ];
 
+    private scrollBackTopSub = Subscription.EMPTY;
+
     constructor( private router: Router,
                  private store: Store<fromMoviesRoot.State>,
                  private dialogService: OwlDialogService ) {
@@ -48,7 +62,20 @@ export class MovieListComponent implements OnInit, OnDestroy {
         this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
     }
 
+    public ngAfterContentInit(): void {
+
+        // Whenever we have new search results,
+        // we scroll back to the top of the page.
+        this.scrollBackTopSub = this.store.pipe(
+            select(fromRoot.getSearchResults),
+            skip(1)
+        ).subscribe(() => {
+            this.scrollBackToTop();
+        });
+    }
+
     public ngOnDestroy(): void {
+        this.scrollBackTopSub.unsubscribe();
     }
 
     public handleNavListOptionClick( option: string ) {
@@ -85,5 +112,9 @@ export class MovieListComponent implements OnInit, OnDestroy {
         dialogRef.afterClosed().subscribe(() => {
             this.store.dispatch(new movieVideoActions.Select(null));
         });
+    }
+
+    private scrollBackToTop(): void {
+        this.frameMainElmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }

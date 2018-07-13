@@ -11,7 +11,7 @@
   color: #ffffff;
 }
 
-.frame-main {
+.frame-main-wrapper {
   grid-area: main;
   border-bottom: solid 1px #2d2d2d;
   overflow: auto;
@@ -33,12 +33,47 @@
     grid-template-areas: "sidenav main" "sidenav main";
   }
 
-  .frame-main {
+  .frame-main-wrapper {
     grid-area: main;
     border-left: solid 1px #2d2d2d;
   }
 
   .frame-sidenav-wrapper {
     grid-area: sidenav;
+  }
+}
+
+.movie-grid {
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  padding: 0 .5rem .5rem;
+  box-sizing: border-box;
+
+  &.featured {
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
+    .movie-card {
+      height: 320px;
+    }
+  }
+
+  @media #{$small-only} {
+    &.featured {
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+      .movie-card {
+        height: 250px;
+      }
+    }
+  }
+
+  .movie-card {
+    display: block;
+    height: 250px;
+
+    &:hover {
+      box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
+    }
   }
 }

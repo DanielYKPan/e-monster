@@ -11,7 +11,6 @@ import { reducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { TvEffect } from './effects/tv';
 import { TvListExistGuard } from './guards/tv-list-exist.guard';
-import { TvListContentComponent } from './tv-list/tv-list-content/tv-list-content.component';
 import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
 import { TvDetailsComponent } from './tv-details/tv-details.component';
 import { TvExistGuard } from './guards/tv-exist.guard';
@@ -39,7 +38,6 @@ import { VideoEffect } from './effects/video';
     declarations: [
         TvComponent,
         TvListComponent,
-        TvListContentComponent,
         TvDetailsComponent,
         TvDetailsHeaderComponent,
         TvDetailsContentComponent,
