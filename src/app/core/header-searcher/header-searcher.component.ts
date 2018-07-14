@@ -78,6 +78,7 @@ export class HeaderSearcherComponent implements OnInit {
                 if (this.inputValue) {
                     this.showSearchInput = false;
                     this.search.emit({query: this.inputValue, option: this.searchQueryOption.value});
+                    this.inputValue = null;
                     this.cdRef.markForCheck();
                 }
                 event.preventDefault();

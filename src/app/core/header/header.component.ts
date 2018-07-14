@@ -16,6 +16,6 @@ export class HeaderComponent implements OnInit {
     }
 
     public handleSearchConfirm( e: any ) {
-        this.router.navigate(['search', {option: e.option, query: e.query}]);
+        this.router.navigate(['search', {type: e.option, query: e.query}]);
     }
 }
