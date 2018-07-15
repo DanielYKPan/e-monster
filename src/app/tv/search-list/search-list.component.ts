@@ -83,6 +83,13 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.router.navigate([`${event.type}/search`, {query: event.query}]);
     }
 
+    /**
+     * Handle query value change
+     * */
+    public handleQueryInputValueChange( event: any ) {
+        this.router.navigate(['tv/search', {query: event.query}]);
+    }
+
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {
         // search the tv video
         this.store.dispatch(new videoActions.SearchTvVideos(res.audio.id));

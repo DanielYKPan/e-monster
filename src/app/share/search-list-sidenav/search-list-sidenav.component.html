@@ -5,4 +5,20 @@
                    [currentOption]="currentOption"
                    [navList]="navList"
                    (clickOption)="clickOption.next($event)"
-                   (goToPage)="goToPage.next($event)"></app-frame-sidenav>
+                   (goToPage)="goToPage.next($event)">
+    <label class="filter-query-input-label" for="filter-query">
+        Search Terms
+        <input type="search" name="query" id="filter-query" class="filter-query-input"
+               placeholder="What are you looking for?"
+               (input)="handleFilterQueryInput($event)"
+               (keydown)="handleFilterQueryKeydown($event)"
+               [value]="listQuery" #queryInputElm/>
+
+        <button type="button"
+                class="basic-btn filter-query-input-cleaner"
+                [class.visible]="!!queryInputElm.value"
+                (click)="handleInputCleanerClick($event)">
+            <i class="fas fa-times-circle"></i>
+        </button>
+    </label>
+</app-frame-sidenav>

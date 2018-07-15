@@ -13,14 +13,14 @@ import { MovieService } from '../service/movie.service';
 export class SearchListExistGuard implements CanActivate {
 
     constructor( private store: Store<fromRoot.State>,
-                 private movieService: MovieService) {
+                 private movieService: MovieService ) {
     }
 
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
         const page = next.params['page'] || 1;
-        const query = next.params['query'];
+        const query = next.params['query'] || 'now_playing';
         return this.hasSearchResults(query, page);
     }
 
@@ -49,7 +49,12 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new LoadingStart());
-        return this.movieService.searchMovies(query, page).pipe(
+
+        const search = query === 'now_playing' ?
+            this.movieService.searchList(query, page) :
+            this.movieService.searchMovies(query, page);
+
+        return search.pipe(
             map(res => new SearchListComplete(res)),
             tap(action => this.store.dispatch(action)),
             map(res => !!res.payload.results),

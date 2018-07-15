@@ -83,6 +83,13 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     }
 
     /**
+     * Handle query value change
+     * */
+    public handleQueryInputValueChange( event: any ) {
+        this.router.navigate(['movie/search', {query: event.query}]);
+    }
+
+    /**
      * Open a trailer dialog for a specific movie
      * */
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {

@@ -22,7 +22,7 @@ export class SearchListExistGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
         const page = next.params['page'] || 1;
-        const query = next.params['query'];
+        const query = next.params['query'] || 'on_the_air';
         return this.hasSearchResults(query, page);
     }
 
@@ -51,7 +51,12 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new LoadingStart());
-        return this.tvService.searchTvs(query, page).pipe(
+
+        const search = query === 'on_the_air' ?
+            this.tvService.getTvList(query, page) :
+            this.tvService.searchTvs(query, page);
+
+        return search.pipe(
             map(res => new SearchListComplete(res)),
             tap(action => this.store.dispatch(action)),
             map(res => !!res.payload.results),

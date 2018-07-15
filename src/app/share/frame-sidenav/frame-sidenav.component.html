@@ -14,7 +14,8 @@
     </h1>
 </div>
 <div class="frame-sidenav-main">
-    <h2 class="frame-sidenav-inform">{{sidenavInfo}}</h2>
+    <h2 *ngIf="sidenavInfo" class="frame-sidenav-inform">{{sidenavInfo}}</h2>
+    <ng-content></ng-content>
     <div *ngIf="showNavMenu;else navListElm" class="frame-sidenav-menu">
         <button type="button" class="basic-btn frame-sidenav-menu-button" [owlMenuTriggerFor]="menu" #menuTrigger>{{sidenavMenuName}}
             <span class="frame-sidenav-menu-icon"><i class="fas fa-caret-up"></i></span>

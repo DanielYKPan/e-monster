@@ -1,0 +1,38 @@
+.filter-query-input-label {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 0 .5rem;
+  color: #666666;
+  text-transform: uppercase;
+}
+
+.filter-query-input {
+  display: block;
+  font-family: sans-serif;
+  width: 100%;
+  margin-top: .5rem;
+  padding: 0 1.5rem 0 .5rem;
+  outline: 0;
+  background: #333!important;
+  color: #eee;
+  border: 0;
+  box-shadow: none;
+  border-radius: 3px;
+  height: 1.7rem;
+  line-height: 1.7rem;
+  font-size: .9rem;
+}
+
+.filter-query-input-cleaner {
+  display: none;
+  position: absolute;
+  right: 5px;
+  bottom: .85rem;
+  transform: translateY(50%);
+  color: #9d9d9d;
+
+  &.visible {
+    display: block;
+  }
+}
