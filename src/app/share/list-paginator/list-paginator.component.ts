@@ -2,7 +2,7 @@
  * list-paginator.component
  */
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-list-paginator',
@@ -20,6 +20,11 @@ export class ListPaginatorComponent implements OnInit {
     @Input() searchName: string;
 
     @Output() goToPage = new EventEmitter<any>();
+
+    @HostBinding('class.hidden')
+    get listPaginatorClassHidden(): boolean {
+        return this.listTotalPages <= 1;
+    }
 
     get prevBtnDisable(): boolean {
         return this.listPage === 1;

@@ -9,6 +9,10 @@ $text-color: #ed1c24;
   border-top: 1px solid #2d2d2d;
   padding: 0 1rem;
   box-sizing: border-box;
+
+  &.hidden {
+    display: none;
+  }
 }
 
 .list-paginator-btn {
