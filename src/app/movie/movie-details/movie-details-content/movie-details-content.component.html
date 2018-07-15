@@ -148,16 +148,16 @@
                         [style.transform]="'translateX(' + -castListSlideDistance + 'px)'" #castList>
                         <li *ngFor="let cast of movie.credits.cast" class="cast-crew-list-item"
                             [style.width.px]="castProfileWidth">
-
-                            <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"
-                                 [src]="'https://image.tmdb.org/t/p/w185/' + cast.profile_path" alt="Poster"/>
-                            <ng-template #abstractImg>
-                                <img class="cast-crew-poster"
-                                     src="/assets/images/abstract-profile.png"/>
-                            </ng-template>
-                            <h4 class="name">{{cast.name}}</h4>
-                            <h4 class="character">{{cast.character}}</h4>
-
+                            <a class="cast-crew-anchor" [routerLink]="'/people/actor/' + cast.id">
+                                <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"
+                                     [src]="'https://image.tmdb.org/t/p/w185/' + cast.profile_path" alt="Poster"/>
+                                <ng-template #abstractImg>
+                                    <img class="cast-crew-poster"
+                                         src="/assets/images/abstract-profile.png"/>
+                                </ng-template>
+                                <h4 class="character">{{cast.character}}</h4>
+                                <h4 class="name">{{cast.name}}</h4>
+                            </a>
                         </li>
                     </ul>
                 </div>

@@ -246,7 +246,7 @@ $sidenav-width: 170px;
 
     .cast-crew-list {
       margin: 0;
-      padding: 0;
+      padding: 5px;
       list-style: none;
       transition: .3s ease all;
 
@@ -257,6 +257,15 @@ $sidenav-width: 170px;
         box-sizing: border-box;
         width: 96px;
         text-align: center;
+        color: #000000;
+
+        &:hover {
+          color: #ed1c24;
+
+          .cast-crew-anchor {
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.54);
+          }
+        }
 
         img {
           display: block;
@@ -272,9 +281,16 @@ $sidenav-width: 170px;
           text-overflow: ellipsis;
           white-space: nowrap;
 
-          &.name {
+          &.character {
             color: #888;
           }
+        }
+
+        .cast-crew-anchor {
+          display: block;
+          text-decoration: none;
+          color: inherit;
+          box-sizing: border-box;
         }
       }
     }

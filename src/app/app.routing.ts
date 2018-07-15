@@ -10,6 +10,7 @@ export const routes: Routes = [
     {path: 'book', loadChildren: 'app/book/book.module#BookModule'},
     {path: 'movie', loadChildren: 'app/movie/movie.module#MovieModule'},
     {path: 'tv', loadChildren: 'app/tv/tv.module#TvModule'},
+    {path: 'people', loadChildren: 'app/people/people.module#PeopleModule'},
 ];
 
 @NgModule({
