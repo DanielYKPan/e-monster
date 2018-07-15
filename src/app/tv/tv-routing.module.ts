@@ -7,6 +7,8 @@ import { TvDetailsComponent } from './tv-details/tv-details.component';
 import { TvExistGuard } from './guards/tv-exist.guard';
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
 import { TvSeasonResolver } from './guards/tv-season.resolver';
+import { SearchListComponent } from './search-list/search-list.component';
+import { SearchListExistGuard } from './guards/search-list-exist.guard';
 
 const routes: Routes = [
     {
@@ -16,6 +18,7 @@ const routes: Routes = [
             {path: '', redirectTo: 'list/on_the_air', pathMatch: 'full'},
             {path: 'list', redirectTo: 'list/on_the_air', pathMatch: 'full'},
             {path: 'list/:query', component: TvListComponent, canActivate: [TvListExistGuard]},
+            {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: ':id/details', component: TvDetailsComponent, canActivate: [TvExistGuard]},
             {
                 path: ':id/season/:number',

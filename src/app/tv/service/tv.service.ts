@@ -99,4 +99,26 @@ export class TvService extends TMDBService {
             catchError(this.handleError)
         );
     }
+
+    /**
+     * Search for tv shows
+     * @param {string} query -- a text query to search
+     * @param {number} page -- specify which page to query
+     * @return {Observable<IAudio[]>}
+     * */
+    public searchTvs( query: string, page: number ): Observable<IAudio[]> {
+        const url = this.base_url + 'search/tv';
+
+        const queries = [
+            {name: 'page', value: page.toString()},
+            {name: 'query', value: query},
+        ];
+
+        return this.getResult(url, queries, true).pipe(
+            map(( res: any ) => {
+                return {...res, query: query, type: 'tv'};
+            }),
+            catchError(this.handleError)
+        );
+    }
 }

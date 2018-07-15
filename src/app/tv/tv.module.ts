@@ -20,6 +20,8 @@ import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.
 import { TvSeasonDetailsHeaderComponent } from './tv-season-details/tv-season-details-header/tv-season-details-header.component';
 import { TvSeasonDetailsContentComponent } from './tv-season-details/tv-season-details-content/tv-season-details-content.component';
 import { VideoEffect } from './effects/video';
+import { SearchListComponent } from './search-list/search-list.component';
+import { SearchListExistGuard } from './guards/search-list-exist.guard';
 
 @NgModule({
     imports: [
@@ -43,10 +45,12 @@ import { VideoEffect } from './effects/video';
         TvDetailsContentComponent,
         TvSeasonDetailsComponent,
         TvSeasonDetailsHeaderComponent,
-        TvSeasonDetailsContentComponent
+        TvSeasonDetailsContentComponent,
+        SearchListComponent
     ],
     providers: [
         TvService,
+        SearchListExistGuard,
         TvListExistGuard,
         TvExistGuard,
     ]
