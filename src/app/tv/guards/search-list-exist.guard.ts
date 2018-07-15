@@ -23,7 +23,6 @@ export class SearchListExistGuard implements CanActivate {
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
         const page = next.params['page'] || 1;
         const query = next.params['query'];
-        console.log('good');
         return this.hasSearchResults(query, page);
     }
 

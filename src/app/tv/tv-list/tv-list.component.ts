@@ -78,8 +78,8 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
         this.scrollBackTopSub.unsubscribe();
     }
 
-    public handleNavListOptionClick( name: string ) {
-        this.router.navigate(['tv/list', name]);
+    public handleNavListOptionClick( res: any ) {
+        this.router.navigate(['tv/list', res.type]);
     }
 
     public goToPage( event: any ): void {

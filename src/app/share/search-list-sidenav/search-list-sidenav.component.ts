@@ -17,6 +17,8 @@ export class SearchListSidenavComponent implements OnInit {
 
     @Input() currentOption: SearchType;
 
+    @Output() clickOption = new EventEmitter<any>();
+
     @Output() goToPage = new EventEmitter<any>();
 
     public navList = [

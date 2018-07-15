@@ -4,4 +4,5 @@
                    [listQuery]="listQuery"
                    [currentOption]="currentOption"
                    [navList]="navList"
+                   (clickOption)="clickOption.next($event)"
                    (goToPage)="goToPage.next($event)"></app-frame-sidenav>

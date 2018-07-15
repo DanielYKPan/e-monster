@@ -5,6 +5,7 @@
                 [listTotalPages]="listTotalPages$ | async"
                 [listQuery]="listQuery$ | async"
                 [currentOption]="'tv'"
+                (clickOption)="handleNavListOptionClick($event)"
                 (goToPage)="goToPage($event)"></app-search-list-sidenav>
     </div>
 

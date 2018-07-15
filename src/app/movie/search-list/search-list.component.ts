@@ -76,6 +76,13 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     }
 
     /**
+     * Go a specific search page
+     * */
+    public handleNavListOptionClick( event: any ) {
+        this.router.navigate([`${event.type}/search`, {query: event.query}]);
+    }
+
+    /**
      * Open a trailer dialog for a specific movie
      * */
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {

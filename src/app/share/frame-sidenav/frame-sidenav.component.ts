@@ -72,7 +72,9 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
     }
 
     public handleOptionClick( option: any, event: any ): void {
-        this.clickOption.emit(option.value);
+        if (option.value !== this.currentOption) {
+            this.clickOption.emit({type: option.value, query: this.listQuery});
+        }
         event.preventDefault();
     }
 
