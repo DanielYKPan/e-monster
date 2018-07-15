@@ -19,9 +19,7 @@ export class ActorDetailsComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.store.pipe(select(fromPeopleRoot.getSelectedActor)).subscribe(( res ) => {
-            console.log(res);
-        });
+        this.actor$ = this.store.pipe(select(fromPeopleRoot.getSelectedActor));
     }
 
 }

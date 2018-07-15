@@ -9,6 +9,7 @@ import { PeopleService } from './service/people.service';
 import { ActorExistGuard } from './guards/actor-exist.guard';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
+import { ActorDetailsHeaderComponent } from './actor-details/actor-details-header/actor-details-header.component';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import { reducers } from './reducers';
     ],
     declarations: [
         ActorDetailsComponent,
-        PeopleComponent
+        PeopleComponent,
+        ActorDetailsHeaderComponent
     ],
     providers: [
         PeopleService,
