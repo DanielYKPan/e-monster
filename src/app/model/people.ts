@@ -1,6 +1,8 @@
 /**
  * people
  */
+import { IMovie } from './movie';
+import { ITv } from './tv';
 
 export interface IActor {
     adult: boolean;
@@ -16,4 +18,19 @@ export interface IActor {
     place_of_birth: string;
     popularity: number;
     profile_path: string;
+    movie_credits: {
+        cast: IMovie[],
+        crew: IMovie[]
+    };
+    tv_credits: {
+        cast: ITv[],
+        crew: ITv[]
+    };
+    external_ids: {
+        id: string,
+        imdb_id: string,
+        facebook_id: string,
+        instagram_id: string,
+        twitter_id: string
+    };
 }

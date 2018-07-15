@@ -1,16 +1,27 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
+import { IActor } from '../../model/people';
+import * as fromPeopleRoot from '../reducers';
 
 @Component({
-  selector: 'app-actor-details',
-  templateUrl: './actor-details.component.html',
-  styleUrls: ['./actor-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-actor-details',
+    templateUrl: './actor-details.component.html',
+    styleUrls: ['./actor-details.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActorDetailsComponent implements OnInit {
 
-  constructor() { }
+    public actor$: Observable<IActor>;
 
-  ngOnInit() {
-  }
+    constructor( private store: Store<fromPeopleRoot.State> ) {
+    }
+
+    public ngOnInit() {
+        this.store.pipe(select(fromPeopleRoot.getSelectedActor)).subscribe(( res ) => {
+            console.log(res);
+        });
+    }
 
 }
