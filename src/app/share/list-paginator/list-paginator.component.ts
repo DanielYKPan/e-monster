@@ -50,6 +50,6 @@ export class ListPaginatorComponent implements OnInit {
             return;
         }
 
-        this.goToPage.next({name: this.searchName, page: page});
+        this.goToPage.next({query: this.searchName, page: page});
     }
 }

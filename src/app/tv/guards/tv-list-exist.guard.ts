@@ -23,7 +23,7 @@ export class TvListExistGuard implements CanActivate {
     }
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
-        const name = route.params['name'];
+        const name = route.params['query'];
         const page = route.params['page'] || 1;
         return this.hasTvList(name, page);
     }
@@ -47,7 +47,7 @@ export class TvListExistGuard implements CanActivate {
     private hasTvListInStore( name: string, page: number ): Observable<boolean> {
         return forkJoin(
             this.store.pipe(select(fromRoot.getSearchType), take(1)),
-            this.store.pipe(select(fromRoot.getSearchName), take(1)),
+            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
             this.store.pipe(select(fromRoot.getSearchPage), take(1)),
             this.store.pipe(select(fromRoot.getSearchResults), take(1))
         ).pipe(

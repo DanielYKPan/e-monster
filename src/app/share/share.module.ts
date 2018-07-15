@@ -15,6 +15,7 @@ import { ListPaginatorComponent } from './list-paginator/list-paginator.componen
 import { FrameSidenavComponent } from './frame-sidenav/frame-sidenav.component';
 import { FrameMainComponent } from './frame-main/frame-main.component';
 import { OwlMenuModule } from 'owl-ng';
+import { SearchListSidenavComponent } from './search-list-sidenav/search-list-sidenav.component';
 
 @NgModule({
     imports: [
@@ -39,6 +40,7 @@ import { OwlMenuModule } from 'owl-ng';
         ListPaginatorComponent,
         FrameSidenavComponent,
         FrameMainComponent,
+        SearchListSidenavComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -53,6 +55,7 @@ import { OwlMenuModule } from 'owl-ng';
         ListPaginatorComponent,
         FrameSidenavComponent,
         FrameMainComponent,
+        SearchListSidenavComponent,
     ],
     entryComponents: [
         CreditsDialogComponent,

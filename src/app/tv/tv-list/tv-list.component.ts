@@ -33,7 +33,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>;
 
-    public listName$: Observable<string>;
+    public listQuery$: Observable<string>;
 
     public listPage$: Observable<number>;
 
@@ -57,7 +57,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
     public ngOnInit() {
         this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listName$ = this.store.pipe(select(fromRoot.getSearchName));
+        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
         this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
         this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
     }
@@ -83,7 +83,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
     }
 
     public goToPage( event: any ): void {
-        this.router.navigate(['tv/list', event.name, {page: event.page}]);
+        this.router.navigate(['tv/list', event.query, {page: event.page}]);
     }
 
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {

@@ -7,25 +7,24 @@ import {
     OnInit,
     ViewChild
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { select, Store } from '@ngrx/store';
+import { Observable, Subscription } from 'rxjs';
+import { IAudio } from '../../model';
 import * as fromMoviesRoot from '../reducers';
+import { select, Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
+import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
-import { IAudio } from '../../model';
-import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import { Router } from '@angular/router';
 import { skip } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
 
 @Component({
-    selector: 'app-movie-list',
-    templateUrl: './movie-list.component.html',
-    styleUrls: ['./movie-list.component.scss'],
+    selector: 'app-search-list',
+    templateUrl: './search-list.component.html',
+    styleUrls: ['./search-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
+export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
@@ -38,14 +37,6 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
     public listPage$: Observable<number>; // list page
 
     public listTotalPages$: Observable<number>; // list total pages
-
-    public navList = [
-        {name: 'Trending', value: 'now_playing', inform: 'The movies currently in theatres'},
-        {name: 'Popular', value: 'popular', inform: 'The current popular movies'},
-        {name: 'Upcoming', value: 'upcoming', inform: 'The upcoming movies in theatres'},
-        {name: 'Anticipated', value: 'anticipated', inform: 'The most anticipated movies in the next couple years'},
-        {name: 'Top Rated', value: 'top_rated', inform: 'The top rated movies'},
-    ];
 
     private scrollBackTopSub = Subscription.EMPTY;
 
@@ -63,7 +54,6 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
     }
 
     public ngAfterContentInit(): void {
-
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
@@ -78,15 +68,11 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
         this.scrollBackTopSub.unsubscribe();
     }
 
-    public handleNavListOptionClick( option: string ) {
-        this.router.navigate(['movie/list', option]);
-    }
-
     /**
      * Go a specific page of the list
      * */
     public goToPage( event: any ): void {
-        this.router.navigate(['movie/list', event.query, {page: event.page}]);
+        this.router.navigate(['movie/search', {query: event.query, page: event.page}]);
     }
 
     /**

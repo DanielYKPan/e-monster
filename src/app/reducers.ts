@@ -45,9 +45,9 @@ export const getSearchTotalPage = createSelector(
     fromSearch.getTotalPage,
 );
 
-export const getSearchName = createSelector(
+export const getSearchQuery = createSelector(
     getSearchState,
-    fromSearch.getSearchName,
+    fromSearch.getSearchQuery,
 );
 
 export const getSearchType = createSelector(

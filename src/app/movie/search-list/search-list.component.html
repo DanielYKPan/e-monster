@@ -1,0 +1,42 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-search-list-sidenav
+                [listPage]="listPage$ | async"
+                [listTotalPages]="listTotalPages$ | async"
+                [listQuery]="listQuery$ | async"
+                [currentOption]="'movie'"
+                (goToPage)="goToPage($event)"></app-search-list-sidenav>
+    </div>
+
+    <div class="frame-main-wrapper" #frameMainElm>
+        <app-frame-main>
+            <div class="search-grid featured">
+                <app-audio-card *ngFor="let audio of featuredList$ | async" class="audio-card"
+                                [audio]="audio" [scrollTarget]="frameMainElm"
+                                [cardLink]="'/movie/' + audio.id + '/details'"
+                                [imageLink]="'https://image.tmdb.org/t/p/w780' + audio.backdrop_path"
+                                [title]="audio.title"
+                                [date]="audio.release_date"
+                                [vote_average]="audio.vote_average"
+                                [vote_count]="audio.vote_count"
+                                (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+            </div>
+            <div class="search-grid">
+                <app-audio-card *ngFor="let audio of list$ | async" class="audio-card"
+                                [audio]="audio" [scrollTarget]="frameMainElm"
+                                [cardLink]="'/movie/' + audio.id + '/details'"
+                                [imageLink]="'https://image.tmdb.org/t/p/w780' + audio.poster_path"
+                                [title]="audio.title"
+                                [date]="audio.release_date"
+                                [vote_average]="audio.vote_average"
+                                [vote_count]="audio.vote_count"
+                                (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+            </div>
+        </app-frame-main>
+
+        <app-list-paginator [listPage]="listPage$ | async"
+                            [listTotalPages]="listTotalPages$ | async"
+                            [searchName]="listQuery$ | async"
+                            (goToPage)="goToPage($event)"></app-list-paginator>
+    </div>
+</section>
