@@ -1,6 +1,6 @@
 @import "../../../../sass/base/breakPoints";
 
-$sidenav-width: 170px;
+$sidenav-width: 191px;
 $margin-top: 150px;
 
 .actor-details-content {
@@ -18,28 +18,6 @@ $margin-top: 150px;
   display: none;
   grid-area: sidenav;
   position: relative;
-
-  .poster {
-    width: $sidenav-width;
-    min-height: 252px;
-    border: solid 3px #fff;
-    box-sizing: border-box;
-    margin-bottom: 1rem;
-    background-color: #000000;
-    box-shadow: 0 0 20px 0 #000;
-
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-      transition: all 1s;
-      opacity: 0;
-
-      &.ng-lazyloaded {
-        opacity: 1;
-      }
-    }
-  }
 
   .personal-inform {
     display: none;
@@ -119,9 +97,44 @@ $margin-top: 150px;
   overflow: hidden;
 
   .biography {
+    margin-bottom: 2rem;
     p {
       font-size: 1.2rem;
       margin: 0 0 .5rem;
+    }
+  }
+
+  .known-for-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    grid-gap: 2rem .5rem;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    list-style: none;
+    justify-items: center;
+
+    .known-for-list-item {
+      a.known-for-list-anchor {
+        display: block;
+        cursor: pointer;
+        color: #2d2d2d;
+
+        p {
+          margin: 0;
+          padding: 0;
+          width: $sidenav-width;
+          text-align: center;
+          color: inherit;
+          font-size: 0.9rem;
+        }
+
+        &:hover {
+          color: #ed1c24;
+          img {
+            filter: brightness(120%);
+          }
+        }
+      }
     }
   }
 }
@@ -178,4 +191,33 @@ $margin-top: 150px;
 h3 {
   margin: 0 0 .6rem;
   font-size: 1.3rem;
+}
+
+h2 {
+  margin: 0 0 .6rem;
+  font-size: 1.9rem;
+}
+
+.poster-frame {
+  width: $sidenav-width;
+  height: 284px;
+  border: solid 3px #fff;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  background-color: #000000;
+  box-shadow: 0 0 20px 0 #000;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter .2s linear, opacity 1s;
+    opacity: 0;
+    filter: brightness(95%);
+
+    &.ng-lazyloaded {
+      opacity: 1;
+    }
+  }
 }

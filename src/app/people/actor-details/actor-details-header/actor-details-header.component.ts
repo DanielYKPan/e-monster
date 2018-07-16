@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { IActor } from '../../../model/people';
+import { IActor } from '../../../model';
 
 @Component({
     selector: 'app-actor-details-header',

@@ -10,13 +10,13 @@ export interface ITv {
     backdrop_path: string;
     created_by: ICrew[];
     episode_run_time: number[];
-    first_air_date: string[];
+    first_air_date: string;
     genres: IGenre[];
     homepage: string[];
     id: number;
     in_production: number;
     languages: string[];
-    last_air_date: string[];
+    last_air_date: string;
     name: string;
     networks: Array<{ name: string, id: number, logo_path: string, origin_country: string }>;
     number_of_episodes: number;

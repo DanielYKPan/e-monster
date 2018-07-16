@@ -1,6 +1,6 @@
 <section class="actor-details-content">
     <div class="sidenav">
-        <div class="poster">
+        <div class="poster-frame">
             <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + actor.profile_path"
                  [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
                  alt="Poster">
@@ -152,6 +152,73 @@
         <div *ngIf="actor.biography" class="biography">
             <h3>Biography</h3>
             <p>{{actor.biography}}</p>
+        </div>
+
+        <div class="known-for">
+            <h2>Known For</h2>
+            <ng-container *ngIf="castMovieCreditsReleasedFeaturedSorted && castMovieCreditsReleasedFeaturedSorted.length > 0">
+                <h3>Appearance on movie</h3>
+                <ul class="known-for-list">
+                    <li class="known-for-list-item" *ngFor="let item of castMovieCreditsReleasedFeaturedSorted">
+                        <a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
+                            <div class="poster-frame">
+                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     alt="Poster">
+                            </div>
+                            <p>{{item.title}}</p>
+                        </a>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ng-container *ngIf="castTvCreditsReleasedFeaturedSorted && castTvCreditsReleasedFeaturedSorted.length > 0">
+                <h3>Appearance on tv</h3>
+                <ul class="known-for-list">
+                    <li class="known-for-list-item" *ngFor="let item of castTvCreditsReleasedFeaturedSorted">
+                        <a class="known-for-list-anchor" [routerLink]="'/tv/' + item.id + '/details'">
+                            <div class="poster-frame">
+                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     alt="Poster">
+                            </div>
+                            <p>{{item.name}}</p>
+                        </a>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ng-container *ngIf="crewMovieCreditsReleasedFeaturedSorted && crewMovieCreditsReleasedFeaturedSorted.length > 0">
+                <h3>Crew on movie</h3>
+                <ul class="known-for-list">
+                    <li class="known-for-list-item" *ngFor="let item of crewMovieCreditsReleasedFeaturedSorted">
+                        <a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
+                            <div class="poster-frame">
+                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     alt="Poster">
+                            </div>
+                            <p>{{item.title}}</p>
+                        </a>
+                    </li>
+                </ul>
+            </ng-container>
+
+            <ng-container *ngIf="crewTvCreditsReleasedFeaturedSorted && crewTvCreditsReleasedFeaturedSorted.length > 0">
+                <h3>Crew on tv</h3>
+                <ul class="known-for-list">
+                    <li class="known-for-list-item" *ngFor="let item of crewTvCreditsReleasedFeaturedSorted">
+                        <a class="known-for-list-anchor" [routerLink]="'/tv/' + item.id + '/details'">
+                            <div class="poster-frame">
+                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     alt="Poster">
+                            </div>
+                            <p>{{item.name}}</p>
+                        </a>
+                    </li>
+                </ul>
+            </ng-container>
         </div>
     </div>
 </section>
