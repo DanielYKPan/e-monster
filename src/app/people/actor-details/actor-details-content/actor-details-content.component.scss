@@ -1,31 +1,23 @@
 @import "../../../../sass/base/breakPoints";
 
 $sidenav-width: 170px;
+$margin-top: 150px;
 
 .actor-details-content {
   display: grid;
   grid-template-columns: $sidenav-width 1fr;
-  grid-template-areas: "main main";
+  grid-template-rows: $margin-top 1fr;
+  grid-template-areas: "margin margin" "main main";
   min-height: 600px;
-  background-color: #FFFFFF;
   width: 90vw;
   max-width: 1160px;
-  margin: 0 auto;
+  margin: -$margin-top auto 0;
 }
 
 .sidenav {
   display: none;
   grid-area: sidenav;
   position: relative;
-
-  .personal-inform {
-    display: none;
-  }
-}
-
-.sidenav-container {
-  position: absolute;
-  top: -150px;
 
   .poster {
     width: $sidenav-width;
@@ -47,6 +39,10 @@ $sidenav-width: 170px;
         opacity: 1;
       }
     }
+  }
+
+  .personal-inform {
+    display: none;
   }
 }
 
@@ -132,7 +128,7 @@ $sidenav-width: 170px;
 
 @media #{$medium-up} {
   .actor-details-content {
-    grid-template-areas: "sidenav main";
+    grid-template-areas: "sidenav margin" "sidenav main";
   }
 
   .personal-inform {
