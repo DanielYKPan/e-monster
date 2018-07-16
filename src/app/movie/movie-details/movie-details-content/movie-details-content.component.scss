@@ -149,6 +149,7 @@ $sidenav-width: 170px;
 
       span:not(:last-child):after {
         content: ', ';
+        padding-right: 5px;
       }
     }
   }

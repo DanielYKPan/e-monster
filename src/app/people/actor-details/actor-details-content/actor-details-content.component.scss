@@ -1,0 +1,185 @@
+@import "../../../../sass/base/breakPoints";
+
+$sidenav-width: 170px;
+
+.actor-details-content {
+  display: grid;
+  grid-template-columns: $sidenav-width 1fr;
+  grid-template-areas: "main main";
+  min-height: 600px;
+  background-color: #FFFFFF;
+  width: 90vw;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.sidenav {
+  display: none;
+  grid-area: sidenav;
+  position: relative;
+
+  .personal-inform {
+    display: none;
+  }
+}
+
+.sidenav-container {
+  position: absolute;
+  top: -150px;
+
+  .poster {
+    width: $sidenav-width;
+    min-height: 252px;
+    border: solid 3px #fff;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    background-color: #000000;
+    box-shadow: 0 0 20px 0 #000;
+
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: all 1s;
+      opacity: 0;
+
+      &.ng-lazyloaded {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.personal-inform {
+  display: flex;
+  flex-direction: column-reverse;
+
+  .personal-inform-external,
+  .personal-inform-stats {
+    margin-bottom: 1rem;
+  }
+
+  .personal-inform-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .external-list {
+    .external-item {
+      margin: 0 1rem .2rem 0;
+      border: solid 1px #ddd;
+      background-color: #fbfbfb;
+      color: #666;
+      border-radius: 3px;
+      transition: all .5s;
+      cursor: pointer;
+      padding: .3rem .7rem;
+
+      &:hover {
+        background-color: #666;
+        color: #fbfbfb;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+  }
+
+  .stats-list {
+    flex-direction: column;
+    .stats-item {
+      margin: 0 0 .5rem;
+
+      label {
+        text-transform: uppercase;
+        margin: 0 .4rem 0 0;
+        color: #959595;
+        font-weight: 400;
+      }
+
+      span {
+        padding: 0 5px;
+      }
+
+      &.also_known_as {
+        span {
+          display: block;
+          padding: 2.5px 0;
+        }
+      }
+    }
+  }
+}
+
+.main {
+  grid-area: main;
+  padding: 1rem 0;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  .biography {
+    p {
+      font-size: 1.2rem;
+      margin: 0 0 .5rem;
+    }
+  }
+}
+
+@media #{$medium-up} {
+  .actor-details-content {
+    grid-template-areas: "sidenav main";
+  }
+
+  .personal-inform {
+    flex-direction: column;
+
+    .personal-inform-external-title {
+      display: none;
+    }
+
+    .stats-list {
+      .stats-item {
+        label {
+          margin: 0 0 .4rem;
+        }
+
+        span {
+          display: block;
+          padding: 2.5px 0;
+        }
+      }
+    }
+  }
+
+  .sidenav {
+    display: block;
+    grid-area: sidenav;
+
+    .personal-inform {
+      display: block;
+    }
+  }
+
+  .main {
+    grid-area: main;
+    padding: 1rem;
+
+    .personal-inform {
+      display: none;
+    }
+
+    .biography h3 {
+      display: none;
+    }
+  }
+}
+
+h3 {
+  margin: 0 0 .6rem;
+  font-size: 1.3rem;
+}
