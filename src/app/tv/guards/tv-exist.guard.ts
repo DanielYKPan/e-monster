@@ -3,7 +3,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
@@ -17,7 +17,8 @@ import { TvService } from '../service/tv.service';
 @Injectable()
 export class TvExistGuard implements CanActivate {
     constructor( private store: Store<fromTvRoot.State>,
-                 private tvService: TvService ) {
+                 private tvService: TvService,
+                 private router: Router ) {
     }
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
@@ -59,7 +60,7 @@ export class TvExistGuard implements CanActivate {
             }),
             map(res => !!res.payload),
             catchError(() => {
-                // TODO: navigate to 404
+                this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })
         );

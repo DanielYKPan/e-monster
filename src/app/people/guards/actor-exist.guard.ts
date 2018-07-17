@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take } from 'rxjs/operators';
@@ -16,7 +16,8 @@ import * as searchActions from '../../search-store/actions';
 export class ActorExistGuard implements CanActivate {
 
     constructor( private store: Store<fromRoot.State>,
-                 private peopleService: PeopleService ) {
+                 private peopleService: PeopleService,
+                 private router: Router ) {
     }
 
     canActivate(
@@ -57,7 +58,7 @@ export class ActorExistGuard implements CanActivate {
                 return !!actor;
             }),
             catchError(() => {
-                // TODO: navigate to 404
+                this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })
         );

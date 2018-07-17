@@ -3,7 +3,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { MovieService } from '../service/movie.service';
 import { select, Store } from '@ngrx/store';
@@ -18,7 +18,8 @@ import { of } from 'rxjs/observable/of';
 export class MovieExistGuard implements CanActivate {
 
     constructor( private store: Store<fromMoviesRoot.State>,
-                 private movieService: MovieService ) {
+                 private movieService: MovieService,
+                 private router: Router ) {
     }
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
@@ -66,7 +67,7 @@ export class MovieExistGuard implements CanActivate {
             }),
             map(movie => !!movie),
             catchError(() => {
-                // TODO: navigate to 404
+                this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })
         );

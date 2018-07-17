@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as fromRoot from '../../reducers';
 import { select, Store } from '@ngrx/store';
@@ -15,7 +15,8 @@ import { forkJoin } from 'rxjs/observable/forkJoin';
 export class SearchListExistGuard implements CanActivate {
 
     constructor( private store: Store<fromRoot.State>,
-                 private tvService: TvService ) {
+                 private tvService: TvService,
+                 private router: Router ) {
     }
 
     canActivate(
@@ -61,7 +62,8 @@ export class SearchListExistGuard implements CanActivate {
             tap(action => this.store.dispatch(action)),
             map(res => !!res.payload.results),
             catchError(() => {
-                return of(false); // TODO: navigate to 404 page
+                this.router.navigate(['page-not-found'], {skipLocationChange: true});
+                return of(false);
             })
         );
     }

@@ -3,7 +3,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { ISeason } from '../../model';
 import { Observable } from 'rxjs/Observable';
 import { TvService } from '../service/tv.service';
@@ -19,7 +19,8 @@ import { SearchTvSeasonVideos } from '../actions/video';
 export class TvSeasonResolver implements Resolve<ISeason> {
 
     constructor( private tvService: TvService,
-                 private store: Store<fromTvRoot.State> ) {
+                 private store: Store<fromTvRoot.State>,
+                 private router: Router ) {
     }
 
     public resolve( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<ISeason> | Promise<ISeason> | ISeason {
@@ -35,12 +36,12 @@ export class TvSeasonResolver implements Resolve<ISeason> {
                         this.store.dispatch(new SearchTvSeasonVideos({tv_id, season_number, season_id: season.id}));
                         return season;
                     } else {
-                        // TODO: navigate to 404
-                        return null;
+                        this.router.navigate(['page-not-found'], {skipLocationChange: true});
+                        return of(null);
                     }
                 }),
                 catchError(() => {
-                    // TODO: navigate to 404
+                    this.router.navigate(['page-not-found'], {skipLocationChange: true});
                     return of(null);
                 })
             );

@@ -12,6 +12,7 @@ export const routes: Routes = [
     {path: 'movie', loadChildren: 'app/movie/movie.module#MovieModule'},
     {path: 'tv', loadChildren: 'app/tv/tv.module#TvModule'},
     {path: 'people', loadChildren: 'app/people/people.module#PeopleModule'},
+    {path: 'page-not-found', component: PageNotFoundComponent},
     {path: '**', component: PageNotFoundComponent},
 ];
 

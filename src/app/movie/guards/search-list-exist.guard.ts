@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { forkJoin, Observable, of } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
@@ -13,7 +13,8 @@ import { MovieService } from '../service/movie.service';
 export class SearchListExistGuard implements CanActivate {
 
     constructor( private store: Store<fromRoot.State>,
-                 private movieService: MovieService ) {
+                 private movieService: MovieService,
+                 private router: Router ) {
     }
 
     canActivate(
@@ -59,7 +60,8 @@ export class SearchListExistGuard implements CanActivate {
             tap(action => this.store.dispatch(action)),
             map(res => !!res.payload.results),
             catchError(() => {
-                return of(false); // TODO: navigate to 404 page
+                this.router.navigate(['page-not-found'], {skipLocationChange: true});
+                return of(false);
             })
         );
     }
