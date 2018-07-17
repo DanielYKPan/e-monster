@@ -9,7 +9,6 @@ import { DOCUMENT } from '@angular/common';
 import { OwlDialogService } from 'owl-ng';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
-import * as fromRoot from '../../reducers';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 
 @Component({
@@ -44,7 +43,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     }
 
     public openSeasonVideoDialog( e: { title: string, videoKey: string, event: any } ) {
-        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
+        const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
                 title: e.title,

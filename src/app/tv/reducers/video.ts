@@ -6,6 +6,7 @@ import { IVideos } from '../../model';
 import { TvVideosActions, TvVideosActionTypes } from '../actions/video';
 
 export interface State extends EntityState<IVideos> {
+    loading: boolean;
     selectedTvId: number | null;
 }
 
@@ -15,20 +16,31 @@ export const adapter: EntityAdapter<IVideos> = createEntityAdapter<IVideos>({
 });
 
 export const initialState: State = adapter.getInitialState({
+    loading: false,
     selectedTvId: null
 });
 
 export function reducer( state = initialState, action: TvVideosActions ): State {
     switch (action.type) {
+
+        case TvVideosActionTypes.SearchTvVideos: {
+            return {
+                ...state,
+                loading: true
+            };
+        }
+
         case TvVideosActionTypes.SearchVideosCompleted:
             return adapter.addOne(action.payload, {
                 ...state,
+                loading: false,
                 selectedTvId: action.payload.id
             });
 
         case TvVideosActionTypes.Select:
             return {
                 ...state,
+                loading: false,
                 selectedTvId: action.payload
             };
 
@@ -38,3 +50,4 @@ export function reducer( state = initialState, action: TvVideosActions ): State 
 }
 
 export const getSelectedId = ( state: State ) => state.selectedTvId;
+export const getLoading = ( state: State ) => state.loading;

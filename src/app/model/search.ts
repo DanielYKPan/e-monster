@@ -2,4 +2,4 @@
  * search
  */
 
-export type SearchType = 'movie' | 'tv' | 'video' | 'music' | 'book' | 'people';
+export type SearchType = 'movie' | 'tv' | 'music' | 'book' | 'people';

@@ -3,11 +3,9 @@
  */
 import { IAudio, SearchType } from '../model';
 import { SearchActions, SearchActionTypes } from './actions';
-import { TvVideosActions, TvVideosActionTypes } from '../tv/actions/video';
-import { MovieVideosActions, MovieVideosActionTypes } from '../movie/actions/video';
 
 export interface State {
-    type: SearchType; // Search Type: 'movie', 'tv', 'video'
+    type: SearchType; // Search Type: 'movie', 'tv'
     loading: boolean; // whether the search process is completed
     searchListResult: {
         query: string;
@@ -30,7 +28,7 @@ const initialState: State = {
     },
 };
 
-export function reducer( state = initialState, action: SearchActions | MovieVideosActions | TvVideosActions ): State {
+export function reducer( state = initialState, action: SearchActions ): State {
     switch (action.type) {
 
         case SearchActionTypes.LoadingStart:
@@ -54,16 +52,6 @@ export function reducer( state = initialState, action: SearchActions | MovieVide
                 }
             };
 
-        case TvVideosActionTypes.SearchTvVideos:
-        case MovieVideosActionTypes.SearchVideos:
-            return {
-                ...state,
-                type: 'video',
-                loading: true
-            };
-
-        case TvVideosActionTypes.SearchVideosCompleted:
-        case MovieVideosActionTypes.SearchVideosCompleted:
         case SearchActionTypes.LoadingCompleted:
             return {
                 ...state,

@@ -12,11 +12,10 @@ import {
     SearchVideosError,
     Select
 } from '../actions/video';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import * as fromMovieRoot from '../reducers';
 import { MovieService } from '../service/movie.service';
 import { of } from 'rxjs/observable/of';
-import { LoadingCompleted, } from '../../search-store/actions';
 
 @Injectable()
 export class VideoEffect {
@@ -30,9 +29,7 @@ export class VideoEffect {
             const inStore = entities && !!entities[id];
             let obs;
             if (inStore) {
-                obs = of(new Select(id)).pipe(
-                    tap(() => this.store$.dispatch(new LoadingCompleted()))
-                );
+                obs = of(new Select(id));
             } else {
                 obs = this.movieService.getMovieVideos(id).pipe(
                     map(( res ) => new SearchVideosCompleted(res)),

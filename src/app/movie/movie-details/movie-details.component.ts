@@ -6,8 +6,6 @@ import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
 import * as movieAction from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
-import * as searchActions from '../../search-store/actions';
-import * as fromRoot from '../../reducers';
 import { Subscription } from 'rxjs/Subscription';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
@@ -59,7 +57,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     public openMovieVideoDialog( e: { title: string, videoKey: string, event: any } ): void {
-        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
+        const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
                 title: e.title,
@@ -92,7 +90,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         // search the movie videos
         this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
         const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
-        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
+        const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {

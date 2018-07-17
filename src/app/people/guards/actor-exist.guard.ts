@@ -50,9 +50,10 @@ export class ActorExistGuard implements CanActivate {
         this.store.dispatch(new searchActions.LoadingStart());
         return this.peopleService.searchActorDetails(id).pipe(
             map(actor => {
+                this.store.dispatch(new searchActions.LoadingCompleted());
                 this.store.dispatch(new actorActions.Load(actor));
                 this.store.dispatch(new actorActions.Select(actor.id));
-                this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new searchActions.SetSearchType('people'));
                 return !!actor;
             }),
             catchError(() => {

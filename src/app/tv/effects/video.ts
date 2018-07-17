@@ -12,12 +12,11 @@ import {
     Select,
     TvVideosActionTypes
 } from '../actions/video';
-import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
 import { of } from 'rxjs/observable/of';
 import { TvService } from '../service/tv.service';
-import { LoadingCompleted } from '../../search-store/actions';
 
 @Injectable()
 export class VideoEffect {
@@ -31,9 +30,7 @@ export class VideoEffect {
             const inStore = entities && !!entities[id];
             let obs;
             if (inStore) {
-                obs = of(new Select(id)).pipe(
-                    tap(() => this.store.dispatch(new LoadingCompleted()))
-                );
+                obs = of(new Select(id));
             } else {
                 obs = this.tvService.getTvVideos(id).pipe(
                     map(( res ) => new SearchVideosCompleted(res)),
@@ -53,9 +50,7 @@ export class VideoEffect {
             const inStore = entities && !!entities[inform.season_id];
             let obs;
             if (inStore) {
-                obs = of(new Select(inform.season_id)).pipe(
-                    tap(() => this.store.dispatch(new LoadingCompleted()))
-                );
+                obs = of(new Select(inform.season_id));
             } else {
                 obs = this.tvService.getTvSeasonVideos(inform.tv_id, inform.season_number).pipe(
                     map(( res ) => new SearchVideosCompleted(res)),

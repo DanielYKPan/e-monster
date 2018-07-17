@@ -57,6 +57,11 @@ export const {
     selectEntities: getTvVideosEntities,
 } = fromVideos.adapter.getSelectors(getTvVideosEntityState);
 
+export const getSearchTvVideoLoader = createSelector(
+    getTvVideosEntityState,
+    fromVideos.getLoading,
+);
+
 export const getSelectedTvVideosId = createSelector(
     getTvVideosEntityState,
     fromVideos.getSelectedId

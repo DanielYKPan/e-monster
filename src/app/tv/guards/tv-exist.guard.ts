@@ -28,7 +28,6 @@ export class TvExistGuard implements CanActivate {
         return this.hasTvInStore(id).pipe(
             tap(() => {
                 this.store.dispatch(new videoActions.SearchTvVideos(id));
-                this.store.dispatch(new searchActions.SetSearchType('tv'));
             }),
             switchMap(inStore => {
                 if (inStore) {
@@ -56,6 +55,7 @@ export class TvExistGuard implements CanActivate {
             tap(( action: tvActions.Load ) => {
                 this.store.dispatch(action);
                 this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new searchActions.SetSearchType('tv'));
             }),
             map(res => !!res.payload),
             catchError(() => {

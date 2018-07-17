@@ -41,6 +41,11 @@ export const {
     selectTotal: getTotalMovieVideos,
 } = fromVideos.adapter.getSelectors(getMovieVideosEntityState);
 
+export const getSearchVideoLoader = createSelector(
+    getMovieVideosEntityState,
+    fromVideos.getLoading,
+);
+
 export const getSelectedMovieVideosId = createSelector(
     getMovieVideosEntityState,
     fromVideos.getSelectedId

@@ -29,7 +29,6 @@ export class MovieExistGuard implements CanActivate {
         return this.hasMovieInStore(id).pipe(
             tap(() => {
                 this.store.dispatch(new videoActions.SearchVideos(id));
-                this.store.dispatch(new searchActions.SetSearchType('movie'));
             }),
             switchMap(inStore => {
                 if (inStore) {
@@ -63,6 +62,7 @@ export class MovieExistGuard implements CanActivate {
             tap(( action: movieActions.Load ) => {
                 this.store.dispatch(action);
                 this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new searchActions.SetSearchType('movie'));
             }),
             map(movie => !!movie),
             catchError(() => {

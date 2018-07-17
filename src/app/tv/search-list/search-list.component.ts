@@ -40,9 +40,9 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     private scrollBackTopSub = Subscription.EMPTY;
 
-    constructor(private router: Router,
-                private store: Store<fromTvsRoot.State>,
-                private dialogService: OwlDialogService) {
+    constructor( private router: Router,
+                 private store: Store<fromTvsRoot.State>,
+                 private dialogService: OwlDialogService ) {
     }
 
     public ngOnInit() {
@@ -94,7 +94,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         // search the tv video
         this.store.dispatch(new videoActions.SearchTvVideos(res.audio.id));
         const tvVideo$ = this.store.pipe(select(fromTvsRoot.getSelectedTvVideo));
-        const showLoader$ = this.store.pipe(select(fromRoot.getSearchVideoTypeLoader));
+        const showLoader$ = this.store.pipe(select(fromTvsRoot.getSearchTvVideoLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
