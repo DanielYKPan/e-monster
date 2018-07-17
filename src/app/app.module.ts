@@ -15,11 +15,13 @@ import { reducers } from './reducers';
 import { schema } from './db';
 import { DBModule } from '@ngrx/db';
 import { CoreModule } from './core/core.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        PageNotFoundComponent,
     ],
     imports: [
         BrowserModule,

@@ -1,0 +1,72 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.backdrop {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.content {
+  text-align: center;
+  color: #CDD4DE;
+
+  h1 {
+    font-weight: 900;
+    font-size: 25vw;
+    opacity: 0.6;
+    margin: 0;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 5vw;
+    opacity: 0.9;
+    margin: 10px;
+  }
+
+  p {
+    font-weight: 300;
+    font-size: 2vw;
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  a {
+    display: inline-block;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    font-weight: 300;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: 1px solid #CDD4DE;
+    padding: 8px 14px;
+    border-radius: 4px;
+    opacity: 0.4;
+    cursor: pointer;
+    transform: translateX(-50%);
+    transition: all .5s;
+    text-decoration: none;
+    color: inherit;
+
+    &:hover {
+      background-color: #CDD4DE;
+      opacity: 1;
+      color: #2d2d2d;
+    }
+  }
+}
