@@ -157,7 +157,7 @@
         <div class="known-for">
             <h2>Known For</h2>
             <ng-container *ngIf="castMovieCreditsReleasedFeaturedSorted && castMovieCreditsReleasedFeaturedSorted.length > 0">
-                <h3>Appearance on movie</h3>
+                <h3>Appearance on Movie</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of castMovieCreditsReleasedFeaturedSorted">
                         <a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
@@ -173,7 +173,7 @@
             </ng-container>
 
             <ng-container *ngIf="castTvCreditsReleasedFeaturedSorted && castTvCreditsReleasedFeaturedSorted.length > 0">
-                <h3>Appearance on tv</h3>
+                <h3>Appearance on TV</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of castTvCreditsReleasedFeaturedSorted">
                         <a class="known-for-list-anchor" [routerLink]="'/tv/' + item.id + '/details'">
@@ -189,7 +189,7 @@
             </ng-container>
 
             <ng-container *ngIf="crewMovieCreditsReleasedFeaturedSorted && crewMovieCreditsReleasedFeaturedSorted.length > 0">
-                <h3>Crew on movie</h3>
+                <h3>Crew on Movie</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of crewMovieCreditsReleasedFeaturedSorted">
                         <a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
@@ -205,7 +205,7 @@
             </ng-container>
 
             <ng-container *ngIf="crewTvCreditsReleasedFeaturedSorted && crewTvCreditsReleasedFeaturedSorted.length > 0">
-                <h3>Crew on tv</h3>
+                <h3>Crew on TV</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of crewTvCreditsReleasedFeaturedSorted">
                         <a class="known-for-list-anchor" [routerLink]="'/tv/' + item.id + '/details'">
