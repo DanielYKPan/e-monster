@@ -1,2 +1,2 @@
 <app-actor-details-header [actor]="actor$ | async"></app-actor-details-header>
-<app-actor-details-content [actor]="actor$ | async"></app-actor-details-content>
+<app-actor-details-content [actor]="actor$ | async" (showCreditOverview)="showCreditOverviewDialog($event)"></app-actor-details-content>

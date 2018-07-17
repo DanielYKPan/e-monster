@@ -6,6 +6,12 @@
   width: 80vw;
   max-width: 600px;
   box-sizing: border-box;
+
+  &.audio-overview-dialog {
+    padding: 1.5rem;
+    background-color: #081c25;
+    color: #FFFFFF;
+  }
 }
 
 // Credits Dialog

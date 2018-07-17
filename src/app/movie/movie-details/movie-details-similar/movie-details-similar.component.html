@@ -17,7 +17,7 @@
                     <li *ngFor="let m of movie.similar.results" class="movie-list-item"
                         [style.width.px]="movieItemWidth">
                         <app-audio-card [audio]="m"
-                                        [cardLink]="'/movies/' + m.id + '/details'"
+                                        [cardLink]="'/movie/' + m.id + '/details'"
                                         [scrollObservable]="scrollObservable"
                                         [imageLink]="'https://image.tmdb.org/t/p/w780' + m.poster_path"
                                         [vote_average]="m.vote_average"

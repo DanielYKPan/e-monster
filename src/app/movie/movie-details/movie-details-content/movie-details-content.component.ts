@@ -10,7 +10,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { IMovie, IVideo, ICrew } from '../../../model';
+import { ICrew, IMovie, IVideo } from '../../../model';
 
 @Component({
     selector: 'app-movie-details-content',

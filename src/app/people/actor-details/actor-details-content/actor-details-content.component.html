@@ -236,7 +236,7 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.release_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn">
+                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'movie',$event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
@@ -261,7 +261,7 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.first_air_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn">
+                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'tv', $event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
@@ -287,7 +287,7 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.release_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn">
+                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'movie', $event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
@@ -312,7 +312,7 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.first_air_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn">
+                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'tv', $event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>

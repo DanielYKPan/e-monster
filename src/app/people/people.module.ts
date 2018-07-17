@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { OwlTabsModule, OwlTooltipModule } from 'owl-ng';
+import { OwlDialogModule, OwlTabsModule, OwlTooltipModule } from 'owl-ng';
 
 import { PeopleRoutingModule } from './people-routing.module';
 import { ActorDetailsComponent } from './actor-details/actor-details.component';
@@ -12,6 +12,7 @@ import { ActorExistGuard } from './guards/actor-exist.guard';
 import { reducers } from './reducers';
 import { ActorDetailsHeaderComponent } from './actor-details/actor-details-header/actor-details-header.component';
 import { ActorDetailsContentComponent } from './actor-details/actor-details-content/actor-details-content.component';
+import { CreditOverviewDialogComponent } from './actor-details/credit-overview-dialog/credit-overview-dialog.component';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { ActorDetailsContentComponent } from './actor-details/actor-details-cont
         // Owl NG
         OwlTooltipModule,
         OwlTabsModule,
+        OwlDialogModule,
 
         StoreModule.forFeature('people', reducers)
     ],
@@ -29,11 +31,15 @@ import { ActorDetailsContentComponent } from './actor-details/actor-details-cont
         ActorDetailsComponent,
         PeopleComponent,
         ActorDetailsHeaderComponent,
-        ActorDetailsContentComponent
+        ActorDetailsContentComponent,
+        CreditOverviewDialogComponent
     ],
     providers: [
         PeopleService,
         ActorExistGuard
+    ],
+    entryComponents: [
+        CreditOverviewDialogComponent
     ]
 })
 export class PeopleModule {

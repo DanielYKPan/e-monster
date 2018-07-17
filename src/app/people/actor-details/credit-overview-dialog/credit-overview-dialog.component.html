@@ -1,0 +1,24 @@
+<div class="credit-overview-dialog-inner">
+    <div class="poster-frame" (click)="goToDetailsPage($event)">
+        <a>
+            <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + credit.poster_path"
+                 [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                 alt="Poster">
+        </a>
+    </div>
+    <div class="overview-frame">
+        <h1>
+            <a (click)="goToDetailsPage($event)">{{type === 'movie' ? credit.title : credit.name}}</a>
+            <span class="rating-block">
+                <i class="icon fas fa-star"></i> {{vote_average}}
+            </span>
+        </h1>
+        <p>
+            {{credit.overview}}
+        </p>
+    </div>
+</div>
+
+<button type="button" class="basic-btn credit-overview-dialog-close" (click)="closeDialog($event)">
+    <i class="fas fa-times"></i>
+</button>

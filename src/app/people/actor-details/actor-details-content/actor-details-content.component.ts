@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IActor } from '../../../model';
 
 @Component({
@@ -10,6 +10,8 @@ import { IActor } from '../../../model';
 export class ActorDetailsContentComponent implements OnInit {
 
     @Input() actor: IActor;
+
+    @Output() showCreditOverview = new EventEmitter<any>();
 
     // cast movie
     public castMovieCredits: any[];
@@ -46,6 +48,12 @@ export class ActorDetailsContentComponent implements OnInit {
 
     public ngOnInit() {
         this.initCreditArrays();
+    }
+
+    public handleCreditOverviewClick( credit: any, type: string, event: any ): void {
+        this.showCreditOverview.emit({credit, type, event});
+        event.preventDefault();
+        return;
     }
 
     private initCreditArrays(): void {
