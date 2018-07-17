@@ -156,7 +156,8 @@
 
         <div class="known-for">
             <h2>Known For</h2>
-            <ng-container *ngIf="castMovieCreditsReleasedFeaturedSorted && castMovieCreditsReleasedFeaturedSorted.length > 0">
+            <ng-container
+                    *ngIf="castMovieCreditsReleasedFeaturedSorted && castMovieCreditsReleasedFeaturedSorted.length > 0">
                 <h3>Appearance on Movie</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of castMovieCreditsReleasedFeaturedSorted">
@@ -188,7 +189,8 @@
                 </ul>
             </ng-container>
 
-            <ng-container *ngIf="crewMovieCreditsReleasedFeaturedSorted && crewMovieCreditsReleasedFeaturedSorted.length > 0">
+            <ng-container
+                    *ngIf="crewMovieCreditsReleasedFeaturedSorted && crewMovieCreditsReleasedFeaturedSorted.length > 0">
                 <h3>Crew on Movie</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of crewMovieCreditsReleasedFeaturedSorted">
@@ -219,6 +221,114 @@
                     </li>
                 </ul>
             </ng-container>
+        </div>
+
+        <div class="full-list">
+            <h2>Full List Table</h2>
+            <owl-tab-view class="full-list-tab-view">
+                <owl-tab label="Movie (as cast)" *ngIf="castMovieCreditsReleasedGrouped.length > 0">
+                    <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="credits-group-wrapper" *ngFor="let group of castMovieCreditsReleasedGrouped">
+                            <td>
+                                <table class="credits-group">
+                                    <tbody>
+                                    <tr *ngFor="let credit of group">
+                                        <td class="year">{{credit.release_date | yearString}}</td>
+                                        <td class="separator">
+                                            <button type="button" class="basic-btn">
+                                                <i class="far fa-dot-circle"></i>
+                                            </button>
+                                        </td>
+                                        <td class="role">
+                                            <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a> as <span class="character">{{credit.character}}</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </owl-tab>
+                <owl-tab label="TV (as cast)" *ngIf="castTvCreditsReleasedGrouped.length > 0">
+                    <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="credits-group-wrapper" *ngFor="let group of castTvCreditsReleasedGrouped">
+                            <td>
+                                <table class="credits-group">
+                                    <tbody>
+                                    <tr *ngFor="let credit of group">
+                                        <td class="year">{{credit.first_air_date | yearString}}</td>
+                                        <td class="separator">
+                                            <button type="button" class="basic-btn">
+                                                <i class="far fa-dot-circle"></i>
+                                            </button>
+                                        </td>
+                                        <td class="role">
+                                            <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a> -- <span class="episode">({{credit.episode_count}} episode<ng-container
+                                                *ngIf="credit.episode_count > 1" >s</ng-container>)</span> as <span class="character">{{credit.character}}</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </owl-tab>
+                <owl-tab label="Movie (as crew)" *ngIf="crewMovieCreditsReleasedGrouped.length > 0">
+                    <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="credits-group-wrapper" *ngFor="let group of crewMovieCreditsReleasedGrouped">
+                            <td>
+                                <table class="credits-group">
+                                    <tbody>
+                                    <tr *ngFor="let credit of group">
+                                        <td class="year">{{credit.release_date | yearString}}</td>
+                                        <td class="separator">
+                                            <button type="button" class="basic-btn">
+                                                <i class="far fa-dot-circle"></i>
+                                            </button>
+                                        </td>
+                                        <td class="role">
+                                            <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a> ... <span class="character">{{credit.job}}</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </owl-tab>
+                <owl-tab label="TV (as crew)" *ngIf="crewTvCreditsReleasedGrouped.length > 0">
+                    <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr class="credits-group-wrapper" *ngFor="let group of crewTvCreditsReleasedGrouped">
+                            <td>
+                                <table class="credits-group">
+                                    <tbody>
+                                    <tr *ngFor="let credit of group">
+                                        <td class="year">{{credit.first_air_date | yearString}}</td>
+                                        <td class="separator">
+                                            <button type="button" class="basic-btn">
+                                                <i class="far fa-dot-circle"></i>
+                                            </button>
+                                        </td>
+                                        <td class="role">
+                                            <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a> -- <span class="episode">({{credit.episode_count}} episode<ng-container
+                                                *ngIf="credit.episode_count > 1" >s</ng-container>)</span> ... <span class="character">{{credit.job}}</span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </owl-tab>
+            </owl-tab-view>
         </div>
     </div>
 </section>

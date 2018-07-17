@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { IActor, IMovie, ITv } from '../../../model';
+import { IActor } from '../../../model';
 
 @Component({
     selector: 'app-actor-details-content',
@@ -12,28 +12,32 @@ export class ActorDetailsContentComponent implements OnInit {
     @Input() actor: IActor;
 
     // cast movie
-    public castMovieCredits: IMovie[];
-    public castMovieCreditsSorted: IMovie[];
-    public castMovieCreditsReleasedSorted: IMovie[];
-    public castMovieCreditsReleasedFeaturedSorted: IMovie[];
+    public castMovieCredits: any[];
+    public castMovieCreditsSorted: any[];
+    public castMovieCreditsReleasedSorted: any[];
+    public castMovieCreditsReleasedFeaturedSorted: any[];
+    public castMovieCreditsReleasedGrouped: any[];
 
     // cast tv
-    public castTvCredits: ITv[];
-    public castTvCreditsSorted: ITv[];
-    public castTvCreditsReleasedSorted: ITv[];
-    public castTvCreditsReleasedFeaturedSorted: ITv[];
+    public castTvCredits: any[];
+    public castTvCreditsSorted: any[];
+    public castTvCreditsReleasedSorted: any[];
+    public castTvCreditsReleasedFeaturedSorted: any[];
+    public castTvCreditsReleasedGrouped: any[];
 
     // crew movie
-    public crewMovieCredits: IMovie[];
-    public crewMovieCreditsSorted: IMovie[];
-    public crewMovieCreditsReleasedSorted: IMovie[];
-    public crewMovieCreditsReleasedFeaturedSorted: IMovie[];
+    public crewMovieCredits: any[];
+    public crewMovieCreditsSorted: any[];
+    public crewMovieCreditsReleasedSorted: any[];
+    public crewMovieCreditsReleasedFeaturedSorted: any[];
+    public crewMovieCreditsReleasedGrouped: any[];
 
     // cast tv
-    public crewTvCredits: ITv[];
-    public crewTvCreditsSorted: ITv[];
-    public crewTvCreditsReleasedSorted: ITv[];
-    public crewTvCreditsReleasedFeaturedSorted: ITv[];
+    public crewTvCredits: any[];
+    public crewTvCreditsSorted: any[];
+    public crewTvCreditsReleasedSorted: any[];
+    public crewTvCreditsReleasedFeaturedSorted: any[];
+    public crewTvCreditsReleasedGrouped: any[];
 
     private readonly now = new Date();
 
@@ -56,8 +60,9 @@ export class ActorDetailsContentComponent implements OnInit {
         this.castMovieCreditsReleasedSorted = [...this.castMovieCreditsSorted]
             .filter(( m ) => m.release_date && (new Date(m.release_date)).getTime() < this.now.getTime());
         this.castMovieCreditsReleasedFeaturedSorted = [...this.castMovieCreditsReleasedSorted]
-            .filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+            .filter(( obj, index, arr ) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
             .slice(0, 8);
+        this.castMovieCreditsReleasedGrouped = this.groupCreditsByYear(this.castMovieCreditsSorted, 'release_date');
 
         // cast tv
         this.castTvCredits = this.actor.tv_credits.cast;
@@ -66,8 +71,9 @@ export class ActorDetailsContentComponent implements OnInit {
         this.castTvCreditsReleasedSorted = [...this.castTvCreditsSorted]
             .filter(( m ) => m.first_air_date && (new Date(m.first_air_date)).getTime() < this.now.getTime());
         this.castTvCreditsReleasedFeaturedSorted = [...this.castTvCreditsReleasedSorted]
-            .filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+            .filter(( obj, index, arr ) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
             .slice(0, 8);
+        this.castTvCreditsReleasedGrouped = this.groupCreditsByYear(this.castTvCreditsSorted, 'first_air_date');
 
         // crew movie
         this.crewMovieCredits = this.actor.movie_credits.crew;
@@ -76,8 +82,9 @@ export class ActorDetailsContentComponent implements OnInit {
         this.crewMovieCreditsReleasedSorted = [...this.crewMovieCreditsSorted]
             .filter(( m ) => m.release_date && (new Date(m.release_date)).getTime() < this.now.getTime());
         this.crewMovieCreditsReleasedFeaturedSorted = [...this.crewMovieCreditsReleasedSorted]
-            .filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+            .filter(( obj, index, arr ) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
             .slice(0, 8);
+        this.crewMovieCreditsReleasedGrouped = this.groupCreditsByYear(this.crewMovieCreditsSorted, 'release_date');
 
         // crew tv
         this.crewTvCredits = this.actor.tv_credits.crew;
@@ -86,8 +93,9 @@ export class ActorDetailsContentComponent implements OnInit {
         this.crewTvCreditsReleasedSorted = [...this.crewTvCreditsSorted]
             .filter(( m ) => m.first_air_date && (new Date(m.first_air_date)).getTime() < this.now.getTime());
         this.crewTvCreditsReleasedFeaturedSorted = [...this.crewTvCreditsReleasedSorted]
-            .filter((obj, index, arr) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
+            .filter(( obj, index, arr ) => arr.map(mapObj => mapObj.id).indexOf(obj.id) === index)
             .slice(0, 8);
+        this.crewTvCreditsReleasedGrouped = this.groupCreditsByYear(this.crewTvCreditsSorted, 'first_air_date');
     }
 
     private sortFn( date_1: string | null, date_2: string | null ): number {
@@ -112,5 +120,14 @@ export class ActorDetailsContentComponent implements OnInit {
         } else {
             return 0;
         }
+    }
+
+    private groupCreditsByYear( arr: any[], prop: string ): any[] {
+        return Object.values(arr.reduce(( r, a ) => {
+            const year = a[prop] ? (new Date(a[prop])).getFullYear() : '--';
+            r[year] = r[year] || [];
+            r[year].push(a);
+            return r;
+        }, Object.create(null))).reverse();
     }
 }

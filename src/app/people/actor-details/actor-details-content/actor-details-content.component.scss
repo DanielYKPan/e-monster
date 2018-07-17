@@ -222,3 +222,74 @@ h2 {
     }
   }
 }
+
+.full-list-tab-view {
+  margin-bottom: 1.5rem;
+}
+
+table.credits-table {
+  width: 100%;
+}
+
+table.credits-group {
+  width: 100%;
+  border-collapse: separate;
+  padding: .8rem 0;
+
+  td {
+    display: inline-flex;
+    align-items: center;
+    height: 2rem;
+    font-weight: 400;
+  }
+
+  td.year {
+    width: 6rem;
+    justify-content: center;
+  }
+
+  td.separator {
+    width: 2rem;
+
+    button {
+      color: #CCCCCC;
+      transition: color .2s;
+
+      &:hover {
+        color: #673ab7;
+      }
+    }
+  }
+
+  td.role {
+    a.credits-anchor {
+      color: #000000;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0 .6rem;
+      cursor: pointer;
+      transition: color .2s;
+
+      &:hover {
+        color: #ed1c24;
+      }
+    }
+
+    .character {
+      color: rgba(0, 0, 0, .8);
+      padding: 0 .6rem;
+    }
+
+    .episode {
+      color: rgba(0, 0, 0, .5);
+      font-weight: 400;
+      padding: 0 .6rem;
+    }
+  }
+}
+
+.credits-group-wrapper:not(:last-child) {
+  table.credits-group {
+    border-bottom: 1px solid rgba(103, 58, 183, 0.26);
+  }
+}

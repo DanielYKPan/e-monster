@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import { OwlTooltipModule } from 'owl-ng';
+import { OwlTabsModule, OwlTooltipModule } from 'owl-ng';
 
 import { PeopleRoutingModule } from './people-routing.module';
 import { ActorDetailsComponent } from './actor-details/actor-details.component';
@@ -21,6 +21,7 @@ import { ActorDetailsContentComponent } from './actor-details/actor-details-cont
 
         // Owl NG
         OwlTooltipModule,
+        OwlTabsModule,
 
         StoreModule.forFeature('people', reducers)
     ],

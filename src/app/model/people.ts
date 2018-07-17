@@ -19,12 +19,12 @@ export interface IActor {
     popularity: number;
     profile_path: string;
     movie_credits: {
-        cast: IMovie[],
-        crew: IMovie[]
+        cast: any[],
+        crew: any[]
     };
     tv_credits: {
-        cast: ITv[],
-        crew: ITv[]
+        cast: any[],
+        crew: any[]
     };
     external_ids: {
         id: string,

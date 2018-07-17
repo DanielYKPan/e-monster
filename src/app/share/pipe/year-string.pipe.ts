@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class YearStringPipe implements PipeTransform {
 
     transform( value: string, args?: any ): any {
-        return value.slice(0, 4);
+        return value ? value.slice(0, 4) : '--';
     }
 
 }
