@@ -25,7 +25,7 @@
             <tbody>
             <tr *ngFor="let director of directors">
                 <td class="name">
-                    <a>{{director.name}}</a>
+                    <a (click)="closeDialogWithPersonInform(director, $event)">{{director.name}}</a>
                 </td>
                 <td colspan="2"></td>
             </tr>
@@ -44,14 +44,14 @@
             <tbody>
             <tr *ngFor="let producer of producers">
                 <td class="name">
-                    <a>{{producer.name}}</a>
+                    <a (click)="closeDialogWithPersonInform(producer, $event)">{{producer.name}}</a>
                 </td>
                 <td>...</td>
                 <td class="credit">{{producer.job}}</td>
             </tr>
             <tr *ngFor="let producer of exProducers">
                 <td class="name">
-                    <a>{{producer.name}}</a>
+                    <a (click)="closeDialogWithPersonInform(producer, $event)">{{producer.name}}</a>
                 </td>
                 <td>...</td>
                 <td class="credit">{{producer.job}}</td>
@@ -71,7 +71,7 @@
             <tbody>
             <tr *ngFor="let writer of writers">
                 <td class="name">
-                    <a>{{writer.name}}</a>
+                    <a (click)="closeDialogWithPersonInform(writer, $event)">{{writer.name}}</a>
                 </td>
                 <td>...</td>
                 <td class="credit">{{writer.job}}</td>
@@ -88,7 +88,7 @@
         </tr>
         <tr *ngFor="let people of cast">
             <td colspan="profile-photo">
-                <a>
+                <a (click)="closeDialogWithPersonInform(people, $event)">
                     <img *ngIf="people.profile_path;else abstractImg"
                          [src]="'https://image.tmdb.org/t/p/w45/' + people.profile_path" [alt]="people.name"/>
                     <ng-template #abstractImg>
@@ -98,7 +98,7 @@
                 </a>
             </td>
             <td class="name">
-                <a>
+                <a (click)="closeDialogWithPersonInform(people, $event)">
                     {{people.name}}
                 </a>
             </td>
@@ -120,7 +120,7 @@
         <tbody>
         <tr *ngFor="let people of crew">
             <td class="name">
-                <a>{{people.name}}</a>
+                <a (click)="closeDialogWithPersonInform(people, $event)">{{people.name}}</a>
             </td>
             <td>...</td>
             <td class="credit">{{people.job}}</td>

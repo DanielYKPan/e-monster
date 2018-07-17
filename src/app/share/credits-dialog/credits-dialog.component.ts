@@ -56,4 +56,8 @@ export class CreditsDialogComponent implements OnInit, AfterContentInit {
         event.preventDefault();
     }
 
+    public closeDialogWithPersonInform(people: ICast | ICrew, event: any): void {
+        this.dialogRef.close({people});
+        event.preventDefault();
+    }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { select, Store } from '@ngrx/store';
 import * as fromMoviesRoot from '../reducers';
@@ -37,6 +37,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
                  @Inject(DOCUMENT) private document: any,
+
+
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
@@ -82,6 +84,13 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             dialogClass: 'credits-dialog',
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.router.navigate(['people/actor', result.people.id]);
+            }
+        });
+
         e.event.preventDefault();
     }
 

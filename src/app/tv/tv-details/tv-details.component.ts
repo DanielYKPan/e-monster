@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
@@ -33,6 +33,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
                  @Inject(DOCUMENT) private document: any,
+                 private router: Router,
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
@@ -103,6 +104,13 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
             dialogClass: 'credits-dialog',
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.router.navigate(['people/actor', result.people.id]);
+            }
+        });
+
         e.event.preventDefault();
     }
 

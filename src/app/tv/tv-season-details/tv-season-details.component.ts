@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ISeason, ITv, IVideo } from '../../model';
 import { map } from 'rxjs/operators';
 import * as fromTvRoot from '../reducers';
@@ -24,6 +24,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     public season$: Observable<ISeason>;
 
     constructor( private route: ActivatedRoute,
+                 private router: Router,
                  private store: Store<fromTvRoot.State>,
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
@@ -68,6 +69,13 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
             dialogClass: 'credits-dialog',
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.router.navigate(['people/actor', result.people.id]);
+            }
+        });
+
         e.event.preventDefault();
     }
 
