@@ -36,6 +36,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     constructor( private store: Store<fromMoviesRoot.State>,
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
+                 private router: Router,
                  @Inject(DOCUMENT) private document: any,
 
 

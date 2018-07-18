@@ -13,7 +13,7 @@ export abstract class TMDBService {
 
     protected readonly base_url = 'https://api.themoviedb.org/3/';
 
-    protected constructor(public http: HttpClient) {
+    protected constructor( public http: HttpClient ) {
     }
 
     protected getResult( url: string, queries?: Array<{ name: string, value: string }>, setRegion?: boolean ): Observable<any> {

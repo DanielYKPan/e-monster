@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { PeopleService } from '../service/people.service';
 import * as fromRoot from '../../reducers';
@@ -23,7 +23,7 @@ export class ActorExistGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
-        const id = next.params['id'];
+        const id = +next.params['id'];
         return this.hasActor(id);
     }
 
@@ -50,13 +50,19 @@ export class ActorExistGuard implements CanActivate {
     private hasActorInApi( id: number ): Observable<boolean> {
         this.store.dispatch(new searchActions.LoadingStart());
         return this.peopleService.searchActorDetails(id).pipe(
-            map(actor => {
-                this.store.dispatch(new searchActions.LoadingCompleted());
-                this.store.dispatch(new actorActions.Load(actor));
-                this.store.dispatch(new actorActions.Select(actor.id));
-                this.store.dispatch(new searchActions.SetSearchType('people'));
-                return !!actor;
+            map(actorEntity => {
+                if (actorEntity.id !== id) {
+                    throwError('Entity not exists');
+                } else  {
+                    return new actorActions.Load(actorEntity);
+                }
             }),
+            tap((action: actorActions.Load) => {
+                this.store.dispatch(action);
+                this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new searchActions.SetSearchType('people'));
+            }),
+            map(actor =>  !!actor),
             catchError(() => {
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);

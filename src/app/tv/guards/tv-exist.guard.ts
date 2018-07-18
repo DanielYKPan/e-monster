@@ -4,7 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import * as fromTvRoot from '../reducers';
 import * as searchActions from '../../search-store/actions';
@@ -22,7 +22,7 @@ export class TvExistGuard implements CanActivate {
     }
 
     canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> {
-        return this.hasTv(route.params['id']);
+        return this.hasTv(+route.params['id']);
     }
 
     private hasTv( id: number ): Observable<boolean> {
@@ -52,7 +52,13 @@ export class TvExistGuard implements CanActivate {
         this.store.dispatch(new searchActions.LoadingStart());
 
         return this.tvService.getTv(id).pipe(
-            map(res => new tvActions.Load(res)),
+            map(tvEntity => {
+                if (tvEntity.id !== id) {
+                    throwError('Entity not exists');
+                } else {
+                    return new tvActions.Load(tvEntity);
+                }
+            }),
             tap(( action: tvActions.Load ) => {
                 this.store.dispatch(action);
                 this.store.dispatch(new searchActions.LoadingCompleted());
