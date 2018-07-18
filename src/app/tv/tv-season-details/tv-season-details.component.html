@@ -1,10 +1,10 @@
 <app-tv-season-details-header
         [tv]="tv$ | async"
-        [season]="season$ | async"
+        [season_number]="season_number"
         (rate)="rate($event)"></app-tv-season-details-header>
 
 <app-tv-season-details-content [tv]="tv$ | async"
-                               [season]="season$ | async"
+                               [season_number]="season_number"
                                [seasonVideos]="tvSeasonVideos$ | async"
                                (seasonVideoClick)="openSeasonVideoDialog($event)"
                                (fullCastCrewClick)="openTvSeasonCreditsDialog($event)"></app-tv-season-details-content>

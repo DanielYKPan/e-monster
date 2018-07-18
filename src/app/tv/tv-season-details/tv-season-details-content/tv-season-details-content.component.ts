@@ -24,7 +24,7 @@ export class TvSeasonDetailsContentComponent implements OnInit {
 
     @Input() tv: ITv;
 
-    @Input() season: ISeason;
+    @Input() season_number: number;
 
     @Input() seasonVideos: IVideo[];
 
@@ -39,6 +39,10 @@ export class TvSeasonDetailsContentComponent implements OnInit {
     get showSlideButtons(): boolean {
         return this.castListWrapperRef &&
             this.tv.credits.cast.length * this.castProfileWidth > this.castListWrapperRef.nativeElement.offsetWidth;
+    }
+
+    get season(): ISeason {
+        return this.tv.seasons.find(s => +s.season_number === +this.season_number);
     }
 
     constructor() {

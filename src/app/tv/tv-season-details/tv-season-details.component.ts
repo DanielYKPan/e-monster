@@ -1,15 +1,17 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ISeason, ITv, IVideo } from '../../model';
-import { map } from 'rxjs/operators';
-import * as fromTvRoot from '../reducers';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { DOCUMENT } from '@angular/common';
-import { OwlDialogService } from 'owl-ng';
+import { ActivatedRoute, Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { OwlDialogService } from 'owl-ng';
+
+import { ISeason, ITv, IVideo } from '../../model';
+import * as fromTvRoot from '../reducers';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import * as tvActions from '../actions/tv';
 
 @Component({
     selector: 'app-tv-season-details',
@@ -22,6 +24,9 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     public tv$: Observable<ITv>;
     public tvSeasonVideos$: Observable<IVideo[]>;
     public season$: Observable<ISeason>;
+    public season_number: number;
+
+    private actionsSubscription: Subscription;
 
     constructor( private route: ActivatedRoute,
                  private router: Router,
@@ -32,15 +37,20 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this.season$ = this.route.data.pipe(
-            map(( data: { season: ISeason } ) => data.season)
-        );
+        this.actionsSubscription = this.route.params.pipe(
+            map(params => {
+                const tv_id = params.id;
+                this.season_number = params.number;
+                return new tvActions.Select(tv_id);
+            })
+        ).subscribe(this.store);
 
         this.tv$ = this.store.pipe(select(fromTvRoot.getSelectedTv));
         this.tvSeasonVideos$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideos));
     }
 
     public ngOnDestroy(): void {
+        this.actionsSubscription.unsubscribe();
     }
 
     public openSeasonVideoDialog( e: { title: string, videoKey: string, event: any } ) {

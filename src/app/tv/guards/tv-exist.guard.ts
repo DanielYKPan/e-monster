@@ -55,16 +55,19 @@ export class TvExistGuard implements CanActivate {
             map(tvEntity => {
                 if (tvEntity.id !== id) {
                     throwError('Entity not exists');
+                    return null;
                 } else {
-                    return new tvActions.Load(tvEntity);
+                    return tvEntity;
                 }
             }),
-            tap(( action: tvActions.Load ) => {
-                this.store.dispatch(action);
+            tap(( tvEntity ) => {
                 this.store.dispatch(new searchActions.LoadingCompleted());
-                this.store.dispatch(new searchActions.SetSearchType('tv'));
+                if (tvEntity) {
+                    this.store.dispatch(new tvActions.Load(tvEntity));
+                    this.store.dispatch(new searchActions.SetSearchType('tv'));
+                }
             }),
-            map(res => !!res.payload),
+            map(res => !!res),
             catchError(() => {
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);

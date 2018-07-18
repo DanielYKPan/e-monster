@@ -28,15 +28,7 @@ export interface ITv {
     popularity: string;
     poster_path: string;
     production_companies: Array<{ id: number, name: string, logo_path: string, origin_country: string }>;
-    seasons: Array<{
-        air_date: string,
-        episode_count: number,
-        id: number,
-        name: string,
-        overview: string,
-        poster_path: string,
-        season_number: number
-    }>;
+    seasons: ISeason[];
     status: string;
     type: string;
     vote_average: number;
@@ -50,6 +42,7 @@ export interface ISeason {
     _id: string;
     air_date: string;
     episodes: IEpisode[];
+    episode_count: number;
     name: string;
     overview: string;
     id: number;

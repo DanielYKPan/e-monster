@@ -7,6 +7,7 @@ import { TvActions, TvActionTypes } from '../actions/tv';
 
 export interface State extends EntityState<ITv> {
     selectedTvId: number | null;
+    selectedTvSeasonNum: number | null;
 }
 
 export const adapter: EntityAdapter<ITv> = createEntityAdapter<ITv>({
@@ -16,6 +17,7 @@ export const adapter: EntityAdapter<ITv> = createEntityAdapter<ITv>({
 
 export const initialState: State = adapter.getInitialState({
     selectedTvId: null,
+    selectedTvSeasonNum: null,
 });
 
 export function reducer( state = initialState, action: TvActions ): State {
@@ -26,10 +28,23 @@ export function reducer( state = initialState, action: TvActions ): State {
                 selectedTvId: state.selectedTvId
             });
 
+        case TvActionTypes.UpdateTV:
+            return adapter.updateOne(action.payload.tv, {
+                ...state,
+                selectedTvId: state.selectedTvId
+            });
+
         case TvActionTypes.Select:
             return {
                 ...state,
                 selectedTvId: action.payload,
+            };
+
+        case TvActionTypes.SelectSeason:
+            return {
+                ...state,
+                selectedTvId: action.payload.tv_id,
+                selectedTvSeasonNum: action.payload.season_number
             };
 
         default:
@@ -38,3 +53,4 @@ export function reducer( state = initialState, action: TvActions ): State {
 }
 
 export const getSelectedId = ( state: State ) => state.selectedTvId;
+export const getSelectedSeasonNum = (state: State) => state.selectedTvSeasonNum;

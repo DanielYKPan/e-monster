@@ -53,6 +53,19 @@ export const getSelectedTv = createSelector(
     }
 );
 
+export const getSelectedSeasonNum = createSelector(
+    getTvEntityState,
+    fromTvs.getSelectedSeasonNum
+);
+
+export const getSelectedSeason = createSelector(
+    getSelectedTv,
+    getSelectedSeasonNum,
+    ( entity, num ) => {
+        return entity.seasons.find(s => +s.season_number === +num);
+    }
+);
+
 export const {
     selectEntities: getTvVideosEntities,
 } = fromVideos.adapter.getSelectors(getTvVideosEntityState);

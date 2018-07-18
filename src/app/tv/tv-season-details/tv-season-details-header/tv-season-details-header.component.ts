@@ -11,13 +11,17 @@ export class TvSeasonDetailsHeaderComponent implements OnInit {
 
     @Input() tv: ITv;
 
-    @Input() season: ISeason;
+    @Input() season_number: number;
 
     @Output() rate = new EventEmitter<ITv>();
 
+    get season(): ISeason {
+        return this.tv.seasons.find(s => +s.season_number === +this.season_number);
+    }
+
     get seasonIndex(): number {
         return this.tv.seasons.findIndex(( season ) => {
-            return season.season_number === this.season.season_number;
+            return +season.season_number === +this.season_number;
         });
     }
 

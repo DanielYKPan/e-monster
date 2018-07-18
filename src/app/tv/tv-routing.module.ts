@@ -6,9 +6,9 @@ import { TvListExistGuard } from './guards/tv-list-exist.guard';
 import { TvDetailsComponent } from './tv-details/tv-details.component';
 import { TvExistGuard } from './guards/tv-exist.guard';
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
-import { TvSeasonResolver } from './guards/tv-season.resolver';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
+import { TvSeasonExistGuard } from './guards/tv-season-exist.guard';
 
 const routes: Routes = [
     {
@@ -20,14 +20,7 @@ const routes: Routes = [
             {path: 'list/:query', component: TvListComponent, canActivate: [TvListExistGuard]},
             {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: ':id/details', component: TvDetailsComponent, canActivate: [TvExistGuard]},
-            {
-                path: ':id/season/:number',
-                component: TvSeasonDetailsComponent,
-                canActivate: [TvExistGuard],
-                resolve: {
-                    season: TvSeasonResolver
-                }
-            },
+            {path: ':id/season/:number', component: TvSeasonDetailsComponent, canActivate: [TvSeasonExistGuard],},
         ]
     }
 ];
@@ -36,7 +29,10 @@ const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        TvSeasonResolver,
+        SearchListExistGuard,
+        TvListExistGuard,
+        TvSeasonExistGuard,
+        TvExistGuard,
     ]
 })
 export class TvRoutingModule {
