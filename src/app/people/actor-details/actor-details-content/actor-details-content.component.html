@@ -236,12 +236,14 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.release_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'movie',$event)">
+                                            <button type="button" class="basic-btn"
+                                                    (click)="handleCreditOverviewClick(credit, 'movie',$event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
                                         <td class="role">
-                                            <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a> as <span class="character">{{credit.character}}</span>
+                                            <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a>
+                                            as <span class="character">{{credit.character}}</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -261,13 +263,16 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.first_air_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'tv', $event)">
+                                            <button type="button" class="basic-btn"
+                                                    (click)="handleCreditOverviewClick(credit, 'tv', $event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
                                         <td class="role">
-                                            <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a> -- <span class="episode">({{credit.episode_count}} episode<ng-container
-                                                *ngIf="credit.episode_count > 1" >s</ng-container>)</span> as <span class="character">{{credit.character}}</span>
+                                            <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a>
+                                            -- <span class="episode">({{credit.episode_count}} episode<ng-container
+                                                *ngIf="credit.episode_count > 1">s</ng-container>)</span> as <span
+                                                class="character">{{credit.character}}</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -287,12 +292,14 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.release_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'movie', $event)">
+                                            <button type="button" class="basic-btn"
+                                                    (click)="handleCreditOverviewClick(credit, 'movie', $event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
                                         <td class="role">
-                                            <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a> ... <span class="character">{{credit.job}}</span>
+                                            <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a>
+                                            ... <span class="character">{{credit.job}}</span>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -312,13 +319,16 @@
                                     <tr *ngFor="let credit of group">
                                         <td class="year">{{credit.first_air_date | yearString}}</td>
                                         <td class="separator">
-                                            <button type="button" class="basic-btn" (click)="handleCreditOverviewClick(credit, 'tv', $event)">
+                                            <button type="button" class="basic-btn"
+                                                    (click)="handleCreditOverviewClick(credit, 'tv', $event)">
                                                 <i class="far fa-dot-circle"></i>
                                             </button>
                                         </td>
                                         <td class="role">
-                                            <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a> -- <span class="episode">({{credit.episode_count}} episode<ng-container
-                                                *ngIf="credit.episode_count > 1" >s</ng-container>)</span> ... <span class="character">{{credit.job}}</span>
+                                            <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a>
+                                            -- <span class="episode">({{credit.episode_count}} episode<ng-container
+                                                *ngIf="credit.episode_count > 1">s</ng-container>)</span> ... <span
+                                                class="character">{{credit.job}}</span>
                                         </td>
                                     </tr>
                                     </tbody>

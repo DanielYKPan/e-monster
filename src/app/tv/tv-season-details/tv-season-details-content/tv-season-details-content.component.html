@@ -1,53 +1,51 @@
 <section class="tv-details-container tv-details-content">
     <div class="sidenav">
-        <div class="sidenav-container">
-            <div class="poster">
-                <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + season.poster_path"
-                     [errorImage]="'/assets/images/abstract-image.jpg'"
-                     alt="Poster">
-            </div>
-
-            <button class="tv-details-button collection-button">
-                <i class="icon fas fa-plus"></i> Add to Collection
-            </button>
-
-            <ul class="external-list">
-                <li *ngIf="tv.homepage"
-                    class="external-item" owlTooltip="Official Homepage">
-                    <a [href]="tv.homepage" target="_blank">Official</a>
-                </li>
-
-                <li *ngIf="season.external_ids.imdb_id"
-                    class="external-item" owlTooltip="IMDB">
-                    <a [href]="'http://www.imdb.com/title/' + season.external_ids.imdb_id"
-                       target="_blank">IMDB</a>
-                </li>
-
-                <li *ngIf="season.external_ids.id"
-                    class="external-item" owlTooltip="TMDB">
-                    <a [href]="'https://www.themoviedb.org/tv/' + tv.external_ids.id + '/season/' + season.season_number"
-                       target="_blank">TMDB</a>
-                </li>
-
-                <li *ngIf="season.external_ids.facebook_id"
-                    class="external-item" [owlTooltip]="'Facebook @' + season.external_ids.facebook_id">
-                    <a [href]="'http://www.facebook.com/' + season.external_ids.facebook_id"
-                       target="_blank"><i class="fab fa-facebook-f"></i></a>
-                </li>
-
-                <li *ngIf="season.external_ids.instagram_id"
-                    class="external-item" [owlTooltip]="'Instagram @' + season.external_ids.instagram_id">
-                    <a [href]="'http://www.instagram.com/' + season.external_ids.instagram_id"
-                       target="_blank"><i class="fab fa-instagram"></i></a>
-                </li>
-
-                <li *ngIf="season.external_ids.twitter_id"
-                    class="external-item" [owlTooltip]="'Twitter @' + season.external_ids.twitter_id">
-                    <a [href]="'http://www.twitter.com/' + season.external_ids.twitter_id"
-                       target="_blank"><i class="fab fa-twitter"></i></a>
-                </li>
-            </ul>
+        <div class="poster-frame">
+            <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + season.poster_path"
+                 [errorImage]="'/assets/images/abstract-image.jpg'"
+                 alt="Poster">
         </div>
+
+        <button class="basic-btn tv-details-button collection-button">
+            <i class="icon fas fa-plus"></i> Add to Collection
+        </button>
+
+        <ul class="external-list">
+            <li *ngIf="tv.homepage"
+                class="external-item" owlTooltip="Official Homepage">
+                <a [href]="tv.homepage" target="_blank">Official</a>
+            </li>
+
+            <li *ngIf="season.external_ids.imdb_id"
+                class="external-item" owlTooltip="IMDB">
+                <a [href]="'http://www.imdb.com/title/' + season.external_ids.imdb_id"
+                   target="_blank">IMDB</a>
+            </li>
+
+            <li *ngIf="season.external_ids.id"
+                class="external-item" owlTooltip="TMDB">
+                <a [href]="'https://www.themoviedb.org/tv/' + tv.external_ids.id + '/season/' + season.season_number"
+                   target="_blank">TMDB</a>
+            </li>
+
+            <li *ngIf="season.external_ids.facebook_id"
+                class="external-item" [owlTooltip]="'Facebook @' + season.external_ids.facebook_id">
+                <a [href]="'http://www.facebook.com/' + season.external_ids.facebook_id"
+                   target="_blank"><i class="fab fa-facebook-f"></i></a>
+            </li>
+
+            <li *ngIf="season.external_ids.instagram_id"
+                class="external-item" [owlTooltip]="'Instagram @' + season.external_ids.instagram_id">
+                <a [href]="'http://www.instagram.com/' + season.external_ids.instagram_id"
+                   target="_blank"><i class="fab fa-instagram"></i></a>
+            </li>
+
+            <li *ngIf="season.external_ids.twitter_id"
+                class="external-item" [owlTooltip]="'Twitter @' + season.external_ids.twitter_id">
+                <a [href]="'http://www.twitter.com/' + season.external_ids.twitter_id"
+                   target="_blank"><i class="fab fa-twitter"></i></a>
+            </li>
+        </ul>
     </div>
 
     <div class="main">
@@ -82,7 +80,7 @@
 
             <ul class="video-list">
                 <li *ngFor="let video of seasonVideos"
-                    class="movie-details-button video"
+                    class="basic-btn tv-details-button video"
                     (click)="clickVideo(video, $event)">
                     <i class="icon fab fa-youtube"></i>
                     {{video.type}}
@@ -93,13 +91,13 @@
         <section class="cast-crew-wrapper">
             <div class="cast-crew-title">
                 <h2>Cast & Crew</h2>
-                <button class="tv-details-button cast-crew-full-button" (click)="clickFullCastCrew($event)">
+                <button class="basic-btn tv-details-button cast-crew-full-button" (click)="clickFullCastCrew($event)">
                     » See full cast & crew
                 </button>
             </div>
 
             <div class="cast-crew-content">
-                <button *ngIf="showSlideButtons" class="tv-details-button cast-crew-control"
+                <button *ngIf="showSlideButtons" class="basic-btn tv-details-button cast-crew-control"
                         (click)="slideLeftCastList($event)">
                     <i class="fas fa-angle-left"></i>
                 </button>
@@ -110,21 +108,21 @@
                         [style.transform]="'translateX(' + -castListSlideDistance + 'px)'" #castList>
                         <li *ngFor="let cast of season.credits.cast" class="cast-crew-list-item"
                             [style.width.px]="castProfileWidth">
-
-                            <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"
-                                 [src]="'https://image.tmdb.org/t/p/w185/' + cast.profile_path" alt="Poster"/>
-                            <ng-template #abstractImg>
-                                <img class="cast-crew-poster"
-                                     src="/assets/images/abstract-profile.png"/>
-                            </ng-template>
-                            <h4 class="name">{{cast.name}}</h4>
-                            <h4 class="character">{{cast.character}}</h4>
-
+                            <a class="cast-crew-anchor" [routerLink]="'/people/actor/' + cast.id">
+                                <img *ngIf="cast.profile_path;else abstractImg" class="cast-crew-poster"
+                                     [src]="'https://image.tmdb.org/t/p/w185/' + cast.profile_path" alt="Poster"/>
+                                <ng-template #abstractImg>
+                                    <img class="cast-crew-poster"
+                                         src="/assets/images/abstract-profile.png"/>
+                                </ng-template>
+                                <h4 class="character">{{cast.character}}</h4>
+                                <h4 class="name">{{cast.name}}</h4>
+                            </a>
                         </li>
                     </ul>
                 </div>
 
-                <button *ngIf="showSlideButtons" class="tv-details-button cast-crew-control"
+                <button *ngIf="showSlideButtons" class="basic-btn tv-details-button cast-crew-control"
                         (click)="slideRightCastList($event)" #rightControlBtn>
                     <i class="fas fa-angle-right"></i>
                 </button>
