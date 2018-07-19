@@ -7,7 +7,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { OwlDialogService } from 'owl-ng';
 
-import { IActor } from '../../model';
+import { IActorDetails } from '../../model';
 import * as fromPeopleRoot from '../reducers';
 import * as actorActions from '../actions/actor';
 import { CreditOverviewDialogComponent } from './credit-overview-dialog/credit-overview-dialog.component';
@@ -20,7 +20,7 @@ import { CreditOverviewDialogComponent } from './credit-overview-dialog/credit-o
 })
 export class ActorDetailsComponent implements OnInit, OnDestroy {
 
-    public actor$: Observable<IActor>;
+    public actor$: Observable<IActorDetails>;
 
     private routeSub = Subscription.EMPTY;
 

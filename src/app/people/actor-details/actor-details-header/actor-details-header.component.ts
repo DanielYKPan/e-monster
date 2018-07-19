@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { IActor } from '../../../model';
+import { IActorDetails } from '../../../model';
 
 @Component({
     selector: 'app-actor-details-header',
@@ -9,7 +9,7 @@ import { IActor } from '../../../model';
 })
 export class ActorDetailsHeaderComponent implements OnInit {
 
-    @Input() actor: IActor;
+    @Input() actor: IActorDetails;
 
     get actorCastBackdropPath(): string {
         const credits = [...this.actor.movie_credits.cast, ...this.actor.tv_credits.cast];

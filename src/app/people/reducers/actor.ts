@@ -2,14 +2,14 @@
  * actor
  */
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IActor } from '../../model/people';
+import { IActorDetails } from '../../model';
 import { ActorActions, ActorActionTypes } from '../actions/actor';
 
-export interface State extends EntityState<IActor> {
+export interface State extends EntityState<IActorDetails> {
     selectedActorId: number | null;
 }
 
-export const adapter: EntityAdapter<IActor> = createEntityAdapter<IActor>({
+export const adapter: EntityAdapter<IActorDetails> = createEntityAdapter<IActorDetails>({
     selectId: actor => actor.id,
     sortComparer: false
 });

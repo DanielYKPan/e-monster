@@ -3,7 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
-import { IActor } from '../../model/people';
+import { IActorDetails } from '../../model/people';
 
 export enum ActorActionTypes {
     Select = '[Actor] Select',
@@ -20,7 +20,7 @@ export class Select implements Action {
 export class Load implements Action {
     readonly type = ActorActionTypes.Load;
 
-    constructor(public payload: IActor) {
+    constructor(public payload: IActorDetails) {
     }
 }
 

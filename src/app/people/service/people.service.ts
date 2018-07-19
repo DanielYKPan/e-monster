@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { TMDBService } from '../../tmdb';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { IActor } from '../../model/people';
 import { catchError, map } from 'rxjs/operators';
+
+import { IActorDetails } from '../../model';
+import { TMDBService } from '../../tmdb';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class PeopleService extends TMDBService {
         super(http);
     }
 
-    public searchActorDetails(id: number): Observable<IActor> {
+    public searchActorDetails( id: number ): Observable<IActorDetails> {
         const url = this.base_url + `person/${id}`;
 
         const queries = [

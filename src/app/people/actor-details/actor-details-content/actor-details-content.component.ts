@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IActor } from '../../../model';
+import { IActorDetails } from '../../../model';
 
 @Component({
     selector: 'app-actor-details-content',
@@ -9,7 +9,7 @@ import { IActor } from '../../../model';
 })
 export class ActorDetailsContentComponent implements OnInit {
 
-    @Input() actor: IActor;
+    @Input() actor: IActorDetails;
 
     @Output() showCreditOverview = new EventEmitter<any>();
 

@@ -4,7 +4,7 @@
 import { IMovie } from './movie';
 import { ITv } from './tv';
 
-export interface IActor {
+export interface IActorDetails {
     adult: boolean;
     also_known_as: any[];
     biography: string;
