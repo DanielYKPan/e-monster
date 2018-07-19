@@ -1,7 +1,7 @@
 /**
  * reducer
  */
-import { IAudio, SearchType } from '../model';
+import { SearchType } from '../model';
 import { SearchActions, SearchActionTypes } from './actions';
 
 export interface State {
@@ -12,7 +12,7 @@ export interface State {
         page: number;
         total_results: number;
         total_pages: number;
-        results: IAudio[]
+        results: any[]
     };
 }
 

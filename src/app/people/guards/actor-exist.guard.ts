@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
-import { PeopleService } from '../service/people.service';
+import { ActorService } from '../service/actor.service';
 import * as fromRoot from '../../reducers';
 import * as fromPeopleRoot from '../reducers';
 import * as actorActions from '../actions/actor';
@@ -16,7 +16,7 @@ import * as searchActions from '../../search-store/actions';
 export class ActorExistGuard implements CanActivate {
 
     constructor( private store: Store<fromRoot.State>,
-                 private peopleService: PeopleService,
+                 private peopleService: ActorService,
                  private router: Router ) {
     }
 

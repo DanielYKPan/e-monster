@@ -1,0 +1,68 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-search-list-sidenav
+                [listPage]="listPage$ | async"
+                [listTotalPages]="listTotalPages$ | async"
+                [listQuery]="(listQuery$ | async) === 'popular' ? '' : listQuery$ | async"
+                [currentOption]="'people'"
+                (queryChange)="handleQueryInputValueChange($event)"
+                (clickOption)="handleNavListOptionClick($event)"
+                (goToPage)="goToPage($event)"></app-search-list-sidenav>
+    </div>
+
+    <div class="frame-main-wrapper" #frameMainElm>
+        <app-frame-main>
+            <div class="search-grid featured">
+                <div *ngFor="let person of featuredList$ | async" class="search-actor-card">
+                    <div class="search-actor-card-inner">
+                        <div class="poster-frame">
+                            <a class="search-actor-anchor" [routerLink]="'/people/actor/' + person.id">
+                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + person.profile_path"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     [scrollTarget]="frameMainElm" [alt]="person.name"
+                                     alt="Poster">
+                            </a>
+                        </div>
+
+                        <div class="personal-inform">
+                            <h1>
+                                <a class="search-actor-anchor" [routerLink]="'/people/actor/' + person.id">{{person.name}}</a>
+                            </h1>
+                            <ul class="known-for-list">
+                                <li *ngFor="let item of person.known_for" class="known-for-list-item">
+                                    <a class="search-actor-anchor"
+                                       [routerLink]="(item.media_type === 'movie' ? '/movie/' : '/tv/') + item.id + '/details'">
+                                        {{item.name || item.title}}
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-grid">
+                <div *ngFor="let person of list$ | async" class="search-actor-card">
+                    <div class="search-actor-card-inner">
+                        <div class="poster-frame">
+                            <a class="search-actor-anchor" [routerLink]="'/people/actor/' + person.id">
+                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + person.profile_path"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     [scrollTarget]="frameMainElm" [alt]="person.name"
+                                     alt="Poster">
+                            </a>
+                        </div>
+                        <h4>
+                            <a class="search-actor-anchor" [routerLink]="'/people/actor/' + person.id">{{person.name}}</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </app-frame-main>
+
+        <app-list-paginator [listPage]="listPage$ | async"
+                            [listTotalPages]="listTotalPages$ | async"
+                            [searchName]="listQuery$ | async"
+                            (goToPage)="goToPage($event)"></app-list-paginator>
+    </div>
+</section>

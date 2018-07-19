@@ -34,3 +34,31 @@ export interface IActorDetails {
         twitter_id: string
     };
 }
+
+export interface IActor {
+    adult: boolean;
+    id: number;
+    known_for: Array<{
+        adult: boolean,
+        backdrop_path: string,
+        first_air_date: string,
+        genre_ids: number[],
+        id: number,
+        media_type: 'movie' | 'tv',
+        name: string,
+        original_country: string,
+        original_language: string,
+        original_title: string,
+        overview: string,
+        popularity: number,
+        poster_path: string | null,
+        release_date: string,
+        title: string,
+        video: boolean,
+        vote_count: number,
+        vote_average: number,
+    }>;
+    name: string;
+    popularity: number;
+    profile_path: string;
+}
