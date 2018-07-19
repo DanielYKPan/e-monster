@@ -1,3 +1,5 @@
+@import "../../../../sass/base/breakPoints";
+
 .credit-overview-dialog-inner {
   display: flex;
 }
@@ -80,4 +82,11 @@ a {
   outline: none;
   cursor: pointer;
   text-decoration: none;
+}
+
+@media #{$small-only} {
+  .credit-overview-dialog-inner{
+    flex-direction: column;
+    align-items: center;
+  }
 }
