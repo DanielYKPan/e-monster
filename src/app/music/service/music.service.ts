@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,10 +11,19 @@ export class MusicService {
 
     protected readonly base_url = 'https://api.spotify.com/v1/';
 
+    private _spotify_access_token: string;
+    get spotify_access_token(): string {
+        return this._spotify_access_token;
+    }
+
+    set spotify_access_token( token: string ) {
+        this._spotify_access_token = token;
+    }
+
     constructor( private http: HttpClient ) {
     }
 
-    public getAccessToken(): Observable<string> {
+    /*public getAccessToken(): Observable<string> {
         const url = 'https://accounts.spotify.com/api/token';
 
         let headers = new HttpHeaders();
@@ -23,6 +32,16 @@ export class MusicService {
 
         return this.http.post(url, 'grant_type=client_credentials', {headers}).pipe(
             map((res: any) => res.access_token),
+            catchError(this.handleError)
+        );
+    }*/
+
+    public getCategories(): Observable<any> {
+        const url = this.base_url + 'browse/categories';
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this._spotify_access_token);
+        return this.http.get(url, {headers}).pipe(
+            map((r: any) => r.categories),
             catchError(this.handleError)
         );
     }

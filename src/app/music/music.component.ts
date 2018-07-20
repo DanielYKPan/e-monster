@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { MusicService } from './service/music.service';
 
 @Component({
     selector: 'app-music',
@@ -9,7 +11,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class MusicComponent implements OnInit {
 
-    constructor( private http: HttpClient ) {
+    constructor( private http: HttpClient,
+                 private musicService: MusicService,
+                 @Inject(DOCUMENT) private document: any ) {
     }
 
     ngOnInit() {
@@ -27,10 +31,8 @@ export class MusicComponent implements OnInit {
                 console.log(res);
             });*/
 
-        /*const url = 'https://accounts.spotify.com/authorize?client_id=ce67a8a0eb964933a536cca6ffc81848&redirect_uri=http:%2F%2Flocalhost:4200&scope=user-read-private%20user-read-email&response_type=token&state=123';
-
-        this.http.get(url).subscribe((res) => {
-            console.log(res);
-        });*/
+        this.musicService.getCategories().subscribe((r) => {
+            console.log(r);
+        });
     }
 }
