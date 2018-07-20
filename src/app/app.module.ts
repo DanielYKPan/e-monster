@@ -16,6 +16,7 @@ import { schema } from './db';
 import { DBModule } from '@ngrx/db';
 import { CoreModule } from './core/core.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ShareModule } from './share/share.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         HttpClientModule,
         AppRoutingModule,
         CoreModule,
+        ShareModule,
 
         LayoutModule,
         MatSidenavModule,

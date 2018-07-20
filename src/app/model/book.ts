@@ -2,7 +2,7 @@
  * book
  */
 
-export interface Book {
+export interface IBook {
     id: string;
     volumeInfo: {
         title: string;
@@ -19,4 +19,3 @@ export interface Book {
         };
     };
 }
-

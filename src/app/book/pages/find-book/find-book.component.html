@@ -1,8 +1,0 @@
-<app-book-search (search)="search($event)"
-                 [loading]="loading$ | async"
-                 [error]="error$ | async"
-                 [value]="query$ | async"></app-book-search>
-
-<app-book-preview-list>
-    <app-book-preview *ngFor="let book of books$ | async" [book]="book"></app-book-preview>
-</app-book-preview-list>

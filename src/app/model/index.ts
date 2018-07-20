@@ -3,6 +3,7 @@
  */
 
 export * from './audio';
+export * from './book';
 export * from './cast';
 export * from './crew';
 export * from './genre';

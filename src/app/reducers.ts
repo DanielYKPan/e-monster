@@ -102,3 +102,9 @@ export const getSearchPeopleTypeLoader = createSelector(
     getSearchLoading,
     (type, loading) => type === 'people' && loading
 );
+
+export const getSearchBookTypeLoader = createSelector(
+    getSearchType,
+    getSearchLoading,
+    (type, loading) => type === 'book' && loading
+);

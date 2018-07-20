@@ -1,0 +1,38 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'Book'" [listPage]="listPage$ | async"
+                           [listTotalPages]="listTotalPages$ | async"
+                           [listQuery]="listQuery$ | async"
+                           [currentOption]="listQuery$ | async"
+                           [navList]="navList"></app-frame-sidenav>
+    </div>
+    <div class="frame-main-wrapper" #frameMainElm>
+        <app-frame-main>
+            <div class="book-list">
+                <div *ngFor="let book of list$ | async" class="book-card">
+                    <div class="book-card-inner">
+                        <div class="book-card-header">
+                            <div class="book-card-title">
+                                <h1>{{book.volumeInfo.title | bcEllipsis:35}}</h1>
+                                <h2 *ngIf="book.volumeInfo.subtitle">{{book.volumeInfo.subtitle | bcEllipsis:40}}</h2>
+                            </div>
+
+                            <div class="poster-frame">
+                                <img [lazyLoad]="book.volumeInfo.imageLinks? book.volumeInfo.imageLinks.smallThumbnail : null"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                                     [scrollTarget]="frameMainElm" [alt]="book.volumeInfo.title"
+                                     alt="Poster">
+                            </div>
+                        </div>
+                        <div class="book-card-content">
+                            <p *ngIf="book.volumeInfo.description as description">{{ description | bcEllipsis }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </app-frame-main>
+    </div>
+    <app-list-paginator [listPage]="listPage$ | async"
+                        [listTotalPages]="listTotalPages$ | async"
+                        [searchName]="listQuery$ | async"></app-list-paginator>
+</section>

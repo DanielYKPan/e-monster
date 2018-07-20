@@ -1,0 +1,126 @@
+@import "../../../sass/base/breakPoints";
+
+.frame-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr 6.25rem;
+  grid-template-columns: 15rem 1fr;
+  grid-template-areas: "main main" "sidenav sidenav";
+  background-color: #1d1d1d;
+  color: #ffffff;
+}
+
+.frame-main-wrapper {
+  grid-area: main;
+  border-bottom: solid 1px #2d2d2d;
+  overflow: auto;
+}
+
+.frame-sidenav-wrapper {
+  grid-area: sidenav;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+::selection {
+  background: #ed1c24;
+  color: #fff;
+}
+
+@media #{$large-up} {
+  .frame-wrapper {
+    grid-template-areas: "sidenav main" "sidenav main";
+  }
+
+  .frame-main-wrapper {
+    grid-area: main;
+    border-left: solid 1px #2d2d2d;
+  }
+
+  .frame-sidenav-wrapper {
+    grid-area: sidenav;
+  }
+}
+
+.book-list {
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  padding: 0 .5rem .5rem;
+  box-sizing: border-box;
+  justify-items: center;
+
+  .book-card {
+    display: block;
+    height: 340px;
+    width: 380px;
+    background-color: #282828;
+
+    &:hover {
+      box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
+    }
+  }
+
+  .book-card-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .book-card-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .book-card-title {
+    h1 {
+      margin: 0 .3rem .5rem 0;
+      font-size: 1.4rem;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.65);
+    }
+  }
+
+  .book-card-content {
+    margin-top: .5rem;
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.poster-frame {
+  width: 75px;
+  height: auto;
+  min-height: 80px;
+  border: solid 3px #fff;
+  box-sizing: border-box;
+  background-color: #000000;
+  box-shadow: 0 0 20px 0 #000;
+  flex-shrink: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter .2s linear, opacity 1s;
+    opacity: 0;
+    filter: brightness(95%);
+
+    &.ng-lazyloaded {
+      opacity: 1;
+    }
+  }
+}

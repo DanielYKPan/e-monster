@@ -3,21 +3,32 @@
  */
 
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { BookExistGuard } from './guards/book-exist.guard';
-import { FindBookComponent } from './pages/find-book/find-book.component';
-import { ViewBookComponent } from './pages/view-book/view-book.component';
-import { ViewCollectionComponent } from './pages/view-collection/view-collection.component';
+import { RouterModule, Routes } from '@angular/router';
+import { BookComponent } from './book.component';
+import { BookListComponent } from './book-list/book-list.component';
+import { BookListExistGuard } from './guards/book-list-exist.guard';
 
 export const routes: Routes = [
-    {path: '', component: ViewCollectionComponent},
-    {path: 'find', component: FindBookComponent},
-    {path: ':id', component: ViewBookComponent, canActivate: [BookExistGuard]},
+    // {path: '', component: ViewCollectionComponent},
+    // {path: 'find', component: FindBookComponent},
+    // {path: ':id', component: ViewBookComponent, canActivate: [BookExistGuard]},
+
+    {
+        path: '', component: BookComponent,
+        children: [
+            {path: '', redirectTo: 'list/combined-print-and-e-book-fiction', pathMatch: 'full'},
+            {path: 'list', redirectTo: 'list/combined-print-and-e-book-fiction', pathMatch: 'full'},
+            {path: 'list/:query', component: BookListComponent, canActivate: [BookListExistGuard]}
+        ]
+    }
 ];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [
+        BookListExistGuard
+    ]
 })
 export class BookRoutingModule {
 }
