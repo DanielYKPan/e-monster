@@ -7,22 +7,21 @@ import {
     OnInit,
     ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
-
-import * as fromBooksRoot from '../reducers';
 import * as fromRoot from '../../reducers';
+import * as fromBooksRoot from '../reducers';
 import { IBook } from '../../model';
-import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-book-list',
-    templateUrl: './book-list.component.html',
-    styleUrls: ['./book-list.component.scss'],
+    selector: 'app-search-list',
+    templateUrl: './search-list.component.html',
+    styleUrls: ['./search-list.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
+export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
@@ -34,21 +33,13 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public listTotalPages$: Observable<number>;
 
-    public navList = [
-        {
-            name: 'Top Fictions',
-            value: 'combined-print-and-e-book-fiction',
-            inform: 'The Best Sold Fictions in NYTimes.com(New York Times)'
-        },
-    ];
+    private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private router: Router,
                  private store: Store<fromBooksRoot.State> ) {
     }
 
-    private scrollBackTopSub = Subscription.EMPTY;
-
-    ngOnInit() {
+    public ngOnInit() {
         this.list$ = this.store.pipe(select(fromRoot.getSearchResults));
         this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
         this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
@@ -56,7 +47,6 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
     }
 
     public ngAfterContentInit(): void {
-
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
@@ -75,7 +65,21 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
      * Go a specific page of the list
      * */
     public goToPage( event: any ): void {
-        this.router.navigate(['book/list', event.query, {page: event.page}]);
+        this.router.navigate(['book/search', {query: event.query, page: event.page}]);
+    }
+
+    /**
+     * Go a specific search page
+     * */
+    public handleNavListOptionClick( event: any ) {
+        this.router.navigate([`${event.type}/search`, {query: event.query}]);
+    }
+
+    /**
+     * Handle query value change
+     * */
+    public handleQueryInputValueChange( event: any ) {
+        this.router.navigate(['book/search', {query: event.query}]);
     }
 
     private scrollBackToTop(): void {

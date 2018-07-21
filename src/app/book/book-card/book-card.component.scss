@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  height: 340px;
+  width: 380px;
+  background-color: #282828;
+
+  &:hover {
+    box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
+  }
+}
+
+.book-card-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.book-card-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.book-card-title {
+  h1 {
+    margin: 0 .3rem .5rem 0;
+    font-size: 1.4rem;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: .9rem;
+    color: rgba(255, 255, 255, 0.65);
+  }
+}
+
+.book-card-content {
+  margin-top: 1.5rem;
+  width: 100%;
+  font-size: .9rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.book-card-footer{
+  width: 100%;
+
+  h5 {
+    margin: 1.5rem 0 .7rem;
+    padding: 0 1rem;
+  }
+}
+
+.poster-frame {
+  width: 75px;
+  height: auto;
+  min-height: 80px;
+  border: solid 3px #fff;
+  box-sizing: border-box;
+  background-color: #000000;
+  box-shadow: 0 0 20px 0 #000;
+  flex-shrink: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter .2s linear, opacity 1s;
+    opacity: 0;
+    filter: brightness(95%);
+
+    &.ng-lazyloaded {
+      opacity: 1;
+    }
+  }
+}

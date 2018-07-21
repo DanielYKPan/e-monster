@@ -20,6 +20,8 @@ import { AddCommasPipe } from './pipes/add-commas.pipe';
 import { BookComponent } from './book.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { ShareModule } from '../share/share.module';
+import { SearchListComponent } from './search-list/search-list.component';
+import { BookCardComponent } from './book-card/book-card.component';
 
 @NgModule({
     imports: [
@@ -40,7 +42,9 @@ import { ShareModule } from '../share/share.module';
         EllipsisPipe,
         AddCommasPipe,
         BookComponent,
-        BookListComponent
+        BookListComponent,
+        SearchListComponent,
+        BookCardComponent
     ],
     providers: [],
 })

@@ -21,15 +21,19 @@ export const initialState: State = adapter.getInitialState({
 export function reducer( state = initialState, action: BookActions ): State {
     switch (action.type) {
 
-        case BookActionTypes.Load:
+        case BookActionTypes.SearchCompleted:
+            return adapter.addMany(action.payload, {
+                ...state,
+                selectedBookId: state.selectedBookId
+            });
 
+        case BookActionTypes.Load:
             return adapter.addOne(action.payload, {
                 ...state,
                 selectedBookId: state.selectedBookId
             });
 
         case BookActionTypes.Select:
-
             return {
                 ...state,
                 selectedBookId: action.payload,

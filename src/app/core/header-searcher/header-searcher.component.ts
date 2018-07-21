@@ -30,7 +30,7 @@ export class HeaderSearcherComponent implements OnInit {
         {value: 'movie', name: 'Movies'},
         {value: 'tv', name: 'TV'},
         {value: 'music', name: 'Music'},
-        {value: 'books', name: 'Books'},
+        {value: 'book', name: 'Books'},
         {value: 'people', name: 'People'},
     ];
 
