@@ -10,9 +10,11 @@ export class RatingListComponent implements OnInit {
 
     @Input() vote_average: number;
 
+    @Input() vote_highest: number = 10;
+
     @Input() vote_count: number;
 
-    @Input() type: 'movie' | 'tv' = 'movie';
+    @Input() type: 'movie' | 'tv' | 'book' = 'movie';
 
     @Output() rate = new EventEmitter();
 

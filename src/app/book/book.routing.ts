@@ -9,12 +9,10 @@ import { BookListComponent } from './book-list/book-list.component';
 import { BookListExistGuard } from './guards/book-list-exist.guard';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
+import { BookDetailsComponent } from './book-details/book-details.component';
+import { BookExistGuard } from './guards/book-exist.guard';
 
 export const routes: Routes = [
-    // {path: '', component: ViewCollectionComponent},
-    // {path: 'find', component: FindBookComponent},
-    // {path: ':id', component: ViewBookComponent, canActivate: [BookExistGuard]},
-
     {
         path: '', component: BookComponent,
         children: [
@@ -22,6 +20,7 @@ export const routes: Routes = [
             {path: 'list', redirectTo: 'list/combined-print-and-e-book-fiction', pathMatch: 'full'},
             {path: 'list/:query', component: BookListComponent, canActivate: [BookListExistGuard]},
             {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
+            {path: ':id/details', component: BookDetailsComponent, canActivate: [BookExistGuard]},
         ]
     }
 ];
@@ -30,7 +29,9 @@ export const routes: Routes = [
     imports: [RouterModule.forChild(routes)],
     exports: [RouterModule],
     providers: [
-        BookListExistGuard
+        SearchListExistGuard,
+        BookListExistGuard,
+        BookExistGuard,
     ]
 })
 export class BookRoutingModule {

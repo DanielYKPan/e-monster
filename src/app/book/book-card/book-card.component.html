@@ -1,4 +1,4 @@
-<div class="book-card-inner">
+<a class="book-card-inner book-anchor" [routerLink]="'/book/' + book.id + '/details'">
     <div class="book-card-header">
         <div class="book-card-title">
             <h1>{{book.volumeInfo.title | bcEllipsis:35}}</h1>
@@ -19,4 +19,4 @@
         <h5>Written By:</h5>
         <span>{{ book.volumeInfo.authors | bcAddCommas }}</span>
     </div>
-</div>
+</a>

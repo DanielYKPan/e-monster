@@ -5,13 +5,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
-import {
-    MatButtonModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule
-} from '@angular/material';
 
 import { reducers } from './reducers';
 import { BookRoutingModule } from './book.routing';
@@ -22,18 +15,13 @@ import { BookListComponent } from './book-list/book-list.component';
 import { ShareModule } from '../share/share.module';
 import { SearchListComponent } from './search-list/search-list.component';
 import { BookCardComponent } from './book-card/book-card.component';
+import { BookDetailsComponent } from './book-details/book-details.component';
 
 @NgModule({
     imports: [
         CommonModule,
         BookRoutingModule,
         ShareModule,
-
-        MatCardModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatButtonModule,
 
         StoreModule.forFeature('books', reducers),
     ],
@@ -44,7 +32,8 @@ import { BookCardComponent } from './book-card/book-card.component';
         BookComponent,
         BookListComponent,
         SearchListComponent,
-        BookCardComponent
+        BookCardComponent,
+        BookDetailsComponent
     ],
     providers: [],
 })

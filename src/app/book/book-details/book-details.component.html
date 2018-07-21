@@ -1,0 +1,108 @@
+<ng-container *ngIf="book$ | async as book">
+    <section class="details-header">
+        <div class="details-header-content">
+            <div class="details-header-content-inner details-container">
+                <div class="details-header-poster">
+                    <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
+                         [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                         alt="Poster">
+                </div>
+
+                <h1 class="details-header-name">
+                    {{book.volumeInfo.title}}
+                    <span *ngIf="book.volumeInfo.publishedDate" class="year">{{book.volumeInfo.publishedDate |  yearString}}</span>
+                </h1>
+            </div>
+
+            <app-audio-rating-list [vote_average]="book.volumeInfo.averageRating"
+                                   [vote_highest]="5"
+                                   [vote_count]="book.volumeInfo.ratingsCount"
+                                   [type]="'book'"></app-audio-rating-list>
+        </div>
+    </section>
+    <section class="details-body">
+        <div class="details-body-sidenav">
+            <div class="details-body-poster">
+                <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     alt="Poster">
+            </div>
+
+            <button class="basic-btn details-button collection-button">
+                <i class="icon fas fa-plus"></i> Add to Collection
+            </button>
+
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <h3 class="inform-external-title">External List</h3>
+                    <ul class="inform-list external-list">
+                        <li class="external-item" *ngIf="book.volumeInfo.previewLink">
+                            <a [href]="book.volumeInfo.previewLink" target="_blank">
+                                <i class="fas fa-eye"></i>
+                                Preview
+                            </a>
+                        </li>
+                        <li class="external-item" *ngIf="book.volumeInfo.infoLink">
+                            <a [href]="book.volumeInfo.infoLink" target="_blank">
+                                <i class="fas fa-info"></i>
+                                Info
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="details-body-main">
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list stats-list">
+                        <li class="stats-item book-stats-title">
+                            <h2>{{book.volumeInfo.title}}</h2>
+                        </li>
+
+                        <li class="stats-item book-stats-subtitle">
+                            <h3>{{book.volumeInfo.subtitle}}</h3>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Author:</label>
+                            <span>{{ book.volumeInfo.authors | bcAddCommas }}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Publisher:</label>
+                            <span>{{ book.volumeInfo.publisher }}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Publish Date:</label>
+                            <span>{{book.volumeInfo.publishedDate | toDate | date}}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Language:</label>
+                            <span>{{book.volumeInfo.language}}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Pages:</label>
+                            <span>{{book.volumeInfo.pageCount}}</span>
+                        </li>
+
+                        <li class="stats-item" *ngFor="let item of book.volumeInfo.industryIdentifiers">
+                            <label>{{item.type === 'ISBN_10' ? 'ISBN 10': 'ISBN 13'}}:</label>
+                            <span>{{item.identifier}}</span>
+                        </li>
+
+                        <li class="stats-item categories">
+                            <label>Categories:</label>
+                            <span *ngFor="let item of book.volumeInfo.categories">{{item}}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <p class="description" [innerHTML]="book.volumeInfo.description"></p>
+            </div>
+        </div>
+    </section>
+</ng-container>

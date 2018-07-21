@@ -38,8 +38,6 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
                  private viewportRuler: ViewportRuler,
                  private router: Router,
                  @Inject(DOCUMENT) private document: any,
-
-
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {

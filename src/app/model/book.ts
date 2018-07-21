@@ -8,6 +8,8 @@ export interface IBook {
         title: string;
         subtitle: string;
         authors: string[];
+        previewLink: string;
+        infoLink: string;
         publisher: string;
         publishDate: string;
         description: string;
@@ -17,5 +19,7 @@ export interface IBook {
             thumbnail: string;
             smallThumbnail: string;
         };
+        industryIdentifiers: Array<{type: string, identifier: string}>,
+        language: string;
     };
 }
