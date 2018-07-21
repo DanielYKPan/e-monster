@@ -32,3 +32,58 @@
   line-height: 1.3rem;
   font-size: 1.3rem;
 }
+
+.book-detail-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.book-header-backdrop {
+  position: relative;
+  display: inline-block;
+
+  .book-image-card {
+    position: relative;
+    width: 256px;
+    height: 384px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background: #FCFBE5;
+    border-radius: 6px;
+    box-shadow: 0 0 5px #38393B;
+    padding: 8px;
+
+    &.left {
+      transform: rotate(-20deg);
+    }
+
+    &.right {
+      transform: rotate(5deg);
+      margin-left: -30px;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1s;
+
+      &.ng-lazyloaded {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+@media #{$small-only} {
+  .book-header-backdrop {
+    .book-image-card {
+      width: 128px;
+      height: 192px;
+    }
+  }
+}

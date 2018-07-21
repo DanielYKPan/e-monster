@@ -1,5 +1,20 @@
 <ng-container *ngIf="book$ | async as book">
-    <section class="details-header">
+    <section class="details-header book-detail-header">
+
+        <div class="book-header-backdrop">
+            <div class="book-image-card left">
+                <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
+                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                     alt="Poster">
+            </div>
+            <div class="book-image-card right">
+                <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
+                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                     alt="Poster">
+            </div>
+        </div>
+
+
         <div class="details-header-content">
             <div class="details-header-content-inner details-container">
                 <div class="details-header-poster">
@@ -94,7 +109,7 @@
                             <span>{{item.identifier}}</span>
                         </li>
 
-                        <li class="stats-item categories">
+                        <li *ngIf="book.volumeInfo.categories && book.volumeInfo.categories.length > 0" class="stats-item categories">
                             <label>Categories:</label>
                             <span *ngFor="let item of book.volumeInfo.categories">{{item}}</span>
                         </li>

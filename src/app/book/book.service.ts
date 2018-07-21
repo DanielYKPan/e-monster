@@ -4,8 +4,8 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, forkJoin } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { IBook } from '../model';
 
 @Injectable()
@@ -1044,7 +1044,7 @@ export class GoogleBookService {
     }
 
     public getBookList( query: string ): Observable<any> {
-        /*return this.http.get(`${this.NY_API_PATH}?api-key=${this.NY_API_KEY}&list-name=${query}`)
+        return this.http.get(`${this.NY_API_PATH}?api-key=${this.NY_API_KEY}&list-name=${query}`)
             .pipe(
                 map(( res: any ) => res.results),
                 map(( results: any[] ) => results.map(( r ) => r.book_details[0])),
@@ -1071,10 +1071,10 @@ export class GoogleBookService {
                         total_pages: 1,
                         results: books
                     };
-                })
-            );*/
+                }),
+            );
 
-        return of(this.testObj).pipe(
+        /*return of(this.testObj).pipe(
             map(( bs: any ) => {
                 return bs.map(b => b.items[0]);
             }),
@@ -1089,6 +1089,6 @@ export class GoogleBookService {
                     results: books
                 };
             })
-        );
+        );*/
     }
 }
