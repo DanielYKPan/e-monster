@@ -60,6 +60,7 @@ export class HeaderSearcherComponent implements OnInit {
 
     public chooseSearchQuery( option: { value: string; name: string }, event: any ) {
         this.searchQueryOption = option;
+        this.search.emit({query: this.inputValue, option: this.searchQueryOption.value});
         this.cdRef.markForCheck();
         event.preventDefault();
     }

@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from './header/header.component';
-import { HeaderSearcherComponent } from './header-searcher/header-searcher.component';
 import { FormsModule } from '@angular/forms';
 import { OwlMenuModule, OwlRippleModule } from 'owl-ng';
+import { HeaderComponent } from './header/header.component';
+import { HeaderSearcherComponent } from './header-searcher/header-searcher.component';
+import { FooterSearcherComponent } from './footer-searcher/footer-searcher.component';
 
 @NgModule({
     imports: [
@@ -17,11 +18,13 @@ import { OwlMenuModule, OwlRippleModule } from 'owl-ng';
         OwlRippleModule,
     ],
     exports: [
-        HeaderComponent
+        HeaderComponent,
+        FooterSearcherComponent,
     ],
     declarations: [
         HeaderComponent,
-        HeaderSearcherComponent
+        HeaderSearcherComponent,
+        FooterSearcherComponent
     ]
 })
 export class CoreModule {

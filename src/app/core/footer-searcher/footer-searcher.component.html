@@ -1,0 +1,29 @@
+<div class="footer-searcher-inner">
+    <h2>Find a Movie, TV show, Album or Book</h2>
+    <input type="search" class="footer-searcher-input"
+           placeholder="What are you looking for?"
+           [(ngModel)]="inputValue"
+           (keydown)="handleKeydownOnSearchInput($event)" #searchInputElm/>
+    <button type="button"
+            class="basic-btn footer-searcher-input-cleaner"
+            [class.visible]="!!inputValue"
+            (click)="cleanSearchInput($event)">
+        <i class="fas fa-times-circle"></i>
+    </button>
+    <button type="button" tabindex="0"
+            class="basic-btn footer-searcher-dropdown-btn"
+            owlRipple [owlMenuTriggerFor]="menu" #menuTrigger>
+        <span class="footer-searcher-dropdown-btn-content" tabindex="-1">
+        {{searchQueryOption.name}}
+        <i class="fas fa-sort-down"></i>
+    </span>
+    </button>
+</div>
+
+<owl-menu #menu="owlMenu">
+    <button type="button"
+            *ngFor="let option of searchQueryOptions"
+            owlRipple owl-menu-item
+            (click)="chooseSearchQuery(option, $event)">{{option.name}}
+    </button>
+</owl-menu>
