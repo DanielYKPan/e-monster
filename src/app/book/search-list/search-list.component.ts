@@ -1,12 +1,4 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -22,8 +14,6 @@ import { IBook } from '../../model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
-
-    @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
     public list$: Observable<IBook[]>;
 
@@ -53,7 +43,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
             select(fromRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            this.scrollBackToTop();
+            window.scroll({top: 0, behavior: 'smooth'});
         });
     }
 
@@ -80,9 +70,5 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
      * */
     public handleQueryInputValueChange( event: any ) {
         this.router.navigate(['book/search', {query: event.query}]);
-    }
-
-    private scrollBackToTop(): void {
-        this.frameMainElmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }

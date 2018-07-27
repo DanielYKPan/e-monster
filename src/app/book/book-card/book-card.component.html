@@ -8,7 +8,7 @@
         <div class="poster-frame">
             <img [lazyLoad]="book.volumeInfo.imageLinks? book.volumeInfo.imageLinks.smallThumbnail : null"
                  [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
-                 [scrollTarget]="scrollElm" [alt]="book.volumeInfo.title"
+                 [alt]="book.volumeInfo.title"
                  alt="Poster">
         </div>
     </div>

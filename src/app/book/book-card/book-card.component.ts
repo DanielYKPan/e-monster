@@ -11,8 +11,6 @@ export class BookCardComponent implements OnInit {
 
     @Input() book: IBook;
 
-    @Input() scrollElm: HTMLElement;
-
     constructor() {
     }
 

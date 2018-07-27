@@ -10,14 +10,11 @@
                 (goToPage)="goToPage($event)"></app-search-list-sidenav>
     </div>
 
-    <div class="frame-main-wrapper" #frameMainElm>
-        <app-frame-main>
-            <div class="book-list">
-                <app-book-card *ngFor="let book of list$ | async"
-                               [book]="book"
-                               [scrollElm]="frameMainElm"></app-book-card>
-            </div>
-        </app-frame-main>
+    <div class="frame-main-wrapper">
+        <div class="book-list">
+            <app-book-card *ngFor="let book of list$ | async"
+                           [book]="book"></app-book-card>
+        </div>
         <app-list-paginator [listPage]="listPage$ | async"
                             [listTotalPages]="listTotalPages$ | async"
                             [searchName]="listQuery$ | async"

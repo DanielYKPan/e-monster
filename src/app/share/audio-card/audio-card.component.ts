@@ -12,8 +12,6 @@ export class AudioCardComponent implements OnInit {
 
     @Input() audio: IAudio;
 
-    @Input() scrollTarget: HTMLElement;
-
     @Input() scrollObservable: Observable<any>;
 
     @Input() cardLink: string;

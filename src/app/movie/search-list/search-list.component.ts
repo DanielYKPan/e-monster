@@ -1,22 +1,14 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { skip } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
 import { IAudio } from '../../model';
 import * as fromMoviesRoot from '../reducers';
-import { select, Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
-import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
-import { Router } from '@angular/router';
-import { skip } from 'rxjs/operators';
+import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 
 @Component({
     selector: 'app-search-list',
@@ -25,8 +17,6 @@ import { skip } from 'rxjs/operators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
-
-    @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
     public list$: Observable<IAudio[]>; // Movie List Observable
 
@@ -60,7 +50,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
             select(fromRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            this.scrollBackToTop();
+            window.scroll({top: 0, behavior: 'smooth'});
         });
     }
 
@@ -112,9 +102,5 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         dialogRef.afterClosed().subscribe(() => {
             this.store.dispatch(new movieVideoActions.Select(null));
         });
-    }
-
-    private scrollBackToTop(): void {
-        this.frameMainElmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }
