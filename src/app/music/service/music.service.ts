@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Observable } from 'rxjs/Observable';
 import { catchError, map } from 'rxjs/operators';
+import { IAlbum } from '../../model';
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +11,8 @@ import { catchError, map } from 'rxjs/operators';
 export class MusicService {
 
     protected readonly base_url = 'https://api.spotify.com/v1/';
+
+    private readonly limit = 20; // The maximum number of items in the response
 
     private _spotify_access_token: string;
     get spotify_access_token(): string {
@@ -35,6 +38,17 @@ export class MusicService {
             catchError(this.handleError)
         );
     }*/
+
+    public getNewReleases(page: number = 1): Observable<IAlbum[]> {
+        const offSet = (page - 1) * this.limit;
+        const url = this.base_url + 'browse/new-releases?offset=' + offSet;
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this._spotify_access_token);
+        return this.http.get(url, {headers}).pipe(
+            map((r: any) => r.items),
+            catchError(this.handleError)
+        );
+    }
 
     public getCategories(): Observable<any> {
         const url = this.base_url + 'browse/categories';
