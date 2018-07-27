@@ -1,12 +1,5 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
@@ -14,7 +7,6 @@ import { skip } from 'rxjs/operators';
 import * as fromBooksRoot from '../reducers';
 import * as fromRoot from '../../reducers';
 import { IBook } from '../../model';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-book-list',
@@ -23,8 +15,6 @@ import { Router } from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
-
-    @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
     public list$: Observable<IBook[]>;
 
@@ -63,7 +53,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
             select(fromRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            this.scrollBackToTop();
+            window.scroll({top: 0, behavior: 'smooth'});
         });
     }
 
@@ -76,9 +66,5 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
      * */
     public goToPage( event: any ): void {
         this.router.navigate(['book/list', event.query, {page: event.page}]);
-    }
-
-    private scrollBackToTop(): void {
-        this.frameMainElmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }

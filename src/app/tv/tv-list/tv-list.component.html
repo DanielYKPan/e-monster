@@ -9,31 +9,29 @@
                            (goToPage)="goToPage($event)"></app-frame-sidenav>
     </div>
 
-    <div class="frame-main-wrapper" #frameMainElm>
-        <app-frame-main>
-            <div class="tv-grid featured">
-                <app-audio-card *ngFor="let tv of featuredList$ | async" class="tv-card"
-                                [audio]="tv" [scrollTarget]="frameMainElm"
-                                [cardLink]="'/tv/' + tv.id + '/details'"
-                                [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
-                                [title]="tv.name"
-                                [date]="tv.first_air_date"
-                                [vote_average]="tv.vote_average"
-                                [vote_count]="tv.vote_count"
-                                (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
-            </div>
-            <div class="tv-grid">
-                <app-audio-card *ngFor="let tv of list$ | async" class="tv-card"
-                                [audio]="tv" [scrollTarget]="frameMainElm"
-                                [cardLink]="'/tv/' + tv.id + '/details'"
-                                [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
-                                [title]="tv.name"
-                                [date]="tv.first_air_date"
-                                [vote_average]="tv.vote_average"
-                                [vote_count]="tv.vote_count"
-                                (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
-            </div>
-        </app-frame-main>
+    <div class="frame-main-wrapper">
+        <div class="tv-grid featured">
+            <app-audio-card *ngFor="let tv of featuredList$ | async" class="tv-card"
+                            [audio]="tv"
+                            [cardLink]="'/tv/' + tv.id + '/details'"
+                            [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                            [title]="tv.name"
+                            [date]="tv.first_air_date"
+                            [vote_average]="tv.vote_average"
+                            [vote_count]="tv.vote_count"
+                            (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
+        </div>
+        <div class="tv-grid">
+            <app-audio-card *ngFor="let tv of list$ | async" class="tv-card"
+                            [audio]="tv"
+                            [cardLink]="'/tv/' + tv.id + '/details'"
+                            [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                            [title]="tv.name"
+                            [date]="tv.first_air_date"
+                            [vote_average]="tv.vote_average"
+                            [vote_count]="tv.vote_count"
+                            (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
+        </div>
 
         <app-list-paginator [listPage]="listPage$ | async"
                             [listTotalPages]="listTotalPages$ | async"

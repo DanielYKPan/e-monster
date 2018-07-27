@@ -1,23 +1,14 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {Observable, Subscription } from 'rxjs/index';
+import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { IAudio } from '../../model';
-import { Observable } from 'rxjs/Observable';
 import * as fromTvsRoot from '../reducers';
 import * as fromRoot from '../../reducers';
 import * as videoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs/index';
-import { skip } from 'rxjs/operators';
 
 @Component({
     selector: 'app-tv-list',
@@ -26,8 +17,6 @@ import { skip } from 'rxjs/operators';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
-
-    @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
 
     public list$: Observable<IAudio[]>;
 
@@ -70,7 +59,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
             select(fromRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            this.scrollBackToTop();
+            window.scroll({top: 0, behavior: 'smooth'});
         });
     }
 
@@ -106,9 +95,5 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
         dialogRef.afterClosed().subscribe(() => {
             this.store.dispatch(new videoActions.Select(null));
         });
-    }
-
-    private scrollBackToTop(): void {
-        this.frameMainElmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }
