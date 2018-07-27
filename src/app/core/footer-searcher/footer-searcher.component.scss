@@ -5,6 +5,7 @@ $dropdown-btn-height: 2.8rem;
 
 :host {
   display: none;
+  position: relative;
   justify-content: center;
   align-items: center;
   height: 13rem;

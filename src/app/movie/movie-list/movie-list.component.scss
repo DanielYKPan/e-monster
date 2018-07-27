@@ -1,47 +1,5 @@
 @import "../../../sass/base/breakPoints";
-
-.frame-wrapper {
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr 6.25rem;
-  grid-template-columns: 15rem 1fr;
-  grid-template-areas: "main main" "sidenav sidenav";
-  background-color: #1d1d1d;
-  color: #ffffff;
-}
-
-.frame-main-wrapper {
-  grid-area: main;
-  border-bottom: solid 1px #2d2d2d;
-  overflow: auto;
-}
-
-.frame-sidenav-wrapper {
-  grid-area: sidenav;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-::selection {
-  background: #ed1c24;
-  color: #fff;
-}
-
-@media #{$large-up} {
-  .frame-wrapper {
-    grid-template-areas: "sidenav main" "sidenav main";
-  }
-
-  .frame-main-wrapper {
-    grid-area: main;
-    border-left: solid 1px #2d2d2d;
-  }
-
-  .frame-sidenav-wrapper {
-    grid-area: sidenav;
-  }
-}
+@import "../../../sass/list/list";
 
 .movie-grid {
   display: grid;

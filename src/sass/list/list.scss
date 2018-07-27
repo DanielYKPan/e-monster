@@ -1,0 +1,51 @@
+@import "../../sass/base/breakPoints";
+
+$sidenav-width: 15rem;
+$topbar-height: 3.2rem;
+
+.frame-wrapper {
+  position: relative;
+  min-height: 100vh;
+  background-color: #1d1d1d;
+  color: #ffffff;
+  z-index: 0;
+}
+
+.frame-main-wrapper {
+  position: relative;
+  padding: $topbar-height 0 0;
+  box-sizing: border-box;
+  border-bottom: solid 1px #2d2d2d;
+  z-index: 1;
+}
+
+.frame-sidenav-wrapper {
+  position: fixed;
+  width: 100vw;
+  height: 6.25rem;
+  left: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  z-index: 2;
+  background-color: #1d1d1d;
+  border-top: solid 1px #2d2d2d;
+}
+
+::selection {
+  background: #ed1c24;
+  color: #fff;
+}
+
+@media #{$large-up} {
+  .frame-main-wrapper {
+    margin-left: $sidenav-width;
+    border-left: solid 1px #2d2d2d;
+  }
+
+  .frame-sidenav-wrapper {
+    width: $sidenav-width;
+    height: auto;
+    top: $topbar-height;
+    border-top: none;
+  }
+}

@@ -9,31 +9,29 @@
                            (goToPage)="goToPage($event)"></app-frame-sidenav>
     </div>
 
-    <div class="frame-main-wrapper" #frameMainElm>
-        <app-frame-main>
-            <div class="movie-grid featured">
-                <app-audio-card *ngFor="let movie of featuredList$ | async" class="movie-card"
-                                [audio]="movie" [scrollTarget]="frameMainElm"
-                                [cardLink]="'/movie/' + movie.id + '/details'"
-                                [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
-                                [title]="movie.title"
-                                [date]="movie.release_date"
-                                [vote_average]="movie.vote_average"
-                                [vote_count]="movie.vote_count"
-                                (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
-            </div>
-            <div class="movie-grid">
-                <app-audio-card *ngFor="let movie of list$ | async" class="movie-card"
-                                [audio]="movie" [scrollTarget]="frameMainElm"
-                                [cardLink]="'/movie/' + movie.id + '/details'"
-                                [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
-                                [title]="movie.title"
-                                [date]="movie.release_date"
-                                [vote_average]="movie.vote_average"
-                                [vote_count]="movie.vote_count"
-                                (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
-            </div>
-        </app-frame-main>
+    <div class="frame-main-wrapper">
+        <div class="movie-grid featured">
+            <app-audio-card *ngFor="let movie of featuredList$ | async" class="movie-card"
+                            [audio]="movie"
+                            [cardLink]="'/movie/' + movie.id + '/details'"
+                            [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                            [title]="movie.title"
+                            [date]="movie.release_date"
+                            [vote_average]="movie.vote_average"
+                            [vote_count]="movie.vote_count"
+                            (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+        </div>
+        <div class="movie-grid">
+            <app-audio-card *ngFor="let movie of list$ | async" class="movie-card"
+                            [audio]="movie"
+                            [cardLink]="'/movie/' + movie.id + '/details'"
+                            [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                            [title]="movie.title"
+                            [date]="movie.release_date"
+                            [vote_average]="movie.vote_average"
+                            [vote_count]="movie.vote_count"
+                            (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+        </div>
 
         <app-list-paginator [listPage]="listPage$ | async"
                             [listTotalPages]="listTotalPages$ | async"
