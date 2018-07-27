@@ -8,6 +8,7 @@ import { IAlbum } from '../../model';
 export enum MusicActionTypes {
     Select = '[Music] Select',
     Load = '[Music] Load',
+    SearchListCompleted = '[Music] Search List Completed',
     SetToken = '[Music] Set Token'
 }
 
@@ -25,6 +26,13 @@ export class Load implements Action {
     }
 }
 
+export class SearchListCompleted implements Action {
+    readonly type = MusicActionTypes.SearchListCompleted;
+
+    constructor( public payload: IAlbum[] ) {
+    }
+}
+
 export class SetToken implements Action {
     readonly type = MusicActionTypes.SetToken;
 
@@ -35,4 +43,5 @@ export class SetToken implements Action {
 export type MusicActions =
     Select |
     Load |
+    SearchListCompleted |
     SetToken;

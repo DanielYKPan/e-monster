@@ -1,5 +1,12 @@
-<p>
+<router-outlet (deactivate)="onDeactivate()"></router-outlet>
+
+<app-loader [show]="showLoader$ | async"></app-loader>
+<!--<p>
     music works!
 </p>
 
 <button (click)="testMusic()">Test</button>
+
+<div>
+    {{list$ | async | json}}
+</div>-->

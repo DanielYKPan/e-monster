@@ -2,8 +2,7 @@
  * tmdb
  */
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
+import { Observable, throwError } from 'rxjs';
 
 export abstract class TMDBService {
 
@@ -45,7 +44,6 @@ export abstract class TMDBService {
                 `Backend returned code ${error.status}, ` +
                 `body was: ${error.error.status_message}`);
         }
-        // return an ErrorObservable with a user-facing error message
-        return new ErrorObservable(error.error.status_message);
+        return throwError(error);
     }
 }

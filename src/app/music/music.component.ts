@@ -2,6 +2,11 @@ import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/cor
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { MusicService } from './service/music.service';
+import { Observable } from 'rxjs/Observable';
+import { select, Store } from '@ngrx/store';
+import * as fromRoot from '../reducers';
+import * as fromMusicRoot from './reducers';
+import { IAlbum } from '../model';
 
 @Component({
     selector: 'app-music',
@@ -11,12 +16,23 @@ import { MusicService } from './service/music.service';
 })
 export class MusicComponent implements OnInit {
 
+    public showLoader$: Observable<boolean>;
+
+    public list$: Observable<IAlbum[]>;
+
     constructor( private http: HttpClient,
+                 private store: Store<fromMusicRoot.State>,
                  private musicService: MusicService,
                  @Inject(DOCUMENT) private document: any ) {
     }
 
     ngOnInit() {
+        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchMusicTypeLoader));
+        this.list$ = this.store.pipe(select(fromRoot.getSearchResults));
+    }
+
+    public onDeactivate() {
+        window.scrollTo(0, 0);
     }
 
     public testMusic() {

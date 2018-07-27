@@ -22,6 +22,13 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer( state = initialState, action: MusicActions ): State {
     switch (action.type) {
+
+        case MusicActionTypes.SearchListCompleted:
+            return adapter.addMany(action.payload, {
+                ...state,
+                selectedAlbumId: state.selectedAlbumId
+            });
+
         case MusicActionTypes.Load:
             return adapter.addOne(action.payload, {
                 ...state,

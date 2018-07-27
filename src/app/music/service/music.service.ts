@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { Observable } from 'rxjs/Observable';
+import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { IAlbum } from '../../model';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +14,7 @@ export class MusicService {
 
     private _spotify_access_token: string;
     get spotify_access_token(): string {
-        return this._spotify_access_token || localStorage.getItem('spotify_access_token');
+        return this._spotify_access_token;
     }
 
     set spotify_access_token( token: string ) {
@@ -25,6 +23,7 @@ export class MusicService {
     }
 
     constructor( private http: HttpClient ) {
+        this._spotify_access_token = localStorage.getItem('spotify_access_token');
     }
 
     /*public getAccessToken(): Observable<string> {
@@ -40,13 +39,24 @@ export class MusicService {
         );
     }*/
 
-    public getNewReleases( page: number = 1 ): Observable<IAlbum[]> {
+    public getNewReleases( page: number = 1 ): Observable<any> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'browse/new-releases?offset=' + offSet;
         let headers = new HttpHeaders();
-        headers = headers.set('Authorization', 'Bearer ' + this._spotify_access_token);
+        headers = headers.set('Authorization', 'Bearer ' + this.spotify_access_token);
         return this.http.get(url, {headers}).pipe(
-            map(( r: any ) => r.items),
+            map(( res: any ) => {
+                const total_results = res.albums.total;
+                const total_pages = total_results / this.limit;
+                return {
+                    type: 'music',
+                    query: 'new-releases',
+                    page: page,
+                    total_results,
+                    total_pages,
+                    results: res.albums.items || []
+                };
+            }),
             catchError(this.handleError)
         );
     }
@@ -72,7 +82,6 @@ export class MusicService {
                 `Backend returned code ${error.status}, ` +
                 `body was: ${error.error.status_message}`);
         }
-        // return an ErrorObservable with a user-facing error message
-        return new ErrorObservable(error.error.status_message);
+        return throwError(error);
     }
 }

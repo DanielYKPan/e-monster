@@ -108,3 +108,9 @@ export const getSearchBookTypeLoader = createSelector(
     getSearchLoading,
     (type, loading) => type === 'book' && loading
 );
+
+export const getSearchMusicTypeLoader = createSelector(
+    getSearchType,
+    getSearchLoading,
+    (type, loading) => type === 'music' && loading
+);

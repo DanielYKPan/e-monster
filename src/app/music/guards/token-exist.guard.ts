@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -10,7 +10,7 @@ import { MusicService } from '../service/music.service';
 @Injectable({
     providedIn: 'root'
 })
-export class TokenExistGuard implements CanActivate {
+export class TokenExistGuard implements CanActivate, CanActivateChild {
 
     constructor( private store: Store<fromMusicRoot.State>,
                  private musicService: MusicService,
@@ -26,7 +26,7 @@ export class TokenExistGuard implements CanActivate {
             return true;
         } else {
             const token = this.musicService.spotify_access_token;
-            if (token) {
+            if (!!token) {
                 return true;
             } else {
                 this.document.location.href = 'https://accounts.spotify.com/authorize?' +
@@ -34,8 +34,14 @@ export class TokenExistGuard implements CanActivate {
                     'redirect_uri=http:%2F%2Flocalhost:4200/music&' +
                     'scope=user-read-private%20user-read-email&' +
                     'response_type=token&state=123';
+                return false;
             }
         }
-        return true;
+    }
+
+    public canActivateChild(
+        childRoute: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
+        return this.canActivate(childRoute, state);
     }
 }
