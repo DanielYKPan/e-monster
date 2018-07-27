@@ -16,11 +16,12 @@ export class MusicService {
 
     private _spotify_access_token: string;
     get spotify_access_token(): string {
-        return this._spotify_access_token;
+        return this._spotify_access_token || localStorage.getItem('spotify_access_token');
     }
 
     set spotify_access_token( token: string ) {
         this._spotify_access_token = token;
+        localStorage.setItem('spotify_access_token', token);
     }
 
     constructor( private http: HttpClient ) {
@@ -39,13 +40,13 @@ export class MusicService {
         );
     }*/
 
-    public getNewReleases(page: number = 1): Observable<IAlbum[]> {
+    public getNewReleases( page: number = 1 ): Observable<IAlbum[]> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'browse/new-releases?offset=' + offSet;
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this._spotify_access_token);
         return this.http.get(url, {headers}).pipe(
-            map((r: any) => r.items),
+            map(( r: any ) => r.items),
             catchError(this.handleError)
         );
     }
@@ -55,7 +56,7 @@ export class MusicService {
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this._spotify_access_token);
         return this.http.get(url, {headers}).pipe(
-            map((r: any) => r.categories),
+            map(( r: any ) => r.categories),
             catchError(this.handleError)
         );
     }
