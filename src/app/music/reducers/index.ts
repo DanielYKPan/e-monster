@@ -32,6 +32,17 @@ export const {
     selectTotal: getTotalAlbums,
 } = fromAlbums.adapter.getSelectors(getAlbumEntityState);
 
+export const getSelectedAlbumId = createSelector(
+    getAlbumEntityState,
+    fromAlbums.getSelectedId
+);
+
+export const getSelectedAlbum = createSelector(
+    getAlbumEntities,
+    getSelectedAlbumId,
+    ( albums, selectedId ) => selectedId && albums[selectedId]
+);
+
 export const getAccessToken = createSelector(
     getAlbumEntityState,
     fromAlbums.getAccessToken

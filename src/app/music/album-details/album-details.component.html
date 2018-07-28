@@ -1,3 +1,129 @@
-<p>
-  album-details works!
-</p>
+<ng-container *ngIf="album$ | async as album">
+    <section class="details-header album-details-header">
+        <div class="album-header-backdrop">
+            <div class="album-image-card left">
+                <img [lazyLoad]="album.images[0].url"
+                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                     alt="Poster">
+            </div>
+            <div class="album-image-card right">
+                <img [lazyLoad]="album.images[0].url"
+                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                     alt="Poster">
+            </div>
+        </div>
+
+        <div class="details-header-content">
+            <div class="details-header-content-inner details-container">
+                <div class="details-header-poster">
+                    <img [lazyLoad]="album.images[0].url"
+                         [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                         alt="Poster">
+                </div>
+
+                <h1 class="details-header-name">
+                    {{album.name}}
+                    <span *ngIf="album.release_date" class="year">{{album.release_date |  yearString}}</span>
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="details-body album-details-body">
+        <div class="details-body-sidenav">
+            <div class="details-body-poster">
+                <img [lazyLoad]="album.images[0].url"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     alt="Poster">
+            </div>
+
+            <button class="basic-btn details-button collection-button">
+                <i class="icon fas fa-plus"></i> Add to Collection
+            </button>
+
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list external-list">
+                        <li class="external-item">
+                            <a [href]="album.external_urls.spotify" target="_blank">
+                                <i class="fab fa-spotify"></i> Spotify
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-body-main">
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list stats-list">
+                        <li class="stats-item album-stats-name">
+                            <h2>{{album.name}}</h2>
+                        </li>
+
+                        <li class="stats-item album-stats-artists">
+                            <a *ngFor="let person of album.artists"
+                               class="album-stats-artist-anchor"
+                               [routerLink]="'/music/artist/' + person.id">{{person.name}}</a>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Total Tracks:</label>
+                            <span>{{album.total_tracks}}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Released Date:</label>
+                            <span>{{album.release_date | toDate | date}}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Type:</label>
+                            <span>{{album.album_type}}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Label:</label>
+                            <span>{{album.label}}</span>
+                        </li>
+
+                        <li class="stats-item">
+                            <label>Copyright:</label>
+                            <span>{{album.copyrights[0].text}}</span>
+                        </li>
+                    </ul>
+
+                    <ul class="inform-list external-list">
+                        <li class="external-item">
+                            <a [href]="album.external_urls.spotify" target="_blank">
+                                <i class="fab fa-spotify"></i> Spotify
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="album-tracks-inform">
+                <ol class="album-tracks-list">
+                    <li class="album-track-item" *ngFor="let track of album.tracks.items">
+                        <a class="album-track-anchor" [href]="track.external_urls.spotify" target="_blank">
+                            <div class="album-track-item-left">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <div class="album-track-item-middle">
+                                <span class="album-track-name">{{track.name}}</span>
+                                <span class="second-line">
+                                    <span *ngIf="track.explicit" class="explicit-label">explicit</span>
+                                </span>
+                            </div>
+                            <div class="album-track-item-right">
+                                {{track.duration_ms | millisToMs}}
+                            </div>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </section>
+</ng-container>

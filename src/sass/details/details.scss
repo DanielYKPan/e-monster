@@ -144,58 +144,58 @@ $margin-top: 150px;
 .details-inform {
   display: flex;
   flex-direction: column-reverse;
+}
 
-  .details-inform-list-wrapper {
-    margin-bottom: 1rem;
-  }
+.details-inform-list-wrapper {
+  margin-bottom: 1rem;
+}
 
-  .inform-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
+.inform-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-  .external-list {
-    .external-item {
-      margin: 0 1rem .2rem 0;
-      border: solid 1px #ddd;
-      background-color: #fbfbfb;
-      color: #666;
-      border-radius: 3px;
-      transition: all .5s;
-      cursor: pointer;
-      padding: .3rem .7rem;
+.external-list {
+  .external-item {
+    margin: 0 1rem .2rem 0;
+    border: solid 1px #ddd;
+    background-color: #fbfbfb;
+    color: #666;
+    border-radius: 3px;
+    transition: all .5s;
+    cursor: pointer;
+    padding: .3rem .7rem;
 
-      &:hover {
-        background-color: #666;
-        color: #fbfbfb;
-      }
+    &:hover {
+      background-color: #666;
+      color: #fbfbfb;
+    }
 
-      a {
-        text-decoration: none;
-        color: inherit;
-      }
+    a {
+      text-decoration: none;
+      color: inherit;
     }
   }
+}
 
-  .stats-list {
-    flex-direction: column;
+.stats-list {
+  flex-direction: column;
 
-    .stats-item {
-      margin: 0 0 .5rem;
+  .stats-item {
+    margin: 0 0 .5rem;
 
-      label {
-        text-transform: uppercase;
-        margin: 0 .4rem 0 0;
-        color: #959595;
-        font-weight: 400;
-      }
+    label {
+      text-transform: uppercase;
+      margin: 0 .4rem 0 0;
+      color: #959595;
+      font-weight: 400;
+    }
 
-      span {
-        padding: 0 5px;
-      }
+    span {
+      padding: 0 5px;
     }
   }
 }

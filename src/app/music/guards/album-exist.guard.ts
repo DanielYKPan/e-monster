@@ -40,7 +40,7 @@ export class AlbumExistGuard implements CanActivate {
     private hasAlbumInStore( id: string ): Observable<boolean> {
         return this.store.pipe(
             select(fromMusicRoot.getAlbumEntities),
-            map(entities => !!entities[id]),
+            map(entities => !!entities[id] && !!entities[id].tracks),
             take(1)
         );
     }

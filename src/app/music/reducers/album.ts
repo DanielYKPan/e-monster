@@ -30,7 +30,7 @@ export function reducer( state = initialState, action: MusicActions ): State {
             });
 
         case MusicActionTypes.Load:
-            return adapter.addOne(action.payload, {
+            return adapter.upsertOne(action.payload, {
                 ...state,
                 selectedAlbumId: state.selectedAlbumId,
                 accessToken: state.accessToken,

@@ -8,6 +8,7 @@ import { ShareModule } from '../share/share.module';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
+import { MillisToMsPipe } from './pipes/millis-to-ms.pipe';
 
 @NgModule({
     imports: [
@@ -17,7 +18,7 @@ import { reducers } from './reducers';
 
         StoreModule.forFeature('music', reducers),
     ],
-    declarations: [MusicComponent, MusicListComponent, AlbumDetailsComponent]
+    declarations: [MusicComponent, MusicListComponent, AlbumDetailsComponent, MillisToMsPipe]
 })
 export class MusicModule {
 }
