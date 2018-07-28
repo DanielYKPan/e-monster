@@ -10,7 +10,11 @@ export interface IAlbum {
     href: string;
     id: string;
     images: any[];
+    label: string;
     name: string;
+    popularity: number;
+    release_date: string;
+    track:  any;
     type: string;
     uri: string;
 }

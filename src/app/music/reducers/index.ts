@@ -18,12 +18,19 @@ export const reducers: ActionReducerMap<MusicState> = {
     albums: fromAlbums.reducer
 };
 
-export const getMusicState = createFeatureSelector<MusicState>('movies');
+export const getMusicState = createFeatureSelector<MusicState>('music');
 
 export const getAlbumEntityState = createSelector(
     getMusicState,
     ( state: MusicState ) => state.albums
 );
+
+export const {
+    selectIds: getAlbumIds,
+    selectEntities: getAlbumEntities,
+    selectAll: getAllAlbums,
+    selectTotal: getTotalAlbums,
+} = fromAlbums.adapter.getSelectors(getAlbumEntityState);
 
 export const getAccessToken = createSelector(
     getAlbumEntityState,

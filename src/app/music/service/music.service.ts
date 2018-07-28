@@ -61,6 +61,15 @@ export class MusicService {
         );
     }
 
+    public getAlbum( id: string ): Observable<any> {
+        const url = this.base_url + 'albums/' + id;
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.spotify_access_token);
+        return this.http.get(url, {headers}).pipe(
+            catchError(this.handleError)
+        );
+    }
+
     public getCategories(): Observable<any> {
         const url = this.base_url + 'browse/categories';
         let headers = new HttpHeaders();
