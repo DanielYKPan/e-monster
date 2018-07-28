@@ -1,7 +1,64 @@
-<p>
-    music-list works!
-</p>
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'Music'" [listPage]="listPage$ | async"
+                           [listTotalPages]="listTotalPages$ | async"
+                           [listQuery]="listQuery$ | async"
+                           [currentOption]="listQuery$ | async"
+                           [navList]="navList"
+                           (clickOption)="handleNavListOptionClick($event)"
+                           (goToPage)="goToPage($event)"></app-frame-sidenav>
+    </div>
 
-<div>
-    {{list$ | async | json}}
-</div>
+    <div class="frame-main-wrapper">
+        <div class="album-grid featured">
+            <div *ngFor="let album of featuredList$ | async" class="album-card">
+                <div class="poster-frame">
+                    <a class="album-anchor" [routerLink]="'/music/album/' + album.id">
+                        <img [lazyLoad]="album.images[1].url"
+                             [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                             [alt]="album.name"
+                             alt="Poster">
+                    </a>
+                </div>
+                <div class="album-inform">
+                    <h3>
+                        <a class="album-anchor" [routerLink]="'/music/album/' + album.id">{{album.name}}</a>
+                    </h3>
+                    <ul class="artist-list">
+                        <li *ngFor="let person of album.artists" class="artist-list-item">
+                            <a class="album-anchor">{{person.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="album-grid">
+            <div *ngFor="let album of list$| async" class="album-card">
+                <div class="poster-frame">
+                    <a class="album-anchor" [routerLink]="'/music/album/' + album.id">
+                        <img [lazyLoad]="album.images[1].url"
+                             [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                             [alt]="album.name"
+                             alt="Poster">
+                    </a>
+                </div>
+                <div class="album-inform">
+                    <h4>
+                        <a class="album-anchor" [routerLink]="'/music/album/' + album.id">{{album.name}}</a>
+                    </h4>
+                    <ul class="artist-list">
+                        <li *ngFor="let person of album.artists" class="artist-list-item">
+                            <a class="album-anchor">{{person.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <app-list-paginator [listPage]="listPage$ | async"
+                            [listTotalPages]="listTotalPages$ | async"
+                            [searchName]="listQuery$ | async"
+                            (goToPage)="goToPage($event)"></app-list-paginator>
+    </div>
+</section>

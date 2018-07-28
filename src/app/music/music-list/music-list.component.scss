@@ -1,0 +1,104 @@
+@import "../../../sass/list/list";
+
+.album-grid {
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); // 19rem + 1rem(padding) = 320px width, the width of IPhone4
+  padding: 0 .5rem .5rem;
+  box-sizing: border-box;
+  justify-items: center;
+
+  .album-card {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #282828;
+
+    &:hover {
+      box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
+    }
+  }
+
+  &.featured {
+    grid-template-columns: repeat(auto-fit, minmax(21rem, 1fr));
+  }
+
+  @media #{$small-only} {
+    &.featured {
+      grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+    }
+  }
+}
+
+.album-card-inner {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+}
+
+.poster-frame {
+  width: 40%;
+  height: auto;
+  max-width: 10.5rem;
+  min-height: 6.8rem;
+  border: solid 3px #fff;
+  box-sizing: border-box;
+  background-color: #000000;
+  box-shadow: 0 0 20px 0 #000;
+  flex-shrink: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter .2s linear, opacity 1s;
+    opacity: 0;
+    filter: brightness(95%);
+
+    &.ng-lazyloaded {
+      opacity: 1;
+    }
+  }
+}
+
+.album-inform {
+  margin-left: 1rem;
+  width: 60%;
+}
+
+.artist-list {
+  color: #bfbfbf;
+  padding-left: 10px;
+  list-style: none;
+
+  .artist-list-item {
+    padding: .5rem 0 0;
+  }
+
+  .album-anchor {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.album-anchor {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+h3, h4 {
+  margin: 0 0 .5rem;
+}

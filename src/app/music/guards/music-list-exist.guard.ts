@@ -24,42 +24,43 @@ export class MusicListExistGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
         console.log('Music List Exist Guard');
+        const page = next.params['page'] || 1;
         const query = next.params['query'];
-        return this.hasSearchResults(query);
+        return this.hasSearchResults(query, page);
     }
 
-    private hasSearchResults( query: string ): Observable<boolean> {
+    private hasSearchResults( query: string, page: number ): Observable<boolean> {
         if (query !== 'new-releases') {
             this.router.navigate(['page-not-found'], {skipLocationChange: true});
             return of(false);
         }
 
-        return this.hasSearchResultsInStore(query).pipe(
+        return this.hasSearchResultsInStore(query, page).pipe(
             switchMap(( inStore: boolean ) => {
                 if (inStore) {
                     return of(inStore);
                 }
 
-                return this.hasSearchResultsInApi(query);
+                return this.hasSearchResultsInApi(query, page);
             })
         );
     }
 
-    private hasSearchResultsInStore( query: string ): Observable<boolean> {
+    private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
             this.store.pipe(select(fromRoot.getSearchType), take(1)),
             this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
             this.store.pipe(select(fromRoot.getSearchPage), take(1)),
             this.store.pipe(select(fromRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === 'music' && result[1] === query && result[2] === 1 && result[3] && result[3].length > 0)
+            map(( result: any ) => result[0] === 'music' && result[1] === query && result[2] === page && result[3] && result[3].length > 0)
         );
     }
 
-    private hasSearchResultsInApi( query: string ): Observable<boolean> {
+    private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new LoadingStart());
 
-        return this.musicService.getNewReleases().pipe(
+        return this.musicService.getNewReleases(page).pipe(
             map(res => new SearchListComplete(res)),
             tap(action => {
                 this.store.dispatch(action);

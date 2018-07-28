@@ -1,6 +1,7 @@
 @import "../../sass/base/breakPoints";
 
 $sidenav-width: 15rem;
+$sidenav-height: 6.25rem;
 $topbar-height: 3.2rem;
 
 .frame-wrapper {
@@ -13,7 +14,7 @@ $topbar-height: 3.2rem;
 
 .frame-main-wrapper {
   position: relative;
-  padding: $topbar-height 0 0;
+  padding: $topbar-height 0 $sidenav-height;
   box-sizing: border-box;
   border-bottom: solid 1px #2d2d2d;
   z-index: 1;
@@ -22,7 +23,7 @@ $topbar-height: 3.2rem;
 .frame-sidenav-wrapper {
   position: fixed;
   width: 100vw;
-  height: 6.25rem;
+  height: $sidenav-height;
   left: 0;
   bottom: 0;
   box-sizing: border-box;
@@ -40,6 +41,7 @@ $topbar-height: 3.2rem;
   .frame-main-wrapper {
     margin-left: $sidenav-width;
     border-left: solid 1px #2d2d2d;
+    padding-bottom: 0;
   }
 
   .frame-sidenav-wrapper {
