@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { GoogleBookService } from '../book.service';
-import * as fromBooksRoot from '../reducers';
+import * as fromBookRoot from '../reducers';
 import * as bookActions from '../actions/book';
 import * as searchActions from '../../search-store/actions';
 
@@ -13,7 +13,7 @@ import * as searchActions from '../../search-store/actions';
 })
 export class BookExistGuard implements CanActivate {
 
-    constructor( private store: Store<fromBooksRoot.State>,
+    constructor( private store: Store<fromBookRoot.State>,
                  private bookService: GoogleBookService,
                  private router: Router ) {
     }
@@ -38,7 +38,7 @@ export class BookExistGuard implements CanActivate {
 
     private hasBookInStore( id: string ): Observable<boolean> {
         return this.store.pipe(
-            select(fromBooksRoot.getBookEntities),
+            select(fromBookRoot.getBookEntities),
             map(entities => !!entities[id]),
             take(1)
         );

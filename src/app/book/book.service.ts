@@ -1029,7 +1029,6 @@ export class GoogleBookService {
                 const total_results = res.totalItems + startIndex;
                 const total_pages = total_results / this.maxResults;
                 return {
-                    type: 'book',
                     query: query,
                     page,
                     total_results,
@@ -1064,7 +1063,6 @@ export class GoogleBookService {
                 map((books) =>  books.filter((book) => !!book)),
                 map((books) => {
                     return {
-                        type: 'book',
                         query,
                         page: 1,
                         total_results: books.length,
@@ -1073,22 +1071,5 @@ export class GoogleBookService {
                     };
                 }),
             );
-
-        /*return of(this.testObj).pipe(
-            map(( bs: any ) => {
-                return bs.map(b => b.items[0]);
-            }),
-            map(( books ) => books.filter(( book ) => !!book)),
-            map(( books ) => {
-                return {
-                    type: 'book',
-                    query,
-                    page: 1,
-                    total_results: books.length,
-                    total_pages: 1,
-                    results: books
-                };
-            })
-        );*/
     }
 }

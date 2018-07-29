@@ -36,7 +36,6 @@ export class MusicService extends SpotifyService {
                 const total_results = res.albums.total;
                 const total_pages = total_results / this.limit;
                 return {
-                    type: 'music',
                     query: 'new-releases',
                     page: page,
                     total_results,

@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, of, forkJoin } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
-import * as fromBooksRoot from '../reducers';
-import * as fromRoot from '../../reducers';
-import * as bookActions from '../actions/book';
+import * as fromBookRoot from '../reducers';
+import * as searchBookActions from '../actions/search';
 import { GoogleBookService } from '../book.service';
-import { LoadingStart, SearchListComplete } from '../../search-store/actions';
+import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 
 @Injectable({
     providedIn: 'root'
 })
 export class BookListExistGuard implements CanActivate {
 
-    constructor( private store: Store<fromBooksRoot.State>,
+    constructor( private store: Store<fromBookRoot.State>,
                  private bookService: GoogleBookService,
                  private router: Router ) {
     }
@@ -46,12 +45,11 @@ export class BookListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromRoot.getSearchType), take(1)),
-            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromRoot.getSearchResults), take(1))
+            this.store.pipe(select(fromBookRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromBookRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromBookRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === 'book' && result[1] === query && result[2] === 1 && result[3] && result[3].length > 0)
+            map(( result: any ) => result[0] === query && result[1] === 1 && result[2] && result[2].length > 0)
         );
     }
 
@@ -59,10 +57,10 @@ export class BookListExistGuard implements CanActivate {
         this.store.dispatch(new LoadingStart());
 
         return this.bookService.getBookList(query).pipe(
-            map(res => new SearchListComplete(res)),
+            map(res => new searchBookActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new bookActions.SearchCompleted(action.payload.results));
+                this.store.dispatch(new LoadingCompleted());
             }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(() => {

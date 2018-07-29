@@ -5,9 +5,11 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromBooks from './book';
 import * as fromRoot from '../../reducers';
+import * as fromSearch from './search';
 
 export interface BooksState {
     books: fromBooks.State;
+    search: fromSearch.State;
 }
 
 export interface State extends fromRoot.State {
@@ -16,10 +18,12 @@ export interface State extends fromRoot.State {
 
 export const reducers: ActionReducerMap<BooksState> = {
     books: fromBooks.reducer,
+    search: fromSearch.reducer,
 };
 
 export const getBooksState = createFeatureSelector<BooksState>('books');
 
+// Book Entity State
 export const getBookEntityState = createSelector(
     getBooksState,
     ( state: BooksState ) => state.books
@@ -43,4 +47,30 @@ export const getSelectedBook = createSelector(
     ( books, selectedIds ) => {
         return selectedIds && books[selectedIds];
     }
+);
+
+// Search Book State
+export const getSearchState = createSelector(
+    getBooksState,
+    ( state: BooksState ) => state.search
+);
+
+export const getSearchPage = createSelector(
+    getSearchState,
+    fromSearch.getPage,
+);
+
+export const getSearchTotalPage = createSelector(
+    getSearchState,
+    fromSearch.getTotalPage,
+);
+
+export const getSearchQuery = createSelector(
+    getSearchState,
+    fromSearch.getSearchQuery,
+);
+
+export const getSearchResults = createSelector(
+    getSearchState,
+    fromSearch.getSearchResults,
 );
