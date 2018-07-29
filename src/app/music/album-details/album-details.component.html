@@ -65,7 +65,7 @@
                         <li class="stats-item album-stats-artists">
                             <a *ngFor="let person of album.artists"
                                class="album-stats-artist-anchor"
-                               [routerLink]="'/music/artist/' + person.id">{{person.name}}</a>
+                               [routerLink]="'/people/artist/' + person.id">{{person.name}}</a>
                         </li>
 
                         <li class="stats-item">
@@ -106,7 +106,8 @@
 
             <div class="album-tracks-inform">
                 <ol class="album-tracks-list">
-                    <li class="album-track-item" *ngFor="let track of album.tracks.items" (click)="handleClickOnTrack(track, album.name, $event)">
+                    <li class="album-track-item" *ngFor="let track of album.tracks.items"
+                        (click)="handleClickOnTrack(track, album.name, $event)">
                         <div class="album-track-item-left">
                             <i class="fas fa-music"></i>
                         </div>

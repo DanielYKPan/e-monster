@@ -3,6 +3,7 @@
  */
 import { IMovie } from './movie';
 import { ITv } from './tv';
+import { IAlbum, ITrack } from './music';
 
 export interface IActorDetails {
     adult: boolean;
@@ -61,4 +62,19 @@ export interface IActor {
     name: string;
     popularity: number;
     profile_path: string;
+}
+
+export interface IArtistDetails {
+    albums: IAlbum[];
+    external_urls: any;
+    followers: any;
+    genres: string[];
+    href: string;
+    id: string;
+    images: any[];
+    name: string;
+    popularity: number;
+    top_tracks: ITrack[];
+    type: string;
+    uri: string;
 }

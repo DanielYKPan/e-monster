@@ -8,12 +8,13 @@ import { ActorDetailsComponent } from './actor-details/actor-details.component';
 import { PeopleComponent } from './people.component';
 import { ShareModule } from '../share/share.module';
 import { ActorService } from './service/actor.service';
-import { ActorExistGuard } from './guards/actor-exist.guard';
 import { reducers } from './reducers';
 import { ActorDetailsHeaderComponent } from './actor-details/actor-details-header/actor-details-header.component';
 import { ActorDetailsContentComponent } from './actor-details/actor-details-content/actor-details-content.component';
 import { CreditOverviewDialogComponent } from './actor-details/credit-overview-dialog/credit-overview-dialog.component';
 import { SearchListComponent } from './search-list/search-list.component';
+import { ArtistDetailsComponent } from './artist-details/artist-details.component';
+import { ArtistService } from './service/artist.service';
 
 @NgModule({
     imports: [
@@ -34,11 +35,12 @@ import { SearchListComponent } from './search-list/search-list.component';
         ActorDetailsHeaderComponent,
         ActorDetailsContentComponent,
         CreditOverviewDialogComponent,
-        SearchListComponent
+        SearchListComponent,
+        ArtistDetailsComponent
     ],
     providers: [
         ActorService,
-        ActorExistGuard
+        ArtistService,
     ],
     entryComponents: [
         CreditOverviewDialogComponent

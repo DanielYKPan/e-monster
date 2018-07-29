@@ -15,7 +15,22 @@ export interface IAlbum {
     name: string;
     popularity: number;
     release_date: string;
-    tracks:  any;
+    tracks:  ITrack[];
     total_tracks: number;
+    uri: string;
+}
+
+export interface ITrack {
+    album: IAlbum;
+    disc_number: number;
+    durations_ms: number;
+    explicit: boolean;
+    external_urls: any;
+    href: string;
+    id: string;
+    name: string;
+    popularity: number;
+    track_number: number;
+    type: string;
     uri: string;
 }
