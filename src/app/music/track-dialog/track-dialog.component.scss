@@ -1,0 +1,53 @@
+:host {
+  text-align: center;
+}
+
+.track-name {
+  margin: 0 0 .5rem;
+}
+
+.album-name {
+  color: #929292;
+  margin: 0 0 1rem;
+}
+
+.artist-list {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  font-size: .8rem;
+
+  .artist-list-item {
+    padding-right: .5rem;
+
+    &:not(:last-child):after {
+      content: ',';
+    }
+  }
+}
+
+.track-play-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 9rem;
+  height: 2rem;
+  margin: 0 auto;
+  border-radius: 2rem;
+  border: 1.5px solid #1a8141;
+  -webkit-appearance: none;
+  background-color: #1f9f55;
+  color: #FFFFFF;
+  transition: all .2s ease-in;
+
+  .icon {
+    padding-right: .5rem;
+  }
+
+  &:hover {
+    background-color: #2d2d2d;
+  }
+}
