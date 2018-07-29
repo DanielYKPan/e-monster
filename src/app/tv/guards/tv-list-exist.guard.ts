@@ -2,18 +2,16 @@
  * tv-list-exist.guard
  */
 
-
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { select, Store } from '@ngrx/store';
-import * as fromTvRoot from '../reducers';
-import * as fromRoot from '../../reducers';
-import { TvService } from '../service/tv.service';
+import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { LoadingStart, SearchListComplete } from '../../search-store/actions';
+import { select, Store } from '@ngrx/store';
+
+import { TvService } from '../service/tv.service';
+import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
+import * as searchTvActions from '../actions/search';
+import * as fromTvRoot from '../reducers';
 
 @Injectable()
 export class TvListExistGuard implements CanActivate {
@@ -47,20 +45,22 @@ export class TvListExistGuard implements CanActivate {
 
     private hasTvListInStore( name: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromRoot.getSearchType), take(1)),
-            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromRoot.getSearchResults), take(1))
+            this.store.pipe(select(fromTvRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromTvRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromTvRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === 'tv' && result[1] === name && result[2] === page && result[3].length > 0)
+            map(( result: any ) => result[0] === name && result[1] === page && result[2].length > 0)
         );
     }
 
     private hasTvListInApi( name: string, page: number ): Observable<boolean> {
         this.store.dispatch(new LoadingStart());
         return this.tvService.getTvList(name, page).pipe(
-            map(res => new SearchListComplete(res)),
-            tap(action => this.store.dispatch(action)),
+            map(res => new searchTvActions.SearchComplete(res)),
+            tap(action => {
+                this.store.dispatch(action);
+                this.store.dispatch(new LoadingCompleted());
+            }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(() => {
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});

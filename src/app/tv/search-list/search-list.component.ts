@@ -1,14 +1,14 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs/index';
+import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { OwlDialogService } from 'owl-ng';
-import * as fromTvsRoot from '../reducers';
-import * as fromRoot from '../../reducers';
-import * as videoActions from '../actions/video';
+
 import { IAudio } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import * as fromTvRoot from '../reducers';
+import * as videoActions from '../actions/video';
 
 @Component({
     selector: 'app-search-list',
@@ -31,16 +31,16 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private router: Router,
-                 private store: Store<fromTvsRoot.State>,
+                 private store: Store<fromTvRoot.State>,
                  private dialogService: OwlDialogService ) {
     }
 
     public ngOnInit() {
-        this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
+        this.list$ = this.store.pipe(select(fromTvRoot.getSearchNonFeaturedList));
+        this.featuredList$ = this.store.pipe(select(fromTvRoot.getSearchFeaturedList));
+        this.listQuery$ = this.store.pipe(select(fromTvRoot.getSearchQuery));
+        this.listPage$ = this.store.pipe(select(fromTvRoot.getSearchPage));
+        this.listTotalPages$ = this.store.pipe(select(fromTvRoot.getSearchTotalPage));
     }
 
     public ngAfterContentInit(): void {
@@ -48,7 +48,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
-            select(fromRoot.getSearchResults),
+            select(fromTvRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
             window.scroll({top: 0, behavior: 'smooth'});
@@ -83,8 +83,8 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {
         // search the tv video
         this.store.dispatch(new videoActions.SearchTvVideos(res.audio.id));
-        const tvVideo$ = this.store.pipe(select(fromTvsRoot.getSelectedTvVideo));
-        const showLoader$ = this.store.pipe(select(fromTvsRoot.getSearchTvVideoLoader));
+        const tvVideo$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideo));
+        const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {

@@ -4,22 +4,24 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { SearchActionTypes, SearchError, SearchList, SearchListComplete } from '../../search-store/actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
+
 import { TvService } from '../service/tv.service';
+import { Search, SearchTvActionTypes } from '../actions/search';
+import * as searchTvActions from '../actions/search';
 
 @Injectable()
 export class TvEffect {
 
     @Effect()
     public getList$ = this.actions$.pipe(
-        ofType(SearchActionTypes.SearchList),
-        map((action: SearchList) => action.payload),
+        ofType(SearchTvActionTypes.Search),
+        map((action: Search) => action.payload),
         switchMap(( payload: any ) => {
             return this.tvService.getTvList(payload.query, payload.page).pipe(
-                map(results => new SearchListComplete(results)),
-                catchError(err => of(new SearchError(err)))
+                map(results => new searchTvActions.SearchComplete(results)),
+                catchError(err => of(new searchTvActions.SearchError(err)))
             );
         })
     );

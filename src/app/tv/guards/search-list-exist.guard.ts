@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs';
-import * as fromRoot from '../../reducers';
-import { select, Store } from '@ngrx/store';
-import { TvService } from '../service/tv.service';
-import { of } from 'rxjs/index';
+import { Observable, of, forkJoin } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { LoadingStart, SearchListComplete } from '../../search-store/actions';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { select, Store } from '@ngrx/store';
+
+import { TvService } from '../service/tv.service';
+import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
+import * as fromTvRoot from '../reducers';
+import * as searchTvActions from '../actions/search';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SearchListExistGuard implements CanActivate {
 
-    constructor( private store: Store<fromRoot.State>,
+    constructor( private store: Store<fromTvRoot.State>,
                  private tvService: TvService,
                  private router: Router ) {
     }
@@ -41,12 +41,11 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromRoot.getSearchType), take(1)),
-            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromRoot.getSearchResults), take(1)),
+            this.store.pipe(select(fromTvRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromTvRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromTvRoot.getSearchResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === 'tv' && result[1] === query && result[2] === page && !!result[3])
+            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
         );
     }
 
@@ -58,8 +57,11 @@ export class SearchListExistGuard implements CanActivate {
             this.tvService.searchTvs(query, page);
 
         return search.pipe(
-            map(res => new SearchListComplete(res)),
-            tap(action => this.store.dispatch(action)),
+            map(res => new searchTvActions.SearchComplete(res)),
+            tap(action => {
+                this.store.dispatch(action);
+                this.store.dispatch(new LoadingCompleted());
+            }),
             map(res => !!res.payload.results),
             catchError(() => {
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});

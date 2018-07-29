@@ -1,15 +1,16 @@
 /**
  * index
  */
-
+import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromTvs from './tv';
 import * as fromVideos from './video';
+import * as fromSearch from './search';
 import * as fromRoot from '../../reducers';
-import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface TvsState {
     tvs: fromTvs.State;
     videos: fromVideos.State;
+    search: fromSearch.State;
 }
 
 export interface State extends fromRoot.State {
@@ -19,18 +20,15 @@ export interface State extends fromRoot.State {
 export const reducers: ActionReducerMap<TvsState> = {
     tvs: fromTvs.reducer,
     videos: fromVideos.reducer,
+    search: fromSearch.reducer,
 };
 
 export const getTvsState = createFeatureSelector<TvsState>('tvs');
 
+// TV Entity State
 export const getTvEntityState = createSelector(
     getTvsState,
     ( state: TvsState ) => state.tvs
-);
-
-export const getTvVideosEntityState = createSelector(
-    getTvsState,
-    ( state: TvsState ) => state.videos
 );
 
 export const {
@@ -64,6 +62,12 @@ export const getSelectedSeason = createSelector(
     ( entity, num ) => {
         return entity.seasons.find(s => +s.season_number === +num);
     }
+);
+
+// TV Videos State
+export const getTvVideosEntityState = createSelector(
+    getTvsState,
+    ( state: TvsState ) => state.videos
 );
 
 export const {
@@ -112,4 +116,54 @@ export const getSelectedTvVideo = createSelector(
     getSelectedTvTrailer,
     getSelectedTvTeaser,
     ( trailer, teaser ) => trailer ? trailer : teaser
+);
+
+// Search Movie State
+export const getSearchState = createSelector(
+    getTvsState,
+    ( state: TvsState ) => state.search
+);
+
+export const getSearchPage = createSelector(
+    getSearchState,
+    fromSearch.getPage,
+);
+
+export const getSearchTotalPage = createSelector(
+    getSearchState,
+    fromSearch.getTotalPage,
+);
+
+export const getSearchQuery = createSelector(
+    getSearchState,
+    fromSearch.getSearchQuery,
+);
+
+export const getSearchResults = createSelector(
+    getSearchState,
+    fromSearch.getSearchResults,
+);
+
+export const getSearchFeaturedList = createSelector(
+    getSearchResults,
+    ( results ) => {
+        return results.slice(0, 2);
+    }
+);
+
+export const getSearchNonFeaturedList = createSelector(
+    getSearchResults,
+    ( results ) => {
+        return results.slice(2);
+    }
+);
+
+export const getRandomMovieBackdrop = createSelector(
+    getSearchResults,
+    ( results ) => {
+        if (results && results.length) {
+            const random = results[Math.floor(Math.random() * results.length)];
+            return random.backdrop_path;
+        }
+    }
 );
