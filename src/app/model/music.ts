@@ -22,6 +22,7 @@ export interface IAlbum {
 
 export interface ITrack {
     album: IAlbum;
+    artists: any[];
     disc_number: number;
     durations_ms: number;
     explicit: boolean;

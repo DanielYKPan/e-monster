@@ -47,7 +47,8 @@
     padding-right: .5rem;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     background-color: #2d2d2d;
   }
 }

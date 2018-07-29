@@ -8,7 +8,7 @@ import { OwlDialogService } from 'owl-ng';
 import { IAlbum } from '../../model';
 import * as fromMusicRoot from '../reducers';
 import * as musicActions from '../actions/music';
-import { TrackDialogComponent } from '../track-dialog/track-dialog.component';
+import { TrackDialogComponent } from '../../share/track-dialog/track-dialog.component';
 
 
 @Component({
@@ -42,7 +42,12 @@ export class AlbumDetailsComponent implements OnInit, OnDestroy {
 
     public handleClickOnTrack( track: any, albumName: string, event: any ): any {
         const dialogRef = this.dialogService.open(TrackDialogComponent, {
-            data: {track, albumName},
+            data: {
+                albumName: albumName,
+                trackName: track.name,
+                artists: track.artists,
+                spotifyUrl: track.external_urls.spotify,
+            },
             dialogClass: 'audio-dialog',
             transitionX: event.clientX,
             transitionY: event.clientY,

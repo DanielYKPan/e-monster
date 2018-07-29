@@ -74,6 +74,7 @@ export interface IArtistDetails {
     images: any[];
     name: string;
     popularity: number;
+    singles: IAlbum[];
     top_tracks: ITrack[];
     type: string;
     uri: string;

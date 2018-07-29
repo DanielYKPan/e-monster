@@ -1,3 +1,126 @@
-<p>
-  artist-details works!
-</p>
+<ng-container *ngIf="artist$ | async as artist">
+    <section class="details-header">
+        <div class="artist-header-backdrop"
+             [lazyLoad]="artist.images[0].url"></div>
+
+        <div class="details-header-content">
+            <div class="details-header-content-inner details-container">
+                <div class="details-header-poster">
+                    <img [lazyLoad]="artist.images[0].url"
+                         [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                         alt="Poster">
+                </div>
+                <h1 class="details-header-name">
+                    {{artist.name}}
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="details-body artist-details-body">
+        <div class="details-body-sidenav">
+            <div class="details-body-poster">
+                <img [lazyLoad]="artist.images[0].url"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     alt="Poster">
+            </div>
+
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list external-list">
+                        <li class="external-item">
+                            <a [href]="artist.external_urls.spotify" target="_blank">
+                                <i class="fab fa-spotify"></i> Spotify
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="details-body-main">
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list stats-list">
+                        <li class="stats-item artist-stats-genres" *ngIf="artist.genres && artist.genres.length > 0">
+                            {{artist.genres | addCommas: 'Unknown Artist Genres'}}
+                        </li>
+                        <li class="stats-item artist-stats-followers" *ngIf="artist.followers.total > 0">
+                            {{artist.followers.total}} followers on Spotify.
+                        </li>
+                    </ul>
+                    <ul class="inform-list external-list">
+                        <li class="external-item">
+                            <a [href]="artist.external_urls.spotify" target="_blank">
+                                <i class="fab fa-spotify"></i> Spotify
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="details-inform-list-wrapper">
+                    <h4 class="details-inform-header">Top Hit Tracks</h4>
+                    <ol class="tracks-list">
+                        <li class="track-item" *ngFor="let track of artist.top_tracks; index as i">
+                            <button class="basic-btn track-item-btn" (click)="handleClickOnTrack(track, $event)">
+                                <span class="track-item-left">
+                                    <span class="details-body-poster">
+                                        <img [lazyLoad]="track.album.images[0].url"
+                                             [errorImage]="'/assets/images/abstract-image.jpg'"
+                                             alt="Poster">
+                                    </span>
+                                    <span>{{i + 1}}.</span>
+                                </span>
+
+                                <span class="track-item-middle">
+                                    <span class="track-name">{{track.name}}</span>
+                                    <span class="second-line">
+                                        <span *ngIf="track.explicit" class="explicit-label">explicit</span>
+                                    </span>
+                                </span>
+
+                                <span class="track-item-right">
+                                    {{track.duration_ms | millisToMs}}
+                                </span>
+                            </button>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="details-inform-list-wrapper">
+                    <h4 class="details-inform-header">Albums</h4>
+                    <ul class="album-list">
+                        <li class="album-list-item" *ngFor="let album of artist.albums">
+                            <a class="album-list-item-anchor"
+                               [routerLink]="'/music/album/' + album.id">
+                                <div class="details-body-poster">
+                                    <img [lazyLoad]="album.images[0].url"
+                                         [errorImage]="'/assets/images/abstract-image.jpg'"
+                                         alt="Poster">
+                                </div>
+                                <h5 class="album-name">{{album.name}}</h5>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="details-inform-list-wrapper">
+                    <h4 class="details-inform-header">Singles</h4>
+                    <ul class="album-list">
+                        <li class="album-list-item" *ngFor="let album of artist.singles">
+                            <a class="album-list-item-anchor"
+                               [routerLink]="'/music/album/' + album.id">
+                                <div class="details-body-poster">
+                                    <img [lazyLoad]="album.images[0].url"
+                                         [errorImage]="'/assets/images/abstract-image.jpg'"
+                                         alt="Poster">
+                                </div>
+                                <h5 class="album-name">{{album.name}}</h5>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</ng-container>

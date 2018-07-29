@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
+import { IArtistDetails } from '../../model';
 
 @Component({
     selector: 'app-track-dialog',
@@ -9,17 +10,20 @@ import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
 })
 export class TrackDialogComponent implements OnInit {
 
-    public track: any;
-
+    public trackName: string;
     public albumName: string;
+    public artists: IArtistDetails[];
+    public spotifyUrl: string;
 
     constructor( @Inject(OWL_DIALOG_DATA) public data: any,
                  public dialogRef: OwlDialogRef<TrackDialogComponent> ) {
     }
 
     public ngOnInit() {
-        this.track = this.data.track;
+        this.trackName = this.data.trackName;
         this.albumName = this.data.albumName;
+        this.artists = this.data.artists;
+        this.spotifyUrl = this.data.spotifyUrl;
     }
 
     public closeDialog(): void {

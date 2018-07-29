@@ -146,6 +146,13 @@ $margin-top: 150px;
   flex-direction: column-reverse;
 }
 
+.details-inform-header {
+  margin: 0 0 1rem;
+  font-size: 1.2rem;
+  color: #959595;
+  text-transform: uppercase;
+}
+
 .details-inform-list-wrapper {
   margin-bottom: 1rem;
 }
@@ -161,22 +168,24 @@ $margin-top: 150px;
 .external-list {
   .external-item {
     margin: 0 1rem .2rem 0;
-    border: solid 1px #ddd;
-    background-color: #fbfbfb;
-    color: #666;
-    border-radius: 3px;
-    transition: all .5s;
-    cursor: pointer;
-    padding: .3rem .7rem;
-
-    &:hover {
-      background-color: #666;
-      color: #fbfbfb;
-    }
 
     a {
+      display: block;
+      padding: .3rem .7rem;
+      box-sizing: border-box;
       text-decoration: none;
-      color: inherit;
+      outline: none;
+      border: solid 1px #ddd;
+      border-radius: 3px;
+      background-color: #fbfbfb;
+      color: #666;
+      transition: all .5s;
+
+      &:hover,
+      &:focus {
+        background-color: #666;
+        color: #fbfbfb;
+      }
     }
   }
 }

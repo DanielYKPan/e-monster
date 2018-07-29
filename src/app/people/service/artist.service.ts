@@ -20,7 +20,7 @@ export class ArtistService extends SpotifyService {
         const detailsUrl = this.base_url + 'artists/' + id;
 
         // getting artist's albums and singles
-        const relativeAlbumsUrl = this.base_url + 'artists/' + id + '/albums?market=US&include_groups=album,single';
+        const relativeAlbumsUrl = this.base_url + 'artists/' + id + '/albums?limit=50&market=US&include_groups=album,single';
 
         // getting artist's top tracks
         const topTracksUrl = this.base_url + 'artists/' + id + '/top-tracks?country=US';
@@ -36,7 +36,8 @@ export class ArtistService extends SpotifyService {
             map(( [artist, albums, tracks]: any[] ) => {
                 return {
                     ...artist,
-                    albums: albums.items,
+                    albums: albums.items.filter((a) => a.album_type === 'album'),
+                    singles: albums.items.filter((a) => a.album_type === 'single'),
                     top_tracks: tracks.tracks
                 };
             }),

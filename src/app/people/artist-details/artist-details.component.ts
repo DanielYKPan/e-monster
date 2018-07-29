@@ -3,10 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
+import { OwlDialogService } from 'owl-ng';
 
-import { IArtistDetails } from '../../model';
+import { IArtistDetails, ITrack } from '../../model';
 import * as fromPeopleRoot from '../reducers';
 import * as artistActions from '../actions/artist';
+import { TrackDialogComponent } from '../../share/track-dialog/track-dialog.component';
 
 @Component({
     selector: 'app-artist-details',
@@ -21,7 +23,8 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
     private routeSub = Subscription.EMPTY;
 
     constructor( private store: Store<fromPeopleRoot.State>,
-                 private route: ActivatedRoute ) {
+                 private route: ActivatedRoute,
+                 private dialogService: OwlDialogService ) {
     }
 
     public ngOnInit() {
@@ -38,5 +41,20 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.routeSub.unsubscribe();
+    }
+
+    public handleClickOnTrack(track: ITrack, event: any): void {
+        const dialogRef = this.dialogService.open(TrackDialogComponent, {
+            data: {
+                albumName: track.album.name,
+                trackName: track.name,
+                artists: track.artists,
+                spotifyUrl: track.external_urls.spotify,
+            },
+            dialogClass: 'audio-dialog',
+            transitionX: event.clientX,
+            transitionY: event.clientY,
+        });
+        event.preventDefault();
     }
 }
