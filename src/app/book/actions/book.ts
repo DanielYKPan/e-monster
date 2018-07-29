@@ -8,7 +8,6 @@ import { IBook } from '../../model';
 export enum BookActionTypes {
     Load = '[Books] Load',
     Select = '[Books] Select',
-    SearchCompleted = '[Books] SearchCompleted',
 }
 
 export class Load implements Action {
@@ -25,14 +24,6 @@ export class Select implements Action {
     }
 }
 
-export class SearchCompleted implements Action {
-    readonly type = BookActionTypes.SearchCompleted;
-
-    constructor( public payload: IBook[] ) {
-    }
-}
-
 export type BookActions =
     Load |
-    Select |
-    SearchCompleted;
+    Select;
