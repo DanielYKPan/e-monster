@@ -157,13 +157,3 @@ export const getSearchNonFeaturedList = createSelector(
         return results.slice(2);
     }
 );
-
-export const getRandomMovieBackdrop = createSelector(
-    getSearchResults,
-    ( results ) => {
-        if (results && results.length) {
-            const random = results[Math.floor(Math.random() * results.length)];
-            return random.backdrop_path;
-        }
-    }
-);

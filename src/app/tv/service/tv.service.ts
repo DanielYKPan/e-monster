@@ -25,7 +25,7 @@ export class TvService extends TMDBService {
 
         return this.getResult(url, [{name: 'page', value: page.toString()}], true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'tv'};
+                return {...res, query: query};
             }),
             catchError(this.handleError)
         );
@@ -54,7 +54,7 @@ export class TvService extends TMDBService {
 
         return this.getResult(url, queries, true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'tv'};
+                return {...res, query: query};
             }),
             catchError(this.handleError)
         );
@@ -116,7 +116,7 @@ export class TvService extends TMDBService {
 
         return this.getResult(url, queries, true).pipe(
             map(( res: any ) => {
-                return {...res, query: query, type: 'tv'};
+                return {...res, query: query};
             }),
             catchError(this.handleError)
         );

@@ -6,8 +6,8 @@ import { select, Store } from '@ngrx/store';
 
 import * as fromMusicRoot from '../reducers';
 import * as fromRoot from '../../reducers';
-import * as musicActions from '../actions/music';
-import { LoadingCompleted, LoadingStart, SearchListComplete } from '../../search-store/actions';
+import * as searchMusicActions from '../actions/search';
+import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 import { MusicService } from '../service/music.service';
 
 @Injectable({
@@ -48,12 +48,11 @@ export class MusicListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromRoot.getSearchType), take(1)),
             this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
             this.store.pipe(select(fromRoot.getSearchPage), take(1)),
             this.store.pipe(select(fromRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === 'music' && result[1] === query && result[2] === page && result[3] && result[3].length > 0)
+            map(( result: any ) => result[0] === query && result[1] === page && result[2] && result[2].length > 0)
         );
     }
 
@@ -61,10 +60,10 @@ export class MusicListExistGuard implements CanActivate {
         this.store.dispatch(new LoadingStart());
 
         return this.musicService.getNewReleases(page).pipe(
-            map(res => new SearchListComplete(res)),
+            map(res => new searchMusicActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new musicActions.SearchListCompleted(action.payload.results));
+                this.store.dispatch(new LoadingCompleted());
             }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(( res ) => {
