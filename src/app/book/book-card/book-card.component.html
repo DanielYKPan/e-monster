@@ -17,6 +17,6 @@
     </div>
     <div class="book-card-footer">
         <h5>Written By:</h5>
-        <span>{{ book.volumeInfo.authors | bcAddCommas }}</span>
+        <span>{{ book.volumeInfo.authors | addCommas: 'Author Unknown' }}</span>
     </div>
 </a>

@@ -9,7 +9,6 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './reducers';
 import { BookRoutingModule } from './book.routing';
 import { EllipsisPipe } from './pipes/ellipsis.pipe';
-import { AddCommasPipe } from './pipes/add-commas.pipe';
 import { BookComponent } from './book.component';
 import { BookListComponent } from './book-list/book-list.component';
 import { ShareModule } from '../share/share.module';
@@ -28,7 +27,6 @@ import { BookDetailsComponent } from './book-details/book-details.component';
     exports: [],
     declarations: [
         EllipsisPipe,
-        AddCommasPipe,
         BookComponent,
         BookListComponent,
         SearchListComponent,

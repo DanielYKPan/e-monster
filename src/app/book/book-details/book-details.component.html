@@ -81,7 +81,7 @@
 
                         <li class="stats-item">
                             <label>Author:</label>
-                            <span>{{ book.volumeInfo.authors | bcAddCommas }}</span>
+                            <span>{{ book.volumeInfo.authors | addCommas: 'Author Unknown' }}</span>
                         </li>
 
                         <li class="stats-item">
