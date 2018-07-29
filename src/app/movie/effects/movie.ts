@@ -4,22 +4,24 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { MovieService } from '../service/movie.service';
-import { SearchActionTypes, SearchError, SearchList, SearchListComplete } from '../../search-store/actions';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
+
+import { MovieService } from '../service/movie.service';
+import { Search, SearchMovieActionTypes } from '../actions/search';
+import * as searchMovieActions from '../actions/search';
 
 @Injectable()
 export class MovieEffect {
 
     @Effect()
     public searchList$ = this.actions$.pipe(
-        ofType(SearchActionTypes.SearchList),
-        map(( action: SearchList ) => action.payload),
+        ofType(SearchMovieActionTypes.Search),
+        map(( action: Search ) => action.payload),
         switchMap(( payload: any ) => {
             return this.movieService.searchList(payload.query, payload.page).pipe(
-                map(results => new SearchListComplete(results)),
-                catchError(err => of(new SearchError(err)))
+                map(results => new searchMovieActions.SearchComplete(results)),
+                catchError(err => of(new searchMovieActions.SearchError(err)))
             );
         })
     );

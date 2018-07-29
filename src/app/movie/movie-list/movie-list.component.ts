@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import * as fromMoviesRoot from '../reducers';
-import * as fromRoot from '../../reducers';
-import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
+
 import { IAudio } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import * as fromMovieRoot from '../reducers';
+import * as movieVideoActions from '../actions/video';
 
 @Component({
     selector: 'app-movie-list',
@@ -39,16 +39,16 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
     private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private router: Router,
-                 private store: Store<fromMoviesRoot.State>,
+                 private store: Store<fromMovieRoot.State>,
                  private dialogService: OwlDialogService ) {
     }
 
     ngOnInit() {
-        this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
+        this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedList));
+        this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedList));
+        this.listQuery$ = this.store.pipe(select(fromMovieRoot.getSearchQuery));
+        this.listPage$ = this.store.pipe(select(fromMovieRoot.getSearchPage));
+        this.listTotalPages$ = this.store.pipe(select(fromMovieRoot.getSearchTotalPage));
     }
 
     public ngAfterContentInit(): void {
@@ -56,7 +56,7 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
-            select(fromRoot.getSearchResults),
+            select(fromMovieRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
             window.scroll({top: 0, behavior: 'smooth'});
@@ -84,8 +84,8 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         // search the movie videos
         this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
-        const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
-        const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
+        const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
+        const showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchVideoLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {

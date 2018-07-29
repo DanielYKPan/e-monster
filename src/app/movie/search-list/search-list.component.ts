@@ -5,7 +5,6 @@ import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { IAudio } from '../../model';
 import * as fromMoviesRoot from '../reducers';
-import * as fromRoot from '../../reducers';
 import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
@@ -36,18 +35,18 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     }
 
     ngOnInit() {
-        this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
+        this.list$ = this.store.pipe(select(fromMoviesRoot.getSearchNonFeaturedList));
+        this.featuredList$ = this.store.pipe(select(fromMoviesRoot.getSearchFeaturedList));
+        this.listQuery$ = this.store.pipe(select(fromMoviesRoot.getSearchQuery));
+        this.listPage$ = this.store.pipe(select(fromMoviesRoot.getSearchPage));
+        this.listTotalPages$ = this.store.pipe(select(fromMoviesRoot.getSearchTotalPage));
     }
 
     public ngAfterContentInit(): void {
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
-            select(fromRoot.getSearchResults),
+            select(fromMoviesRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
             window.scroll({top: 0, behavior: 'smooth'});

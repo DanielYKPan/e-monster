@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import * as fromMovieRoot from '../reducers';
-import * as fromRoot from '../../reducers';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
+
+import * as fromMovieRoot from '../reducers';
 
 @Component({
     selector: 'app-movie-home',
@@ -18,7 +18,7 @@ export class MovieHomeComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this.backdrop$ = this.store.pipe(select(fromRoot.getRandomMovieBackdrop));
+        this.backdrop$ = this.store.pipe(select(fromMovieRoot.getRandomMovieBackdrop));
     }
 
 }

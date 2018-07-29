@@ -4,20 +4,20 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { MovieService } from '../service/movie.service';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import * as fromMoviesRoot from '../reducers';
+
+import { MovieService } from '../service/movie.service';
+import * as fromMovieRoot from '../reducers';
 import * as movieActions from '../actions/movie';
 import * as videoActions from '../actions/video';
 import * as searchActions from '../../search-store/actions';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class MovieExistGuard implements CanActivate {
 
-    constructor( private store: Store<fromMoviesRoot.State>,
+    constructor( private store: Store<fromMovieRoot.State>,
                  private movieService: MovieService,
                  private router: Router ) {
     }
@@ -46,7 +46,7 @@ export class MovieExistGuard implements CanActivate {
      * */
     private hasMovieInStore( id: number ): Observable<boolean> {
         return this.store.pipe(
-            select(fromMoviesRoot.getMovieEntities),
+            select(fromMovieRoot.getMovieEntities),
             map(entities => !!entities[id]),
             take(1)
         );
