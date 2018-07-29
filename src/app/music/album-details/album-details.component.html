@@ -108,7 +108,7 @@
                 <h4 class="details-inform-header">Tracks</h4>
                 <ol class="album-tracks-list">
                     <li class="album-track-item" *ngFor="let track of album.tracks.items">
-                        <button class="basic-btn album-track-item-btn"
+                        <button type="button" class="basic-btn album-track-item-btn"
                                 (click)="handleClickOnTrack(track, album.name, $event)">
                             <span class="album-track-item-left">
                                 <i class="fas fa-music"></i>

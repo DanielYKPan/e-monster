@@ -62,7 +62,8 @@
                     <h4 class="details-inform-header">Top Hit Tracks</h4>
                     <ol class="tracks-list">
                         <li class="track-item" *ngFor="let track of artist.top_tracks; index as i">
-                            <button class="basic-btn track-item-btn" (click)="handleClickOnTrack(track, $event)">
+                            <button type="button" class="basic-btn track-item-btn"
+                                    (click)="handleClickOnTrack(track, $event)">
                                 <span class="track-item-left">
                                     <span class="details-body-poster">
                                         <img [lazyLoad]="track.album.images[0].url"
