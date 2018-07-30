@@ -1,8 +1,8 @@
 <a class="book-card-inner book-anchor" [routerLink]="'/book/' + book.id + '/details'">
     <div class="book-card-header">
         <div class="book-card-title">
-            <h1>{{book.volumeInfo.title | bcEllipsis:35}}</h1>
-            <h2 *ngIf="book.volumeInfo.subtitle">{{book.volumeInfo.subtitle | bcEllipsis:40}}</h2>
+            <h1>{{book.volumeInfo.title | ellipsis:35}}</h1>
+            <h2 *ngIf="book.volumeInfo.subtitle">{{book.volumeInfo.subtitle | ellipsis:40}}</h2>
         </div>
 
         <div class="poster-frame">
@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="book-card-content">
-        <p *ngIf="book.volumeInfo.description as description">{{ description | bcEllipsis }}</p>
+        <p *ngIf="book.volumeInfo.description as description">{{ description | ellipsis }}</p>
     </div>
     <div class="book-card-footer">
         <h5>Written By:</h5>

@@ -12,47 +12,39 @@
     <div class="frame-main-wrapper">
         <div class="album-grid featured">
             <div *ngFor="let album of featuredList$ | async" class="album-card">
-                <div class="poster-frame">
-                    <a class="album-anchor" [routerLink]="'/music/album/' + album.id">
+                <a class="album-card-anchor" [routerLink]="'/music/album/' + album.id">
+                    <div class="poster-frame">
                         <img [lazyLoad]="album.images[1].url"
                              [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
                              [alt]="album.name"
                              alt="Poster">
-                    </a>
-                </div>
-                <div class="album-inform">
-                    <h3>
-                        <a class="album-anchor" [routerLink]="'/music/album/' + album.id">{{album.name}}</a>
-                    </h3>
-                    <ul class="artist-list">
-                        <li *ngFor="let person of album.artists" class="artist-list-item">
-                            <a class="album-anchor">{{person.name}}</a>
-                        </li>
-                    </ul>
-                </div>
+                    </div>
+                    <div class="album-inform">
+                        <h3>{{album.name | ellipsis: 50}}</h3>
+                        <ul class="artist-list">
+                            <li *ngFor="let person of album.artists" class="artist-list-item">{{person.name}}</li>
+                        </ul>
+                    </div>
+                </a>
             </div>
         </div>
 
         <div class="album-grid">
             <div *ngFor="let album of list$| async" class="album-card">
-                <div class="poster-frame">
-                    <a class="album-anchor" [routerLink]="'/music/album/' + album.id">
+                <a class="album-card-anchor" [routerLink]="'/music/album/' + album.id">
+                    <div class="poster-frame">
                         <img [lazyLoad]="album.images[1].url"
                              [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
                              [alt]="album.name"
                              alt="Poster">
-                    </a>
-                </div>
-                <div class="album-inform">
-                    <h4>
-                        <a class="album-anchor" [routerLink]="'/music/album/' + album.id">{{album.name}}</a>
-                    </h4>
-                    <ul class="artist-list">
-                        <li *ngFor="let person of album.artists" class="artist-list-item">
-                            <a class="album-anchor">{{person.name}}</a>
-                        </li>
-                    </ul>
-                </div>
+                    </div>
+                    <div class="album-inform">
+                        <h4>{{album.name | ellipsis: 40}}</h4>
+                        <ul class="artist-list">
+                            <li *ngFor="let person of album.artists" class="artist-list-item">{{person.name}}</li>
+                        </ul>
+                    </div>
+                </a>
             </div>
         </div>
 
