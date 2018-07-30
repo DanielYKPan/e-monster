@@ -4,7 +4,6 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
-import * as fromRoot from '../../reducers';
 import * as fromPeopleRoot from '../reducers';
 import * as searchActions from '../../search-store/actions';
 import * as artistActions from '../actions/artist';
@@ -15,7 +14,7 @@ import { ArtistService } from '../service/artist.service';
 })
 export class ArtistExistGuard implements CanActivate {
 
-    constructor( private store: Store<fromRoot.State>,
+    constructor( private store: Store<fromPeopleRoot.State>,
                  private peopleService: ArtistService,
                  private router: Router ) {
     }

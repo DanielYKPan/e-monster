@@ -13,7 +13,6 @@ import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 
 import * as fromPeopleRoot from '../reducers';
-import * as fromRoot from '../../reducers';
 import { IActor } from '../../model';
 
 @Component({
@@ -43,11 +42,11 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     }
 
     public ngOnInit() {
-        this.list$ = this.store.pipe(select(fromRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromRoot.getSearchTotalPage));
+        this.list$ = this.store.pipe(select(fromPeopleRoot.getSearchNonFeaturedList));
+        this.featuredList$ = this.store.pipe(select(fromPeopleRoot.getSearchFeaturedList));
+        this.listQuery$ = this.store.pipe(select(fromPeopleRoot.getSearchQuery));
+        this.listPage$ = this.store.pipe(select(fromPeopleRoot.getSearchPage));
+        this.listTotalPages$ = this.store.pipe(select(fromPeopleRoot.getSearchTotalPage));
     }
 
     public ngAfterContentInit(): void {
@@ -55,7 +54,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
-            select(fromRoot.getSearchResults),
+            select(fromPeopleRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
             this.scrollBackToTop();
