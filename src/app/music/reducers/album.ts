@@ -24,7 +24,7 @@ export const initialState: State = adapter.getInitialState({
 export function reducer( state = initialState, action: MusicActions | SearchMusicActions ): State {
     switch (action.type) {
 
-        case SearchMusicActionTypes.SearchComplete:
+        case SearchMusicActionTypes.SearchAlbumComplete:
             return adapter.addMany(action.payload.results, {
                 ...state,
                 selectedAlbumId: state.selectedAlbumId

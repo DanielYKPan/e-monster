@@ -4,11 +4,13 @@
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromAlbums from './album';
 import * as fromCoreRoot from '../../core/reducers';
-import * as fromSearch from './search';
+import * as fromSearchAlbum from './search-album';
+import * as fromSearchTrack from './search-track';
 
 export interface MusicState {
     albums: fromAlbums.State;
-    search: fromSearch.State;
+    searchAlbum: fromSearchAlbum.State;
+    searchTrack: fromSearchTrack.State;
 }
 
 export interface State extends fromCoreRoot.State {
@@ -17,7 +19,8 @@ export interface State extends fromCoreRoot.State {
 
 export const reducers: ActionReducerMap<MusicState> = {
     albums: fromAlbums.reducer,
-    search: fromSearch.reducer,
+    searchAlbum: fromSearchAlbum.reducer,
+    searchTrack: fromSearchTrack.reducer,
 };
 
 export const getMusicState = createFeatureSelector<MusicState>('music');
@@ -51,41 +54,81 @@ export const getAccessToken = createSelector(
     fromAlbums.getAccessToken
 );
 
-// Search Music State
-export const getSearchState = createSelector(
+// Search Album State
+export const getSearchAlbumState = createSelector(
     getMusicState,
-    ( state: MusicState ) => state.search
+    ( state: MusicState ) => state.searchAlbum
 );
 
-export const getSearchPage = createSelector(
-    getSearchState,
-    fromSearch.getPage,
+export const getSearchAlbumPage = createSelector(
+    getSearchAlbumState,
+    fromSearchAlbum.getPage,
 );
 
-export const getSearchTotalPage = createSelector(
-    getSearchState,
-    fromSearch.getTotalPage,
+export const getSearchAlbumTotalPage = createSelector(
+    getSearchAlbumState,
+    fromSearchAlbum.getTotalPage,
 );
 
-export const getSearchQuery = createSelector(
-    getSearchState,
-    fromSearch.getSearchQuery,
+export const getSearchAlbumQuery = createSelector(
+    getSearchAlbumState,
+    fromSearchAlbum.getSearchQuery,
 );
 
-export const getSearchResults = createSelector(
-    getSearchState,
-    fromSearch.getSearchResults,
+export const getSearchAlbumResults = createSelector(
+    getSearchAlbumState,
+    fromSearchAlbum.getSearchResults,
 );
 
-export const getSearchFeaturedList = createSelector(
-    getSearchResults,
+export const getSearchAlbumFeaturedList = createSelector(
+    getSearchAlbumResults,
     ( results ) => {
         return results.slice(0, 2);
     }
 );
 
-export const getSearchNonFeaturedList = createSelector(
-    getSearchResults,
+export const getSearchAlbumNonFeaturedList = createSelector(
+    getSearchAlbumResults,
+    ( results ) => {
+        return results.slice(2);
+    }
+);
+
+// Search Track State
+export const getSearchTrackState = createSelector(
+    getMusicState,
+    ( state: MusicState ) => state.searchTrack
+);
+
+export const getSearchTrackPage = createSelector(
+    getSearchTrackState,
+    fromSearchTrack.getPage,
+);
+
+export const getSearchTrackTotalPage = createSelector(
+    getSearchTrackState,
+    fromSearchTrack.getTotalPage,
+);
+
+export const getSearchTrackQuery = createSelector(
+    getSearchTrackState,
+    fromSearchTrack.getSearchQuery,
+);
+
+export const getSearchTrackResults = createSelector(
+    getSearchTrackState,
+    fromSearchTrack.getSearchResults,
+);
+
+export const getSearchTrackFeaturedList = createSelector(
+    getSearchTrackResults,
+    ( results ) => {
+        return results.slice(0, 2);
+    }
+);
+
+export const getSearchTrackNonFeaturedList = createSelector(
+    getSearchTrackResults,
     ( results ) => {
         return results.slice(2);
     }

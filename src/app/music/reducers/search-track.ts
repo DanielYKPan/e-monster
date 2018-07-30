@@ -1,7 +1,7 @@
 /**
- * search
+ * search-track
  */
-import { IAlbum } from '../../model';
+import { ITrack } from '../../model';
 import { SearchMusicActions, SearchMusicActionTypes } from '../actions/search';
 
 export interface State {
@@ -9,7 +9,7 @@ export interface State {
     page: number;
     total_pages: number;
     total_results: number;
-    results: IAlbum[];
+    results: ITrack[];
 }
 
 const initialState: State = {
@@ -22,7 +22,7 @@ const initialState: State = {
 
 export const reducer = ( state = initialState, action: SearchMusicActions ): State => {
     switch (action.type) {
-        case SearchMusicActionTypes.SearchComplete:
+        case SearchMusicActionTypes.SearchTrackComplete:
             return {
                 query: action.payload.query,
                 page: action.payload.page,

@@ -47,9 +47,9 @@ export class MusicListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromMusicRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromMusicRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromMusicRoot.getSearchResults), take(1))
+            this.store.pipe(select(fromMusicRoot.getSearchAlbumQuery), take(1)),
+            this.store.pipe(select(fromMusicRoot.getSearchAlbumPage), take(1)),
+            this.store.pipe(select(fromMusicRoot.getSearchAlbumResults), take(1))
         ).pipe(
             map(( result: any ) => result[0] === query && result[1] === page && result[2] && result[2].length > 0)
         );
@@ -59,7 +59,7 @@ export class MusicListExistGuard implements CanActivate {
         this.store.dispatch(new layoutActions.ShowLoader());
 
         return this.musicService.getNewReleases(page).pipe(
-            map(res => new searchMusicActions.SearchComplete(res)),
+            map(res => new searchMusicActions.SearchAlbumComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());

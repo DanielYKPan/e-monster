@@ -56,6 +56,16 @@ export class MusicService extends SpotifyService {
         );
     }
 
+    public searchMusic( query: string, page: number = 1 ): Observable<any> {
+        const offSet = (page - 1) * this.limit;
+        const url = this.base_url + 'search?type=album,track&market=US&offset=' + offSet + '&q=' + query;
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.spotify_access_token);
+        return this.http.get(url, {headers}).pipe(
+            catchError(this.handleError)
+        );
+    }
+
     public getCategories(): Observable<any> {
         const url = this.base_url + 'browse/categories';
         let headers = new HttpHeaders();

@@ -6,6 +6,8 @@ import { MusicListComponent } from './music-list/music-list.component';
 import { MusicListExistGuard } from './guards/music-list-exist.guard';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { AlbumExistGuard } from './guards/album-exist.guard';
+import { SearchListComponent } from './search-list/search-list.component';
+import { SearchListExistGuard } from './guards/search-list-exist.guard';
 
 const routes: Routes = [
     {
@@ -16,6 +18,7 @@ const routes: Routes = [
             {path: '', redirectTo: 'list/new-releases', pathMatch: 'full'},
             {path: 'list', redirectTo: 'list/new-releases', pathMatch: 'full'},
             {path: 'list/:query', component: MusicListComponent, canActivate: [MusicListExistGuard]},
+            {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: 'album/:id', component: AlbumDetailsComponent, canActivate: [AlbumExistGuard]},
         ]
     }
@@ -28,6 +31,7 @@ const routes: Routes = [
         TokenExistGuard,
         MusicListExistGuard,
         AlbumExistGuard,
+        SearchListExistGuard,
     ]
 })
 export class MusicRoutingModule {
