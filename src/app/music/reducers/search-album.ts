@@ -17,7 +17,7 @@ const initialState: State = {
     page: 0,
     total_pages: 0,
     total_results: 0,
-    results: [],
+    results: null,
 };
 
 export const reducer = ( state = initialState, action: SearchMusicActions ): State => {

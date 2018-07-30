@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    QueryList,
+    ViewChildren
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
@@ -17,27 +26,45 @@ import { TrackDialogComponent } from '../../share/track-dialog/track-dialog.comp
     styleUrls: ['./album-details.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AlbumDetailsComponent implements OnInit, OnDestroy {
+export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
+
+    @ViewChildren('trackItem') trackItems: QueryList<ElementRef>;
 
     public album$: Observable<IAlbum>;
 
-    private routeSub = Subscription.EMPTY;
+    private routeParamsSub = Subscription.EMPTY;
+
+    private routeQueriesSub = Subscription.EMPTY;
 
     constructor( private route: ActivatedRoute,
+                 private elm: ElementRef,
                  private store: Store<fromMusicRoot.State>,
                  private dialogService: OwlDialogService ) {
     }
 
     public ngOnInit() {
-        this.routeSub = this.route.params
+        this.routeParamsSub = this.route.params
             .pipe(map(params => new musicActions.Select(params.id)))
             .subscribe(action => this.store.dispatch(action));
 
         this.album$ = this.store.pipe(select(fromMusicRoot.getSelectedAlbum));
     }
 
+    public ngAfterViewInit(): void {
+        this.routeQueriesSub = this.route.queryParams
+            .pipe(map(query => query['track_id']))
+            .subscribe(( id ) => {
+                if (id) {
+                    // scroll track item into view
+                    const trackItem = this.trackItems.find(( item ) => item.nativeElement.id === id);
+                    trackItem.nativeElement.scrollIntoView({behavior: 'smooth'});
+                }
+            });
+    }
+
     public ngOnDestroy(): void {
-        this.routeSub.unsubscribe();
+        this.routeParamsSub.unsubscribe();
+        this.routeQueriesSub.unsubscribe();
     }
 
     public handleClickOnTrack( track: any, albumName: string, event: any ): any {

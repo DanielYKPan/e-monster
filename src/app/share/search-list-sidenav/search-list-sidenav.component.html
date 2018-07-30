@@ -1,4 +1,4 @@
-<app-frame-sidenav [title]="'SearchAlbum'"
+<app-frame-sidenav [title]="'Search'"
                    [listPage]="listPage"
                    [listTotalPages]="listTotalPages"
                    [listQuery]="listQuery"
@@ -7,7 +7,7 @@
                    (clickOption)="clickOption.next($event)"
                    (goToPage)="goToPage.next($event)">
     <label class="filter-query-input-label" for="filter-query">
-        SearchAlbum Terms
+        Search Terms
         <input type="search" name="query" id="filter-query" class="filter-query-input"
                placeholder="What are you looking for?"
                (input)="handleFilterQueryInput($event)"

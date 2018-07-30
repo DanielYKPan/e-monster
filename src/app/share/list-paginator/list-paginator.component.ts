@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, O
 
 @Component({
     selector: 'app-list-paginator',
+    exportAs: 'paginator',
     templateUrl: './list-paginator.component.html',
     styleUrls: ['./list-paginator.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

@@ -40,7 +40,7 @@ export class MusicService extends SpotifyService {
                     page: page,
                     total_results,
                     total_pages,
-                    results: res.albums.items || []
+                    results: res.albums.items || null
                 };
             }),
             catchError(this.handleError)
@@ -56,12 +56,86 @@ export class MusicService extends SpotifyService {
         );
     }
 
+    /**
+     * Search both album and track
+     * */
     public searchMusic( query: string, page: number = 1 ): Observable<any> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'search?type=album,track&market=US&offset=' + offSet + '&q=' + query;
         let headers = new HttpHeaders();
         headers = headers.set('Authorization', 'Bearer ' + this.spotify_access_token);
         return this.http.get(url, {headers}).pipe(
+            map((res: any) => {
+                const total_results_album = res.albums.total;
+                const total_pages_album = total_results_album / this.limit;
+                const total_results_track = res.tracks.total;
+                const total_pages_track = total_results_track / this.limit;
+
+                return {
+                    albums: {
+                        query,
+                        page,
+                        total_results: total_results_album,
+                        total_pages: total_pages_album,
+                        results: res.albums.items || null
+                    },
+                    tracks: {
+                        query,
+                        page,
+                        total_results: total_results_track,
+                        total_pages: total_pages_track,
+                        results: res.tracks.items || null
+                    }
+                };
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Search only album
+     * */
+    public searchAlbum( query: string, page: number = 1 ): Observable<any> {
+        const offSet = (page - 1) * this.limit;
+        const url = this.base_url + 'search?type=album&market=US&offset=' + offSet + '&q=' + query;
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.spotify_access_token);
+        return this.http.get(url, {headers}).pipe(
+            map(( res: any ) => {
+                const total_results = res.albums.total;
+                const total_pages = total_results / this.limit;
+                return {
+                    query,
+                    page,
+                    total_results,
+                    total_pages,
+                    results: res.albums.items || null
+                };
+            }),
+            catchError(this.handleError)
+        );
+    }
+
+    /**
+     * Search only track
+     * */
+    public searchTrack( query: string, page: number = 1 ): Observable<any> {
+        const offSet = (page - 1) * this.limit;
+        const url = this.base_url + 'search?type=track&market=US&offset=' + offSet + '&q=' + query;
+        let headers = new HttpHeaders();
+        headers = headers.set('Authorization', 'Bearer ' + this.spotify_access_token);
+        return this.http.get(url, {headers}).pipe(
+            map(( res: any ) => {
+                const total_results = res.tracks.total;
+                const total_pages = total_results / this.limit;
+                return {
+                    query,
+                    page,
+                    total_results,
+                    total_pages,
+                    results: res.tracks.items || null
+                };
+            }),
             catchError(this.handleError)
         );
     }

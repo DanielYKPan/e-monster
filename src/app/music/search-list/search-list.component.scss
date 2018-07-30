@@ -1,0 +1,180 @@
+@import "../../../sass/list/list";
+
+.frame-main-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+}
+
+.frame-main-partial {
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  box-sizing: border-box;
+
+  &:last-child {
+    border-left: solid 1px #2d2d2d;
+  }
+
+  h1 {
+    margin: 0 0 1rem;
+  }
+}
+
+.album-list {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  grid-gap: 2rem .8rem;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  padding: 0 .5rem .5rem;
+  box-sizing: border-box;
+  justify-items: center;
+
+  .album-list-item {
+    width: 100%;
+  }
+
+  .album-list-item-anchor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: .5rem;
+    box-sizing: border-box;
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+    outline: none;
+
+    &:hover, &:focus {
+      box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
+    }
+
+    .poster {
+      width: 100%;
+      height: auto;
+      min-height: 8rem;
+      border: solid 3px #fff;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      background-color: #000000;
+      box-shadow: 0 0 20px 0 #000;
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter .2s linear, opacity 1s;
+        opacity: 0;
+        filter: brightness(95%);
+
+        &.ng-lazyloaded {
+          opacity: 1;
+        }
+      }
+    }
+
+    .album-name,
+    .artist-name {
+      margin: 0 0 .5rem;
+      text-overflow: ellipsis;
+      white-space: normal;
+      overflow: hidden;
+    }
+  }
+}
+
+.tracks-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .track-item-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 4.5rem;
+    padding: .5rem 0;
+    text-align: left;
+    color: #FFFFFF;
+
+    &:hover,
+    &:focus {
+      background-color: hsla(0, 100%, 100%, 0.1);
+      color: #1f9f55;
+    }
+  }
+
+  .poster {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    margin-bottom: 0;
+    border: solid 1px #fff;
+    box-sizing: border-box;
+    background-color: #000000;
+    box-shadow: 0 0 20px 0 #000;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: filter .2s linear, opacity 1s;
+      opacity: 0;
+      filter: brightness(95%);
+
+      &.ng-lazyloaded {
+        opacity: 1;
+      }
+    }
+  }
+
+  .track-item-left {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 6rem;
+    padding-right: 1rem;
+    box-sizing: border-box;
+  }
+
+  .track-item-middle {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .track-name {
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .second-line {
+      display: block;
+    }
+
+    .explicit-label {
+      font-size: .7rem;
+      line-height: 1rem;
+      letter-spacing: .015em;
+      display: inline-block;
+      text-transform: uppercase;
+      background-color: hsla(0, 100%, 100%, 0.2);
+      color: #FFFFFF;
+      border-radius: 2px;
+      padding: 0 .3em;
+      margin-right: .67em;
+    }
+
+    .artist-name {
+      font-size: .7rem;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}
