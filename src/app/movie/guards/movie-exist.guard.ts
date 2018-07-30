@@ -12,7 +12,7 @@ import { MovieService } from '../service/movie.service';
 import * as fromMovieRoot from '../reducers';
 import * as movieActions from '../actions/movie';
 import * as videoActions from '../actions/video';
-import * as searchActions from '../../search-store/actions';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable()
 export class MovieExistGuard implements CanActivate {
@@ -57,7 +57,7 @@ export class MovieExistGuard implements CanActivate {
      * */
     private hasMovieInApi( id: number ): Observable<boolean> {
 
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.movieService.getMovie(id).pipe(
             map(movieEntity => {
                 if (movieEntity.id !== id) {
@@ -68,11 +68,11 @@ export class MovieExistGuard implements CanActivate {
             }),
             tap(( action: movieActions.Load ) => {
                 this.store.dispatch(action);
-                this.store.dispatch(new searchActions.LoadingCompleted());
-                this.store.dispatch(new searchActions.SetSearchType('movie'));
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(movie => !!movie),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

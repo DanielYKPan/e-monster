@@ -5,9 +5,9 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import { ActorService } from '../service/actor.service';
-import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 import * as fromPeopleRoot from '../reducers';
 import * as searchActorActions from '../actions/search-actor';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable({
     providedIn: 'root'
@@ -50,7 +50,7 @@ export class SearchListExistGuard implements CanActivate {
     }
 
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
-        this.store.dispatch(new LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
 
         const search = query === 'popular' ?
             this.actorService.getActorList(query, page) :
@@ -60,10 +60,11 @@ export class SearchListExistGuard implements CanActivate {
             map(res => new searchActorActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(res => !!res.payload.results),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

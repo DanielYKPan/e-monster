@@ -1,7 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromRoot from '../reducers';
 
 @Component({
     selector: 'app-page-not-found',
@@ -11,13 +8,10 @@ import * as fromRoot from '../reducers';
 })
 export class PageNotFoundComponent implements OnInit {
 
-    public showLoader$: Observable<boolean>;
-
-    constructor( private store: Store<fromRoot.State> ) {
+    constructor() {
     }
 
     ngOnInit() {
-        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchLoading));
     }
 
 }

@@ -3,11 +3,11 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { select, Store } from '@ngrx/store';
 import { Observable, of, forkJoin } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
+
 import { GoogleBookService } from '../book.service';
-import * as fromRoot from '../../reducers';
 import * as fromBookRoot from '../reducers';
 import * as searchBookActions from '../actions/search';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable({
     providedIn: 'root'
@@ -41,16 +41,16 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromRoot.getSearchResults), take(1)),
+            this.store.pipe(select(fromBookRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromBookRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromBookRoot.getSearchResults), take(1)),
         ).pipe(
             map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
         );
     }
 
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
-        this.store.dispatch(new LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
 
         const search = query === 'combined-print-and-e-book-fiction' ?
             this.bookService.getBookList(query) :
@@ -60,10 +60,11 @@ export class SearchListExistGuard implements CanActivate {
             map(res => new searchBookActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(res => !!res.payload.results),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

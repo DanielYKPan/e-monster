@@ -3,7 +3,7 @@
  */
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromAlbums from './album';
-import * as fromRoot from '../../reducers';
+import * as fromCoreRoot from '../../core/reducers';
 import * as fromSearch from './search';
 
 export interface MusicState {
@@ -11,7 +11,7 @@ export interface MusicState {
     search: fromSearch.State;
 }
 
-export interface State extends fromRoot.State {
+export interface State extends fromCoreRoot.State {
     albums: MusicState;
 }
 

@@ -4,8 +4,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 
-import * as fromRoot from './reducers';
-import * as fromLayout from './layout/actions';
+import * as fromCoreRoot from './core/reducers';
 
 @Component({
     selector: 'app-root',
@@ -21,12 +20,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
     private breakpointSub = Subscription.EMPTY;
 
-    public showSidenav$: Observable<boolean>;
-
     public showLoader$: Observable<boolean>;
-    public showLoader = false;
 
-    constructor( private store: Store<fromRoot.State>,
+    constructor( private store: Store<fromCoreRoot.State>,
                  private breakpointObserver: BreakpointObserver ) {
     }
 
@@ -39,24 +35,10 @@ export class AppComponent implements OnInit, OnDestroy {
                 this._isMobile = !result.matches;
             });
 
-        this.showSidenav$ = this.store.pipe(select(fromRoot.getShowSidenav));
-
-        // this.showLoader$ = this.store.pipe(select(fromRoot.getShowLoader));
+        this.showLoader$ = this.store.pipe(select(fromCoreRoot.getShowLoader));
     }
 
     public ngOnDestroy(): void {
         this.breakpointSub.unsubscribe();
-    }
-
-    public closeSidenav(): void {
-        this.store.dispatch(new fromLayout.CloseSidenav);
-    }
-
-    public openSidenav(): void {
-        this.store.dispatch(new fromLayout.OpenSidenav);
-    }
-
-    public toggleSidenav(): void {
-        this.store.dispatch(new fromLayout.ToggleSidenav);
     }
 }

@@ -15,6 +15,7 @@ import { ShareModule } from '../share/share.module';
 import { SearchListComponent } from './search-list/search-list.component';
 import { BookCardComponent } from './book-card/book-card.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
+import { GoogleBookService } from './book.service';
 
 @NgModule({
     imports: [
@@ -33,7 +34,9 @@ import { BookDetailsComponent } from './book-details/book-details.component';
         BookCardComponent,
         BookDetailsComponent
     ],
-    providers: [],
+    providers: [
+        GoogleBookService,
+    ],
 })
 export class BookModule {
 }

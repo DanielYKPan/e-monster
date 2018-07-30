@@ -5,7 +5,7 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromMovies from './movie';
 import * as fromVideos from './video';
 import * as fromSearch from './search';
-import * as fromRoot from '../../reducers';
+import * as fromCoreRoot from '../../core/reducers';
 
 export interface MoviesState {
     movies: fromMovies.State;
@@ -13,7 +13,7 @@ export interface MoviesState {
     search: fromSearch.State;
 }
 
-export interface State extends fromRoot.State {
+export interface State extends fromCoreRoot.State {
     movies: MoviesState;
 }
 

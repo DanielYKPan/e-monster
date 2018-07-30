@@ -9,9 +9,9 @@ import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import { MovieService } from '../service/movie.service';
-import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 import * as fromMovieRoot from '../reducers';
 import * as searchMovieActions from '../actions/search';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable()
 export class MovieListExistGuard implements CanActivate {
@@ -59,15 +59,16 @@ export class MovieListExistGuard implements CanActivate {
      * Check whether there is search result in API.
      * */
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
-        this.store.dispatch(new LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.movieService.searchList(query, page).pipe(
             map(res => new searchMovieActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

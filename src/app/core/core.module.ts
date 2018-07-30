@@ -2,10 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { DBModule } from '@ngrx/db';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 import { OwlMenuModule, OwlRippleModule } from 'owl-ng';
+
 import { HeaderComponent } from './header/header.component';
 import { HeaderSearcherComponent } from './header-searcher/header-searcher.component';
 import { FooterSearcherComponent } from './footer-searcher/footer-searcher.component';
+import { reducers } from './reducers';
+import { schema } from './db';
+import { environment } from '../../environments/environment';
 
 @NgModule({
     imports: [
@@ -16,6 +24,15 @@ import { FooterSearcherComponent } from './footer-searcher/footer-searcher.compo
         // Owl NG
         OwlMenuModule,
         OwlRippleModule,
+
+        // ngrx
+        StoreModule.forRoot(reducers),
+        EffectsModule.forRoot([]),
+        DBModule.provideDB(schema),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25, // Retains last 25 states
+            logOnly: environment.production // Restrict extension to log-only mode
+        })
     ],
     exports: [
         HeaderComponent,
@@ -24,7 +41,7 @@ import { FooterSearcherComponent } from './footer-searcher/footer-searcher.compo
     declarations: [
         HeaderComponent,
         HeaderSearcherComponent,
-        FooterSearcherComponent
+        FooterSearcherComponent,
     ]
 })
 export class CoreModule {

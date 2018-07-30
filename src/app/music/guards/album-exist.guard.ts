@@ -6,8 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { MusicService } from '../service/music.service';
 import * as fromMusicRoot from '../reducers';
 import * as musicActions from '../actions/music';
-import * as searchActions from '../../search-store/actions';
-import { LoadingCompleted } from '../../search-store/actions';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable({
     providedIn: 'root'
@@ -46,19 +45,18 @@ export class AlbumExistGuard implements CanActivate {
     }
 
     private hasAlbumInApi( id: string ): Observable<boolean> {
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.musicService.getAlbum(id).pipe(
             map(albumEntity => new musicActions.Load(albumEntity)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new searchActions.LoadingCompleted());
-                this.store.dispatch(new searchActions.SetSearchType('music'));
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(album => !!album),
             catchError(( res ) => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 // The access token expired
                 if (res && res.error && res.status && res.status === 401) {
-                    this.store.dispatch(new LoadingCompleted());
                     this.musicService.spotify_access_token = '';
                     this.router.navigate(['music/album', id]);
                     return of(false);

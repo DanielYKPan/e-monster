@@ -5,7 +5,7 @@ import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import * as fromPeopleRoot from '../reducers';
-import * as searchActions from '../../search-store/actions';
+import * as layoutActions from '../../core/layout-store/actions';
 import * as artistActions from '../actions/artist';
 import { ArtistService } from '../service/artist.service';
 
@@ -47,7 +47,7 @@ export class ArtistExistGuard implements CanActivate {
     }
 
     private hasArtistInApi( id: string ): Observable<boolean> {
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.peopleService.getArtistDetails(id).pipe(
             map(artistEntity => {
                 if (artistEntity.id !== id) {
@@ -58,14 +58,14 @@ export class ArtistExistGuard implements CanActivate {
             }),
             tap(( action: artistActions.Load ) => {
                 this.store.dispatch(action);
-                this.store.dispatch(new searchActions.LoadingCompleted());
-                this.store.dispatch(new searchActions.SetSearchType('people'));
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(actor => !!actor),
             catchError(( res ) => {
+                this.store.dispatch(new layoutActions.HideLoader());
+
                 // The access token expired
                 if (res && res.error && res.status && res.status === 401) {
-                    this.store.dispatch(new searchActions.LoadingCompleted());
                     this.peopleService.spotify_access_token = '';
                     this.router.navigate(['people/artist', id]);
                     return of(false);

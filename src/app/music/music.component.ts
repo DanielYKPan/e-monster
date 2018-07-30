@@ -1,12 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { MusicService } from './service/music.service';
-import { Observable } from 'rxjs/Observable';
-import { select, Store } from '@ngrx/store';
-import * as fromRoot from '../reducers';
-import * as fromMusicRoot from './reducers';
-import { IAlbum } from '../model';
 
 @Component({
     selector: 'app-music',
@@ -16,19 +10,11 @@ import { IAlbum } from '../model';
 })
 export class MusicComponent implements OnInit {
 
-    public showLoader$: Observable<boolean>;
-
-    public list$: Observable<IAlbum[]>;
-
     constructor( private http: HttpClient,
-                 private store: Store<fromMusicRoot.State>,
-                 private musicService: MusicService,
                  @Inject(DOCUMENT) private document: any ) {
     }
 
     ngOnInit() {
-        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchMusicTypeLoader));
-        this.list$ = this.store.pipe(select(fromRoot.getSearchResults));
     }
 
     public onDeactivate() {
@@ -46,9 +32,5 @@ export class MusicComponent implements OnInit {
             .subscribe(( res ) => {
                 console.log(res);
             });*/
-
-        this.musicService.getCategories().subscribe((r) => {
-            console.log(r);
-        });
     }
 }

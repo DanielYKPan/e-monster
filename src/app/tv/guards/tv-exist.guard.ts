@@ -4,15 +4,15 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
+
+import { TvService } from '../service/tv.service';
 import * as fromTvRoot from '../reducers';
-import * as searchActions from '../../search-store/actions';
 import * as tvActions from '../actions/tv';
 import * as videoActions from '../actions/video';
-import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
-import { TvService } from '../service/tv.service';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable()
 export class TvExistGuard implements CanActivate {
@@ -49,7 +49,7 @@ export class TvExistGuard implements CanActivate {
     }
 
     private hasTvInApi( id: number ): Observable<boolean> {
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
 
         return this.tvService.getTv(id).pipe(
             map(tvEntity => {
@@ -61,14 +61,14 @@ export class TvExistGuard implements CanActivate {
                 }
             }),
             tap(( tvEntity ) => {
-                this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
                 if (tvEntity) {
                     this.store.dispatch(new tvActions.Load(tvEntity));
-                    this.store.dispatch(new searchActions.SetSearchType('tv'));
                 }
             }),
             map(res => !!res),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

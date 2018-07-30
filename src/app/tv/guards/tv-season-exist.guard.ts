@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { forkJoin, Observable, throwError } from 'rxjs';
+import { forkJoin, Observable, throwError, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs/internal/observable/of';
+
 import * as fromTvRoot from '../reducers';
 import * as tvActions from '../actions/tv';
 import * as tvVideoActions from '../actions/video';
-import * as searchActions from '../../search-store/actions';
+import * as layoutActions from '../../core/layout-store/actions';
 import { TvService } from '../service/tv.service';
 import { ITv } from '../../model';
 
@@ -52,15 +52,16 @@ export class TvSeasonExistGuard implements CanActivate {
     }
 
     private hasTvSeasonDetailsInApi( tv: ITv, season_number: number ): Observable<boolean> {
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.tvService.getTvSeason(tv.id, season_number).pipe(
             map(seasonDetails => {
                 const new_seasons = tv.seasons.map(s => +s.id === +seasonDetails.id ? seasonDetails : s);
                 this.store.dispatch(new tvActions.UpdateTV({tv: {id: tv.id, changes: {seasons: new_seasons}}}));
-                this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
                 return !!seasonDetails;
             }),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })
@@ -75,7 +76,7 @@ export class TvSeasonExistGuard implements CanActivate {
     }
 
     private hasTvAndTvSeasonInApi( tv_id: number, season_number: number ): Observable<boolean> {
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         const tv$ = this.tvService.getTv(tv_id);
         const season$ = this.tvService.getTvSeason(tv_id, season_number);
 
@@ -94,12 +95,12 @@ export class TvSeasonExistGuard implements CanActivate {
                     season_number,
                     season_id: season.id
                 }));
-                this.store.dispatch(new searchActions.LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.store.dispatch(new tvActions.Load(tv));
-                this.store.dispatch(new searchActions.SetSearchType('tv'));
                 return !!tv;
             }),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

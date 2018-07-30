@@ -5,7 +5,7 @@
 import * as fromActor from './actor';
 import * as fromSearchActor from './search-actor';
 import * as fromArtist from './artist';
-import * as fromRoot from '../../reducers';
+import * as fromCoreRoot from '../../core/reducers';
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface PeopleState {
@@ -14,7 +14,7 @@ export interface PeopleState {
     artists: fromArtist.State;
 }
 
-export interface State extends fromRoot.State {
+export interface State extends fromCoreRoot.State {
     people: PeopleState;
 }
 

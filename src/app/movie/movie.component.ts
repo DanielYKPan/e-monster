@@ -1,8 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import * as fromMovieRoot from './reducers';
-import * as fromRoot from '../reducers';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
     selector: 'app-movie',
@@ -12,13 +8,10 @@ import { Observable } from 'rxjs/Observable';
 })
 export class MovieComponent implements OnInit {
 
-    public showLoader$: Observable<boolean>;
-
-    constructor( private store: Store<fromMovieRoot.State> ) {
+    constructor() {
     }
 
     public ngOnInit() {
-        this.showLoader$ = this.store.pipe(select(fromRoot.getSearchMovieTypeLoader));
     }
 
     public onDeactivate() {

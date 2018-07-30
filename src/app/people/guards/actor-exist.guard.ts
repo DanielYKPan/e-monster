@@ -7,7 +7,7 @@ import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { ActorService } from '../service/actor.service';
 import * as fromPeopleRoot from '../reducers';
 import * as actorActions from '../actions/actor';
-import * as searchActions from '../../search-store/actions';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable({
     providedIn: 'root'
@@ -47,7 +47,7 @@ export class ActorExistGuard implements CanActivate {
     }
 
     private hasActorInApi( id: number ): Observable<boolean> {
-        this.store.dispatch(new searchActions.LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.peopleService.searchActorDetails(id).pipe(
             map(actorEntity => {
                 if (actorEntity.id !== id) {
@@ -58,11 +58,11 @@ export class ActorExistGuard implements CanActivate {
             }),
             tap((action: actorActions.Load) => {
                 this.store.dispatch(action);
-                this.store.dispatch(new searchActions.LoadingCompleted());
-                this.store.dispatch(new searchActions.SetSearchType('people'));
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(actor =>  !!actor),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

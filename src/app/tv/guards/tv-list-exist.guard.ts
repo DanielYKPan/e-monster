@@ -9,9 +9,9 @@ import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import { TvService } from '../service/tv.service';
-import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 import * as searchTvActions from '../actions/search';
 import * as fromTvRoot from '../reducers';
+import * as layoutActions from '../../core/layout-store/actions';
 
 @Injectable()
 export class TvListExistGuard implements CanActivate {
@@ -54,15 +54,16 @@ export class TvListExistGuard implements CanActivate {
     }
 
     private hasTvListInApi( name: string, page: number ): Observable<boolean> {
-        this.store.dispatch(new LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
         return this.tvService.getTvList(name, page).pipe(
             map(res => new searchTvActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })

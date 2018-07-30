@@ -5,9 +5,8 @@ import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
 import * as fromMusicRoot from '../reducers';
-import * as fromRoot from '../../reducers';
 import * as searchMusicActions from '../actions/search';
-import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
+import * as layoutActions from '../../core/layout-store/actions';
 import { MusicService } from '../service/music.service';
 
 @Injectable({
@@ -48,29 +47,29 @@ export class MusicListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromRoot.getSearchResults), take(1))
+            this.store.pipe(select(fromMusicRoot.getSearchQuery), take(1)),
+            this.store.pipe(select(fromMusicRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromMusicRoot.getSearchResults), take(1))
         ).pipe(
             map(( result: any ) => result[0] === query && result[1] === page && result[2] && result[2].length > 0)
         );
     }
 
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
-        this.store.dispatch(new LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
 
         return this.musicService.getNewReleases(page).pipe(
             map(res => new searchMusicActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(( res ) => {
+                this.store.dispatch(new layoutActions.HideLoader());
 
                 // The access token expired
                 if (res && res.error && res.status && res.status === 401) {
-                    this.store.dispatch(new LoadingCompleted());
                     this.musicService.spotify_access_token = '';
                     this.router.navigate(['music']);
                     return of(false);

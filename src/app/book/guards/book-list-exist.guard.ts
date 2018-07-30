@@ -6,8 +6,8 @@ import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 
 import * as fromBookRoot from '../reducers';
 import * as searchBookActions from '../actions/search';
+import * as layoutActions from '../../core/layout-store/actions';
 import { GoogleBookService } from '../book.service';
-import { LoadingCompleted, LoadingStart } from '../../search-store/actions';
 
 @Injectable({
     providedIn: 'root'
@@ -54,16 +54,17 @@ export class BookListExistGuard implements CanActivate {
     }
 
     private hasSearchResultsInApi( query: string ): Observable<boolean> {
-        this.store.dispatch(new LoadingStart());
+        this.store.dispatch(new layoutActions.ShowLoader());
 
         return this.bookService.getBookList(query).pipe(
             map(res => new searchBookActions.SearchComplete(res)),
             tap(action => {
                 this.store.dispatch(action);
-                this.store.dispatch(new LoadingCompleted());
+                this.store.dispatch(new layoutActions.HideLoader());
             }),
             map(res => res.payload.results && res.payload.results.length > 0),
             catchError(() => {
+                this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })
