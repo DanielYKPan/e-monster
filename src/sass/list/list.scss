@@ -14,7 +14,7 @@ $topbar-height: 3.2rem;
 
 .frame-main-wrapper {
   position: relative;
-  padding: $topbar-height 0 $sidenav-height;
+  padding: $topbar-height+0.1rem 0 $sidenav-height;
   box-sizing: border-box;
   border-bottom: solid 1px #2d2d2d;
   z-index: 1;

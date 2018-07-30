@@ -9,6 +9,7 @@ import { MusicListComponent } from './music-list/music-list.component';
 import { ShareModule } from '../share/share.module';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { reducers } from './reducers';
+import { AlbumCardComponent } from './album-card/album-card.component';
 
 @NgModule({
     imports: [
@@ -21,7 +22,7 @@ import { reducers } from './reducers';
 
         StoreModule.forFeature('music', reducers),
     ],
-    declarations: [MusicComponent, MusicListComponent, AlbumDetailsComponent],
+    declarations: [MusicComponent, MusicListComponent, AlbumDetailsComponent, AlbumCardComponent],
 })
 export class MusicModule {
 }
