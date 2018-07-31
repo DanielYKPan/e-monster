@@ -1,0 +1,69 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
+
+    .poster img {
+      filter: brightness(105%);
+    }
+  }
+}
+
+.poster {
+  width: 100%;
+  padding-top: 100%; /* 1:1 Aspect Ratio */
+  position: relative;
+  border: solid 3px #fff;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  background-color: #000000;
+  box-shadow: 0 0 20px 0 #000;
+
+  img {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter .2s linear, opacity .5s ease-in;
+    opacity: 0;
+    filter: brightness(90%);
+
+    &.ng-lazyloaded {
+      opacity: 1;
+    }
+  }
+}
+
+.album-name,
+.artist-name {
+  margin: 0 0 .5rem;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: hidden;
+}
+
+.artist-name {
+  font-weight: normal;
+}
+
+:host-context(.dark) {
+  &:hover,
+  &:focus {
+    box-shadow: 0 0 3px hsla(0, 0%, 0%, 1);
+  }
+}

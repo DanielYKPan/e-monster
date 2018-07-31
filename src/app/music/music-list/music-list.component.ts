@@ -69,4 +69,11 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
     public goToPage( event: any ): void {
         this.router.navigate(['music/list', event.query, {page: event.page}]);
     }
+
+    /**
+     * Handle select album action
+     * */
+    public handleSelectAlbum( albumId: string ) {
+        this.router.navigate(['music/album', albumId]);
+    }
 }

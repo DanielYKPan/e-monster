@@ -1,0 +1,10 @@
+<div class="poster">
+    <img class="poster-img"
+         [lazyLoad]="imageUrl"
+         [defaultImage]="'/assets/images/abstract-image.jpg'"
+         [errorImage]="'/assets/images/abstract-image.jpg'"
+         [useSrcset]="true"
+         alt="Poster">
+</div>
+<h5 class="album-name">{{name}}</h5>
+<h6 *ngIf="!!artistNames" class="artist-name">{{artistNames | addCommas: 'Unknown Artist'}}</h6>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
@@ -24,6 +24,7 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
 
     constructor( private store: Store<fromPeopleRoot.State>,
                  private route: ActivatedRoute,
+                 private router: Router,
                  private dialogService: OwlDialogService ) {
     }
 
@@ -52,5 +53,12 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
             transitionY: event.clientY,
         });
         event.preventDefault();
+    }
+
+    /**
+     * Handle select album action
+     * */
+    public handleSelectAlbum( albumId: string ) {
+        this.router.navigate(['music/album', albumId]);
     }
 }

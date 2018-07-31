@@ -33,56 +33,6 @@
   .album-list-item {
     width: 100%;
   }
-
-  .album-list-item-anchor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: .5rem;
-    box-sizing: border-box;
-    cursor: pointer;
-    color: inherit;
-    text-decoration: none;
-    outline: none;
-
-    &:hover, &:focus {
-      box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
-    }
-
-    .poster {
-      width: 100%;
-      height: auto;
-      min-height: 8rem;
-      border: solid 3px #fff;
-      box-sizing: border-box;
-      margin-bottom: 1rem;
-      background-color: #000000;
-      box-shadow: 0 0 20px 0 #000;
-
-      img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: filter .2s linear, opacity 1s;
-        opacity: 0;
-        filter: brightness(95%);
-
-        &.ng-lazyloaded {
-          opacity: 1;
-        }
-      }
-    }
-
-    .album-name,
-    .artist-name {
-      margin: 0 0 .5rem;
-      text-overflow: ellipsis;
-      white-space: normal;
-      overflow: hidden;
-    }
-  }
 }
 
 .tracks-list {

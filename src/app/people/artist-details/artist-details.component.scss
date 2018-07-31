@@ -42,74 +42,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-
-  .track-item-btn {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 4.5rem;
-    padding: .5rem 0;
-    text-align: left;
-
-    &:hover,
-    &:focus {
-      background-color: hsla(0, 0%, 0%, 0.1);
-      color: #1f9f55;
-    }
-  }
-
-  .details-body-poster {
-    width: 3rem;
-    height: 3rem;
-    margin-bottom: 0;
-  }
-
-  .track-item-left {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 6rem;
-    padding-right: 1rem;
-    box-sizing: border-box;
-  }
-
-  .track-item-middle {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .track-name {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .second-line {
-      display: block;
-    }
-
-    .explicit-label {
-      font-size: 11px;
-      line-height: 16px;
-      letter-spacing: .015em;
-      display: inline-block;
-      text-transform: uppercase;
-      background-color: hsla(0, 0%, 0%, 0.2);
-      color: #000;
-      border-radius: 2px;
-      padding: 0 .3em;
-      margin-right: .67em;
-    }
-  }
-
-  .track-item-right {
-    display: flex;
-    align-items: center;
-    width: 3rem;
-    padding-left: 1rem;
-  }
 }
 
 .album-list {
@@ -124,33 +56,6 @@
 
   .album-list-item {
     width: 100%;
-  }
-
-  .album-list-item-anchor {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: .5rem;
-    box-sizing: border-box;
-    cursor: pointer;
-    color: inherit;
-    text-decoration: none;
-    outline: none;
-
-    &:hover, &:focus {
-      box-shadow: 0 0 3px hsla(0, 0%, 0%, 1);
-    }
-
-    .details-body-poster {
-      width: 100%;
-      height: auto;
-      min-height: 10.5rem;
-    }
-
-    .album-name {
-      margin: 0;
-    }
   }
 }
 

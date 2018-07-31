@@ -10,14 +10,20 @@
     </div>
 
     <div class="frame-main-wrapper">
-        <div class="album-grid featured">
-            <app-album-card *ngFor="let album of featuredList$ | async"
-                            [album]="album" [featured]="true"></app-album-card>
-        </div>
-        <div class="album-grid">
-            <app-album-card *ngFor="let album of list$ | async"
-                            [album]="album" [featured]="false"></app-album-card>
-        </div>
+        <ul class="album-grid featured">
+            <li class="album-grid-item" *ngFor="let album of featuredList$ | async">
+                <app-album-card [imageUrl]="album.images[0].url"
+                                [name]="album.name" [artists]="album.artists"
+                                (select)="handleSelectAlbum(album.id)"></app-album-card>
+            </li>
+        </ul>
+        <ul class="album-grid">
+            <li class="album-grid-item" *ngFor="let album of list$ | async">
+                <app-album-card [imageUrl]="album.images[0].url"
+                                [name]="album.name" [artists]="album.artists"
+                                (select)="handleSelectAlbum(album.id)"></app-album-card>
+            </li>
+        </ul>
 
         <app-list-paginator [listPage]="listPage$ | async"
                             [listTotalPages]="listTotalPages$ | async"

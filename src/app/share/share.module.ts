@@ -17,7 +17,11 @@ import { FrameMainComponent } from './frame-main/frame-main.component';
 import { OwlMenuModule } from 'owl-ng';
 import { SearchListSidenavComponent } from './search-list-sidenav/search-list-sidenav.component';
 import { AddCommasPipe } from './pipe/add-commas.pipe';
+import { MillisToMsPipe } from './pipe/millis-to-ms.pipe';
+import { TrackDialogComponent } from './track-dialog/track-dialog.component';
 import { EllipsisPipe } from './pipe/ellipsis.pipe';
+import { TrackBarComponent } from './track-bar/track-bar.component';
+import { AlbumCardComponent } from './album-card/album-card.component';
 
 @NgModule({
     imports: [
@@ -45,6 +49,9 @@ import { EllipsisPipe } from './pipe/ellipsis.pipe';
         FrameSidenavComponent,
         FrameMainComponent,
         SearchListSidenavComponent,
+        TrackDialogComponent,
+        TrackBarComponent,
+        AlbumCardComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -53,6 +60,7 @@ import { EllipsisPipe } from './pipe/ellipsis.pipe';
         SafePipe,
         ToDatePipe,
         AddCommasPipe,
+        MillisToMsPipe,
         EllipsisPipe,
         CreditsDialogComponent,
         AudioDialogComponent,
@@ -62,10 +70,14 @@ import { EllipsisPipe } from './pipe/ellipsis.pipe';
         FrameSidenavComponent,
         FrameMainComponent,
         SearchListSidenavComponent,
+        TrackDialogComponent,
+        TrackBarComponent,
+        AlbumCardComponent,
     ],
     entryComponents: [
         CreditsDialogComponent,
         AudioDialogComponent,
+        TrackDialogComponent,
     ]
 })
 export class ShareModule {

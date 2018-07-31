@@ -14,16 +14,10 @@
             <h1>Albums</h1>
             <ul class="album-list">
                 <li class="album-list-item" *ngFor="let album of albumList">
-                    <a class="album-list-item-anchor"
-                       [routerLink]="'/music/album/' + album.id">
-                        <div class="poster">
-                            <img [lazyLoad]="album.images[0].url"
-                                 [errorImage]="'/assets/images/abstract-image.jpg'"
-                                 alt="Poster">
-                        </div>
-                        <h5 class="album-name">{{album.name}}</h5>
-                        <h6 class="artist-name">{{getArtistNameList(album.artists) | addCommas}}</h6>
-                    </a>
+                    <app-album-card [imageUrl]="album.images[0].url"
+                                    [name]="album.name"
+                                    [artists]="album.artists"
+                                    (select)="handleSelectAlbum(album.id)"></app-album-card>
                 </li>
             </ul>
             <app-list-paginator [listPage]="albumListPage$ | async"
