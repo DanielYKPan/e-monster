@@ -1,2 +1,337 @@
-<app-actor-details-header [actor]="actor$ | async"></app-actor-details-header>
-<app-actor-details-content [actor]="actor$ | async" (showCreditOverview)="showCreditOverviewDialog($event)"></app-actor-details-content>
+<ng-container *ngIf="actor">
+    <section class="details-header">
+        <div class="details-header-backdrop"
+             [lazyLoad]="'https://image.tmdb.org/t/p/w1280' + headerBackdrop"></div>
+
+        <div class="details-header-content">
+            <div class="details-header-content-inner details-container">
+                <div class="details-header-poster">
+                    <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + actor.profile_path"
+                         [defaultImage]="'/assets/images/abstract-image.jpg'"
+                         [errorImage]="'/assets/images/abstract-image.jpg'"
+                         alt="Poster">
+                </div>
+                <h1 class="details-header-name">
+                    {{actor.name}}
+                </h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="details-body">
+        <div class="details-body-sidenav">
+            <div class="details-body-poster">
+                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + actor.profile_path"
+                     [defaultImage]="'/assets/images/abstract-image.jpg'"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     alt="Poster">
+            </div>
+
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list external-list">
+                        <li *ngIf="actor.homepage"
+                            class="external-item" owlTooltip="Official Homepage">
+                            <a [href]="actor.homepage" target="_blank">Official</a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.imdb_id"
+                            class="external-item" owlTooltip="IMDB">
+                            <a [href]="'http://www.imdb.com/title/' + actor.external_ids.imdb_id"
+                               target="_blank">IMDB</a>
+                        </li>
+
+                        <li class="external-item" owlTooltip="TMDB">
+                            <a [href]="'https://www.themoviedb.org/person/' + actor.id"
+                               target="_blank">TMDB</a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.facebook_id"
+                            class="external-item" [owlTooltip]="'Facebook @' + actor.external_ids.facebook_id">
+                            <a [href]="'http://www.facebook.com/' + actor.external_ids.facebook_id"
+                               target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.instagram_id"
+                            class="external-item" [owlTooltip]="'Instagram @' + actor.external_ids.instagram_id">
+                            <a [href]="'http://www.instagram.com/' + actor.external_ids.instagram_id"
+                               target="_blank"><i class="fab fa-instagram"></i></a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.twitter_id"
+                            class="external-item" [owlTooltip]="'Twitter @' + actor.external_ids.twitter_id">
+                            <a [href]="'http://www.twitter.com/' + actor.external_ids.twitter_id"
+                               target="_blank"><i class="fab fa-twitter"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="details-inform-list-wrapper">
+                    <ul class="inform-list stats-list">
+                        <li *ngIf="actor.gender" class="stats-item gender">
+                            <label>gender:</label>
+                            <span>{{actor.gender === 1 ? 'Female' : 'Male' }}</span>
+                        </li>
+                        <li *ngIf="actor.birthday" class="stats-item birthday">
+                            <label>birthday:</label>
+                            <span>{{actor.birthday | toDate | date}}</span>
+                        </li>
+
+                        <li *ngIf="actor.deathday" class="stats-item deathday">
+                            <label>deathday:</label>
+                            <span>{{actor.deathday | toDate | date}}</span>
+                        </li>
+
+                        <li *ngIf="actor.place_of_birth" class="stats-item place_of_birth">
+                            <label>place of birth:</label>
+                            <span>{{actor.place_of_birth}}</span>
+                        </li>
+
+                        <li *ngIf="actor.also_known_as && actor.also_known_as.length > 0"
+                            class="stats-item also_known_as">
+                            <label>also known as:</label>
+                            <span *ngFor="let name of actor.also_known_as">{{name}}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="details-body-main">
+            <div class="details-inform">
+                <div class="details-inform-list-wrapper">
+                    <h3 class="details-inform-header">Personal Inform</h3>
+                    <ul class="inform-list stats-list">
+                        <li *ngIf="actor.gender" class="stats-item gender">
+                            <label>gender:</label>
+                            <span>{{actor.gender === 1 ? 'Female' : 'Male' }}</span>
+                        </li>
+                        <li *ngIf="actor.birthday" class="stats-item birthday">
+                            <label>birthday:</label>
+                            <span>{{actor.birthday | toDate | date}}</span>
+                        </li>
+
+                        <li *ngIf="actor.deathday" class="stats-item deathday">
+                            <label>deathday:</label>
+                            <span>{{actor.deathday | toDate | date}}</span>
+                        </li>
+
+                        <li *ngIf="actor.place_of_birth" class="stats-item place_of_birth">
+                            <label>place of birth:</label>
+                            <span>{{actor.place_of_birth}}</span>
+                        </li>
+
+                        <li *ngIf="actor.also_known_as && actor.also_known_as.length > 0"
+                            class="stats-item also_known_as">
+                            <label>also known as:</label>
+                            <span *ngFor="let name of actor.also_known_as">{{name}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="details-inform-list-wrapper">
+                    <h3 class="details-inform-header">External Links</h3>
+                    <ul class="inform-list external-list">
+                        <li *ngIf="actor.homepage"
+                            class="external-item" owlTooltip="Official Homepage">
+                            <a [href]="actor.homepage" target="_blank">Official</a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.imdb_id"
+                            class="external-item" owlTooltip="IMDB">
+                            <a [href]="'http://www.imdb.com/title/' + actor.external_ids.imdb_id"
+                               target="_blank">IMDB</a>
+                        </li>
+
+                        <li class="external-item" owlTooltip="TMDB">
+                            <a [href]="'https://www.themoviedb.org/person/' + actor.id"
+                               target="_blank">TMDB</a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.facebook_id"
+                            class="external-item" [owlTooltip]="'Facebook @' + actor.external_ids.facebook_id">
+                            <a [href]="'http://www.facebook.com/' + actor.external_ids.facebook_id"
+                               target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.instagram_id"
+                            class="external-item" [owlTooltip]="'Instagram @' + actor.external_ids.instagram_id">
+                            <a [href]="'http://www.instagram.com/' + actor.external_ids.instagram_id"
+                               target="_blank"><i class="fab fa-instagram"></i></a>
+                        </li>
+
+                        <li *ngIf="actor.external_ids.twitter_id"
+                            class="external-item" [owlTooltip]="'Twitter @' + actor.external_ids.twitter_id">
+                            <a [href]="'http://www.twitter.com/' + actor.external_ids.twitter_id"
+                               target="_blank"><i class="fab fa-twitter"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div *ngIf="actor.biography" class="biography">
+                    <h3 class="details-inform-header">Biography</h3>
+                    <p>{{actor.biography}}</p>
+                </div>
+            </div>
+
+            <div class="known-for">
+                <h3 class="details-inform-header">Known For</h3>
+                <ng-container *ngIf="castMovieCreditsReleasedFeaturedSorted && castMovieCreditsReleasedFeaturedSorted.length > 0">
+                    <h4>Appearance on Movie</h4>
+                    <ul class="known-for-list">
+                        <li class="known-for-list-item" *ngFor="let item of castMovieCreditsReleasedFeaturedSorted">
+                            <app-media-card class="dark"
+                                            [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                            [name]="item.title"></app-media-card>
+                        </li>
+                    </ul>
+                </ng-container>
+                <ng-container *ngIf="castTvCreditsReleasedFeaturedSorted && castTvCreditsReleasedFeaturedSorted.length > 0">
+                    <h4>Appearance on TV</h4>
+                    <ul class="known-for-list">
+                        <li class="known-for-list-item" *ngFor="let item of castTvCreditsReleasedFeaturedSorted">
+                            <app-media-card class="dark"
+                                            [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                            [name]="item.name"></app-media-card>
+                        </li>
+                    </ul>
+                </ng-container>
+                <ng-container *ngIf="crewMovieCreditsReleasedFeaturedSorted && crewMovieCreditsReleasedFeaturedSorted.length > 0">
+                    <h4>Crew on Movie</h4>
+                    <ul class="known-for-list">
+                        <li class="known-for-list-item" *ngFor="let item of crewMovieCreditsReleasedFeaturedSorted">
+                            <app-media-card class="dark"
+                                            [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                            [name]="item.title"></app-media-card>
+                        </li>
+                    </ul>
+                </ng-container>
+                <ng-container *ngIf="crewTvCreditsReleasedFeaturedSorted && crewTvCreditsReleasedFeaturedSorted.length > 0">
+                    <h4>Crew on TV</h4>
+                    <ul class="known-for-list">
+                        <li class="known-for-list-item" *ngFor="let item of crewTvCreditsReleasedFeaturedSorted">
+                            <app-media-card class="dark"
+                                            [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                            [name]="item.name"></app-media-card>
+                        </li>
+                    </ul>
+                </ng-container>
+            </div>
+
+            <div class="full-list">
+                <h3 class="details-inform-header">Full List Table</h3>
+                <owl-tab-view class="full-list-tab-view">
+                    <owl-tab label="Movie (as cast)" *ngIf="castMovieCreditsReleasedGrouped.length > 0">
+                        <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr class="credits-group-wrapper" *ngFor="let group of castMovieCreditsReleasedGrouped">
+                                <td>
+                                    <table class="credits-group">
+                                        <tbody>
+                                        <tr *ngFor="let credit of group">
+                                            <td class="year">{{credit.release_date | yearString}}</td>
+                                            <td class="separator">
+                                                <button type="button" class="basic-btn"
+                                                        (click)="showCreditOverviewDialog(credit, 'movie',$event)">
+                                                    <i class="far fa-dot-circle"></i>
+                                                </button>
+                                            </td>
+                                            <td class="role">
+                                                <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a>
+                                                as <span class="character">{{credit.character}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </owl-tab>
+                    <owl-tab label="TV (as cast)" *ngIf="castTvCreditsReleasedGrouped.length > 0">
+                        <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr class="credits-group-wrapper" *ngFor="let group of castTvCreditsReleasedGrouped">
+                                <td>
+                                    <table class="credits-group">
+                                        <tbody>
+                                        <tr *ngFor="let credit of group">
+                                            <td class="year">{{credit.first_air_date | yearString}}</td>
+                                            <td class="separator">
+                                                <button type="button" class="basic-btn"
+                                                        (click)="showCreditOverviewDialog(credit, 'tv', $event)">
+                                                    <i class="far fa-dot-circle"></i>
+                                                </button>
+                                            </td>
+                                            <td class="role">
+                                                <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a>
+                                                -- <span class="episode">({{credit.episode_count}} episode<ng-container
+                                                    *ngIf="credit.episode_count > 1">s</ng-container>)</span> as <span
+                                                    class="character">{{credit.character}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </owl-tab>
+                    <owl-tab label="Movie (as crew)" *ngIf="crewMovieCreditsReleasedGrouped.length > 0">
+                        <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr class="credits-group-wrapper" *ngFor="let group of crewMovieCreditsReleasedGrouped">
+                                <td>
+                                    <table class="credits-group">
+                                        <tbody>
+                                        <tr *ngFor="let credit of group">
+                                            <td class="year">{{credit.release_date | yearString}}</td>
+                                            <td class="separator">
+                                                <button type="button" class="basic-btn"
+                                                        (click)="showCreditOverviewDialog(credit, 'movie', $event)">
+                                                    <i class="far fa-dot-circle"></i>
+                                                </button>
+                                            </td>
+                                            <td class="role">
+                                                <a class="credits-anchor" [routerLink]="'/movie/' + credit.id + '/details'">{{credit.title}}</a>
+                                                ... <span class="character">{{credit.job}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </owl-tab>
+                    <owl-tab label="TV (as crew)" *ngIf="crewTvCreditsReleasedGrouped.length > 0">
+                        <table class="credits-table" border="0" cellpadding="0" cellspacing="0">
+                            <tbody>
+                            <tr class="credits-group-wrapper" *ngFor="let group of crewTvCreditsReleasedGrouped">
+                                <td>
+                                    <table class="credits-group">
+                                        <tbody>
+                                        <tr *ngFor="let credit of group">
+                                            <td class="year">{{credit.first_air_date | yearString}}</td>
+                                            <td class="separator">
+                                                <button type="button" class="basic-btn"
+                                                        (click)="showCreditOverviewDialog(credit, 'tv', $event)">
+                                                    <i class="far fa-dot-circle"></i>
+                                                </button>
+                                            </td>
+                                            <td class="role">
+                                                <a class="credits-anchor" [routerLink]="'/tv/' + credit.id + '/details'">{{credit.name}}</a>
+                                                -- <span class="episode">({{credit.episode_count}} episode<ng-container
+                                                    *ngIf="credit.episode_count > 1">s</ng-container>)</span> ... <span
+                                                    class="character">{{credit.job}}</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </owl-tab>
+                </owl-tab-view>
+            </div>
+        </div>
+    </section>
+</ng-container>

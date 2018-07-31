@@ -30,6 +30,23 @@ $margin-top: 150px;
   color: #fff;
 }
 
+.details-header-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-position: 50% 10%;
+  transition: all 1s;
+  opacity: 0;
+
+  &.ng-lazyloaded {
+    opacity: 1;
+  }
+}
+
 .details-header-content {
   position: absolute;
   left: 0;
@@ -143,18 +160,18 @@ $margin-top: 150px;
 
 .details-inform {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .details-inform-header {
-  margin: 0 0 1rem;
+  margin: 0 0 .8rem;
   font-size: 1.2rem;
-  color: #959595;
+  color: #5a5a5a;
   text-transform: uppercase;
 }
 
 .details-inform-list-wrapper {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
 }
 
 .inform-list {
@@ -194,7 +211,7 @@ $margin-top: 150px;
   flex-direction: column;
 
   .stats-item {
-    margin: 0 0 .5rem;
+    margin: 0 0 .8rem;
 
     label {
       text-transform: uppercase;
@@ -205,6 +222,21 @@ $margin-top: 150px;
 
     span {
       padding: 0 5px;
+    }
+  }
+}
+
+.details-body-sidenav {
+  .stats-list {
+    .stats-item {
+      label {
+        margin: 0 0 .4rem;
+      }
+
+      span {
+        display: block;
+        padding: 2.5px 0;
+      }
     }
   }
 }
@@ -244,8 +276,6 @@ $margin-top: 150px;
   }
 
   .details-inform {
-    flex-direction: column;
-
     .inform-external-title {
       display: none;
     }
