@@ -32,7 +32,7 @@
             <h1>Artists</h1>
             <ul class="search-list search-artist-list">
                 <li class="search-list-item" *ngFor="let person of artistList">
-                    <app-media-card [imageUrl]="person.images[0].url"
+                    <app-media-card [imageUrl]="person.images[0]?.url"
                                     [name]="person.name"
                                     (select)="handleSelectArtist(person.id)"></app-media-card>
                 </li>

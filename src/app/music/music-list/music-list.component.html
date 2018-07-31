@@ -12,14 +12,14 @@
     <div class="frame-main-wrapper">
         <ul class="album-grid featured">
             <li class="album-grid-item" *ngFor="let album of featuredList$ | async">
-                <app-media-card [imageUrl]="album.images[0].url"
+                <app-media-card [imageUrl]="album.images[0]?.url"
                                 [name]="album.name" [artists]="album.artists"
                                 (select)="handleSelectAlbum(album.id)"></app-media-card>
             </li>
         </ul>
         <ul class="album-grid">
             <li class="album-grid-item" *ngFor="let album of list$ | async">
-                <app-media-card [imageUrl]="album.images[0].url"
+                <app-media-card [imageUrl]="album.images[0]?.url"
                                 [name]="album.name" [artists]="album.artists"
                                 (select)="handleSelectAlbum(album.id)"></app-media-card>
             </li>
