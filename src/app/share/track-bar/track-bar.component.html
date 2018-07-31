@@ -1,0 +1,23 @@
+<span class="track-bar-left">
+    <span *ngIf="imageUrl;else musicIconBlock" class="poster">
+        <img [lazyLoad]="imageUrl"
+             [errorImage]="'/assets/images/abstract-image.jpg'"
+             alt="Poster">
+    </span>
+    <ng-template #musicIconBlock>
+        <i class="fas fa-music"></i>
+    </ng-template>
+    <span *ngIf="track_number">{{track_number}}.</span>
+</span>
+
+<span class="track-bar-middle">
+    <span class="track-name">{{name}}</span>
+    <span class="second-line">
+        <span *ngIf="explicit" class="explicit-label">explicit</span>
+        <span *ngIf="!!artistNames" class="artist-name">{{artistNames | addCommas: 'Unknown Artist'}}</span>
+    </span>
+</span>
+
+<span *ngIf="duration_ms" class="track-bar-right">
+    {{duration_ms | millisToMs}}
+</span>

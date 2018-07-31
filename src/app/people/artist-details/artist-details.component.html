@@ -62,28 +62,12 @@
                     <h4 class="details-inform-header">Top Hit Tracks</h4>
                     <ol class="tracks-list">
                         <li class="track-item" *ngFor="let track of artist.top_tracks; index as i">
-                            <button type="button" class="basic-btn track-item-btn"
-                                    (click)="handleClickOnTrack(track, $event)">
-                                <span class="track-item-left">
-                                    <span class="details-body-poster">
-                                        <img [lazyLoad]="track.album.images[0].url"
-                                             [errorImage]="'/assets/images/abstract-image.jpg'"
-                                             alt="Poster">
-                                    </span>
-                                    <span>{{i + 1}}.</span>
-                                </span>
-
-                                <span class="track-item-middle">
-                                    <span class="track-name">{{track.name}}</span>
-                                    <span class="second-line">
-                                        <span *ngIf="track.explicit" class="explicit-label">explicit</span>
-                                    </span>
-                                </span>
-
-                                <span class="track-item-right">
-                                    {{track.duration_ms | millisToMs}}
-                                </span>
-                            </button>
+                            <app-track-bar [type]="'button'" class="dark basic-btn"
+                                           [name]="track.name"
+                                           [explicit]="track.explicit"
+                                           [duration_ms]="track.duration_ms"
+                                           [track_number]="i + 1"
+                                           (select)="handleClickOnTrack(track, $event)"></app-track-bar>
                         </li>
                     </ol>
                 </div>

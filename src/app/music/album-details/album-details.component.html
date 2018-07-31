@@ -109,21 +109,12 @@
                 <ol class="album-tracks-list">
                     <li class="album-track-item" *ngFor="let track of album.tracks.items"
                         [id]="track.id" #trackItem>
-                        <button type="button" class="basic-btn album-track-item-btn"
-                                (click)="handleClickOnTrack(track, album.name, $event)">
-                            <span class="album-track-item-left">
-                                <i class="fas fa-music"></i>
-                            </span>
-                            <span class="album-track-item-middle">
-                                <span class="album-track-name">{{track.name}}</span>
-                                <span class="second-line">
-                                    <span *ngIf="track.explicit" class="explicit-label">explicit</span>
-                                </span>
-                            </span>
-                            <span class="album-track-item-right">
-                                {{track.duration_ms | millisToMs}}
-                            </span>
-                        </button>
+                        <app-track-bar [type]="'button'" class="dark basic-btn"
+                                       [name]="track.name"
+                                       [explicit]="track.explicit"
+                                       [duration_ms]="track.duration_ms"
+                                       [track_number]="track.track_number"
+                                       (select)="handleClickOnTrack(track, album.name, $event)"></app-track-bar>
                     </li>
                 </ol>
             </div>

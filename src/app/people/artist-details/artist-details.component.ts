@@ -33,10 +33,6 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
             .subscribe(action => this.store.dispatch(action));
 
         this.artist$ = this.store.pipe(select(fromPeopleRoot.getSelectedArtist));
-
-        this.artist$.subscribe(( res ) => {
-            console.log(res);
-        });
     }
 
     public ngOnDestroy(): void {

@@ -1,0 +1,111 @@
+:host {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 4.5rem;
+  padding: .5rem 0;
+  box-sizing: border-box;
+  color: inherit;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: all .5s;
+
+  &:hover,
+  &:focus {
+    background-color: hsla(0, 100%, 100%, 0.1);
+    color: #1f9f55;
+  }
+}
+
+.poster {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 0;
+  border: solid 1px #fff;
+  box-sizing: border-box;
+  background-color: #000000;
+  box-shadow: 0 0 20px 0 #000;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter .2s linear, opacity 1s;
+    opacity: 0;
+    filter: brightness(95%);
+
+    &.ng-lazyloaded {
+      opacity: 1;
+    }
+  }
+}
+
+.track-bar-left {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 6rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+.track-bar-middle {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .track-name {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .second-line {
+    display: block;
+  }
+
+  .explicit-label {
+    font-size: .7rem;
+    line-height: 1rem;
+    letter-spacing: .015em;
+    display: inline-block;
+    text-transform: uppercase;
+    background-color: hsla(0, 100%, 100%, 0.2);
+    color: #FFFFFF;
+    border-radius: 2px;
+    padding: 0 .3em;
+    margin-right: .67em;
+  }
+
+  .artist-name {
+    font-size: .7rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+.track-bar-right {
+  display: flex;
+  align-items: center;
+  width: 3rem;
+  padding-left: 1rem;
+}
+
+:host-context(.dark) {
+  &:hover,
+  &:focus {
+    background-color: hsla(0, 0%, 0%, 0.1);
+    color: #1f9f55;
+  }
+
+  .explicit-label {
+    background-color: hsla(0, 0%, 0%, 0.2);
+    color: #000;
+  }
+}

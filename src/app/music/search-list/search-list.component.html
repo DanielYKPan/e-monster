@@ -37,25 +37,11 @@
             <h1>Tracks</h1>
             <ul class="tracks-list">
                 <li class="track-item" *ngFor="let track of trackList">
-                    <a class="basic-btn track-item-btn"
-                       [routerLink]="'/music/album/' + track.album.id"
-                       [queryParams]="{track_id: track.id}">
-                        <span class="track-item-left">
-                            <span class="poster">
-                                <img [lazyLoad]="track.album.images[0].url"
-                                     [errorImage]="'/assets/images/abstract-image.jpg'"
-                                     alt="Poster">
-                            </span>
-                        </span>
-
-                        <span class="track-item-middle">
-                            <span class="track-name">{{track.name}}</span>
-                            <span class="second-line">
-                                <span *ngIf="track.explicit" class="explicit-label">explicit</span>
-                                <span class="artist-name">{{getArtistNameList(track.artists) | addCommas}}</span>
-                            </span>
-                        </span>
-                    </a>
+                    <app-track-bar [role]="'link'"
+                                   [imageUrl]="track.album.images[0].url"
+                                   [name]="track.name" [explicit]="track.explicit"
+                                   [artists]="track.artists"
+                                   (select)="handleSelectTrack(track.album.id, track.id)"></app-track-bar>
                 </li>
             </ul>
             <app-list-paginator [listPage]="trackListPage$ | async"

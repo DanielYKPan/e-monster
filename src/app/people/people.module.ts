@@ -15,11 +15,13 @@ import { CreditOverviewDialogComponent } from './actor-details/credit-overview-d
 import { SearchListComponent } from './search-list/search-list.component';
 import { ArtistDetailsComponent } from './artist-details/artist-details.component';
 import { ArtistService } from './service/artist.service';
+import { ShareMusicModule } from '../share/share-music.module';
 
 @NgModule({
     imports: [
         CommonModule,
         ShareModule,
+        ShareMusicModule,
         PeopleRoutingModule,
 
         // Owl NG

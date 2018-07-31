@@ -11,12 +11,14 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { reducers } from './reducers';
 import { AlbumCardComponent } from './album-card/album-card.component';
 import { SearchListComponent } from './search-list/search-list.component';
+import { ShareMusicModule } from '../share/share-music.module';
 
 @NgModule({
     imports: [
         CommonModule,
         MusicRoutingModule,
         ShareModule,
+        ShareMusicModule,
 
         // Owl NG
         OwlDialogModule,

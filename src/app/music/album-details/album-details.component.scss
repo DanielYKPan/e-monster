@@ -88,68 +88,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-
-  .album-track-item-btn {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 4.5rem;
-    padding: .5rem 0;
-    text-align: left;
-
-    &:hover,
-    &:focus {
-      background-color: hsla(0, 0%, 0%, 0.1);
-      color: #1f9f55;
-    }
-  }
-
-  .album-track-item-left {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 3rem;
-    padding-right: 1rem;
-    box-sizing: border-box;
-  }
-
-  .album-track-item-middle {
-    flex: 1;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .album-track-name {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .second-line {
-      display: block;
-    }
-
-    .explicit-label {
-      font-size: 11px;
-      line-height: 16px;
-      letter-spacing: .015em;
-      display: inline-block;
-      text-transform: uppercase;
-      background-color: hsla(0, 0%, 0%, 0.2);
-      color: #000;
-      border-radius: 2px;
-      padding: 0 .3em;
-      margin-right: .67em;
-    }
-  }
-
-  .album-track-item-right {
-    display: flex;
-    align-items: center;
-    width: 3rem;
-    padding-left: 1rem;
-  }
 }
 
 @media #{$small-only} {

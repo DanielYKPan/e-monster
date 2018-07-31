@@ -88,4 +88,11 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     public handleQueryInputValueChange( event: any ) {
         this.router.navigate(['music/search', {query: event.query}]);
     }
+
+    /**
+     * Handle select track action
+     * */
+    public handleSelectTrack( albumId: string, trackId: string ): void {
+        this.router.navigate(['music/album', albumId], {queryParams: {track_id: trackId}});
+    }
 }
