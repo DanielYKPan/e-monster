@@ -1,8 +1,6 @@
 /**
  * people
  */
-import { IMovie } from './movie';
-import { ITv } from './tv';
 import { IAlbum, ITrack } from './music';
 
 export interface IActorDetails {
@@ -78,4 +76,10 @@ export interface IArtistDetails {
     top_tracks: ITrack[];
     type: string;
     uri: string;
+}
+
+export interface IArtist {
+    id: string;
+    images: any[];
+    name: string;
 }

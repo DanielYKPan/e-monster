@@ -1,19 +1,11 @@
-import {
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    OnDestroy,
-    OnInit,
-    ViewChild
-} from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { combineLatest, Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 
 import * as fromPeopleRoot from '../reducers';
-import { IActor } from '../../model';
+import { IActor, IArtist } from '../../model';
 
 @Component({
     selector: 'app-actor-search-list',
@@ -23,51 +15,64 @@ import { IActor } from '../../model';
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
 
-   public list$: Observable<IActor[]>;
+    public actorList$: Observable<IActor[]>;
+    public actorListPage$: Observable<number>; // list page
+    public actorListTotalPages$: Observable<number>; // list total pages
 
-    public featuredList$: Observable<IActor[]>;
+    public artistList$: Observable<IArtist[]>;
+    public artistListPage$: Observable<number>; // list page
+    public artistListTotalPages$: Observable<number>; // list total pages
 
     public listQuery$: Observable<string>; // list query
-
-    public listPage$: Observable<number>; // list page
-
-    public listTotalPages$: Observable<number>; // list total pages
+    public listQuery: string; // list query
 
     private scrollBackTopSub = Subscription.EMPTY;
+    private listQuerySub = Subscription.EMPTY;
 
     constructor( private router: Router,
                  private store: Store<fromPeopleRoot.State> ) {
     }
 
     public ngOnInit() {
-        this.list$ = this.store.pipe(select(fromPeopleRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromPeopleRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromPeopleRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromPeopleRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromPeopleRoot.getSearchTotalPage));
+        this.listQuerySub = this.store
+            .pipe(select(fromPeopleRoot.getSearchActorQuery))
+            .subscribe(( q ) => {
+                this.listQuery = q;
+            });
+
+        this.actorList$ = this.store.pipe(select(fromPeopleRoot.getSearchActorResults));
+        this.actorListPage$ = this.store.pipe(select(fromPeopleRoot.getSearchActorPage));
+        this.actorListTotalPages$ = this.store.pipe(select(fromPeopleRoot.getSearchActorTotalPage));
+
+        this.artistList$ = this.store.pipe(select(fromPeopleRoot.getSearchArtistResults));
+        this.artistListPage$ = this.store.pipe(select(fromPeopleRoot.getSearchArtistPage));
+        this.artistListTotalPages$ = this.store.pipe(select(fromPeopleRoot.getSearchArtistTotalPage));
     }
 
     public ngAfterContentInit(): void {
 
         // Whenever we have new search results,
         // we scroll back to the top of the page.
-        this.scrollBackTopSub = this.store.pipe(
-            select(fromPeopleRoot.getSearchResults),
-            skip(1)
-        ).subscribe(() => {
-            window.scroll({top: 0, behavior: 'smooth'});
-        });
+        this.scrollBackTopSub = combineLatest(this.actorList$, this.artistList$)
+            .pipe(skip(1))
+            .subscribe(() => {
+                window.scroll({top: 0, behavior: 'smooth'});
+            });
     }
 
     public ngOnDestroy(): void {
         this.scrollBackTopSub.unsubscribe();
+        this.listQuerySub.unsubscribe();
     }
 
-    /**
-     * Go a specific page of the list
-     * */
-    public goToPage( event: any ): void {
-        this.router.navigate(['people/search', {query: event.query, page: event.page}]);
+    public goToActorPage( event: any, artistPage: any ): void {
+        console.log(artistPage);
+        // this.router.navigate(['people/search', {query: event.query, page_actor: event.page, page_artist: artistPage}]);
+    }
+
+    public goToArtistPage( event: any, actorPage: any ): void {
+        console.log(actorPage);
+        // this.router.navigate(['people/search', {query: event.query, page_actor: actorPage, page_artist: event.page}]);
     }
 
     /**
@@ -82,5 +87,19 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
      * */
     public handleQueryInputValueChange( event: any ) {
         this.router.navigate(['people/search', {query: event.query}]);
+    }
+
+    /**
+     * Handle select actor action
+     * */
+    public handleSelectActor( id: number ): void {
+        this.router.navigate(['people/actor', id]);
+    }
+
+    /**
+     * Handle select artist action
+     * */
+    public handleSelectArtist( id: number ): void {
+        this.router.navigate(['people/artist', id]);
     }
 }

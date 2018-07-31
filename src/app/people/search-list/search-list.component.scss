@@ -1,132 +1,37 @@
 @import "../../../sass/base/breakPoints";
 @import "../../../sass/list/list";
 
-.search-grid {
+.frame-main-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+}
+
+.frame-main-partial {
+  width: 100%;
+  height: 100%;
+  padding: .5rem;
+  box-sizing: border-box;
+
+  &:last-child {
+    border-left: solid 1px #2d2d2d;
+  }
+
+  h1 {
+    margin: 0 0 1rem;
+  }
+}
+
+.search-list {
   display: grid;
   grid-gap: .5rem;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
   padding: 0 .5rem .5rem;
   box-sizing: border-box;
   justify-items: center;
-
-  .search-actor-card {
-    display: block;
-    height: 300px;
-    width: 190px;
-
-    &:hover {
-      box-shadow: 0 0 3px hsla(0, 100%, 100%, 1);
-    }
-  }
-
-  &.featured {
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-
-    .search-actor-card {
-      height: 320px;
-      width: 100%;
-      max-width: 568px;
-    }
-  }
-
-  @media #{$small-only} {
-    &.featured {
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-
-      .search-actor-card {
-        height: 250px;
-        max-width: 445px;
-      }
-    }
-  }
-}
-
-.search-actor-card {
-  background-color: #282828;
-}
-
-.search-actor-card-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.poster-frame {
-  width: 100%;
-  height: auto;
-  max-width: 191px;
-  min-height: 182px;
-  border: solid 3px #fff;
-  box-sizing: border-box;
-  background-color: #000000;
-  box-shadow: 0 0 20px 0 #000;
-  flex-shrink: 0;
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: filter .2s linear, opacity 1s;
-    opacity: 0;
-    filter: brightness(95%);
-
-    &.ng-lazyloaded {
-      opacity: 1;
-    }
-  }
-}
-
-.search-grid.featured {
-
-  .search-actor-card-inner {
-    flex-direction: row;
-  }
-
-  .poster-frame {
-    width: 40%;
-  }
-}
-
-.personal-inform {
-  margin-left: .5rem;
-  height: 85%;
-  width: 60%;
-}
-
-.known-for-list {
-  color: #bfbfbf;
-  padding-left: 10px;
   list-style: none;
+  margin: 0;
 
-  .known-for-list-item {
-    padding: .5rem 0;
+  .search-list-item {
+    width: 100%;
   }
-
-  .search-actor-anchor {
-    transition: color .2s;
-
-    &:hover {
-      color: #ed1c24;
-    }
-  }
-}
-
-.search-actor-anchor {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  box-sizing: border-box;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-h1, h4 {
-  margin: .5rem 0;
 }
