@@ -10,16 +10,14 @@
                 (goToPage)="goToPage($event)"></app-search-list-sidenav>
     </div>
 
-    <div class="frame-main-wrapper" #frameMainElm>
-        <app-frame-main>
-            <div class="search-grid featured">
+    <div class="frame-main-wrapper">
+        <div class="search-grid featured">
                 <div *ngFor="let person of featuredList$ | async" class="search-actor-card">
                     <div class="search-actor-card-inner">
                         <div class="poster-frame">
                             <a class="search-actor-anchor" [routerLink]="'/people/actor/' + person.id">
                                 <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + person.profile_path"
-                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
-                                     [scrollTarget]="frameMainElm" [alt]="person.name"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [alt]="person.name"
                                      alt="Poster">
                             </a>
                         </div>
@@ -41,14 +39,13 @@
                 </div>
             </div>
 
-            <div class="search-grid">
+        <div class="search-grid">
                 <div *ngFor="let person of list$ | async" class="search-actor-card">
                     <div class="search-actor-card-inner">
                         <div class="poster-frame">
                             <a class="search-actor-anchor" [routerLink]="'/people/actor/' + person.id">
                                 <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + person.profile_path"
-                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
-                                     [scrollTarget]="frameMainElm" [alt]="person.name"
+                                     [errorImage]="'/assets/images/abstract-image.jpg'" [alt]="person.name"
                                      alt="Poster">
                             </a>
                         </div>
@@ -58,7 +55,6 @@
                     </div>
                 </div>
             </div>
-        </app-frame-main>
 
         <app-list-paginator [listPage]="listPage$ | async"
                             [listTotalPages]="listTotalPages$ | async"

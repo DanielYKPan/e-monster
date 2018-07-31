@@ -161,14 +161,17 @@
                 <h3>Appearance on Movie</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of castMovieCreditsReleasedFeaturedSorted">
-                        <a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
+                        <app-media-card class="dark"
+                                        [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                        [name]="item.title"></app-media-card>
+                        <!--<a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
                             <div class="poster-frame">
                                 <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
                                      [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
                                      alt="Poster">
                             </div>
                             <p>{{item.title}}</p>
-                        </a>
+                        </a>-->
                     </li>
                 </ul>
             </ng-container>
@@ -177,14 +180,9 @@
                 <h3>Appearance on TV</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of castTvCreditsReleasedFeaturedSorted">
-                        <a class="known-for-list-anchor" [routerLink]="'/tv/' + item.id + '/details'">
-                            <div class="poster-frame">
-                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
-                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
-                                     alt="Poster">
-                            </div>
-                            <p>{{item.name}}</p>
-                        </a>
+                        <app-media-card class="dark"
+                                        [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                        [name]="item.name"></app-media-card>
                     </li>
                 </ul>
             </ng-container>
@@ -194,14 +192,9 @@
                 <h3>Crew on Movie</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of crewMovieCreditsReleasedFeaturedSorted">
-                        <a class="known-for-list-anchor" [routerLink]="'/movie/' + item.id + '/details'">
-                            <div class="poster-frame">
-                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
-                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
-                                     alt="Poster">
-                            </div>
-                            <p>{{item.title}}</p>
-                        </a>
+                        <app-media-card class="dark"
+                                        [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                        [name]="item.title"></app-media-card>
                     </li>
                 </ul>
             </ng-container>
@@ -210,14 +203,9 @@
                 <h3>Crew on TV</h3>
                 <ul class="known-for-list">
                     <li class="known-for-list-item" *ngFor="let item of crewTvCreditsReleasedFeaturedSorted">
-                        <a class="known-for-list-anchor" [routerLink]="'/tv/' + item.id + '/details'">
-                            <div class="poster-frame">
-                                <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
-                                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
-                                     alt="Poster">
-                            </div>
-                            <p>{{item.name}}</p>
-                        </a>
+                        <app-media-card class="dark"
+                                        [imageUrl]="'https://image.tmdb.org/t/p/w185' + item.poster_path"
+                                        [name]="item.name"></app-media-card>
                     </li>
                 </ul>
             </ng-container>

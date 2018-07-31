@@ -23,9 +23,7 @@ import { IActor } from '../../model';
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    @ViewChild('frameMainElm') frameMainElmRef: ElementRef;
-
-    public list$: Observable<IActor[]>;
+   public list$: Observable<IActor[]>;
 
     public featuredList$: Observable<IActor[]>;
 
@@ -57,7 +55,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
             select(fromPeopleRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            this.scrollBackToTop();
+            window.scroll({top: 0, behavior: 'smooth'});
         });
     }
 
@@ -84,9 +82,5 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
      * */
     public handleQueryInputValueChange( event: any ) {
         this.router.navigate(['people/search', {query: event.query}]);
-    }
-
-    private scrollBackToTop(): void {
-        this.frameMainElmRef.nativeElement.scroll({top: 0, behavior: 'smooth'});
     }
 }

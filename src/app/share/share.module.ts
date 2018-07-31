@@ -21,7 +21,7 @@ import { MillisToMsPipe } from './pipe/millis-to-ms.pipe';
 import { TrackDialogComponent } from './track-dialog/track-dialog.component';
 import { EllipsisPipe } from './pipe/ellipsis.pipe';
 import { TrackBarComponent } from './track-bar/track-bar.component';
-import { AlbumCardComponent } from './album-card/album-card.component';
+import { MediaCardComponent } from './album-card/media-card.component';
 
 @NgModule({
     imports: [
@@ -51,7 +51,7 @@ import { AlbumCardComponent } from './album-card/album-card.component';
         SearchListSidenavComponent,
         TrackDialogComponent,
         TrackBarComponent,
-        AlbumCardComponent,
+        MediaCardComponent,
     ],
     declarations: [
         AudioCardComponent,
@@ -72,7 +72,7 @@ import { AlbumCardComponent } from './album-card/album-card.component';
         SearchListSidenavComponent,
         TrackDialogComponent,
         TrackBarComponent,
-        AlbumCardComponent,
+        MediaCardComponent,
     ],
     entryComponents: [
         CreditsDialogComponent,

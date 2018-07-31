@@ -14,10 +14,10 @@
             <h1>Albums</h1>
             <ul class="album-list">
                 <li class="album-list-item" *ngFor="let album of albumList">
-                    <app-album-card [imageUrl]="album.images[0].url"
+                    <app-media-card [imageUrl]="album.images[0].url"
                                     [name]="album.name"
                                     [artists]="album.artists"
-                                    (select)="handleSelectAlbum(album.id)"></app-album-card>
+                                    (select)="handleSelectAlbum(album.id)"></app-media-card>
                 </li>
             </ul>
             <app-list-paginator [listPage]="albumListPage$ | async"

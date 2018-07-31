@@ -10,12 +10,12 @@ import {
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 @Component({
-    selector: 'app-album-card',
-    templateUrl: './album-card.component.html',
-    styleUrls: ['./album-card.component.scss'],
+    selector: 'app-media-card',
+    templateUrl: './media-card.component.html',
+    styleUrls: ['./media-card.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AlbumCardComponent implements OnInit {
+export class MediaCardComponent implements OnInit {
 
     @Input() imageUrl: string;
 

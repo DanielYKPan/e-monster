@@ -115,28 +115,7 @@ $margin-top: 150px;
     justify-items: center;
 
     .known-for-list-item {
-      a.known-for-list-anchor {
-        display: block;
-        cursor: pointer;
-        color: #2d2d2d;
-        text-decoration: none;
-
-        p {
-          margin: 0;
-          padding: 0;
-          width: $sidenav-width;
-          text-align: center;
-          color: inherit;
-          font-size: 0.9rem;
-        }
-
-        &:hover {
-          color: #ed1c24;
-          img {
-            filter: brightness(120%);
-          }
-        }
-      }
+      width: 100%;
     }
   }
 }
@@ -294,4 +273,10 @@ table.credits-group {
   table.credits-group {
     border-bottom: 1px solid rgba(103, 58, 183, 0.26);
   }
+}
+
+.known-for-list /deep/ .poster {
+  padding-top: 0;
+  width: $sidenav-width;
+  height: 284px;
 }
