@@ -13,7 +13,6 @@ import { RatingListComponent } from './rating-list/rating-list.component';
 import { AudioDialogComponent } from './audio-dialog/audio-dialog.component';
 import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
 import { FrameSidenavComponent } from './frame-sidenav/frame-sidenav.component';
-import { FrameMainComponent } from './frame-main/frame-main.component';
 import { OwlMenuModule } from 'owl-ng';
 import { SearchListSidenavComponent } from './search-list-sidenav/search-list-sidenav.component';
 import { AddCommasPipe } from './pipe/add-commas.pipe';
@@ -47,7 +46,6 @@ import { MediaCardComponent } from './album-card/media-card.component';
         RatingListComponent,
         ListPaginatorComponent,
         FrameSidenavComponent,
-        FrameMainComponent,
         SearchListSidenavComponent,
         TrackDialogComponent,
         TrackBarComponent,
@@ -68,7 +66,6 @@ import { MediaCardComponent } from './album-card/media-card.component';
         RatingListComponent,
         ListPaginatorComponent,
         FrameSidenavComponent,
-        FrameMainComponent,
         SearchListSidenavComponent,
         TrackDialogComponent,
         TrackBarComponent,
