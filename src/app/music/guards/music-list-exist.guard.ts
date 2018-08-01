@@ -28,7 +28,7 @@ export class MusicListExistGuard implements CanActivate {
     }
 
     private hasSearchResults( query: string, page: number ): Observable<boolean> {
-        if (query !== 'new-releases') {
+        if (query !== 'new-releases' && query !== 'tag:hipster') {
             this.router.navigate(['page-not-found'], {skipLocationChange: true});
             return of(false);
         }
@@ -55,8 +55,10 @@ export class MusicListExistGuard implements CanActivate {
 
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
-
-        return this.musicService.getNewReleases(page).pipe(
+        const service = query === 'new-releases' ?
+            this.musicService.getNewReleases(page) :
+            this.musicService.searchAlbum(query, page);
+        return service.pipe(
             map(res => new searchMusicActions.SearchAlbumComplete(res)),
             tap(action => {
                 this.store.dispatch(action);

@@ -25,6 +25,7 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public navList = [
         {name: 'New Releases', value: 'new-releases', inform: 'New album releases featured in Spotify'},
+        {name: 'Hipster', value: 'tag:hipster', inform: 'Albums with high popularity in Spotify'},
     ];
 
     constructor( private store: Store<fromMusicRoot.State>,

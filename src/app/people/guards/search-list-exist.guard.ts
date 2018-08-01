@@ -133,25 +133,41 @@ export class SearchListExistGuard implements CanActivate {
     private hasPopularInApi(): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
 
-        return this.actorService.getActorList('popular').pipe(
+        // get popular actors
+        const actors = this.actorService.getActorList('popular').pipe(
             map(res => new searchActorActions.SearchComplete(res)),
-            tap(action => {
-                this.store.dispatch(action);
-                this.store.dispatch(new searchArtistActions.SearchComplete({
-                    query: null,
-                    page: 0,
-                    total_pages: 0,
-                    total_results: 0,
-                    results: []
-                }));
-                this.store.dispatch(new layoutActions.HideLoader());
-            }),
-            map(res => !!res.payload.results),
             catchError(() => {
                 this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});
                 return of(false);
             })
+        );
+
+        // get hipster artists
+        const artists = this.artistService.searchArtist('tag:hipster').pipe(
+            map(res => new searchArtistActions.SearchComplete(res)),
+            catchError((res) => {
+                this.store.dispatch(new layoutActions.HideLoader());
+
+                // The access token expired
+                if (res && res.error && res.status && res.status === 401) {
+                    this.artistService.spotify_access_token = '';
+                    this.router.navigate(['music']);
+                    return of(false);
+                } else {
+                    this.router.navigate(['page-not-found'], {skipLocationChange: true});
+                    return of(false);
+                }
+            })
+        );
+
+        return forkJoin(actors, artists).pipe(
+            tap((actions: any[]) => {
+                this.store.dispatch(actions[0]);
+                this.store.dispatch(actions[1]);
+                this.store.dispatch(new layoutActions.HideLoader());
+            }),
+            map(res => !!res[0].payload.results || !!res[1].payload.results)
         );
     }
 }

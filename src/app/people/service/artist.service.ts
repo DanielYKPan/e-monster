@@ -14,7 +14,7 @@ export class ArtistService extends SpotifyService {
         super(http);
     }
 
-    public searchArtist( query: string, page: number ): Observable<any> {
+    public searchArtist( query: string, page: number = 1 ): Observable<any> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'search?type=artist&market=US&offset=' + offSet + '&q=' + query;
         let headers = new HttpHeaders();
