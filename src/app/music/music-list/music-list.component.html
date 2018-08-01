@@ -3,11 +3,10 @@
         <div class="frame-sidenav-wrapper">
             <app-frame-sidenav [title]="'Music'" [listPage]="paginatorData.album_page"
                                [listTotalPages]="paginatorData.album_total_pages"
-                               [listQuery]="paginatorData.album_query"
                                [currentOption]="paginatorData.album_query"
                                [navList]="navList"
                                (clickOption)="handleNavListOptionClick($event)"
-                               (goToPage)="goToPage($event)"></app-frame-sidenav>
+                               (goToPage)="goToPage($event, paginatorData.album_query)"></app-frame-sidenav>
         </div>
 
         <div class="frame-main-wrapper">
@@ -28,8 +27,7 @@
 
             <app-list-paginator [listPage]="paginatorData.album_page"
                                 [listTotalPages]="paginatorData.album_total_pages"
-                                [searchName]="paginatorData.album_query"
-                                (goToPage)="goToPage($event)"></app-list-paginator>
+                                (goToPage)="goToPage($event, paginatorData.album_query)"></app-list-paginator>
         </div>
     </ng-container>
 </section>

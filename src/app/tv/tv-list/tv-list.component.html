@@ -3,7 +3,6 @@
         <div class="frame-sidenav-wrapper">
             <app-frame-sidenav [title]="'TV Series'" [listPage]="paginatorData.page"
                                [listTotalPages]="paginatorData.total_pages"
-                               [listQuery]="paginatorData.query"
                                [currentOption]="paginatorData.query"
                                [navList]="navList"
                                (clickOption)="handleNavListOptionClick($event)"
@@ -36,7 +35,6 @@
 
             <app-list-paginator [listPage]="paginatorData.page"
                                 [listTotalPages]="paginatorData.total_pages"
-                                [searchName]="paginatorData.query"
                                 (goToPage)="goToPage($event)"></app-list-paginator>
         </div>
     </ng-container>

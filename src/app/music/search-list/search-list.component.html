@@ -7,7 +7,7 @@
                     [listQuery]="paginatorData.album_query === 'new-releases' ? '' : paginatorData.album_query"
                     [currentOption]="'music'"
                     (queryChange)="handleQueryInputValueChange($event)"
-                    (clickOption)="handleNavListOptionClick($event)"></app-search-list-sidenav>
+                    (clickOption)="handleNavListOptionClick($event, paginatorData.album_query)"></app-search-list-sidenav>
         </div>
 
         <div class="frame-main-wrapper">
@@ -25,8 +25,7 @@
                         </ul>
                         <app-list-paginator [listPage]="paginatorData.album_page"
                                             [listTotalPages]="paginatorData.album_total_pages"
-                                            [searchName]="paginatorData.album_query"
-                                            (goToPage)="goToAlbumPage($event, paginatorData.track_page)"
+                                            (goToPage)="goToAlbumPage($event, paginatorData.track_page, paginatorData.album_query)"
                                             #albumPaginator="paginator"></app-list-paginator>
                     </ng-container>
                 </div>
@@ -44,8 +43,7 @@
                         </ul>
                         <app-list-paginator [listPage]="paginatorData.track_page"
                                             [listTotalPages]="paginatorData.track_total_pages"
-                                            [searchName]="paginatorData.track_query"
-                                            (goToPage)="goToTrackPage($event, paginatorData.album_page)"
+                                            (goToPage)="goToTrackPage($event, paginatorData.album_page, paginatorData.track_query)"
                                             #trackPaginator="paginator"></app-list-paginator>
                     </ng-container>
                 </div>

@@ -18,8 +18,6 @@ export class ListPaginatorComponent implements OnInit {
 
     @Input() listTotalPages: number;
 
-    @Input() searchName: string;
-
     @Output() goToPage = new EventEmitter<any>();
 
     @HostBinding('class.hidden')
@@ -56,6 +54,6 @@ export class ListPaginatorComponent implements OnInit {
             return;
         }
 
-        this.goToPage.next({query: this.searchName, page: page});
+        this.goToPage.next(page);
     }
 }

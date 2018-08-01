@@ -7,7 +7,7 @@
                     [listQuery]="paginatorData.actor_query === 'popular' ? '' : paginatorData.actor_query"
                     [currentOption]="'people'"
                     (queryChange)="handleQueryInputValueChange($event)"
-                    (clickOption)="handleNavListOptionClick($event)"></app-search-list-sidenav>
+                    (clickOption)="handleNavListOptionClick($event, paginatorData.actor_query)"></app-search-list-sidenav>
         </div>
 
         <div class="frame-main-wrapper">
@@ -24,8 +24,7 @@
                         </ul>
                         <app-list-paginator [listPage]="paginatorData.actor_page"
                                             [listTotalPages]="paginatorData.actor_total_pages"
-                                            [searchName]="paginatorData.actor_query"
-                                            (goToPage)="goToActorPage($event, paginatorData.artist_page)"
+                                            (goToPage)="goToActorPage($event, paginatorData.artist_page, paginatorData.actor_query)"
                                             #actorPaginator="paginator"></app-list-paginator>
                     </ng-container>
                 </div>
@@ -42,8 +41,7 @@
                         </ul>
                         <app-list-paginator [listPage]="paginatorData.artist_page"
                                             [listTotalPages]="paginatorData.artist_total_pages"
-                                            [searchName]="paginatorData.artist_query"
-                                            (goToPage)="goToArtistPage($event, paginatorData.actor_page)"
+                                            (goToPage)="goToArtistPage($event, paginatorData.actor_page, paginatorData.artist_query)"
                                             #artistPaginator="paginator"></app-list-paginator>
                     </ng-container>
                 </div>

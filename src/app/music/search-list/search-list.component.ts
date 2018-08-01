@@ -53,25 +53,25 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.scrollBackTopSub.unsubscribe();
     }
 
-    public goToAlbumPage( event: any, track_page: number ): void {
-        const queryParams = track_page ?
-            {query: event.query, page_album: event.page, page_track: track_page} :
-            {query: event.query, page_album: event.page};
+    public goToAlbumPage( page_album: number, page_track: number, query: string ): void {
+        const queryParams = page_track ?
+            {query, page_album, page_track} :
+            {query, page_album};
         this.router.navigate(['music/search', queryParams]);
     }
 
-    public goToTrackPage( event: any, album_page: number ): void {
-        const queryParams = album_page ?
-            {query: event.query, page_album: album_page, page_track: event.page} :
-            {query: event.query, page_track: event.page};
+    public goToTrackPage( page_track: number, page_album: number, query: string ): void {
+        const queryParams = page_album ?
+            {query, page_album: page_album, page_track} :
+            {query, page_track};
         this.router.navigate(['music/search', queryParams]);
     }
 
     /**
      * Go a specific search page
      * */
-    public handleNavListOptionClick( event: any ) {
-        this.router.navigate([`${event.type}/search`, {query: event.query}]);
+    public handleNavListOptionClick( option: string, query: string ) {
+        this.router.navigate([`${option}/search`, {query}]);
     }
 
     /**

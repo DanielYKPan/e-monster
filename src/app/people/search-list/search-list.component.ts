@@ -54,25 +54,25 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.scrollBackTopSub.unsubscribe();
     }
 
-    public goToActorPage( event: any, artist_page: number ): void {
-        const queryParams = artist_page ?
-            {query: event.query, page_actor: event.page, page_artist: artist_page} :
-            {query: event.query, page_actor: event.page};
+    public goToActorPage( page_actor: number, page_artist: number, query: string ): void {
+        const queryParams = page_artist ?
+            {query, page_actor, page_artist} :
+            {query, page_actor};
         this.router.navigate(['people/search', queryParams]);
     }
 
-    public goToArtistPage( event: any, actor_page: number ): void {
-        const queryParams = actor_page ?
-            {query: event.query, page_actor: actor_page, page_artist: event.page} :
-            {query: event.query, page_actor: event.page};
+    public goToArtistPage( page_artist: number, page_actor: number, query: string ): void {
+        const queryParams = page_actor ?
+            {query, page_actor: page_actor, page_artist} :
+            {query, page_actor};
         this.router.navigate(['people/search', queryParams]);
     }
 
     /**
      * Go a specific search page
      * */
-    public handleNavListOptionClick( event: any ) {
-        this.router.navigate([`${event.type}/search`, {query: event.query}]);
+    public handleNavListOptionClick( option: string, query) {
+        this.router.navigate([`${option}/search`, {query}]);
     }
 
     /**

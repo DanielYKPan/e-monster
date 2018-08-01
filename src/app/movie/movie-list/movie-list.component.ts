@@ -61,15 +61,15 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
         this.scrollBackTopSub.unsubscribe();
     }
 
-    public handleNavListOptionClick( res: any ) {
-        this.router.navigate(['movie/list', res.type]);
+    public handleNavListOptionClick( option: string ) {
+        this.router.navigate(['movie/list', option]);
     }
 
     /**
      * Go a specific page of the list
      * */
-    public goToPage( event: any ): void {
-        this.router.navigate(['movie/list', event.query, {page: event.page}]);
+    public goToPage( page: number, query: string ): void {
+        this.router.navigate(['movie/list', query, {page}]);
     }
 
     /**

@@ -57,7 +57,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
     /**
      * Go a specific page of the list
      * */
-    public goToPage( event: any ): void {
-        this.router.navigate(['book/list', event.query, {page: event.page}]);
+    public goToPage( page: number, query: string ): void {
+        this.router.navigate(['book/list', query, {page}]);
     }
 }

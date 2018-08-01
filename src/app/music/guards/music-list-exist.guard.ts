@@ -22,7 +22,7 @@ export class MusicListExistGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
-        const page = next.params['page'] || 1;
+        const page = +next.params['page'] || 1;
         const query = next.params['query'];
         return this.hasSearchResults(query, page);
     }

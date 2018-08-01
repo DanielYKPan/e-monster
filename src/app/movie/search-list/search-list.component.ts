@@ -55,15 +55,15 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     /**
      * Go a specific page of the list
      * */
-    public goToPage( event: any ): void {
-        this.router.navigate(['movie/search', {query: event.query, page: event.page}]);
+    public goToPage( page: number, query: string ): void {
+        this.router.navigate(['movie/search', {query, page}]);
     }
 
     /**
      * Go a specific search page
      * */
-    public handleNavListOptionClick( event: any ) {
-        this.router.navigate([`${event.type}/search`, {query: event.query}]);
+    public handleNavListOptionClick( option: string, query: string ) {
+        this.router.navigate([`${option}/search`, {query}]);
     }
 
     /**

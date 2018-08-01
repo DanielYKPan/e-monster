@@ -53,15 +53,15 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
         this.scrollBackTopSub.unsubscribe();
     }
 
-    public handleNavListOptionClick( res: any ) {
-        this.router.navigate(['music/list', res.type]);
+    public handleNavListOptionClick( option: string ) {
+        this.router.navigate(['music/list', option]);
     }
 
     /**
      * Go a specific page of the list
      * */
-    public goToPage( event: any ): void {
-        this.router.navigate(['music/list', event.query, {page: event.page}]);
+    public goToPage( page: number, query: string ): void {
+        this.router.navigate(['music/list', query, {page}]);
     }
 
     /**

@@ -58,7 +58,7 @@ export class SearchListSidenavComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.inputQueryChangeSub = this.inputQueryChange$
             .pipe(
-                debounceTime(300),
+                debounceTime(500),
                 distinctUntilChanged()
             ).subscribe(( query: string ) => {
                 this.queryChange.next({type: this.currentOption, query: query});

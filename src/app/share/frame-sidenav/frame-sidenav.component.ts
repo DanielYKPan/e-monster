@@ -25,8 +25,6 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
 
     @Input() listTotalPages: number;
 
-    @Input() listQuery: string;
-
     @Input() currentOption: string;
 
     @Input() navList: Array<{ name: string, value: string, inform?: string }>;
@@ -73,7 +71,7 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
 
     public handleOptionClick( option: any, event: any ): void {
         if (option.value !== this.currentOption) {
-            this.clickOption.emit({type: option.value, query: this.listQuery});
+            this.clickOption.emit(option.value);
         }
         event.preventDefault();
     }
@@ -93,6 +91,6 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.goToPage.next({type: this.currentOption, query: this.listQuery, page: page});
+        this.goToPage.next(page);
     }
 }

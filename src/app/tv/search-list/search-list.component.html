@@ -7,8 +7,8 @@
                     [listQuery]="paginatorData.query === 'on_the_air' ? '' : paginatorData.query"
                     [currentOption]="'tv'"
                     (queryChange)="handleQueryInputValueChange($event)"
-                    (clickOption)="handleNavListOptionClick($event)"
-                    (goToPage)="goToPage($event)"></app-search-list-sidenav>
+                    (clickOption)="handleNavListOptionClick($event, paginatorData.query)"
+                    (goToPage)="goToPage($event, paginatorData.query)"></app-search-list-sidenav>
         </div>
 
         <div class="frame-main-wrapper">
@@ -39,8 +39,7 @@
 
                     <app-list-paginator [listPage]="paginatorData.page"
                                         [listTotalPages]="paginatorData.total_pages"
-                                        [searchName]="paginatorData.query"
-                                        (goToPage)="goToPage($event)"></app-list-paginator>
+                                        (goToPage)="goToPage($event, paginatorData.query)"></app-list-paginator>
                 </ng-container>
             </ng-container>
 
