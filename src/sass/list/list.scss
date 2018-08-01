@@ -38,6 +38,13 @@ $topbar-height: 3.2rem;
   color: #fff;
 }
 
+.no-result-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @media #{$large-up} {
   .frame-main-wrapper {
     margin-left: $sidenav-width;

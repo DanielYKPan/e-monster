@@ -144,7 +144,7 @@ export class SearchListExistGuard implements CanActivate {
                     page: 0,
                     total_pages: 0,
                     total_results: 0,
-                    results: null
+                    results: []
                 }));
                 this.store.dispatch(new layoutActions.HideLoader());
             }),

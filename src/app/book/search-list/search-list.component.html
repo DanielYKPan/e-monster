@@ -11,13 +11,21 @@
     </div>
 
     <div class="frame-main-wrapper">
-        <div class="book-list">
-            <app-book-card *ngFor="let book of list$ | async"
-                           [book]="book"></app-book-card>
-        </div>
-        <app-list-paginator [listPage]="listPage$ | async"
-                            [listTotalPages]="listTotalPages$ | async"
-                            [searchName]="listQuery$ | async"
-                            (goToPage)="goToPage($event)"></app-list-paginator>
+        <ng-container *ngIf="list$ | async as list;else noResultBlock">
+            <ng-container *ngIf="list.length > 0; else noResultBlock">
+                <div class="book-list">
+                    <app-book-card *ngFor="let book of list"
+                                   [book]="book"></app-book-card>
+                </div>
+                <app-list-paginator [listPage]="listPage$ | async"
+                                    [listTotalPages]="listTotalPages$ | async"
+                                    [searchName]="listQuery$ | async"
+                                    (goToPage)="goToPage($event)"></app-list-paginator>
+            </ng-container>
+        </ng-container>
+
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No Result Found</h1>
+        </ng-template>
     </div>
 </section>

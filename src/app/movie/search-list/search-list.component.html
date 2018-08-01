@@ -11,32 +11,39 @@
     </div>
 
     <div class="frame-main-wrapper">
-        <div class="search-grid featured">
-            <app-audio-card *ngFor="let audio of featuredList$ | async" class="audio-card"
-                            [audio]="audio"
-                            [cardLink]="'/movie/' + audio.id + '/details'"
-                            [imageLink]="'https://image.tmdb.org/t/p/w780' + audio.backdrop_path"
-                            [title]="audio.title"
-                            [date]="audio.release_date"
-                            [vote_average]="audio.vote_average"
-                            [vote_count]="audio.vote_count"
-                            (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
-        </div>
-        <div class="search-grid">
-            <app-audio-card *ngFor="let audio of list$ | async" class="audio-card"
-                            [audio]="audio"
-                            [cardLink]="'/movie/' + audio.id + '/details'"
-                            [imageLink]="'https://image.tmdb.org/t/p/w780' + audio.poster_path"
-                            [title]="audio.title"
-                            [date]="audio.release_date"
-                            [vote_average]="audio.vote_average"
-                            [vote_count]="audio.vote_count"
-                            (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
-        </div>
+        <ng-container *ngIf="featuredList$ | async as featuredList;else noResultBlock">
+            <ng-container *ngIf="featuredList.length > 0; else noResultBlock">
+                <div class="search-grid featured">
+                    <app-audio-card *ngFor="let audio of featuredList" class="audio-card"
+                                    [audio]="audio"
+                                    [cardLink]="'/movie/' + audio.id + '/details'"
+                                    [imageLink]="'https://image.tmdb.org/t/p/w780' + audio.backdrop_path"
+                                    [title]="audio.title"
+                                    [date]="audio.release_date"
+                                    [vote_average]="audio.vote_average"
+                                    [vote_count]="audio.vote_count"
+                                    (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+                </div>
+                <div class="search-grid">
+                    <app-audio-card *ngFor="let audio of list$ | async" class="audio-card"
+                                    [audio]="audio"
+                                    [cardLink]="'/movie/' + audio.id + '/details'"
+                                    [imageLink]="'https://image.tmdb.org/t/p/w780' + audio.poster_path"
+                                    [title]="audio.title"
+                                    [date]="audio.release_date"
+                                    [vote_average]="audio.vote_average"
+                                    [vote_count]="audio.vote_count"
+                                    (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+                </div>
+                <app-list-paginator [listPage]="listPage$ | async"
+                                    [listTotalPages]="listTotalPages$ | async"
+                                    [searchName]="listQuery$ | async"
+                                    (goToPage)="goToPage($event)"></app-list-paginator>
+            </ng-container>
+        </ng-container>
 
-        <app-list-paginator [listPage]="listPage$ | async"
-                            [listTotalPages]="listTotalPages$ | async"
-                            [searchName]="listQuery$ | async"
-                            (goToPage)="goToPage($event)"></app-list-paginator>
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No Result Found</h1>
+        </ng-template>
     </div>
 </section>

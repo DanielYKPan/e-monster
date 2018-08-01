@@ -10,38 +10,48 @@
     </div>
 
     <div class="frame-main-wrapper">
-        <div class="frame-main-partial" *ngIf="albumList$ | async as albumList">
-            <h1>Albums</h1>
-            <ul class="album-list">
-                <li class="album-list-item" *ngFor="let album of albumList">
-                    <app-media-card [imageUrl]="album.images[0]?.url"
-                                    [name]="album.name"
-                                    [artists]="album.artists"
-                                    (select)="handleSelectAlbum(album.id)"></app-media-card>
-                </li>
-            </ul>
-            <app-list-paginator [listPage]="albumListPage$ | async"
-                                [listTotalPages]="albumListTotalPages$ | async"
-                                [searchName]="listQuery"
-                                (goToPage)="goToAlbumPage($event)"
-                                #albumPaginator="paginator"></app-list-paginator>
-        </div>
-        <div class="frame-main-partial" *ngIf="trackList$ | async as trackList" >
-            <h1>Tracks</h1>
-            <ul class="tracks-list">
-                <li class="track-item" *ngFor="let track of trackList">
-                    <app-track-bar [role]="'link'"
-                                   [imageUrl]="track.album.images[0]?.url"
-                                   [name]="track.name" [explicit]="track.explicit"
-                                   [artists]="track.artists"
-                                   (select)="handleSelectTrack(track.album.id, track.id)"></app-track-bar>
-                </li>
-            </ul>
-            <app-list-paginator [listPage]="trackListPage$ | async"
-                                [listTotalPages]="trackListTotalPages$ | async"
-                                [searchName]="listQuery"
-                                (goToPage)="goToTrackPage($event)"
-                                #trackPaginator="paginator"></app-list-paginator>
-        </div>
+        <ng-container *ngIf="{ albums: albumList$ | async, tracks: trackList$ | async } as list">
+            <div class="frame-main-partial">
+                <h1>Albums</h1>
+                <ng-container *ngIf="list.albums && list.albums.length > 0;else noResultBlock">
+                    <ul class="album-list">
+                        <li class="album-list-item" *ngFor="let album of list.albums">
+                            <app-media-card [imageUrl]="album.images[0]?.url"
+                                            [name]="album.name"
+                                            [artists]="album.artists"
+                                            (select)="handleSelectAlbum(album.id)"></app-media-card>
+                        </li>
+                    </ul>
+                    <app-list-paginator [listPage]="albumListPage$ | async"
+                                        [listTotalPages]="albumListTotalPages$ | async"
+                                        [searchName]="listQuery"
+                                        (goToPage)="goToAlbumPage($event)"
+                                        #albumPaginator="paginator"></app-list-paginator>
+                </ng-container>
+            </div>
+            <div class="frame-main-partial">
+                <h1>Tracks</h1>
+                <ng-container *ngIf="list.tracks && list.tracks.length > 0;else noResultBlock">
+                    <ul class="tracks-list">
+                        <li class="track-item" *ngFor="let track of list.tracks">
+                            <app-track-bar [role]="'link'"
+                                           [imageUrl]="track.album.images[0]?.url"
+                                           [name]="track.name" [explicit]="track.explicit"
+                                           [artists]="track.artists"
+                                           (select)="handleSelectTrack(track.album.id, track.id)"></app-track-bar>
+                        </li>
+                    </ul>
+                    <app-list-paginator [listPage]="trackListPage$ | async"
+                                        [listTotalPages]="trackListTotalPages$ | async"
+                                        [searchName]="listQuery"
+                                        (goToPage)="goToTrackPage($event)"
+                                        #trackPaginator="paginator"></app-list-paginator>
+                </ng-container>
+            </div>
+        </ng-container>
+
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No Result Found</h1>
+        </ng-template>
     </div>
 </section>

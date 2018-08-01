@@ -28,7 +28,7 @@ export class ArtistService extends SpotifyService {
                     page,
                     total_results,
                     total_pages,
-                    results: res.artists.items || null
+                    results: res.artists.items || []
                 };
             }),
             catchError(this.handleError),
