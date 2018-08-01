@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { combineLatest, Observable, Subscription } from 'rxjs';
@@ -6,7 +6,6 @@ import { skip } from 'rxjs/operators';
 
 import * as fromPeopleRoot from '../reducers';
 import { IActor, IArtist } from '../../model';
-import { ListPaginatorComponent } from '../../share/list-paginator/list-paginator.component';
 
 @Component({
     selector: 'app-actor-search-list',
@@ -16,41 +15,28 @@ import { ListPaginatorComponent } from '../../share/list-paginator/list-paginato
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    @ViewChild('actorPaginator') actorPaginator: ListPaginatorComponent;
-    @ViewChild('artistPaginator') artistPaginator: ListPaginatorComponent;
-
     public actorList$: Observable<IActor[]>;
-    public actorListPage$: Observable<number>; // list page
-    public actorListTotalPages$: Observable<number>; // list total pages
-
     public artistList$: Observable<IArtist[]>;
-    public artistListPage$: Observable<number>; // list page
-    public artistListTotalPages$: Observable<number>; // list total pages
 
-    public listQuery$: Observable<string>; // list query
-    public listQuery: string; // list query
+    public paginatorData$: Observable<{
+        actor_page: number,
+        actor_total_pages: number,
+        actor_query: string,
+        artist_page: number,
+        artist_total_pages: number,
+        artist_query: string,
+    }>;
 
     private scrollBackTopSub = Subscription.EMPTY;
-    private listQuerySub = Subscription.EMPTY;
 
     constructor( private router: Router,
                  private store: Store<fromPeopleRoot.State> ) {
     }
 
     public ngOnInit() {
-        this.listQuerySub = this.store
-            .pipe(select(fromPeopleRoot.getSearchActorQuery))
-            .subscribe(( q ) => {
-                this.listQuery = q;
-            });
-
         this.actorList$ = this.store.pipe(select(fromPeopleRoot.getSearchActorResults));
-        this.actorListPage$ = this.store.pipe(select(fromPeopleRoot.getSearchActorPage));
-        this.actorListTotalPages$ = this.store.pipe(select(fromPeopleRoot.getSearchActorTotalPage));
-
         this.artistList$ = this.store.pipe(select(fromPeopleRoot.getSearchArtistResults));
-        this.artistListPage$ = this.store.pipe(select(fromPeopleRoot.getSearchArtistPage));
-        this.artistListTotalPages$ = this.store.pipe(select(fromPeopleRoot.getSearchArtistTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromPeopleRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {
@@ -66,19 +52,18 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public ngOnDestroy(): void {
         this.scrollBackTopSub.unsubscribe();
-        this.listQuerySub.unsubscribe();
     }
 
-    public goToActorPage( event: any ): void {
-        const queryParams = this.artistPaginator ?
-            {query: event.query, page_actor: event.page, page_artist: this.artistPaginator.listPage} :
+    public goToActorPage( event: any, artist_page: number ): void {
+        const queryParams = artist_page ?
+            {query: event.query, page_actor: event.page, page_artist: artist_page} :
             {query: event.query, page_actor: event.page};
         this.router.navigate(['people/search', queryParams]);
     }
 
-    public goToArtistPage( event: any ): void {
-        const queryParams = this.actorPaginator ?
-            {query: event.query, page_actor: this.actorPaginator.listPage, page_artist: event.page} :
+    public goToArtistPage( event: any, actor_page: number ): void {
+        const queryParams = actor_page ?
+            {query: event.query, page_actor: actor_page, page_artist: event.page} :
             {query: event.query, page_actor: event.page};
         this.router.navigate(['people/search', queryParams]);
     }

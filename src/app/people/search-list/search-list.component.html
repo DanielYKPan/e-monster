@@ -1,55 +1,57 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav-wrapper">
-        <app-search-list-sidenav
-                [listPage]="1"
-                [listTotalPages]="1"
-                [listQuery]="listQuery === 'popular' ? '' : listQuery"
-                [currentOption]="'people'"
-                (queryChange)="handleQueryInputValueChange($event)"
-                (clickOption)="handleNavListOptionClick($event)"></app-search-list-sidenav>
-    </div>
+    <ng-container *ngIf="paginatorData$ | async as paginatorData">
+        <div class="frame-sidenav-wrapper">
+            <app-search-list-sidenav
+                    [listPage]="1"
+                    [listTotalPages]="1"
+                    [listQuery]="paginatorData.actor_query === 'popular' ? '' : paginatorData.actor_query"
+                    [currentOption]="'people'"
+                    (queryChange)="handleQueryInputValueChange($event)"
+                    (clickOption)="handleNavListOptionClick($event)"></app-search-list-sidenav>
+        </div>
 
-    <div class="frame-main-wrapper">
-        <ng-container *ngIf="{ actors: actorList$ | async, artists: artistList$ | async } as list">
-            <div class="frame-main-partial">
-                <h1>Actors</h1>
-                <ng-container *ngIf="list.actors && list.actors.length > 0;else noResultBlock">
-                    <ul class="search-list search-actor-list">
-                        <li class="search-list-item" *ngFor="let person of list.actors">
-                            <app-media-card [imageUrl]="'https://image.tmdb.org/t/p/w185' + person.profile_path"
-                                            [name]="person.name || person.title"
-                                            (select)="handleSelectActor(person.id)"></app-media-card>
-                        </li>
-                    </ul>
-                    <app-list-paginator [listPage]="actorListPage$ | async"
-                                        [listTotalPages]="actorListTotalPages$ | async"
-                                        [searchName]="listQuery"
-                                        (goToPage)="goToActorPage($event)"
-                                        #actorPaginator="paginator"></app-list-paginator>
-                </ng-container>
-            </div>
+        <div class="frame-main-wrapper">
+            <ng-container *ngIf="{ actors: actorList$ | async, artists: artistList$ | async } as list">
+                <div class="frame-main-partial">
+                    <h1>Actors</h1>
+                    <ng-container *ngIf="list.actors && list.actors.length > 0;else noResultBlock">
+                        <ul class="search-list search-actor-list">
+                            <li class="search-list-item" *ngFor="let person of list.actors">
+                                <app-media-card [imageUrl]="'https://image.tmdb.org/t/p/w185' + person.profile_path"
+                                                [name]="person.name || person.title"
+                                                (select)="handleSelectActor(person.id)"></app-media-card>
+                            </li>
+                        </ul>
+                        <app-list-paginator [listPage]="paginatorData.actor_page"
+                                            [listTotalPages]="paginatorData.actor_total_pages"
+                                            [searchName]="paginatorData.actor_query"
+                                            (goToPage)="goToActorPage($event, paginatorData.artist_page)"
+                                            #actorPaginator="paginator"></app-list-paginator>
+                    </ng-container>
+                </div>
 
-            <div class="frame-main-partial">
-                <h1>Artists</h1>
-                <ng-container *ngIf="list.artists && list.artists.length > 0;else noResultBlock">
-                    <ul class="search-list search-artist-list">
-                        <li class="search-list-item" *ngFor="let person of list.artistList$">
-                            <app-media-card [imageUrl]="person.images[0]?.url"
-                                            [name]="person.name"
-                                            (select)="handleSelectArtist(person.id)"></app-media-card>
-                        </li>
-                    </ul>
-                    <app-list-paginator [listPage]="artistListPage$ | async"
-                                        [listTotalPages]="artistListTotalPages$ | async"
-                                        [searchName]="listQuery"
-                                        (goToPage)="goToArtistPage($event)"
-                                        #artistPaginator="paginator"></app-list-paginator>
-                </ng-container>
-            </div>
-        </ng-container>
+                <div class="frame-main-partial">
+                    <h1>Artists</h1>
+                    <ng-container *ngIf="list.artists && list.artists.length > 0;else noResultBlock">
+                        <ul class="search-list search-artist-list">
+                            <li class="search-list-item" *ngFor="let person of list.artists">
+                                <app-media-card [imageUrl]="person.images[0]?.url"
+                                                [name]="person.name"
+                                                (select)="handleSelectArtist(person.id)"></app-media-card>
+                            </li>
+                        </ul>
+                        <app-list-paginator [listPage]="paginatorData.artist_page"
+                                            [listTotalPages]="paginatorData.artist_total_pages"
+                                            [searchName]="paginatorData.artist_query"
+                                            (goToPage)="goToArtistPage($event, paginatorData.actor_page)"
+                                            #artistPaginator="paginator"></app-list-paginator>
+                    </ng-container>
+                </div>
+            </ng-container>
 
-        <ng-template #noResultBlock>
-            <h1 class="no-result-msg">No Result Found</h1>
-        </ng-template>
-    </div>
+            <ng-template #noResultBlock>
+                <h1 class="no-result-msg">No Result Found</h1>
+            </ng-template>
+        </div>
+    </ng-container>
 </section>

@@ -58,11 +58,10 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchActorResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromPeopleRoot.getSearchActorQuery), take(1)),
-            this.store.pipe(select(fromPeopleRoot.getSearchActorPage), take(1)),
+            this.store.pipe(select(fromPeopleRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromPeopleRoot.getSearchActorResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
+            map(( result: any ) => result[0].actor_query === query && result[0].actor_page === page && !!result[1])
         );
     }
 
@@ -98,11 +97,10 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchArtistResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromPeopleRoot.getSearchArtistQuery), take(1)),
-            this.store.pipe(select(fromPeopleRoot.getSearchArtistPage), take(1)),
+            this.store.pipe(select(fromPeopleRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromPeopleRoot.getSearchArtistResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
+            map(( result: any ) => result[0].artist_query === query && result[0].artist_page === page && !!result[1])
         );
     }
 

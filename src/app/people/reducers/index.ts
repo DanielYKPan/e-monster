@@ -132,3 +132,15 @@ export const getSearchArtistResults = createSelector(
     getSearchArtistState,
     fromSearchArtist.getSearchResults,
 );
+
+export const getPaginatorData = createSelector(
+    getSearchActorPage,
+    getSearchActorTotalPage,
+    getSearchActorQuery,
+    getSearchArtistPage,
+    getSearchArtistTotalPage,
+    getSearchArtistQuery,
+    ( actor_page, actor_total_pages, actor_query, artist_page, artist_total_pages, artist_query ) => {
+        return {actor_page, actor_total_pages, actor_query, artist_page, artist_total_pages, artist_query};
+    }
+);
