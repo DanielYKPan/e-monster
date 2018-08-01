@@ -84,7 +84,7 @@
         &.collect {
           color: #16a085;
 
-          &:hover {
+          &:hover, &:focus {
             background: #16a085;
             color: #ffffff;
           }
@@ -93,7 +93,7 @@
         &.play {
           color: #aaaaaa;
 
-          &:hover {
+          &:hover, &:focus {
             background: #aaaaaa;
             color: #ffffff;
           }

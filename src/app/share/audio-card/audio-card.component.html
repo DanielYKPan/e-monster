@@ -11,13 +11,15 @@
     </a>
     <div class="card-control">
         <div class="card-actions">
-            <a class="card-action collect"
+            <a class="basic-btn card-action collect"
+               type="button" tabindex="0"
                owlTooltip="Add To Collection"
                (click)="clickAddCollection($event)">
                 <i class="fas fa-book"></i>
             </a>
             <a *ngIf="!hidePlayBtn"
-               class="card-action play"
+               type="button" tabindex="0"
+               class="basic-btn card-action play"
                owlTooltip="Watch Trailer"
                (click)="clickPlayVideo($event)">
                 <i class="fas fa-play"></i>

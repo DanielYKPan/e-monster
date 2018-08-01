@@ -25,7 +25,8 @@ $text-color: #ed1c24;
     color: #444;
   }
 
-  &:not(:disabled):hover {
+  &:not(:disabled):hover,
+  &:not(:disabled):focus {
     color: darken($text-color, 20%);
 
     .btn-text {
