@@ -19,11 +19,7 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public featuredList$: Observable<IAlbum[]>;
 
-    public listQuery$: Observable<string>; // list query
-
-    public listPage$: Observable<number>; // list page
-
-    public listTotalPages$: Observable<number>; // list total pages
+    public paginatorData$: Observable<{album_page: number, album_total_pages: number, album_query: string}>;
 
     private scrollBackTopSub = Subscription.EMPTY;
 
@@ -38,9 +34,7 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
     ngOnInit() {
         this.list$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumQuery));
-        this.listPage$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumPage));
-        this.listTotalPages$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromMusicRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {

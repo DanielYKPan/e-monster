@@ -1,33 +1,35 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav-wrapper">
-        <app-frame-sidenav [title]="'Music'" [listPage]="listPage$ | async"
-                           [listTotalPages]="listTotalPages$ | async"
-                           [listQuery]="listQuery$ | async"
-                           [currentOption]="listQuery$ | async"
-                           [navList]="navList"
-                           (clickOption)="handleNavListOptionClick($event)"
-                           (goToPage)="goToPage($event)"></app-frame-sidenav>
-    </div>
+    <ng-container *ngIf="paginatorData$ | async as paginatorData">
+        <div class="frame-sidenav-wrapper">
+            <app-frame-sidenav [title]="'Music'" [listPage]="paginatorData.album_page"
+                               [listTotalPages]="paginatorData.album_total_pages"
+                               [listQuery]="paginatorData.album_query"
+                               [currentOption]="paginatorData.album_query"
+                               [navList]="navList"
+                               (clickOption)="handleNavListOptionClick($event)"
+                               (goToPage)="goToPage($event)"></app-frame-sidenav>
+        </div>
 
-    <div class="frame-main-wrapper">
-        <ul class="album-grid featured">
-            <li class="album-grid-item" *ngFor="let album of featuredList$ | async">
-                <app-media-card [imageUrl]="album.images[0]?.url"
-                                [name]="album.name" [artists]="album.artists"
-                                (select)="handleSelectAlbum(album.id)"></app-media-card>
-            </li>
-        </ul>
-        <ul class="album-grid">
-            <li class="album-grid-item" *ngFor="let album of list$ | async">
-                <app-media-card [imageUrl]="album.images[0]?.url"
-                                [name]="album.name" [artists]="album.artists"
-                                (select)="handleSelectAlbum(album.id)"></app-media-card>
-            </li>
-        </ul>
+        <div class="frame-main-wrapper">
+            <ul class="album-grid featured">
+                <li class="album-grid-item" *ngFor="let album of featuredList$ | async">
+                    <app-media-card [imageUrl]="album.images[0]?.url"
+                                    [name]="album.name" [artists]="album.artists"
+                                    (select)="handleSelectAlbum(album.id)"></app-media-card>
+                </li>
+            </ul>
+            <ul class="album-grid">
+                <li class="album-grid-item" *ngFor="let album of list$ | async">
+                    <app-media-card [imageUrl]="album.images[0]?.url"
+                                    [name]="album.name" [artists]="album.artists"
+                                    (select)="handleSelectAlbum(album.id)"></app-media-card>
+                </li>
+            </ul>
 
-        <app-list-paginator [listPage]="listPage$ | async"
-                            [listTotalPages]="listTotalPages$ | async"
-                            [searchName]="listQuery$ | async"
-                            (goToPage)="goToPage($event)"></app-list-paginator>
-    </div>
+            <app-list-paginator [listPage]="paginatorData.album_page"
+                                [listTotalPages]="paginatorData.album_total_pages"
+                                [searchName]="paginatorData.album_query"
+                                (goToPage)="goToPage($event)"></app-list-paginator>
+        </div>
+    </ng-container>
 </section>

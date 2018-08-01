@@ -73,11 +73,10 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchAlbumResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromMusicRoot.getSearchAlbumQuery), take(1)),
-            this.store.pipe(select(fromMusicRoot.getSearchAlbumPage), take(1)),
+            this.store.pipe(select(fromMusicRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromMusicRoot.getSearchAlbumResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
+            map(( result: any ) => result[0].album_query === query && result[0].album_page === page && !!result[1])
         );
     }
 
@@ -120,11 +119,10 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchTrackResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromMusicRoot.getSearchTrackQuery), take(1)),
-            this.store.pipe(select(fromMusicRoot.getSearchTrackPage), take(1)),
+            this.store.pipe(select(fromMusicRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromMusicRoot.getSearchTrackResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
+            map(( result: any ) => result[0].track_query === query && result[0].track_page === page && !!result[1])
         );
     }
 

@@ -1,41 +1,43 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav-wrapper">
-        <app-frame-sidenav [title]="'TV Series'" [listPage]="listPage$ | async"
-                           [listTotalPages]="listTotalPages$ | async"
-                           [listQuery]="listQuery$ | async"
-                           [currentOption]="listQuery$ | async"
-                           [navList]="navList"
-                           (clickOption)="handleNavListOptionClick($event)"
-                           (goToPage)="goToPage($event)"></app-frame-sidenav>
-    </div>
-
-    <div class="frame-main-wrapper">
-        <div class="tv-grid featured">
-            <app-audio-card *ngFor="let tv of featuredList$ | async" class="tv-card"
-                            [audio]="tv"
-                            [cardLink]="'/tv/' + tv.id + '/details'"
-                            [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
-                            [title]="tv.name"
-                            [date]="tv.first_air_date"
-                            [vote_average]="tv.vote_average"
-                            [vote_count]="tv.vote_count"
-                            (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
-        </div>
-        <div class="tv-grid">
-            <app-audio-card *ngFor="let tv of list$ | async" class="tv-card"
-                            [audio]="tv"
-                            [cardLink]="'/tv/' + tv.id + '/details'"
-                            [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
-                            [title]="tv.name"
-                            [date]="tv.first_air_date"
-                            [vote_average]="tv.vote_average"
-                            [vote_count]="tv.vote_count"
-                            (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
+    <ng-container *ngIf="paginatorData$ | async as paginatorData">
+        <div class="frame-sidenav-wrapper">
+            <app-frame-sidenav [title]="'TV Series'" [listPage]="paginatorData.page"
+                               [listTotalPages]="paginatorData.total_pages"
+                               [listQuery]="paginatorData.query"
+                               [currentOption]="paginatorData.query"
+                               [navList]="navList"
+                               (clickOption)="handleNavListOptionClick($event)"
+                               (goToPage)="goToPage($event)"></app-frame-sidenav>
         </div>
 
-        <app-list-paginator [listPage]="listPage$ | async"
-                            [listTotalPages]="listTotalPages$ | async"
-                            [searchName]="listQuery$ | async"
-                            (goToPage)="goToPage($event)"></app-list-paginator>
-    </div>
+        <div class="frame-main-wrapper">
+            <div class="tv-grid featured">
+                <app-audio-card *ngFor="let tv of featuredList$ | async" class="tv-card"
+                                [audio]="tv"
+                                [cardLink]="'/tv/' + tv.id + '/details'"
+                                [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                                [title]="tv.name"
+                                [date]="tv.first_air_date"
+                                [vote_average]="tv.vote_average"
+                                [vote_count]="tv.vote_count"
+                                (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
+            </div>
+            <div class="tv-grid">
+                <app-audio-card *ngFor="let tv of list$ | async" class="tv-card"
+                                [audio]="tv"
+                                [cardLink]="'/tv/' + tv.id + '/details'"
+                                [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                                [title]="tv.name"
+                                [date]="tv.first_air_date"
+                                [vote_average]="tv.vote_average"
+                                [vote_count]="tv.vote_count"
+                                (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
+            </div>
+
+            <app-list-paginator [listPage]="paginatorData.page"
+                                [listTotalPages]="paginatorData.total_pages"
+                                [searchName]="paginatorData.query"
+                                (goToPage)="goToPage($event)"></app-list-paginator>
+        </div>
+    </ng-container>
 </section>

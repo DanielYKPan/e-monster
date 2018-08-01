@@ -45,11 +45,10 @@ export class BookListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromBookRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromBookRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromBookRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromBookRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === 1 && result[2] && result[2].length > 0)
+            map(( result: any ) => result[0].query === query && result[0].page === 1 && result[1] && result[1].length > 0)
         );
     }
 

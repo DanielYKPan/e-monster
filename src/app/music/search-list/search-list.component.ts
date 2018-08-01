@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable, Subscription } from 'rxjs';
@@ -6,7 +6,6 @@ import { skip } from 'rxjs/operators';
 
 import * as fromMusicRoot from '../reducers';
 import { IAlbum, ITrack } from '../../model';
-import { ListPaginatorComponent } from '../../share/list-paginator/list-paginator.component';
 
 @Component({
     selector: 'app-search-list',
@@ -16,40 +15,28 @@ import { ListPaginatorComponent } from '../../share/list-paginator/list-paginato
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
 
-    @ViewChild('albumPaginator') albumPaginator: ListPaginatorComponent;
-    @ViewChild('trackPaginator') trackPaginator: ListPaginatorComponent;
-
     public albumList$: Observable<IAlbum[]>;
-    public albumListPage$: Observable<number>;
-    public albumListTotalPages$: Observable<number>;
-
     public trackList$: Observable<ITrack[]>;
-    public trackListPage$: Observable<number>;
-    public trackListTotalPages$: Observable<number>;
 
-    public listQuery: string; // list query
+    public paginatorData$: Observable<{
+        album_page: number,
+        album_total_pages: number,
+        album_query: string,
+        track_page: number,
+        track_total_pages: number,
+        track_query: string,
+    }>;
 
     private scrollBackTopSub = Subscription.EMPTY;
-    private listQuerySub = Subscription.EMPTY;
 
     constructor( private store: Store<fromMusicRoot.State>,
                  private router: Router ) {
     }
 
     public ngOnInit() {
-        this.listQuerySub = this.store
-            .pipe(select(fromMusicRoot.getSearchAlbumQuery))
-            .subscribe(( q ) => {
-                this.listQuery = q;
-            });
-
         this.albumList$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumResults));
-        this.albumListPage$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumPage));
-        this.albumListTotalPages$ = this.store.pipe(select(fromMusicRoot.getSearchAlbumTotalPage));
-
         this.trackList$ = this.store.pipe(select(fromMusicRoot.getSearchTrackResults));
-        this.trackListPage$ = this.store.pipe(select(fromMusicRoot.getSearchTrackPage));
-        this.trackListTotalPages$ = this.store.pipe(select(fromMusicRoot.getSearchTrackTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromMusicRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {
@@ -64,19 +51,18 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public ngOnDestroy(): void {
         this.scrollBackTopSub.unsubscribe();
-        this.listQuerySub.unsubscribe();
     }
 
-    public goToAlbumPage( event: any ): void {
-        const queryParams = this.trackPaginator ?
-            {query: event.query, page_album: event.page, page_track: this.trackPaginator.listPage} :
+    public goToAlbumPage( event: any, track_page: number ): void {
+        const queryParams = track_page ?
+            {query: event.query, page_album: event.page, page_track: track_page} :
             {query: event.query, page_album: event.page};
         this.router.navigate(['music/search', queryParams]);
     }
 
-    public goToTrackPage( event: any ): void {
-        const queryParams = this.albumPaginator ?
-            {query: event.query, page_album: this.albumPaginator.listPage, page_track: event.page} :
+    public goToTrackPage( event: any, album_page: number ): void {
+        const queryParams = album_page ?
+            {query: event.query, page_album: album_page, page_track: event.page} :
             {query: event.query, page_track: event.page};
         this.router.navigate(['music/search', queryParams]);
     }

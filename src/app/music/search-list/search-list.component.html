@@ -1,57 +1,59 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav-wrapper">
-        <app-search-list-sidenav
-                [listPage]="1"
-                [listTotalPages]="1"
-                [listQuery]="listQuery === 'new-releases' ? '' : listQuery"
-                [currentOption]="'music'"
-                (queryChange)="handleQueryInputValueChange($event)"
-                (clickOption)="handleNavListOptionClick($event)"></app-search-list-sidenav>
-    </div>
+    <ng-container *ngIf="paginatorData$ | async as paginatorData">
+        <div class="frame-sidenav-wrapper">
+            <app-search-list-sidenav
+                    [listPage]="1"
+                    [listTotalPages]="1"
+                    [listQuery]="paginatorData.album_query === 'new-releases' ? '' : paginatorData.album_query"
+                    [currentOption]="'music'"
+                    (queryChange)="handleQueryInputValueChange($event)"
+                    (clickOption)="handleNavListOptionClick($event)"></app-search-list-sidenav>
+        </div>
 
-    <div class="frame-main-wrapper">
-        <ng-container *ngIf="{ albums: albumList$ | async, tracks: trackList$ | async } as list">
-            <div class="frame-main-partial">
-                <h1>Albums</h1>
-                <ng-container *ngIf="list.albums && list.albums.length > 0;else noResultBlock">
-                    <ul class="album-list">
-                        <li class="album-list-item" *ngFor="let album of list.albums">
-                            <app-media-card [imageUrl]="album.images[0]?.url"
-                                            [name]="album.name"
-                                            [artists]="album.artists"
-                                            (select)="handleSelectAlbum(album.id)"></app-media-card>
-                        </li>
-                    </ul>
-                    <app-list-paginator [listPage]="albumListPage$ | async"
-                                        [listTotalPages]="albumListTotalPages$ | async"
-                                        [searchName]="listQuery"
-                                        (goToPage)="goToAlbumPage($event)"
-                                        #albumPaginator="paginator"></app-list-paginator>
-                </ng-container>
-            </div>
-            <div class="frame-main-partial">
-                <h1>Tracks</h1>
-                <ng-container *ngIf="list.tracks && list.tracks.length > 0;else noResultBlock">
-                    <ul class="tracks-list">
-                        <li class="track-item" *ngFor="let track of list.tracks">
-                            <app-track-bar [role]="'link'"
-                                           [imageUrl]="track.album.images[0]?.url"
-                                           [name]="track.name" [explicit]="track.explicit"
-                                           [artists]="track.artists"
-                                           (select)="handleSelectTrack(track.album.id, track.id)"></app-track-bar>
-                        </li>
-                    </ul>
-                    <app-list-paginator [listPage]="trackListPage$ | async"
-                                        [listTotalPages]="trackListTotalPages$ | async"
-                                        [searchName]="listQuery"
-                                        (goToPage)="goToTrackPage($event)"
-                                        #trackPaginator="paginator"></app-list-paginator>
-                </ng-container>
-            </div>
-        </ng-container>
+        <div class="frame-main-wrapper">
+            <ng-container *ngIf="{ albums: albumList$ | async, tracks: trackList$ | async } as list">
+                <div class="frame-main-partial">
+                    <h1>Albums</h1>
+                    <ng-container *ngIf="list.albums && list.albums.length > 0;else noResultBlock">
+                        <ul class="album-list">
+                            <li class="album-list-item" *ngFor="let album of list.albums">
+                                <app-media-card [imageUrl]="album.images[0]?.url"
+                                                [name]="album.name"
+                                                [artists]="album.artists"
+                                                (select)="handleSelectAlbum(album.id)"></app-media-card>
+                            </li>
+                        </ul>
+                        <app-list-paginator [listPage]="paginatorData.album_page"
+                                            [listTotalPages]="paginatorData.album_total_pages"
+                                            [searchName]="paginatorData.album_query"
+                                            (goToPage)="goToAlbumPage($event, paginatorData.track_page)"
+                                            #albumPaginator="paginator"></app-list-paginator>
+                    </ng-container>
+                </div>
+                <div class="frame-main-partial">
+                    <h1>Tracks</h1>
+                    <ng-container *ngIf="list.tracks && list.tracks.length > 0;else noResultBlock">
+                        <ul class="tracks-list">
+                            <li class="track-item" *ngFor="let track of list.tracks">
+                                <app-track-bar [role]="'link'"
+                                               [imageUrl]="track.album.images[0]?.url"
+                                               [name]="track.name" [explicit]="track.explicit"
+                                               [artists]="track.artists"
+                                               (select)="handleSelectTrack(track.album.id, track.id)"></app-track-bar>
+                            </li>
+                        </ul>
+                        <app-list-paginator [listPage]="paginatorData.track_page"
+                                            [listTotalPages]="paginatorData.track_total_pages"
+                                            [searchName]="paginatorData.track_query"
+                                            (goToPage)="goToTrackPage($event, paginatorData.album_page)"
+                                            #trackPaginator="paginator"></app-list-paginator>
+                    </ng-container>
+                </div>
+            </ng-container>
 
-        <ng-template #noResultBlock>
-            <h1 class="no-result-msg">No Result Found</h1>
-        </ng-template>
-    </div>
+            <ng-template #noResultBlock>
+                <h1 class="no-result-msg">No Result Found</h1>
+            </ng-template>
+        </div>
+    </ng-container>
 </section>

@@ -22,7 +22,6 @@ export class MusicListExistGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
-        console.log('Music List Exist Guard');
         const page = next.params['page'] || 1;
         const query = next.params['query'];
         return this.hasSearchResults(query, page);
@@ -47,11 +46,10 @@ export class MusicListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromMusicRoot.getSearchAlbumQuery), take(1)),
-            this.store.pipe(select(fromMusicRoot.getSearchAlbumPage), take(1)),
+            this.store.pipe(select(fromMusicRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromMusicRoot.getSearchAlbumResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && result[2] && result[2].length > 0)
+            map(( result: any ) => result[0].album_query === query && result[0].album_page === page && result[1] && result[1].length > 0)
         );
     }
 

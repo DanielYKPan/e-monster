@@ -1,41 +1,43 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav-wrapper">
-        <app-frame-sidenav [title]="'Movies'" [listPage]="listPage$ | async"
-                           [listTotalPages]="listTotalPages$ | async"
-                           [listQuery]="listQuery$ | async"
-                           [currentOption]="listQuery$ | async"
-                           [navList]="navList"
-                           (clickOption)="handleNavListOptionClick($event)"
-                           (goToPage)="goToPage($event)"></app-frame-sidenav>
-    </div>
-
-    <div class="frame-main-wrapper">
-        <div class="movie-grid featured">
-            <app-audio-card *ngFor="let movie of featuredList$ | async" class="movie-card"
-                            [audio]="movie"
-                            [cardLink]="'/movie/' + movie.id + '/details'"
-                            [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
-                            [title]="movie.title"
-                            [date]="movie.release_date"
-                            [vote_average]="movie.vote_average"
-                            [vote_count]="movie.vote_count"
-                            (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
-        </div>
-        <div class="movie-grid">
-            <app-audio-card *ngFor="let movie of list$ | async" class="movie-card"
-                            [audio]="movie"
-                            [cardLink]="'/movie/' + movie.id + '/details'"
-                            [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
-                            [title]="movie.title"
-                            [date]="movie.release_date"
-                            [vote_average]="movie.vote_average"
-                            [vote_count]="movie.vote_count"
-                            (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+    <ng-container *ngIf="paginatorData$ | async as paginatorData">
+        <div class="frame-sidenav-wrapper">
+            <app-frame-sidenav [title]="'Movies'" [listPage]="paginatorData.page"
+                               [listTotalPages]="paginatorData.total_pages"
+                               [listQuery]="paginatorData.query"
+                               [currentOption]="paginatorData.query"
+                               [navList]="navList"
+                               (clickOption)="handleNavListOptionClick($event)"
+                               (goToPage)="goToPage($event)"></app-frame-sidenav>
         </div>
 
-        <app-list-paginator [listPage]="listPage$ | async"
-                            [listTotalPages]="listTotalPages$ | async"
-                            [searchName]="listQuery$ | async"
-                            (goToPage)="goToPage($event)"></app-list-paginator>
-    </div>
+        <div class="frame-main-wrapper">
+            <div class="movie-grid featured">
+                <app-audio-card *ngFor="let movie of featuredList$ | async" class="movie-card"
+                                [audio]="movie"
+                                [cardLink]="'/movie/' + movie.id + '/details'"
+                                [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                                [title]="movie.title"
+                                [date]="movie.release_date"
+                                [vote_average]="movie.vote_average"
+                                [vote_count]="movie.vote_count"
+                                (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+            </div>
+            <div class="movie-grid">
+                <app-audio-card *ngFor="let movie of list$ | async" class="movie-card"
+                                [audio]="movie"
+                                [cardLink]="'/movie/' + movie.id + '/details'"
+                                [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                                [title]="movie.title"
+                                [date]="movie.release_date"
+                                [vote_average]="movie.vote_average"
+                                [vote_count]="movie.vote_count"
+                                (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+            </div>
+
+            <app-list-paginator [listPage]="paginatorData.page"
+                                [listTotalPages]="paginatorData.total_pages"
+                                [searchName]="paginatorData.query"
+                                (goToPage)="goToPage($event)"></app-list-paginator>
+        </div>
+    </ng-container>
 </section>

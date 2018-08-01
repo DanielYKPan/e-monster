@@ -41,11 +41,10 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromMovieRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromMovieRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromMovieRoot.getSearchResults), take(1)),
+            this.store.pipe(select(fromMovieRoot.getPaginatorData), take(1)),
+            this.store.pipe(select(fromMovieRoot.getSearchResults), take(1))
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
+            map(( result: any ) => result[0].query === query && result[0].page === page && !!result[1])
         );
     }
 

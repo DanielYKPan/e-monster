@@ -22,11 +22,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>;
 
-    public listQuery$: Observable<string>;
-
-    public listPage$: Observable<number>;
-
-    public listTotalPages$: Observable<number>;
+    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
 
     public navList = [
         {name: 'Trending', value: 'on_the_air', inform: 'The TV series currently on the air'},
@@ -46,9 +42,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
     public ngOnInit() {
         this.list$ = this.store.pipe(select(fromTvRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromTvRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromTvRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromTvRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromTvRoot.getSearchTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromTvRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {

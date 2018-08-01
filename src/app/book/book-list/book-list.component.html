@@ -1,19 +1,21 @@
 <section class="frame-wrapper">
-    <div class="frame-sidenav-wrapper">
-        <app-frame-sidenav [title]="'Book'" [listPage]="listPage$ | async"
-                           [listTotalPages]="listTotalPages$ | async"
-                           [listQuery]="listQuery$ | async"
-                           [currentOption]="listQuery$ | async"
-                           [navList]="navList"></app-frame-sidenav>
-    </div>
-    <div class="frame-main-wrapper">
-        <div class="book-list">
-            <app-book-card *ngFor="let book of list$ | async"
-                           [book]="book"></app-book-card>
+    <ng-container *ngIf="paginatorData$ | async as paginatorData">
+        <div class="frame-sidenav-wrapper">
+            <app-frame-sidenav [title]="'Book'" [listPage]="paginatorData.page"
+                               [listTotalPages]="paginatorData.total_pages"
+                               [listQuery]="paginatorData.query"
+                               [currentOption]="paginatorData.query"
+                               [navList]="navList"></app-frame-sidenav>
         </div>
-        <app-list-paginator [listPage]="listPage$ | async"
-                            [listTotalPages]="listTotalPages$ | async"
-                            [searchName]="listQuery$ | async"
-                            (goToPage)="goToPage($event)"></app-list-paginator>
-    </div>
+        <div class="frame-main-wrapper">
+            <div class="book-list">
+                <app-book-card *ngFor="let book of list$ | async"
+                               [book]="book"></app-book-card>
+            </div>
+            <app-list-paginator [listPage]="paginatorData.page"
+                                [listTotalPages]="paginatorData.total_pages"
+                                [searchName]="paginatorData.query"
+                                (goToPage)="goToPage($event)"></app-list-paginator>
+        </div>
+    </ng-container>
 </section>

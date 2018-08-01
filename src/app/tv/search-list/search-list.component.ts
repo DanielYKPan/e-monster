@@ -22,11 +22,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public listQuery$: Observable<string>; // list query
-
-    public listPage$: Observable<number>; // list page
-
-    public listTotalPages$: Observable<number>; // list total pages
+    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
 
     private scrollBackTopSub = Subscription.EMPTY;
 
@@ -38,9 +34,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     public ngOnInit() {
         this.list$ = this.store.pipe(select(fromTvRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromTvRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromTvRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromTvRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromTvRoot.getSearchTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromTvRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {

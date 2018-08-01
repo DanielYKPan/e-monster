@@ -120,16 +120,14 @@ export const getSearchTrackResults = createSelector(
     fromSearchTrack.getSearchResults,
 );
 
-export const getSearchTrackFeaturedList = createSelector(
-    getSearchTrackResults,
-    ( results ) => {
-        return results.slice(0, 2);
-    }
-);
-
-export const getSearchTrackNonFeaturedList = createSelector(
-    getSearchTrackResults,
-    ( results ) => {
-        return results.slice(2);
+export const getPaginatorData = createSelector(
+    getSearchAlbumPage,
+    getSearchAlbumTotalPage,
+    getSearchAlbumQuery,
+    getSearchTrackPage,
+    getSearchTrackTotalPage,
+    getSearchTrackQuery,
+    ( album_page, album_total_pages, album_query, track_page, track_total_pages, track_query ) => {
+        return {album_page, album_total_pages, album_query, track_page, track_total_pages, track_query};
     }
 );

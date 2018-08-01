@@ -45,11 +45,10 @@ export class TvListExistGuard implements CanActivate {
 
     private hasTvListInStore( name: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromTvRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromTvRoot.getSearchPage), take(1)),
-            this.store.pipe(select(fromTvRoot.getSearchResults), take(1))
+            this.store.pipe(select(fromTvRoot.getPaginatorData), take(1)),
+            this.store.pipe(select(fromTvRoot.getSearchResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === name && result[1] === page && result[2].length > 0)
+            map(( result: any ) => result[0].query === name && result[0].page === page && !!result[1])
         );
     }
 

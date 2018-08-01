@@ -17,11 +17,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public list$: Observable<IBook[]>;
 
-    public listQuery$: Observable<string>;
-
-    public listPage$: Observable<number>;
-
-    public listTotalPages$: Observable<number>;
+    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
 
     public navList = [
         {
@@ -39,9 +35,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     ngOnInit() {
         this.list$ = this.store.pipe(select(fromBookRoot.getSearchResults));
-        this.listQuery$ = this.store.pipe(select(fromBookRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromBookRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromBookRoot.getSearchTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromBookRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {

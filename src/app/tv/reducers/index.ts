@@ -139,6 +139,15 @@ export const getSearchQuery = createSelector(
     fromSearch.getSearchQuery,
 );
 
+export const getPaginatorData = createSelector(
+    getSearchPage,
+    getSearchTotalPage,
+    getSearchQuery,
+    ( page, total_pages, query ) => {
+        return {page, total_pages, query};
+    }
+);
+
 export const getSearchResults = createSelector(
     getSearchState,
     fromSearch.getSearchResults,

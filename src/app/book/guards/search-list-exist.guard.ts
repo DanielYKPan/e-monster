@@ -22,7 +22,7 @@ export class SearchListExistGuard implements CanActivate {
     canActivate(
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot ): Observable<boolean> | Promise<boolean> | boolean {
-        const page = next.params['page'] || 1;
+        const page = +next.params['page'] || 1;
         const query = next.params['query'] || 'combined-print-and-e-book-fiction';
         return this.hasSearchResults(query, page);
     }
@@ -41,11 +41,10 @@ export class SearchListExistGuard implements CanActivate {
 
     private hasSearchResultsInStore( query: string, page: number ): Observable<boolean> {
         return forkJoin(
-            this.store.pipe(select(fromBookRoot.getSearchQuery), take(1)),
-            this.store.pipe(select(fromBookRoot.getSearchPage), take(1)),
+            this.store.pipe(select(fromBookRoot.getPaginatorData), take(1)),
             this.store.pipe(select(fromBookRoot.getSearchResults), take(1)),
         ).pipe(
-            map(( result: any ) => result[0] === query && result[1] === page && !!result[2])
+            map(( result: any ) => result[0].query === query && result[0].page === page && !!result[1])
         );
     }
 

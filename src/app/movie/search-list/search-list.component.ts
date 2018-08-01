@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
-import { IAudio } from '../../model';
-import * as fromMoviesRoot from '../reducers';
-import * as movieVideoActions from '../actions/video';
 import { OwlDialogService } from 'owl-ng';
+
+import { IAudio } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import * as fromMovieRoot from '../reducers';
+import * as movieVideoActions from '../actions/video';
 
 @Component({
     selector: 'app-search-list',
@@ -21,32 +22,26 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public listQuery$: Observable<string>; // list query
-
-    public listPage$: Observable<number>; // list page
-
-    public listTotalPages$: Observable<number>; // list total pages
+    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
 
     private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private router: Router,
-                 private store: Store<fromMoviesRoot.State>,
+                 private store: Store<fromMovieRoot.State>,
                  private dialogService: OwlDialogService ) {
     }
 
     ngOnInit() {
-        this.list$ = this.store.pipe(select(fromMoviesRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromMoviesRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromMoviesRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromMoviesRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromMoviesRoot.getSearchTotalPage));
+        this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedList));
+        this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedList));
+        this.paginatorData$ = this.store.pipe(select(fromMovieRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {
         // Whenever we have new search results,
         // we scroll back to the top of the page.
         this.scrollBackTopSub = this.store.pipe(
-            select(fromMoviesRoot.getSearchResults),
+            select(fromMovieRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
             window.scroll({top: 0, behavior: 'smooth'});
@@ -84,8 +79,8 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         // search the movie videos
         this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
-        const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
-        const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
+        const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
+        const showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchVideoLoader));
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {

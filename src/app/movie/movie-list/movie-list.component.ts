@@ -22,11 +22,7 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public listQuery$: Observable<string>; // list query
-
-    public listPage$: Observable<number>; // list page
-
-    public listTotalPages$: Observable<number>; // list total pages
+    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
 
     public navList = [
         {name: 'Trending', value: 'now_playing', inform: 'The movies currently in theatres'},
@@ -46,9 +42,7 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
     ngOnInit() {
         this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedList));
         this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedList));
-        this.listQuery$ = this.store.pipe(select(fromMovieRoot.getSearchQuery));
-        this.listPage$ = this.store.pipe(select(fromMovieRoot.getSearchPage));
-        this.listTotalPages$ = this.store.pipe(select(fromMovieRoot.getSearchTotalPage));
+        this.paginatorData$ = this.store.pipe(select(fromMovieRoot.getPaginatorData));
     }
 
     public ngAfterContentInit(): void {
