@@ -44,15 +44,6 @@ export class SearchListExistGuard implements CanActivate {
         );
     }
 
-    private hasSameSearchQueryInStore( query: string ): Observable<boolean> {
-        return forkJoin(
-            this.store.pipe(select(fromPeopleRoot.getSearchActorQuery), take(1)),
-            this.store.pipe(select(fromPeopleRoot.getSearchArtistQuery), take(1)),
-        ).pipe(
-            map(( result: any ) => !!result[0] && !!result[1] && result[0] === result[1] && result[0] === query)
-        );
-    }
-
     private hasSearchActorResults( query: string, page: number ): Observable<boolean> {
         return this.hasSearchActorResultsInStore(query, page).pipe(
             switchMap(( inStore: boolean ) => {

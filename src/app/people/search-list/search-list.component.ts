@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { combineLatest, Observable, Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromPeopleRoot from '../reducers';
 import { IActor, IArtist } from '../../model';
+import { ListPaginatorComponent } from '../../share/list-paginator/list-paginator.component';
 
 @Component({
     selector: 'app-actor-search-list',
@@ -14,6 +15,9 @@ import { IActor, IArtist } from '../../model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
+
+    @ViewChild('actorPaginator') actorPaginator: ListPaginatorComponent;
+    @ViewChild('artistPaginator') artistPaginator: ListPaginatorComponent;
 
     public actorList$: Observable<IActor[]>;
     public actorListPage$: Observable<number>; // list page
@@ -65,14 +69,18 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.listQuerySub.unsubscribe();
     }
 
-    public goToActorPage( event: any, artistPage: any ): void {
-        console.log(artistPage);
-        // this.router.navigate(['people/search', {query: event.query, page_actor: event.page, page_artist: artistPage}]);
+    public goToActorPage( event: any ): void {
+        const queryParams = this.artistPaginator ?
+            {query: event.query, page_actor: event.page, page_artist: this.artistPaginator.listPage} :
+            {query: event.query, page_actor: event.page};
+        this.router.navigate(['people/search', queryParams]);
     }
 
-    public goToArtistPage( event: any, actorPage: any ): void {
-        console.log(actorPage);
-        // this.router.navigate(['people/search', {query: event.query, page_actor: actorPage, page_artist: event.page}]);
+    public goToArtistPage( event: any ): void {
+        const queryParams = this.actorPaginator ?
+            {query: event.query, page_actor: this.actorPaginator.listPage, page_artist: event.page} :
+            {query: event.query, page_actor: event.page};
+        this.router.navigate(['people/search', queryParams]);
     }
 
     /**

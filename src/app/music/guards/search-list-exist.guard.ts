@@ -34,28 +34,28 @@ export class SearchListExistGuard implements CanActivate {
             return this.hasNewReleasesInApi();
         }
 
-        return this.hasSameSearchQueryInStore(query).pipe(
-            switchMap(( isSame: boolean ) => {
-                if (isSame) {
+        return this.hasNullSearchQueryInStore().pipe(
+            switchMap(( isNull: boolean ) => {
+                if (isNull && page_album === page_track) {
+                    return this.hasSearchResultsInApi(query, page_album);
+                } else {
                     return forkJoin(
                         this.hasSearchAlbumResults(query, page_album),
                         this.hasSearchTrackResults(query, page_track),
                     ).pipe(
                         map(( results ) => results[0] && results[1])
                     );
-                } else {
-                    return this.hasSearchResultsInApi(query);
                 }
             })
         );
     }
 
-    private hasSameSearchQueryInStore( query: string ): Observable<boolean> {
+    private hasNullSearchQueryInStore(): Observable<boolean> {
         return forkJoin(
             this.store.pipe(select(fromMusicRoot.getSearchAlbumQuery), take(1)),
             this.store.pipe(select(fromMusicRoot.getSearchTrackQuery), take(1)),
         ).pipe(
-            map(( result: any ) => !!result[0] && !!result[1] && result[0] === result[1] && result[0] === query)
+            map(( result: any ) => result[0] === null && result[0] === result[1])
         );
     }
 
@@ -153,10 +153,10 @@ export class SearchListExistGuard implements CanActivate {
         );
     }
 
-    private hasSearchResultsInApi( query: string ): Observable<boolean> {
+    private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
 
-        return this.musicService.searchMusic(query).pipe(
+        return this.musicService.searchMusic(query, page).pipe(
             map(( res: any ) => {
                 const action1 = new searchMusicActions.SearchAlbumComplete(res.albums);
                 const action2 = new searchMusicActions.SearchTrackComplete(res.tracks);

@@ -1,4 +1,4 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest, Observable, Subscription } from 'rxjs';
@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromMusicRoot from '../reducers';
 import { IAlbum, ITrack } from '../../model';
+import { ListPaginatorComponent } from '../../share/list-paginator/list-paginator.component';
 
 @Component({
     selector: 'app-search-list',
@@ -14,6 +15,9 @@ import { IAlbum, ITrack } from '../../model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy {
+
+    @ViewChild('albumPaginator') albumPaginator: ListPaginatorComponent;
+    @ViewChild('trackPaginator') trackPaginator: ListPaginatorComponent;
 
     public albumList$: Observable<IAlbum[]>;
     public albumListPage$: Observable<number>;
@@ -63,16 +67,18 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.listQuerySub.unsubscribe();
     }
 
-    public goToAlbumPage( e: any, trackPage: number ): void {
-        this.router.navigate(['music/search', {query: e.query, page_album: e.page, page_track: trackPage}]);
+    public goToAlbumPage( event: any ): void {
+        const queryParams = this.trackPaginator ?
+            {query: event.query, page_album: event.page, page_track: this.trackPaginator.listPage} :
+            {query: event.query, page_album: event.page};
+        this.router.navigate(['music/search', queryParams]);
     }
 
-    public goToTrackPage( e: any, albumPage: number ): void {
-        this.router.navigate(['music/search', {query: e.query, page_album: albumPage, page_track: e.page}]);
-    }
-
-    public getArtistNameList( artists: any[] ): string[] {
-        return artists.map(( artist ) => artist.name);
+    public goToTrackPage( event: any ): void {
+        const queryParams = this.albumPaginator ?
+            {query: event.query, page_album: this.albumPaginator.listPage, page_track: event.page} :
+            {query: event.query, page_track: event.page};
+        this.router.navigate(['music/search', queryParams]);
     }
 
     /**

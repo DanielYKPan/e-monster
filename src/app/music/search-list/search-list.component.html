@@ -23,11 +23,10 @@
             <app-list-paginator [listPage]="albumListPage$ | async"
                                 [listTotalPages]="albumListTotalPages$ | async"
                                 [searchName]="listQuery"
-                                (goToPage)="goToAlbumPage($event, trackPaginator.listPage)"
+                                (goToPage)="goToAlbumPage($event)"
                                 #albumPaginator="paginator"></app-list-paginator>
         </div>
-        <div class="frame-main-partial"
-             *ngIf="trackList$ | async as trackList" >
+        <div class="frame-main-partial" *ngIf="trackList$ | async as trackList" >
             <h1>Tracks</h1>
             <ul class="tracks-list">
                 <li class="track-item" *ngFor="let track of trackList">
@@ -41,7 +40,7 @@
             <app-list-paginator [listPage]="trackListPage$ | async"
                                 [listTotalPages]="trackListTotalPages$ | async"
                                 [searchName]="listQuery"
-                                (goToPage)="goToTrackPage($event, albumPaginator.listPage)"
+                                (goToPage)="goToTrackPage($event)"
                                 #trackPaginator="paginator"></app-list-paginator>
         </div>
     </div>

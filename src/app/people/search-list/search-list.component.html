@@ -23,7 +23,7 @@
             <app-list-paginator [listPage]="actorListPage$ | async"
                                 [listTotalPages]="actorListTotalPages$ | async"
                                 [searchName]="listQuery"
-                                (goToPage)="goToActorPage($event, artistPaginator.listPage)"
+                                (goToPage)="goToActorPage($event)"
                                 #actorPaginator="paginator"></app-list-paginator>
         </div>
 
@@ -40,7 +40,7 @@
             <app-list-paginator [listPage]="artistListPage$ | async"
                                 [listTotalPages]="artistListTotalPages$ | async"
                                 [searchName]="listQuery"
-                                (goToPage)="goToArtistPage($event, actorPaginator.listPage)"
+                                (goToPage)="goToArtistPage($event)"
                                 #artistPaginator="paginator"></app-list-paginator>
         </div>
     </div>
