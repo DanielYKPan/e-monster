@@ -51,6 +51,28 @@ export const getSelectedMovie = createSelector(
     }
 );
 
+export const getSelectedMovieDirectors = createSelector(
+    getSelectedMovie,
+    ( movie ) => {
+        return movie.credits.crew.filter(( crew ) => crew.job === 'Director');
+    }
+);
+
+export const getSelectedMovieWriters = createSelector(
+    getSelectedMovie,
+    ( movie ) => {
+        return movie.credits.crew.filter(( crew ) => crew.department === 'Writing');
+    }
+);
+
+export const getSelectedMovieMainStaff = createSelector(
+    getSelectedMovieDirectors,
+    getSelectedMovieWriters,
+    ( directors, writers ) => {
+        return {directors, writers};
+    }
+);
+
 // Movie Videos Entity State
 export const getMovieVideosEntityState = createSelector(
     getMoviesState,

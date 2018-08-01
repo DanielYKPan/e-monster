@@ -13,8 +13,6 @@ import { MovieListComponent } from './movie-list/movie-list.component';
 import { MovieListExistGuard } from './guards/movie-list-exist.guard';
 import { MovieExistGuard } from './guards/movie-exist.guard';
 import { MovieHomeComponent } from './movie-home/movie-home.component';
-import { MovieDetailsHeaderComponent } from './movie-details/movie-details-header/movie-details-header.component';
-import { MovieDetailsContentComponent } from './movie-details/movie-details-content/movie-details-content.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MovieDetailsSimilarComponent } from './movie-details/movie-details-similar/movie-details-similar.component';
 
@@ -41,8 +39,6 @@ import { SearchListExistGuard } from './guards/search-list-exist.guard';
         MovieComponent,
         MovieListComponent,
         MovieDetailsComponent,
-        MovieDetailsHeaderComponent,
-        MovieDetailsContentComponent,
         MovieDetailsSimilarComponent,
         MovieHomeComponent,
         SearchListComponent,

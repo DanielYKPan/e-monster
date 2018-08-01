@@ -28,9 +28,11 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
     public movie$: Observable<IMovie>;
     public movieVideos$: Observable<IVideo[]>;
+    public mainStaff$: Observable<{directors: any[], writers: any[]}>;
+    public castProfileWidth = 96;
+    public castListSlideDistance = 0;
 
     private actionsSubscription: Subscription;
-
     private movieId: number;
 
     constructor( private store: Store<fromMoviesRoot.State>,
@@ -41,6 +43,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
+                window.scrollTo({top: 0, behavior: 'smooth'});
                 this.movieId = params.id;
                 return new movieAction.Select(params.id);
             }))
@@ -50,6 +53,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.movie$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovie));
         this.movieVideos$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideos));
+        this.mainStaff$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieMainStaff));
     }
 
     public ngOnDestroy(): void {
@@ -57,28 +61,28 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.store.dispatch(new movieVideoActions.Select(null));
     }
 
-    public openMovieVideoDialog( e: { title: string, videoKey: string, event: any } ): void {
+    public openMovieVideoDialog( title: string, videoKey: string, event: any): void {
         const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
-                title: e.title,
-                videoKey: e.videoKey,
+                title: title,
+                videoKey: videoKey,
                 showLoader$: showLoader$,
             }, // data that would pass to dialog component
             dialogClass: 'audio-dialog',
-            transitionX: e.event.clientX,
-            transitionY: e.event.clientY,
+            transitionX: event.clientX,
+            transitionY: event.clientY,
         });
     }
 
-    public openMovieCreditsDialog( e: { movie: IMovie, event: any } ): void {
+    public openMovieCreditsDialog( movie: IMovie, event: any ): void {
         const dialogRef = this.dialogService.open(CreditsDialogComponent, {
             data: {
-                title: e.movie.title,
-                date: e.movie.release_date,
-                cast: e.movie.credits.cast,
-                crew: e.movie.credits.crew,
-                imagePath: 'https://image.tmdb.org/t/p/w92/' + e.movie.poster_path,
+                title: movie.title,
+                date: movie.release_date,
+                cast: movie.credits.cast,
+                crew: movie.credits.crew,
+                imagePath: 'https://image.tmdb.org/t/p/w92/' + movie.poster_path,
             },
             dialogClass: 'credits-dialog',
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
@@ -90,7 +94,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             }
         });
 
-        e.event.preventDefault();
+        event.preventDefault();
     }
 
     public openSimilarMovieVideoDialog( res: { audio: IAudio, event: any } ): void {
@@ -118,5 +122,27 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
     public rate( movie: IMovie ): void {
         console.log(movie.id);
+    }
+
+    public slideLeftCastList( event: any ): void {
+        if (this.castListSlideDistance > 0) {
+            const slideDistance = this.castProfileWidth * 2;
+            this.castListSlideDistance -= this.castListSlideDistance > slideDistance ?
+                slideDistance : this.castListSlideDistance;
+        }
+        event.preventDefault();
+    }
+
+    public slideRightCastList( event: any ): void {
+        const slideDistance = this.castProfileWidth * 2;
+        const listWidth = this.castListRef.nativeElement.offsetWidth;
+        const listWrapperWidth = this.castListWrapperRef.nativeElement.offsetWidth;
+        const remainDistance = listWidth - listWrapperWidth - this.castListSlideDistance;
+
+        if (remainDistance > 0) {
+            this.castListSlideDistance += remainDistance > slideDistance ?
+                slideDistance : remainDistance;
+        }
+        event.preventDefault();
     }
 }
