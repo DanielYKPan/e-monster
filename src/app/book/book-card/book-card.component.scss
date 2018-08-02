@@ -1,7 +1,8 @@
 :host {
   display: block;
+  width: 100%;
   height: 340px;
-  width: 380px;
+  max-width: 380px;
   background-color: #282828;
 
   &:hover {
