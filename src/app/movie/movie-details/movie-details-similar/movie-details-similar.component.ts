@@ -39,6 +39,7 @@ export class MovieDetailsSimilarComponent implements OnInit {
     get scrollObservable(): Observable<any> {
         return merge(
             fromEvent(window, 'scroll'),
+            fromEvent(window, 'keydown'),
             this.sliding$.asObservable()
         );
     }
@@ -51,7 +52,7 @@ export class MovieDetailsSimilarComponent implements OnInit {
 
     public slideLeftMovieList( event: any ): void {
         if (this.movieListSlideDistance > 0) {
-            const slideDistance = this.movieItemWidth * 2;
+            const slideDistance = this.movieItemWidth;
             this.movieListSlideDistance -= this.movieListSlideDistance > slideDistance ?
                 slideDistance : this.movieListSlideDistance;
             this.sliding$.next(true);
@@ -60,7 +61,7 @@ export class MovieDetailsSimilarComponent implements OnInit {
     }
 
     public slideRightMovieList( event: any ): void {
-        const slideDistance = this.movieItemWidth * 2;
+        const slideDistance = this.movieItemWidth;
         const listWidth = this.movieListRef.nativeElement.offsetWidth;
         const listWrapperWidth = this.movieListWrapperRef.nativeElement.offsetWidth;
         const remainDistance = listWidth - listWrapperWidth - this.movieListSlideDistance;
