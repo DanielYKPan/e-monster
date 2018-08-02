@@ -1,17 +1,17 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
+import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import { Observable, Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
+import { OwlDialogService } from 'owl-ng';
+
 import * as fromTvRoot from '../reducers';
 import * as tvActions from '../actions/tv';
 import * as tvVideoActions from '../actions/video';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
 import { ITv, IVideo } from '../../model';
-import { OwlDialogService } from 'owl-ng';
-import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
-import { DOCUMENT } from '@angular/common';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 
 @Component({
@@ -22,8 +22,13 @@ import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.comp
 })
 export class TvDetailsComponent implements OnInit, OnDestroy {
 
+    @ViewChild('castList') castListRef: ElementRef;
+    @ViewChild('castListWrapper') castListWrapperRef: ElementRef;
+
     public tv$: Observable<ITv>;
     public tvVideos$: Observable<IVideo[]>;
+    public castProfileWidth = 96;
+    public castListSlideDistance = 0;
 
     private actionsSubscription: Subscription;
 
@@ -52,25 +57,25 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
         this.actionsSubscription.unsubscribe();
     }
 
-    public openTvVideoDialog( e: { title: string, videoKey: string, event: any } ) {
+    public openTvVideoDialog( title: string, videoKey: string, event: any ) {
         const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
-                title: e.title,
-                videoKey: e.videoKey,
+                title: title,
+                videoKey: videoKey,
                 showLoader$: showLoader$,
             }, // data that would pass to dialog component
             dialogClass: 'audio-dialog',
-            transitionX: e.event.clientX,
-            transitionY: e.event.clientY,
+            transitionX: event.clientX,
+            transitionY: event.clientY,
         });
     }
 
-    public openTvSeasonVideoDialog( e: { tv: ITv, season: any, event: any } ) {
+    public openTvSeasonVideoDialog( tv: ITv, season: any, event: any ) {
         this.store.dispatch(new tvVideoActions.SearchTvSeasonVideos({
-            tv_id: e.tv.id,
-            season_number: e.season.season_number,
-            season_id: e.season.id
+            tv_id: tv.id,
+            season_number: season.season_number,
+            season_id: season.id
         }));
 
         const seasonVideo$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideo));
@@ -78,43 +83,65 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
 
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
-                title: e.tv.name + ' ' + e.season.name,
+                title: tv.name + ' -- ' + season.name,
                 video$: seasonVideo$,
                 showLoader$: showLoader$,
             },
             dialogClass: 'audio-dialog',
-            transitionX: e.event.clientX,
-            transitionY: e.event.clientY,
+            transitionX: event.clientX,
+            transitionY: event.clientY,
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new tvVideoActions.Select(e.tv.id));
+            this.store.dispatch(new tvVideoActions.Select(tv.id));
         });
     }
 
-    public openTvCreditsDialog( e: { tv: ITv, event: any } ): void {
+    public openTvCreditsDialog( tv: ITv, event: any ): void {
         const dialogRef = this.dialogService.open(CreditsDialogComponent, {
             data: {
-                title: e.tv.name,
-                date: e.tv.first_air_date,
-                cast: e.tv.credits.cast,
-                crew: e.tv.credits.crew,
-                imagePath: 'https://image.tmdb.org/t/p/w92/' + e.tv.poster_path,
+                title: tv.name,
+                date: tv.first_air_date,
+                cast: tv.credits.cast,
+                crew: tv.credits.crew,
+                imagePath: 'https://image.tmdb.org/t/p/w92/' + tv.poster_path,
             },
             dialogClass: 'credits-dialog',
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe(( result ) => {
             if (result) {
                 this.router.navigate(['people/actor', result.people.id]);
             }
         });
 
-        e.event.preventDefault();
+        event.preventDefault();
     }
 
     public rate( tv: ITv ): void {
         console.log(tv.id);
+    }
+
+    public slideLeftCastList( event: any ): void {
+        if (this.castListSlideDistance > 0) {
+            const slideDistance = this.castProfileWidth * 2;
+            this.castListSlideDistance -= this.castListSlideDistance > slideDistance ?
+                slideDistance : this.castListSlideDistance;
+        }
+        event.preventDefault();
+    }
+
+    public slideRightCastList( event: any ): void {
+        const slideDistance = this.castProfileWidth * 2;
+        const listWidth = this.castListRef.nativeElement.offsetWidth;
+        const listWrapperWidth = this.castListWrapperRef.nativeElement.offsetWidth;
+        const remainDistance = listWidth - listWrapperWidth - this.castListSlideDistance;
+
+        if (remainDistance > 0) {
+            this.castListSlideDistance += remainDistance > slideDistance ?
+                slideDistance : remainDistance;
+        }
+        event.preventDefault();
     }
 }

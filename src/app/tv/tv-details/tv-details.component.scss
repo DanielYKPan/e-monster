@@ -1,0 +1,229 @@
+@import "../../../sass/details/details";
+
+.stats-list .stats-item {
+  span {
+    padding: 0 5px 0 0;
+
+    &:not(:last-child):after {
+      content: ',';
+      padding-right: 5px;
+    }
+  }
+}
+
+.overview {
+  margin: 0 0 1rem;
+}
+
+.video-list {
+  .video-list-item {
+    margin: 0 1rem .2rem 0;
+
+    button {
+      border: solid 1px #ddd;
+      background-color: #fbfbfb;
+      color: #666;
+      border-radius: 3px;
+      transition: all .5s;
+      cursor: pointer;
+      padding: .3rem .7rem;
+
+      &:hover,
+      &:focus {
+        background-color: #666;
+        color: #fbfbfb;
+      }
+    }
+  }
+}
+
+.cast-crew-wrapper {
+  margin-bottom: 4rem;
+
+  .cast-crew-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+
+  .cast-crew-full-button {
+    font-size: .8rem;
+    margin: 0 0 0 .5rem;
+    color: #136CB2;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  .cast-crew-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .cast-crew-control {
+    border-radius: 50%;
+    width: 1.5rem;
+    height: 1.5rem;
+
+    &:hover,
+    &:focus {
+      background: rgba(0, 0, 0, .5);
+      color: #fbfbfb;
+    }
+  }
+
+  .cast-crew-wrapper {
+    position: relative;
+    flex: 1;
+    margin: 0 4px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .cast-crew-list {
+    margin: 0;
+    padding: 5px;
+    list-style: none;
+    transition: .3s ease all;
+
+    .cast-crew-list-item {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 0 5px;
+      box-sizing: border-box;
+      width: 96px;
+      text-align: center;
+
+      .cast-crew-anchor {
+        display: block;
+        text-decoration: none;
+        box-sizing: border-box;
+        color: #000000;
+        outline: none;
+
+        &:hover,
+        &:focus {
+          color: #ed1c24;
+          box-shadow: 0 0 3px rgba(0, 0, 0, 0.54);
+        }
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin-bottom: 8px;
+      }
+
+      h4 {
+        margin: 0 0 4px;
+        font-size: .8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        &.character {
+          color: #888;
+        }
+      }
+    }
+  }
+}
+
+.seasons-wrapper {
+  margin-bottom: 4rem;
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.5rem;
+  }
+
+  .season-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    list-style: none;
+
+    .season-list-item {
+      padding: 0 .5rem;
+      box-sizing: border-box;
+      margin-bottom: 1.5rem;
+    }
+
+    .season-card {
+      display: block;
+      width: 170px;
+      height: 280px;
+    }
+
+    h4, h5 {
+      color: #ed1c24;
+      text-align: center;
+      margin: 5px 0;
+    }
+  }
+}
+
+.reviews-wrapper {
+  padding: 20px 10px 0;
+  border-top: 2px solid #e7e7e7;
+
+  h2 {
+    margin: 0 0 10px;
+    font-size: 1.5rem;
+  }
+
+  .no-review-title {
+    color: #d6d6d6;
+    text-align: center;
+  }
+
+  .review-card {
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    padding: 24px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+
+    .review-card-author {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #888;
+    }
+
+    .review-card-content {
+      padding: 0 5px;
+    }
+  }
+}
+
+@media #{$medium-up} {
+  .tv-inform {
+    .details-inform-header {
+      display: none;
+    }
+  }
+
+  .external-links {
+    display: none;
+  }
+
+  .stats-list {
+    flex-direction: row;
+
+    .stats-item {
+      margin: 0 2rem .2rem 0;
+    }
+  }
+}
