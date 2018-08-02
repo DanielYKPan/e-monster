@@ -195,7 +195,8 @@
                 </div>
 
                 <div class="cast-crew-content">
-                    <button class="basic-btn cast-crew-control" tabindex="-1"
+                    <button *ngIf="movie.credits.cast.length * castProfileWidth > castListWrapper.offsetWidth"
+                            class="basic-btn cast-crew-control" tabindex="-1"
                             (click)="slideLeftCastList($event)">
                         <i class="fas fa-angle-left"></i>
                     </button>
@@ -220,7 +221,8 @@
                         </ul>
                     </div>
 
-                    <button class="basic-btn cast-crew-control" tabindex="-1"
+                    <button *ngIf="movie.credits.cast.length * castProfileWidth > castListWrapper.offsetWidth"
+                            class="basic-btn cast-crew-control" tabindex="-1"
                             (click)="slideRightCastList($event)" #rightControlBtn>
                         <i class="fas fa-angle-right"></i>
                     </button>
