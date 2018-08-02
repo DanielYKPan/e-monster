@@ -6,7 +6,7 @@
                                [currentOption]="paginatorData.query"
                                [navList]="navList"
                                (clickOption)="handleNavListOptionClick($event)"
-                               (goToPage)="goToPage($event)"></app-frame-sidenav>
+                               (goToPage)="goToPage($event, paginatorData.query)"></app-frame-sidenav>
         </div>
 
         <div class="frame-main-wrapper">
@@ -35,7 +35,7 @@
 
             <app-list-paginator [listPage]="paginatorData.page"
                                 [listTotalPages]="paginatorData.total_pages"
-                                (goToPage)="goToPage($event)"></app-list-paginator>
+                                (goToPage)="goToPage($event, paginatorData.query)"></app-list-paginator>
         </div>
     </ng-container>
 </section>

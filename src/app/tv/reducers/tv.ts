@@ -37,14 +37,8 @@ export function reducer( state = initialState, action: TvActions ): State {
         case TvActionTypes.Select:
             return {
                 ...state,
-                selectedTvId: action.payload,
-            };
-
-        case TvActionTypes.SelectSeason:
-            return {
-                ...state,
                 selectedTvId: action.payload.tv_id,
-                selectedTvSeasonNum: action.payload.season_number
+                selectedTvSeasonNum: action.payload.season_number || state.selectedTvSeasonNum
             };
 
         default:

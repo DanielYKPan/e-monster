@@ -43,7 +43,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
                 this.tvId = params.id;
-                return new tvActions.Select(params.id);
+                return new tvActions.Select({tv_id: params.id});
             }))
             .subscribe(this.store);
     }

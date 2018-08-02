@@ -13,8 +13,6 @@ import { reducers } from './reducers';
 import { TvEffect } from './effects/tv';
 import { TvDetailsComponent } from './tv-details/tv-details.component';
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
-import { TvSeasonDetailsHeaderComponent } from './tv-season-details/tv-season-details-header/tv-season-details-header.component';
-import { TvSeasonDetailsContentComponent } from './tv-season-details/tv-season-details-content/tv-season-details-content.component';
 import { VideoEffect } from './effects/video';
 import { SearchListComponent } from './search-list/search-list.component';
 
@@ -37,8 +35,6 @@ import { SearchListComponent } from './search-list/search-list.component';
         TvListComponent,
         TvDetailsComponent,
         TvSeasonDetailsComponent,
-        TvSeasonDetailsHeaderComponent,
-        TvSeasonDetailsContentComponent,
         SearchListComponent
     ],
     providers: [

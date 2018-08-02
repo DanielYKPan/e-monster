@@ -59,8 +59,12 @@ export const getSelectedSeasonNum = createSelector(
 export const getSelectedSeason = createSelector(
     getSelectedTv,
     getSelectedSeasonNum,
-    ( entity, num ) => {
-        return entity.seasons.find(s => +s.season_number === +num);
+    ( tv, num ) => {
+        const season = tv.seasons.find(s => +s.season_number === +num);
+        const season_index = tv.seasons.findIndex(( s ) => {
+            return +s.season_number === +season.season_number;
+        });
+        return {tv, season, season_index};
     }
 );
 
