@@ -108,12 +108,17 @@
       box-sizing: border-box;
       width: 96px;
       text-align: center;
-      color: #000000;
 
-      &:hover {
-        color: #ed1c24;
+      .cast-crew-anchor {
+        display: block;
+        text-decoration: none;
+        box-sizing: border-box;
+        color: #000000;
+        outline: none;
 
-        .cast-crew-anchor {
+        &:hover,
+        &:focus {
+          color: #ed1c24;
           box-shadow: 0 0 3px rgba(0, 0, 0, 0.54);
         }
       }
@@ -135,13 +140,6 @@
         &.character {
           color: #888;
         }
-      }
-
-      .cast-crew-anchor {
-        display: block;
-        text-decoration: none;
-        color: inherit;
-        box-sizing: border-box;
       }
     }
   }
