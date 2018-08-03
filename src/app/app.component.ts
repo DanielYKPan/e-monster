@@ -41,4 +41,9 @@ export class AppComponent implements OnInit, OnDestroy {
     public ngOnDestroy(): void {
         this.breakpointSub.unsubscribe();
     }
+
+    public handleHamburgerClick( event: any ): void {
+        console.log('hamburger click');
+        event.preventDefault();
+    }
 }

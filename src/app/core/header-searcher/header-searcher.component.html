@@ -1,7 +1,8 @@
 <button type="button" class="basic-btn header-searcher-btn"
         [class.on]="showSearchInput" tabindex="0"
-        (click)="toggleSearchInput($event)">
-    <span class="header-searcher-btn-content" tabindex="-1">
+        owlRipple [owlRippleColor]="'rgba(255, 255, 255, 0.2)'"
+        (click)="toggleSearchInput(!showSearchInput)">
+    <span class="basic-btn-content header-searcher-btn-content" tabindex="-1">
         <i class="fas fa-search"></i>
     </span>
 </button>
@@ -9,7 +10,8 @@
      [class.show]="showSearchInput">
     <input type="search" class="header-searcher-input"
            placeholder="What are you looking for?"
-           [(ngModel)]="inputValue"
+           [(ngModel)]="inputValue" [tabindex]="showSearchInput? 0 : -1"
+           (blur)="handleSearchInputBlur()"
            (keydown)="handleKeydownOnSearchInput($event)" #searchInputElm/>
     <button type="button"
             class="basic-btn header-searcher-input-cleaner"
@@ -23,7 +25,7 @@
         class="basic-btn header-searcher-dropdown-btn"
         [class.hidden]="!showSearchInput"
         [owlMenuTriggerFor]="menu" #menuTrigger>
-    <span class="header-searcher-dropdown-btn-content" tabindex="-1">
+    <span class="basic-btn-content header-searcher-dropdown-btn-content" tabindex="-1">
         {{searchQueryOption.name}}
         <i class="fas fa-sort-down"></i>
     </span>

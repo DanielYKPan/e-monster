@@ -12,6 +12,7 @@ $border-color: #2d2d2d;
   max-width: 100vw;
   height: $header-height;
   border-right: solid 1px $border-color;
+  z-index: 1;
 }
 
 .header-searcher-btn {
@@ -27,14 +28,6 @@ $border-color: #2d2d2d;
     height: 100%;
     outline: none;
     transition: background-color .5s;
-  }
-
-  &:focus > .header-searcher-btn-content {
-    background-color: $red;
-  }
-
-  &:not(:-moz-focusring):focus > .header-searcher-btn-content {
-    box-shadow: none;
   }
 
   &.on .header-searcher-btn-content {
@@ -81,26 +74,19 @@ $border-color: #2d2d2d;
 
 .header-searcher-dropdown-btn {
   height: $header-height;
+  background-color: $background-color;
   width: 7.5rem;
 
   .header-searcher-dropdown-btn-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    outline: none;
-    background-color: $background-color;
     padding: 0 5px;
     box-sizing: border-box;
   }
 
   &:focus > .header-searcher-dropdown-btn-content {
-    background-color: rgba($background-color, .9);
-  }
-
-  &:not(:-moz-focusring):focus > .header-searcher-dropdown-btn-content {
-    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.1);
   }
 
   i {

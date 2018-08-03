@@ -25,3 +25,12 @@
         </a>
     </li>
 </ul>
+
+<button type="button" tabindex="0"
+        class="basic-btn hamburger-btn"
+        owlRipple [owlRippleColor]="'rgba(255, 255, 255, 0.2)'"
+        (click)="hamburgerClick.next($event)">
+    <span class="basic-btn-content hamburger-btn-content" tabindex="-1">
+        <i class="fas fa-bars"></i>
+    </span>
+</button>

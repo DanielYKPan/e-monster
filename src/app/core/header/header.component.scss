@@ -1,3 +1,5 @@
+@import "../../../sass/base/breakPoints";
+
 $header-height: 3.2rem;
 
 :host {
@@ -31,9 +33,40 @@ $header-height: 3.2rem;
     padding: 1rem;
     cursor: pointer;
     text-decoration: none;
+    outline: none;
 
-    &:hover, &.active {
+    &.active {
       color: #ed1c24;
     }
+
+    &:not(.active):hover,
+    &:not(.active):focus {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+.hamburger-btn {
+  display: none;
+  position: absolute;
+  right: 0;
+  width: $header-height;
+  height: $header-height;
+  color: #FFFFFF;
+
+   .hamburger-btn-content {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+   }
+}
+
+@media #{$small-only} {
+  .app-header-nav {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: block;
   }
 }

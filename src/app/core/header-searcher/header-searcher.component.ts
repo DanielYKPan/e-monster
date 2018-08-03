@@ -42,14 +42,18 @@ export class HeaderSearcherComponent implements OnInit {
     ngOnInit() {
     }
 
-    public toggleSearchInput( event: any ) {
-        this.showSearchInput = !this.showSearchInput;
+    public toggleSearchInput( state: boolean, event?: any ) {
+        this.showSearchInput = state;
 
         if (this.showSearchInput) {
             this.searchInputElmRef.nativeElement.focus();
+        } else {
+            this.searchInputElmRef.nativeElement.blur();
         }
 
-        event.preventDefault();
+        if (event) {
+            event.preventDefault();
+        }
     }
 
     public cleanSearchInput( event: any ) {
@@ -73,14 +77,14 @@ export class HeaderSearcherComponent implements OnInit {
 
         switch (keyCode) {
             case ESCAPE:
-                this.showSearchInput = false;
+                this.toggleSearchInput(false);
                 this.cdRef.markForCheck();
                 event.preventDefault();
                 return;
 
             case ENTER:
                 if (this.inputValue) {
-                    this.showSearchInput = false;
+                    this.toggleSearchInput(false);
                     this.search.emit({query: this.inputValue, option: this.searchQueryOption.value});
                     this.inputValue = null;
                     this.cdRef.markForCheck();
@@ -90,6 +94,12 @@ export class HeaderSearcherComponent implements OnInit {
 
             default:
                 return;
+        }
+    }
+
+    public handleSearchInputBlur(): void {
+        if (this.showSearchInput) {
+            this.showSearchInput = false;
         }
     }
 }
