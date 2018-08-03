@@ -1,17 +1,20 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import { select, Store } from '@ngrx/store';
 
 import * as fromCoreRoot from './core/reducers';
+import { AppService } from './app.service';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
+
+    @ViewChild('appContainer') appContainerElmRef: ElementRef;
 
     private _isMobile = false;
     get isMobile(): boolean {
@@ -23,7 +26,8 @@ export class AppComponent implements OnInit, OnDestroy {
     public showLoader$: Observable<boolean>;
 
     constructor( private store: Store<fromCoreRoot.State>,
-                 private breakpointObserver: BreakpointObserver ) {
+                 private breakpointObserver: BreakpointObserver,
+                 private appService: AppService ) {
     }
 
     public ngOnInit(): void {
@@ -36,6 +40,10 @@ export class AppComponent implements OnInit, OnDestroy {
             });
 
         this.showLoader$ = this.store.pipe(select(fromCoreRoot.getShowLoader));
+    }
+
+    public ngAfterContentInit(): void {
+        this.appService.registerAppContainer(this.appContainerElmRef.nativeElement);
     }
 
     public ngOnDestroy(): void {

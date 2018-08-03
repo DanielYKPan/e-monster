@@ -8,6 +8,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { CoreModule } from './core/core.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShareModule } from './share/share.module';
+import { AppService } from './app.service';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { ShareModule } from './share/share.module';
 
         LayoutModule,
     ],
-    providers: [],
+    providers: [
+        AppService,
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

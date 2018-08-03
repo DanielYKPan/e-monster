@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { IBook } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-book-card',
@@ -11,7 +12,11 @@ export class BookCardComponent implements OnInit {
 
     @Input() book: IBook;
 
-    constructor() {
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
+    constructor( private appService: AppService ) {
     }
 
     ngOnInit() {

@@ -13,6 +13,7 @@ import * as tvVideoActions from '../actions/video';
 import { ITv, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-tv-details',
@@ -32,9 +33,12 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
 
     private actionsSubscription: Subscription;
 
-    private tvId: number;
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
 
     constructor( private store: Store<fromTvRoot.State>,
+                 private appService: AppService,
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
                  @Inject(DOCUMENT) private document: any,
@@ -42,7 +46,6 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
-                this.tvId = params.id;
                 return new tvActions.Select({tv_id: params.id});
             }))
             .subscribe(this.store);

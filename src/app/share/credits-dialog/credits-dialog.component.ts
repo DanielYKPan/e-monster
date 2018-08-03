@@ -1,6 +1,7 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { ICast, ICrew } from '../../model';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-credits-dialog',
@@ -36,7 +37,12 @@ export class CreditsDialogComponent implements OnInit, AfterContentInit {
         return this.crew.filter(( p ) => p.department === 'Writing');
     }
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( public dialogRef: OwlDialogRef<CreditsDialogComponent>,
+                 private appService: AppService,
                  @Inject(OWL_DIALOG_DATA) public data: any ) {
     }
 

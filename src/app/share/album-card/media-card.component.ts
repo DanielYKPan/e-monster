@@ -8,6 +8,7 @@ import {
     OnInit, Output
 } from '@angular/core';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-media-card',
@@ -40,8 +41,13 @@ export class MediaCardComponent implements OnInit {
             this.artists.map(( artist ) => artist.name) : null;
     }
 
-    constructor() {
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
     }
+
+    constructor( private appService: AppService ) {
+    }
+
 
     ngOnInit() {
     }

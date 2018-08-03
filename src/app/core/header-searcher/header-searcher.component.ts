@@ -96,10 +96,4 @@ export class HeaderSearcherComponent implements OnInit {
                 return;
         }
     }
-
-    public handleSearchInputBlur(): void {
-        if (this.showSearchInput) {
-            this.showSearchInput = false;
-        }
-    }
 }

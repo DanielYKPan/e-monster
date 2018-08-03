@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
     selector: 'app-music',
@@ -8,13 +9,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 })
 export class MusicComponent implements OnInit {
 
-    constructor() {
+    constructor( private appService: AppService ) {
     }
 
     ngOnInit() {
     }
 
     public onDeactivate() {
-        window.scrollTo(0, 0);
+        this.appService.scrollBackToTop(false);
     }
 }

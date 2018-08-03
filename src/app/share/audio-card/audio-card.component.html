@@ -3,8 +3,9 @@
         <img class="card-backdrop"
              [defaultImage]="'/assets/images/abstract-image.jpg'"
              [lazyLoad]="imageLink"
+             [scrollTarget]="scrollTarget"
              [scrollObservable]="scrollObservable"
-             [alt]="title" [useSrcset]="true">
+             [alt]="title">
         <div *ngIf="title" class="card-title">
             <h3>{{title}} <span class="year">{{date | yearString}}</span></h3>
         </div>

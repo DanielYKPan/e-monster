@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AppService } from '../app.service';
 
 @Component({
     selector: 'app-people',
@@ -7,14 +8,14 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PeopleComponent implements OnInit {
-    constructor() {
+    constructor( private appService: AppService ) {
     }
 
     ngOnInit() {
     }
 
     public onDeactivate() {
-        window.scrollTo(0, 0);
+        this.appService.scrollBackToTop(false);
     }
 
 }

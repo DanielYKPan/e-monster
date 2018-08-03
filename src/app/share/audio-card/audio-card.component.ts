@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IAudio } from '../../model';
 import { Observable } from 'rxjs/Observable';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-audio-card',
@@ -32,7 +33,11 @@ export class AudioCardComponent implements OnInit {
 
     @Output() playVideo = new EventEmitter<{ audio: IAudio, event: any }>();
 
-    constructor() {
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
+    constructor( private appService: AppService ) {
     }
 
     ngOnInit() {

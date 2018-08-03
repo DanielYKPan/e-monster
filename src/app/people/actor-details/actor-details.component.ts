@@ -11,6 +11,7 @@ import { IActorDetails } from '../../model';
 import * as fromPeopleRoot from '../reducers';
 import * as actorActions from '../actions/actor';
 import { CreditOverviewDialogComponent } from './credit-overview-dialog/credit-overview-dialog.component';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-actor-details',
@@ -58,12 +59,17 @@ export class ActorDetailsComponent implements OnInit, OnDestroy {
 
     private actorSub = Subscription.EMPTY;
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( private store: Store<fromPeopleRoot.State>,
                  private viewportRuler: ViewportRuler,
                  @Inject(DOCUMENT) private document: any,
                  private router: Router,
                  private route: ActivatedRoute,
                  private cdRef: ChangeDetectorRef,
+                 private appService: AppService,
                  private dialogService: OwlDialogService ) {
     }
 

@@ -5,7 +5,10 @@
 <div class="credits-summary">
     <div class="poster">
         <img [defaultImage]="'/assets/images/abstract-image.jpg'"
-             [lazyLoad]="imagePath" alt="Poster">
+             [errorImage]="'/assets/images/abstract-image.jpg'"
+             [lazyLoad]="imagePath"
+             [scrollTarget]="scrollTarget"
+             alt="Poster">
     </div>
 
     <div class="title">

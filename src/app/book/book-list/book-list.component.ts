@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromBookRoot from '../reducers';
 import { IBook } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-book-list',
@@ -28,6 +29,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
     ];
 
     constructor( private router: Router,
+                 private appService: AppService,
                  private store: Store<fromBookRoot.State> ) {
     }
 
@@ -46,7 +48,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
             select(fromBookRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            window.scroll({top: 0, behavior: 'smooth'});
+            this.appService.scrollBackToTop(true);
         });
     }
 

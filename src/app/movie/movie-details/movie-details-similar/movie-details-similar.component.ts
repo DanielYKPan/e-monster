@@ -8,11 +8,9 @@ import {
     Output,
     ViewChild
 } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { merge } from 'rxjs/observable/merge';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Subject } from 'rxjs/Subject';
+import { Subject, Observable, merge, fromEvent } from 'rxjs';
 import { IAudio, IMovie } from '../../../model';
+import { AppService } from '../../../app.service';
 
 @Component({
     selector: 'app-movie-details-similar',
@@ -38,13 +36,13 @@ export class MovieDetailsSimilarComponent implements OnInit {
 
     get scrollObservable(): Observable<any> {
         return merge(
-            fromEvent(window, 'scroll'),
+            fromEvent(this.appService.appContainer, 'scroll'),
             fromEvent(window, 'keydown'),
             this.sliding$.asObservable()
         );
     }
 
-    constructor() {
+    constructor(private appService: AppService) {
     }
 
     ngOnInit() {

@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import * as bookActions from '../actions/book';
 import * as fromBookRoot from '../reducers';
 import { IBook } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-book-details',
@@ -19,7 +20,12 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 
     private routeSub = Subscription.EMPTY;
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( private route: ActivatedRoute,
+                 private appService: AppService,
                  private store: Store<fromBookRoot.State> ) {
     }
 

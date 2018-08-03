@@ -5,6 +5,7 @@ import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { OwlDialogService } from 'owl-ng';
 
+import { AppService } from '../../app.service';
 import { IAudio } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import * as fromMovieRoot from '../reducers';
@@ -36,6 +37,7 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     constructor( private router: Router,
                  private store: Store<fromMovieRoot.State>,
+                 private appService: AppService,
                  private dialogService: OwlDialogService ) {
     }
 
@@ -53,7 +55,7 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
             select(fromMovieRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            window.scroll({top: 0, behavior: 'smooth'});
+            this.appService.scrollBackToTop(true);
         });
     }
 

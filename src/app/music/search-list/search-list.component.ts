@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromMusicRoot from '../reducers';
 import { IAlbum, ITrack } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-search-list',
@@ -30,6 +31,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private store: Store<fromMusicRoot.State>,
+                 private appService: AppService,
                  private router: Router ) {
     }
 
@@ -45,7 +47,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.scrollBackTopSub = combineLatest(this.albumList$, this.trackList$)
             .pipe(skip(1))
             .subscribe(() => {
-                window.scroll({top: 0, behavior: 'smooth'});
+                this.appService.scrollBackToTop(true);
             });
     }
 

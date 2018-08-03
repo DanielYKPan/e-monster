@@ -35,10 +35,12 @@
     </mat-sidenav-container>
 </div>-->
 
-<app-header (hamburgerClick)="handleHamburgerClick($event)"></app-header>
+<div class="app-container" #appContainer>
+    <app-header (hamburgerClick)="handleHamburgerClick($event)"></app-header>
 
-<router-outlet></router-outlet>
+    <router-outlet></router-outlet>
 
-<app-footer-searcher></app-footer-searcher>
+    <app-footer-searcher></app-footer-searcher>
+</div>
 
 <app-loader [show]="showLoader$ | async"></app-loader>

@@ -9,6 +9,7 @@ import {
     Output
 } from '@angular/core';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-track-bar',
@@ -56,7 +57,11 @@ export class TrackBarComponent implements OnInit {
             this.artists.map(( artist ) => artist.name) : null;
     }
 
-    constructor() {
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
+    constructor( private appService: AppService ) {
     }
 
     ngOnInit() {

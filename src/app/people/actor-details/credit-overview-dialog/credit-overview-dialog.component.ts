@@ -1,5 +1,6 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
 import { OWL_DIALOG_DATA, OwlDialogRef } from 'owl-ng';
+import { AppService } from '../../../app.service';
 
 @Component({
     selector: 'app-credit-overview-dialog',
@@ -16,7 +17,12 @@ export class CreditOverviewDialogComponent implements OnInit, AfterContentInit {
         return Math.round(this.credit.vote_average * 10) / 10;
     }
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( public dialogRef: OwlDialogRef<CreditOverviewDialogComponent>,
+                 private appService: AppService,
                  @Inject(OWL_DIALOG_DATA) public data: any ) {
     }
 

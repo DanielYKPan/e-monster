@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromMusicRoot from '../reducers';
 import { IAlbum } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-music-list',
@@ -29,6 +30,7 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
     ];
 
     constructor( private store: Store<fromMusicRoot.State>,
+                 private appService: AppService,
                  private router: Router ) {
     }
 
@@ -46,7 +48,7 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
             select(fromMusicRoot.getSearchAlbumResults),
             skip(1)
         ).subscribe(() => {
-            window.scroll({top: 0, behavior: 'smooth'});
+            this.appService.scrollBackToTop(true);
         });
     }
 

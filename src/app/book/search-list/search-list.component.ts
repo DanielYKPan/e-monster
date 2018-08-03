@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromBookRoot from '../reducers';
 import { IBook } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-search-list',
@@ -22,6 +23,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private router: Router,
+                 private appService: AppService,
                  private store: Store<fromBookRoot.State> ) {
     }
 
@@ -37,7 +39,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
             select(fromBookRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            window.scroll({top: 0, behavior: 'smooth'});
+            this.appService.scrollBackToTop(true);
         });
     }
 

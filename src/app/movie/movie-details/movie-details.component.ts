@@ -13,6 +13,7 @@ import { OwlDialogService } from 'owl-ng';
 import { IAudio, IMovie, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-movie-details',
@@ -35,15 +36,20 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     private actionsSubscription: Subscription;
     private movieId: number;
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( private store: Store<fromMoviesRoot.State>,
                  private dialogService: OwlDialogService,
+                 private appService: AppService,
                  private viewportRuler: ViewportRuler,
                  private router: Router,
                  @Inject(DOCUMENT) private document: any,
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
-                window.scrollTo({top: 0, behavior: 'smooth'});
+                this.appService.scrollBackToTop(true);
                 this.movieId = params.id;
                 return new movieAction.Select(params.id);
             }))

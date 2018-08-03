@@ -1,7 +1,8 @@
 <ng-container *ngIf="tv_season$ | async as tv_season">
     <section class="details-header">
         <div class="details-header-backdrop"
-             [lazyLoad]="'https://image.tmdb.org/t/p/w1280' + tv_season.tv.backdrop_path"></div>
+             [lazyLoad]="'https://image.tmdb.org/t/p/w1280' + tv_season.tv.backdrop_path"
+             [scrollTarget]="scrollTarget"></div>
 
         <div class="details-header-content">
             <div class="details-header-content-inner details-container">
@@ -9,6 +10,7 @@
                     <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + tv_season.season.poster_path"
                          [defaultImage]="'/assets/images/abstract-image.jpg'"
                          [errorImage]="'/assets/images/abstract-image.jpg'"
+                         [scrollTarget]="scrollTarget"
                          alt="Poster">
                 </div>
 
@@ -41,6 +43,7 @@
                 <img [lazyLoad]="'https://image.tmdb.org/t/p/w780' + tv_season.season.poster_path"
                      [defaultImage]="'/assets/images/abstract-image.jpg'"
                      [errorImage]="'/assets/images/abstract-image.jpg'"
+                     [scrollTarget]="scrollTarget"
                      alt="Poster">
             </div>
 

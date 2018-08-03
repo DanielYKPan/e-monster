@@ -6,6 +6,7 @@ import { skip } from 'rxjs/operators';
 
 import * as fromPeopleRoot from '../reducers';
 import { IActor, IArtist } from '../../model';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-actor-search-list',
@@ -30,6 +31,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
     private scrollBackTopSub = Subscription.EMPTY;
 
     constructor( private router: Router,
+                 private appService: AppService,
                  private store: Store<fromPeopleRoot.State> ) {
     }
 
@@ -46,7 +48,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         this.scrollBackTopSub = combineLatest(this.actorList$, this.artistList$)
             .pipe(skip(1))
             .subscribe(() => {
-                window.scroll({top: 0, behavior: 'smooth'});
+                this.appService.scrollBackToTop(true);
             });
     }
 

@@ -1,7 +1,7 @@
 <ng-container *ngIf="artist$ | async as artist">
     <section class="details-header">
         <div class="details-header-backdrop"
-             [lazyLoad]="artist.images[0]?.url"></div>
+             [lazyLoad]="artist.images[0]?.url" [scrollTarget]="scrollTarget"></div>
 
         <div class="details-header-content">
             <div class="details-header-content-inner details-container">
@@ -9,6 +9,7 @@
                     <img [lazyLoad]="artist.images[0]?.url"
                          [defaultImage]="'/assets/images/abstract-image.jpg'"
                          [errorImage]="'/assets/images/abstract-image.jpg'"
+                         [scrollTarget]="scrollTarget"
                          alt="Poster">
                 </div>
                 <h1 class="details-header-name">
@@ -24,6 +25,7 @@
                 <img [lazyLoad]="artist.images[0].url"
                      [defaultImage]="'/assets/images/abstract-image.jpg'"
                      [errorImage]="'/assets/images/abstract-image.jpg'"
+                     [scrollTarget]="scrollTarget"
                      alt="Poster">
             </div>
 

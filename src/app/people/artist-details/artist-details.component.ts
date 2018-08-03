@@ -9,6 +9,7 @@ import { IArtistDetails, ITrack } from '../../model';
 import * as fromPeopleRoot from '../reducers';
 import * as artistActions from '../actions/artist';
 import { TrackDialogComponent } from '../../share/track-dialog/track-dialog.component';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-artist-details',
@@ -22,9 +23,14 @@ export class ArtistDetailsComponent implements OnInit, OnDestroy {
 
     private routeSub = Subscription.EMPTY;
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( private store: Store<fromPeopleRoot.State>,
                  private route: ActivatedRoute,
                  private router: Router,
+                 private appService: AppService,
                  private dialogService: OwlDialogService ) {
     }
 

@@ -2,7 +2,8 @@
     <div class="poster-frame" (click)="goToDetailsPage($event)">
         <a>
             <img [lazyLoad]="'https://image.tmdb.org/t/p/w185' + credit.poster_path"
-                 [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                 [errorImage]="'/assets/images/abstract-image.jpg'"
+                 [scrollTarget]="scrollTarget"
                  alt="Poster">
         </a>
     </div>

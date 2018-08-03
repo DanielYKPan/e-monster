@@ -18,6 +18,7 @@ import { IAlbum } from '../../model';
 import * as fromMusicRoot from '../reducers';
 import * as musicActions from '../actions/music';
 import { TrackDialogComponent } from '../../share/track-dialog/track-dialog.component';
+import { AppService } from '../../app.service';
 
 
 @Component({
@@ -36,9 +37,14 @@ export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private routeQueriesSub = Subscription.EMPTY;
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( private route: ActivatedRoute,
                  private elm: ElementRef,
                  private store: Store<fromMusicRoot.State>,
+                 private appService: AppService,
                  private dialogService: OwlDialogService ) {
     }
 

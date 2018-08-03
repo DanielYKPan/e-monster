@@ -12,6 +12,7 @@ import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialo
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import * as tvActions from '../actions/tv';
 import * as fromTvRoot from '../reducers';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-tv-season-details',
@@ -31,9 +32,14 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
 
     private actionsSubscription: Subscription;
 
+    get scrollTarget(): HTMLElement {
+        return this.appService.appContainer;
+    }
+
     constructor( private route: ActivatedRoute,
                  private router: Router,
                  private store: Store<fromTvRoot.State>,
+                 private appService: AppService,
                  private dialogService: OwlDialogService,
                  private viewportRuler: ViewportRuler,
                  @Inject(DOCUMENT) private document: any, ) {

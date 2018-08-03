@@ -9,6 +9,7 @@ import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.comp
 import { IAudio } from '../../model';
 import * as fromTvRoot from '../reducers';
 import * as videoActions from '../actions/video';
+import { AppService } from '../../app.service';
 
 @Component({
     selector: 'app-tv-list',
@@ -36,6 +37,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     constructor( private router: Router,
                  private store: Store<fromTvRoot.State>,
+                 private appService: AppService,
                  private dialogService: OwlDialogService ) {
     }
 
@@ -53,7 +55,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
             select(fromTvRoot.getSearchResults),
             skip(1)
         ).subscribe(() => {
-            window.scroll({top: 0, behavior: 'smooth'});
+            this.appService.scrollBackToTop(true);
         });
     }
 

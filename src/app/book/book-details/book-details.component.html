@@ -4,12 +4,16 @@
         <div class="book-header-backdrop">
             <div class="book-image-card left">
                 <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
-                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                     [defaultImage]="'/assets/images/abstract-image.jpg'"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     [scrollTarget]="scrollTarget"
                      alt="Poster">
             </div>
             <div class="book-image-card right">
                 <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
-                     [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                     [defaultImage]="'/assets/images/abstract-image.jpg'"
+                     [errorImage]="'/assets/images/abstract-image.jpg'"
+                     [scrollTarget]="scrollTarget"
                      alt="Poster">
             </div>
         </div>
@@ -19,7 +23,9 @@
             <div class="details-header-content-inner details-container">
                 <div class="details-header-poster">
                     <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
-                         [errorImage]="'/assets/images/abstract-image.jpg'" [useSrcset]="true"
+                         [defaultImage]="'/assets/images/abstract-image.jpg'"
+                         [errorImage]="'/assets/images/abstract-image.jpg'"
+                         [scrollTarget]="scrollTarget"
                          alt="Poster">
                 </div>
 
@@ -39,7 +45,9 @@
         <div class="details-body-sidenav">
             <div class="details-body-poster">
                 <img [lazyLoad]="book.volumeInfo.imageLinks.thumbnail || book.volumeInfo.imageLinks.smallThumbnail"
+                     [defaultImage]="'/assets/images/abstract-image.jpg'"
                      [errorImage]="'/assets/images/abstract-image.jpg'"
+                     [scrollTarget]="scrollTarget"
                      alt="Poster">
             </div>
 
