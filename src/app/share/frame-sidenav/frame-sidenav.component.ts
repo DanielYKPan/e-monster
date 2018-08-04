@@ -33,12 +33,12 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
 
     @Output() clickOption = new EventEmitter<any>();
 
-    private _isMediumUp = false;
+    private _isSmall = false;
 
     private breakpointSub = Subscription.EMPTY;
 
     get showNavMenu(): boolean {
-        return !this._isMediumUp;
+        return this._isSmall;
     }
 
     get sidenavMenuName(): string {
@@ -58,9 +58,9 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.breakpointSub = this.breakpointObserver
             .observe([
-                Breakpoints.Medium
+                Breakpoints.Small
             ]).subscribe(result => {
-                this._isMediumUp = result.matches;
+                this._isSmall = result.matches;
                 this.cdRef.markForCheck();
             });
     }
