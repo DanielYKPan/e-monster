@@ -9,6 +9,7 @@ import { CoreModule } from './core/core.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ShareModule } from './share/share.module';
 import { AppService } from './app.service';
+import { MatSidenavModule } from '@angular/material';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AppService } from './app.service';
         ShareModule,
 
         LayoutModule,
+        MatSidenavModule,
     ],
     providers: [
         AppService,

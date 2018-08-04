@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,12 @@ export class HeaderComponent implements OnInit {
 
     @Output() hamburgerClick = new EventEmitter<any>();
 
-    constructor( private router: Router ) {
+    get offsetHeight(): any {
+        return this.elmRef.nativeElement.offsetHeight;
+    }
+
+    constructor( private router: Router,
+                 private elmRef: ElementRef) {
     }
 
     ngOnInit() {

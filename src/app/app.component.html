@@ -1,46 +1,20 @@
-<!--<div class="app-container" [class.app-is-mobile]="isMobile">
-    <mat-toolbar class="app-toolbar" color="primary">
-        <button mat-icon-button (click)="toggleSidenav()">
-            <mat-icon>menu</mat-icon>
-        </button>
-        <span>My Application</span>
-    </mat-toolbar>
+<app-header (hamburgerClick)="handleHamburgerClick($event)" #appHeader></app-header>
 
-    <mat-sidenav-container class="app-sidenav-container"
-                           (backdropClick)="closeSidenav()">
+<mat-sidenav-container class="app-sidenav-container"
+                       (backdropClick)="closeSidenav()">
+    <mat-sidenav [opened]="opened"
+                 [fixedInViewport]="true"
+                 [fixedTopGap]="appHeader.offsetHeight"
+                 [position]="'end'" [mode]="'over'">
+        <div class="app-sidenav-panel"></div>
+    </mat-sidenav>
 
-        <mat-sidenav class="app-sidenav-content"
-                     [opened]="showSidenav$ | async"
-                     #snav [mode]="isMobile ? 'over' : 'side'"
-                     [fixedInViewport]="isMobile" [fixedTopGap]="56">
-            <mat-nav-list>
-                <a mat-list-item routerLink="./books" class="app-sidenav-link"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <mat-icon mat-list-icon>book</mat-icon>
-                    <span mat-line>My Collection</span>
-                    <span mat-line class="app-sidenav-link-hint">View your book collection</span>
-                </a>
-                <a mat-list-item routerLink="./books/find" class="app-sidenav-link"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                    <mat-icon mat-list-icon>search</mat-icon>
-                    <span mat-line>Browser Books</span>
-                    <span mat-line class="app-sidenav-link-hint">Find your next book!</span>
-                </a>
-            </mat-nav-list>
-        </mat-sidenav>
-
-        <mat-sidenav-content class="app-main-content">
+    <mat-sidenav-content>
+        <div class="app-container" #appContainer>
             <router-outlet></router-outlet>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-</div>-->
-
-<div class="app-container" #appContainer>
-    <app-header (hamburgerClick)="handleHamburgerClick($event)"></app-header>
-
-    <router-outlet></router-outlet>
-
-    <app-footer-searcher></app-footer-searcher>
-</div>
+            <app-footer-searcher></app-footer-searcher>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
 
 <app-loader [show]="showLoader$ | async"></app-loader>

@@ -1,43 +1,21 @@
-.app-container {
+.app-sidenav-container {
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.app-sidenav-container {
-  flex: 1;
-}
-
-.app-sidenav-content {
+.app-sidenav-panel {
   width: 250px;
   background: rgb(248, 248, 248);
 }
 
-/*.app-is-mobile {
-  .app-toolbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2;
-  }
-
-  .app-sidenav-container {
-    margin-top: 56px;
-    flex: 1 0 auto;
-  }
-}*/
-
-.app-sidenav-link.active {
-  color: cornflowerblue;
+.app-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-
-.app-sidenav-link-hint {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 12px !important;
-  margin-top: 8px !important;
-}
-

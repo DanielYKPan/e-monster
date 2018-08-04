@@ -1,7 +1,6 @@
 import { AfterContentInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import * as fromCoreRoot from './core/reducers';
@@ -24,6 +23,8 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     private breakpointSub = Subscription.EMPTY;
 
     public showLoader$: Observable<boolean>;
+
+    public opened: boolean;
 
     constructor( private store: Store<fromCoreRoot.State>,
                  private breakpointObserver: BreakpointObserver,
@@ -51,7 +52,11 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     }
 
     public handleHamburgerClick( event: any ): void {
-        console.log('hamburger click');
+        this.opened = !this.opened;
         event.preventDefault();
+    }
+
+    public closeSidenav() {
+        this.opened = false;
     }
 }
