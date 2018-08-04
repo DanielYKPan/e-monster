@@ -1,8 +1,8 @@
-<app-header (hamburgerClick)="handleHamburgerClick($event)" #appHeader></app-header>
+<app-header (hamburgerClick)="toggleSidenav()" #appHeader></app-header>
 
 <mat-sidenav-container class="app-sidenav-container"
                        (backdropClick)="closeSidenav()">
-    <mat-sidenav [opened]="opened"
+    <mat-sidenav [opened]="showSidenav$ | async"
                  [fixedInViewport]="true"
                  [fixedTopGap]="appHeader.offsetHeight"
                  [position]="'end'" [mode]="'over'">

@@ -4,6 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import * as fromCoreRoot from './core/reducers';
+import * as layoutActions from './core/layout-store/actions';
 import { AppService } from './app.service';
 
 @Component({
@@ -23,8 +24,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     private breakpointSub = Subscription.EMPTY;
 
     public showLoader$: Observable<boolean>;
-
-    public opened: boolean;
+    public showSidenav$: Observable<boolean>;
 
     constructor( private store: Store<fromCoreRoot.State>,
                  private breakpointObserver: BreakpointObserver,
@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
             });
 
         this.showLoader$ = this.store.pipe(select(fromCoreRoot.getShowLoader));
+        this.showSidenav$ = this.store.pipe(select(fromCoreRoot.getShowSidenav));
     }
 
     public ngAfterContentInit(): void {
@@ -51,12 +52,11 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
         this.breakpointSub.unsubscribe();
     }
 
-    public handleHamburgerClick( event: any ): void {
-        this.opened = !this.opened;
-        event.preventDefault();
+    public toggleSidenav(): void {
+        this.store.dispatch(new layoutActions.ToggleSidenav());
     }
 
-    public closeSidenav() {
-        this.opened = false;
+    public closeSidenav(): void {
+        this.store.dispatch(new layoutActions.CloseSidenav());
     }
 }
