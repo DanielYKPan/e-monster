@@ -1,7 +1,39 @@
-$sidenav-width: 150px;
-$sidenav-bg: rgb(248, 248, 248);
+$sidenav-width: 200px;
+$sidenav-bg: #ed1c24;
 
 :host {
+  display: block;
+  position: relative;
   width: $sidenav-width;
+  height: 100%;
   background: $sidenav-bg;
+  box-sizing: border-box;
+}
+
+.sidenav-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .sidenav-list-item {
+    height: 3rem;
+    line-height: 3rem;
+  }
+
+  .sidenav-list-anchor {
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    color: #2d2d2d;
+    padding: 0 .5rem;
+
+    &.active {
+      color: #FFFFFF;
+    }
+
+    &:not(.active):focus {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
 }

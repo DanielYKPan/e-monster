@@ -16,9 +16,9 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
 
     @ViewChild('appContainer') appContainerElmRef: ElementRef;
 
-    private _isMobile = false;
-    get isMobile(): boolean {
-        return this._isMobile;
+    private _isXSmall = false;
+    get isXSmall(): boolean {
+        return this._isXSmall;
     }
 
     private breakpointSub = Subscription.EMPTY;
@@ -34,10 +34,12 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
     public ngOnInit(): void {
         this.breakpointSub = this.breakpointObserver
             .observe([
-                Breakpoints.Tablet,
-                Breakpoints.Web,
+                Breakpoints.XSmall,
             ]).subscribe(result => {
-                this._isMobile = !result.matches;
+                this._isXSmall = result.matches;
+                if (this._isXSmall) {
+                    this.closeSidenav();
+                }
             });
 
         this.showLoader$ = this.store.pipe(select(fromCoreRoot.getShowLoader));

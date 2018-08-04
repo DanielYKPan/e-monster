@@ -1,3 +1,26 @@
-<p>
-  sidenav-panel works!
-</p>
+<ul class="sidenav-list">
+    <li class="sidenav-list-item">
+        <a class="sidenav-list-anchor" (click)="sidenavAnchorClick.emit()"
+           routerLink="movie/list" routerLinkActive="active">
+            Movies
+        </a>
+    </li>
+    <li class="sidenav-list-item">
+        <a class="sidenav-list-anchor" (click)="sidenavAnchorClick.emit()"
+           routerLink="tv/list" routerLinkActive="active">
+            TV
+        </a>
+    </li>
+    <li class="sidenav-list-item">
+        <a class="sidenav-list-anchor" (click)="sidenavAnchorClick.emit()"
+           routerLink="music" routerLinkActive="active">
+            Music
+        </a>
+    </li>
+    <li class="sidenav-list-item">
+        <a class="sidenav-list-anchor" (click)="sidenavAnchorClick.emit()"
+           routerLink="book" routerLinkActive="active">
+            Books
+        </a>
+    </li>
+</ul>

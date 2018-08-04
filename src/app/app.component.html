@@ -2,11 +2,12 @@
 
 <mat-sidenav-container class="app-sidenav-container"
                        (backdropClick)="closeSidenav()">
-    <mat-sidenav [opened]="showSidenav$ | async"
+    <mat-sidenav *ngIf="isXSmall"
+                 [opened]="showSidenav$ | async"
                  [fixedInViewport]="true"
                  [fixedTopGap]="appHeader.offsetHeight"
                  [position]="'end'" [mode]="'over'">
-        <app-sidenav-panel></app-sidenav-panel>
+        <app-sidenav-panel (sidenavAnchorClick)="closeSidenav()"></app-sidenav-panel>
     </mat-sidenav>
 
     <mat-sidenav-content>
