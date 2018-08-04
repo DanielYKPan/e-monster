@@ -4,6 +4,11 @@
 
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import * as fromTvRoot from '../reducers';
+import { TvService } from '../service/tv.service';
 import {
     SearchTvSeasonVideos,
     SearchTvVideos,
@@ -12,11 +17,6 @@ import {
     Select,
     TvVideosActionTypes
 } from '../actions/video';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
-import * as fromTvRoot from '../reducers';
-import { of } from 'rxjs/observable/of';
-import { TvService } from '../service/tv.service';
 
 @Injectable()
 export class VideoEffect {

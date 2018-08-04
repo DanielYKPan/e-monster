@@ -23,7 +23,7 @@
     max-width: 19rem;
   }
 
-  @media #{$small-only} {
+  @media #{$xsmall-only} {
     &.featured {
       grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
     }

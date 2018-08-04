@@ -1,0 +1,7 @@
+$sidenav-width: 150px;
+$sidenav-bg: rgb(248, 248, 248);
+
+:host {
+  width: $sidenav-width;
+  background: $sidenav-bg;
+}

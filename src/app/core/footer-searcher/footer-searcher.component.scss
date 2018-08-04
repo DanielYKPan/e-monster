@@ -12,7 +12,7 @@ $dropdown-btn-height: 2.8rem;
   background: #ed1c24;
 }
 
-@media #{$large-up} {
+@media #{$medium-up} {
   :host {
     display: flex;
   }

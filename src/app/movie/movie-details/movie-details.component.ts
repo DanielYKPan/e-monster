@@ -3,13 +3,13 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { select, Store } from '@ngrx/store';
+import { Subscription, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { OwlDialogService } from 'owl-ng';
+
 import * as fromMoviesRoot from '../reducers';
 import * as movieAction from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
-import { Subscription } from 'rxjs/Subscription';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { OwlDialogService } from 'owl-ng';
 import { IAudio, IMovie, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';

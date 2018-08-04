@@ -7,7 +7,7 @@
   height: 100%;
   box-sizing: border-box;
 
-  @media #{$large-up} {
+  @media #{$medium-up} {
     & {
       flex-direction: column;
     }
@@ -64,7 +64,7 @@
   align-items: center;
   flex: 1;
 
-  @media #{$large-up} {
+  @media #{$medium-up} {
     justify-content: start;
     align-items: flex-start;
   }

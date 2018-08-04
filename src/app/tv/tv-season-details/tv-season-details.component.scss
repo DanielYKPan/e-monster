@@ -219,6 +219,7 @@
 
   .episode-card {
     flex: 1;
+    min-width: 280px;
     height: 280px;
   }
 
@@ -266,9 +267,7 @@
       margin: 0 2rem .2rem 0;
     }
   }
-}
 
-@media #{$large-up} {
   .episode-list-wrapper {
     .episode-list-item {
       flex-direction: row;

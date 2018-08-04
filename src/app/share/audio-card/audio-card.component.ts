@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IAudio } from '../../model';
-import { Observable } from 'rxjs/Observable';
 import { AppService } from '../../app.service';
 
 @Component({

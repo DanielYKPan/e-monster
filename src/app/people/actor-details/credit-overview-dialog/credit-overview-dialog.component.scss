@@ -84,7 +84,7 @@ a {
   text-decoration: none;
 }
 
-@media #{$small-only} {
+@media #{$xsmall-only} {
   .credit-overview-dialog-inner{
     flex-direction: column;
     align-items: center;

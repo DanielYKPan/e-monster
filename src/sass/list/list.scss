@@ -45,7 +45,7 @@ $topbar-height: 3.2rem;
   transform: translate(-50%, -50%);
 }
 
-@media #{$large-up} {
+@media #{$medium-up} {
   .frame-main-wrapper {
     margin-left: $sidenav-width;
     border-left: solid 1px #2d2d2d;

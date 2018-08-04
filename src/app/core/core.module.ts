@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { DBModule } from '@ngrx/db';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,8 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { HeaderSearcherComponent } from './header-searcher/header-searcher.component';
 import { FooterSearcherComponent } from './footer-searcher/footer-searcher.component';
 import { reducers } from './reducers';
-import { schema } from './db';
 import { environment } from '../../environments/environment';
+import { SidenavPanelComponent } from './sidenav-panel/sidenav-panel.component';
 
 @NgModule({
     imports: [
@@ -28,7 +27,6 @@ import { environment } from '../../environments/environment';
         // ngrx
         StoreModule.forRoot(reducers),
         EffectsModule.forRoot([]),
-        DBModule.provideDB(schema),
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode
@@ -37,11 +35,13 @@ import { environment } from '../../environments/environment';
     exports: [
         HeaderComponent,
         FooterSearcherComponent,
+        SidenavPanelComponent,
     ],
     declarations: [
         HeaderComponent,
         HeaderSearcherComponent,
         FooterSearcherComponent,
+        SidenavPanelComponent,
     ]
 })
 export class CoreModule {

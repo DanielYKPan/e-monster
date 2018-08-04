@@ -2,7 +2,7 @@
  * movie.service
  */
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { IAudio, IGenre, IMovie, IReviews, IVideos } from '../../model';

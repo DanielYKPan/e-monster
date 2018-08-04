@@ -5,6 +5,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
+import { of } from 'rxjs';
+import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
+import * as fromMovieRoot from '../reducers';
+import { MovieService } from '../service/movie.service';
 import {
     MovieVideosActionTypes,
     SearchVideos,
@@ -12,10 +16,6 @@ import {
     SearchVideosError,
     Select
 } from '../actions/video';
-import { catchError, map, switchMap, withLatestFrom } from 'rxjs/operators';
-import * as fromMovieRoot from '../reducers';
-import { MovieService } from '../service/movie.service';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class VideoEffect {

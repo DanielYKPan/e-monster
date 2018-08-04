@@ -8,8 +8,8 @@ import {
     OnInit,
     Output
 } from '@angular/core';
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Subscription } from 'rxjs/Subscription';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-frame-sidenav',
@@ -33,12 +33,12 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
 
     @Output() clickOption = new EventEmitter<any>();
 
-    private _isLargeUp = false;
+    private _isMediumUp = false;
 
     private breakpointSub = Subscription.EMPTY;
 
     get showNavMenu(): boolean {
-        return !this._isLargeUp;
+        return !this._isMediumUp;
     }
 
     get sidenavMenuName(): string {
@@ -58,9 +58,9 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.breakpointSub = this.breakpointObserver
             .observe([
-                '(min-width: 64.0625rem)'
+                Breakpoints.Medium
             ]).subscribe(result => {
-                this._isLargeUp = result.matches;
+                this._isMediumUp = result.matches;
                 this.cdRef.markForCheck();
             });
     }

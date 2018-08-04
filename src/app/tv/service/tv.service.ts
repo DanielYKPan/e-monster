@@ -4,7 +4,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TMDBService } from '../../tmdb';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { IAudio, ISeason, ITv, IVideos } from '../../model';
 
