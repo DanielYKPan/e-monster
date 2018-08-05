@@ -36,7 +36,7 @@
 </button>
 
 <a class="basic-btn auth-link app-header-link"
-   tabindex="0" routerLink="login" routerLinkActive="active">
+   tabindex="0" [routerLink]="user && user.name ? 'my-collection' : 'login'" routerLinkActive="active">
     <span class="basic-btn-content auth-link-content" tabindex="-1">
         {{user && user.name ? user.name : 'Login'}}
     </span>

@@ -25,7 +25,8 @@
     </li>
     <li class="sidenav-list-item">
         <a class="sidenav-list-anchor" (click)="sidenavAnchorClick.emit()"
-           routerLink="login" routerLinkActive="active">
+           [routerLink]="user && user.name ? 'my-collection' : 'login'"
+           routerLinkActive="active">
             {{user && user.name ? user.name : 'Login'}}
         </a>
     </li>
