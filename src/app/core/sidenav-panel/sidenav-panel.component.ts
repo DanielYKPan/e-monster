@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { User } from '../../model';
 
 @Component({
     selector: 'app-sidenav-panel',
@@ -7,6 +8,8 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidenavPanelComponent implements OnInit {
+
+    @Input() user: User;
 
     @Output() sidenavAnchorClick = new EventEmitter<any>();
 

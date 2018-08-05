@@ -4,8 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import * as fromCoreRoot from './core/reducers';
+import * as fromUser from './user/reducers';
 import * as layoutActions from './core/layout-store/actions';
 import { AppService } from './app.service';
+import { User } from './model';
 
 @Component({
     selector: 'app-root',
@@ -25,6 +27,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public showLoader$: Observable<boolean>;
     public showSidenav$: Observable<boolean>;
+    public user$: Observable<User>;
 
     constructor( private store: Store<fromCoreRoot.State>,
                  private breakpointObserver: BreakpointObserver,
@@ -44,6 +47,7 @@ export class AppComponent implements OnInit, AfterContentInit, OnDestroy {
 
         this.showLoader$ = this.store.pipe(select(fromCoreRoot.getShowLoader));
         this.showSidenav$ = this.store.pipe(select(fromCoreRoot.getShowSidenav));
+        this.user$ = this.store.pipe(select(fromUser.getLoggedInUser));
     }
 
     public ngAfterContentInit(): void {

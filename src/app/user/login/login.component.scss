@@ -26,23 +26,6 @@
   margin: 0 0 1rem;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.login-form-btn {
-  align-self: flex-end;
-
-  .login-form-btn-content {
-    border-radius: 2px;
-    padding: .6rem 1rem;
-    box-sizing: border-box;
-    transition: all .2s;
-  }
-
-  &:hover > .login-form-btn-content,
-  &:focus > .login-form-btn-content {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
+.login-error-msg {
+  color: #e91439;
 }

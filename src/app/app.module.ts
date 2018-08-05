@@ -10,6 +10,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ShareModule } from './share/share.module';
 import { AppService } from './app.service';
 import { MatSidenavModule } from '@angular/material';
+import { UserModule } from './user/user.module';
 
 
 @NgModule({
@@ -21,9 +22,10 @@ import { MatSidenavModule } from '@angular/material';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        AppRoutingModule,
         CoreModule,
         ShareModule,
+        UserModule,
+        AppRoutingModule,
 
         LayoutModule,
         MatSidenavModule,

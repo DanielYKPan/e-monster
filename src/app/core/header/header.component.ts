@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from '../../model';
 
 @Component({
     selector: 'app-header',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
+
+    @Input() user: User;
 
     @Output() hamburgerClick = new EventEmitter<any>();
 

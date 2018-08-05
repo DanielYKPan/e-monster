@@ -25,8 +25,8 @@
     </li>
     <li class="sidenav-list-item">
         <a class="sidenav-list-anchor" (click)="sidenavAnchorClick.emit()"
-           routerLink="admin/login" routerLinkActive="active">
-            Login
+           routerLink="login" routerLinkActive="active">
+            {{user && user.name ? user.name : 'Login'}}
         </a>
     </li>
 </ul>

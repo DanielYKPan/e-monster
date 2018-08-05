@@ -1,0 +1,25 @@
+<form class="login-form"
+      [formGroup]="loginForm"
+      (submit)="handleLoginFormSubmit()">
+    <owl-form-field>
+        <input owlInput formControlName="username" placeholder="Username">
+        <owl-error *ngIf="loginForm.controls['username'].invalid">
+            Username is <strong>required</strong>
+        </owl-error>
+    </owl-form-field>
+
+    <owl-form-field>
+        <input owlInput type="password" formControlName="password" placeholder="Password">
+        <owl-error *ngIf="loginForm.controls['password'].invalid">
+            Password is <strong>required</strong>
+        </owl-error>
+    </owl-form-field>
+
+    <button type="submit" class="basic-btn login-form-btn" tabindex="0"
+            [owlRippleDisabled]="loginForm.invalid"
+            [disabled]="loginForm.invalid" owlRipple>
+            <span class="basic-btn-content login-form-btn-content" tabindex="-1">
+                Login
+            </span>
+    </button>
+</form>

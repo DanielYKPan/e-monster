@@ -1,4 +1,4 @@
-<app-header (hamburgerClick)="toggleSidenav()" #appHeader></app-header>
+<app-header [user]="user$ | async" (hamburgerClick)="toggleSidenav()" #appHeader></app-header>
 
 <mat-sidenav-container class="app-sidenav-container"
                        (backdropClick)="closeSidenav()">
@@ -7,7 +7,7 @@
                  [fixedInViewport]="true"
                  [fixedTopGap]="appHeader.offsetHeight"
                  [position]="'end'" [mode]="'over'">
-        <app-sidenav-panel (sidenavAnchorClick)="closeSidenav()"></app-sidenav-panel>
+        <app-sidenav-panel [user]="appHeader.user" (sidenavAnchorClick)="closeSidenav()"></app-sidenav-panel>
     </mat-sidenav>
 
     <mat-sidenav-content>

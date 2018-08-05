@@ -13,4 +13,5 @@ export * from './people';
 export * from './review';
 export * from './search';
 export * from './tv';
+export * from './user';
 export * from './video';
