@@ -2,13 +2,14 @@
 
 $dropdown-btn-width: 7rem;
 $dropdown-btn-height: 2.8rem;
+$footer-height: 13rem;
 
 :host {
   display: none;
   position: relative;
   justify-content: center;
   align-items: center;
-  height: 13rem;
+  height: $footer-height;
   background: #ed1c24;
 }
 

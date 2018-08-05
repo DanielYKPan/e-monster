@@ -1,7 +1,9 @@
-<div class="login-form-wrapper">
-    <h1 class="login-form-title">Login</h1>
-    <p *ngIf="error$ | async as error" class="login-error-msg">{{error}}</p>
-    <app-login-form
-            [pending]="pending$ | async"
-            (formSubmit)="handleLoginFormSubmit($event)"></app-login-form>
+<div class="app-main">
+    <div class="login-form-wrapper">
+        <h1 class="login-form-title">Login</h1>
+        <p *ngIf="error$ | async as error" class="login-error-msg">{{error}}</p>
+        <app-login-form
+                [pending]="pending$ | async"
+                (formSubmit)="handleLoginFormSubmit($event)"></app-login-form>
+    </div>
 </div>

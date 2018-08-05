@@ -9,14 +9,8 @@
 
 .app-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
   width: 100vw;
   height: 100vh;
   overflow-x: hidden;
   overflow-y: auto;
-}
-
-.app-main {
-  flex: 1;
 }
