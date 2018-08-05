@@ -8,6 +8,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 export const routes: Routes = [
     {path: '', redirectTo: 'movie', pathMatch: 'full'},
+    {path: 'admin', loadChildren: 'app/admin/admin.module#AdminModule'},
     {path: 'book', loadChildren: 'app/book/book.module#BookModule'},
     {path: 'movie', loadChildren: 'app/movie/movie.module#MovieModule'},
     {path: 'music', loadChildren: 'app/music/music.module#MusicModule'},
