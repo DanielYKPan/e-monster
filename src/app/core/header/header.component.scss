@@ -13,6 +13,7 @@ $header-height: 3.2rem;
   background: rgba(0, 0, 0, .6);
   transition: background .5s;
   transform: translateZ(0px);
+  color: #ffffff;
 
   &:hover {
     background: rgba(0, 0, 0, .9);
@@ -24,26 +25,6 @@ $header-height: 3.2rem;
   margin: 0;
   padding: 0;
   list-style: none;
-
-  .app-header-nav-link {
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    cursor: pointer;
-    text-decoration: none;
-    outline: none;
-
-    &.active {
-      color: #ed1c24;
-    }
-
-    &:not(.active):hover,
-    &:not(.active):focus {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-  }
 }
 
 .hamburger-btn {
@@ -54,15 +35,41 @@ $header-height: 3.2rem;
   height: $header-height;
   color: #FFFFFF;
 
-   .hamburger-btn-content {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-   }
+  .hamburger-btn-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.auth-link {
+  position: absolute;
+  right: 0;
+}
+
+.app-header-link {
+  display: block;
+  padding: 0 1rem;
+  height: 100%;
+  line-height: $header-height;
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+  color: inherit;
+
+  &.active {
+    color: #ed1c24;
+  }
+
+  &:not(.active):hover,
+  &:not(.active):focus {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }
 
 @media #{$xsmall-only} {
-  .app-header-nav {
+  .app-header-nav,
+  .auth-link {
     display: none;
   }
 

@@ -1,25 +1,25 @@
 <app-header-searcher (search)="handleSearchConfirm($event)"></app-header-searcher>
 <ul class="app-header-nav">
     <li class="app-header-nav-item">
-        <a class="app-header-nav-link"
+        <a class="app-header-link app-header-nav-link"
            routerLink="movie/list" routerLinkActive="active">
             Movies
         </a>
     </li>
     <li class="app-header-nav-item">
-        <a class="app-header-nav-link"
+        <a class="app-header-link app-header-nav-link"
            routerLink="tv/list" routerLinkActive="active">
             TV
         </a>
     </li>
     <li class="app-header-nav-item">
-        <a class="app-header-nav-link"
+        <a class="app-header-link app-header-nav-link"
            routerLink="music" routerLinkActive="active">
             Music
         </a>
     </li>
     <li class="app-header-nav-item">
-        <a class="app-header-nav-link"
+        <a class="app-header-link app-header-nav-link"
            routerLink="book" routerLinkActive="active">
             Books
         </a>
@@ -34,3 +34,10 @@
         <i class="fas fa-bars"></i>
     </span>
 </button>
+
+<a class="basic-btn auth-link app-header-link"
+   tabindex="0" routerLink="login" routerLinkActive="active">
+    <span class="basic-btn-content auth-link-content" tabindex="-1">
+        Login
+    </span>
+</a>
