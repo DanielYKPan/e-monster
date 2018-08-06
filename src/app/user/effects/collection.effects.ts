@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Action, select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Database } from '@ngrx/db';
-import { defer, Observable, of } from 'rxjs';
+import { defer, Observable, of, EMPTY } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, toArray, withLatestFrom } from 'rxjs/operators';
 
 import {
@@ -34,17 +34,22 @@ export class CollectionEffects {
     });
 
     @Effect()
-    loadCollection$: Observable<Action> = this.actions$.pipe(
+    loadMovieCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.Load),
-        switchMap(() =>
-            this.db
-                .query('movies')
-                .pipe(
-                    toArray(),
-                    map(( movies: IMovie[] ) => new LoadSuccess(movies)),
-                    catchError(error => of(new LoadFail(error)))
-                )
-        )
+        withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
+        switchMap(( [action, isLoggedIn]: [Action, boolean] ) => {
+            if (isLoggedIn) {
+                return this.db
+                    .query('movies')
+                    .pipe(
+                        toArray(),
+                        map(( movies: IMovie[] ) => new LoadSuccess(movies)),
+                        catchError(error => of(new LoadFail(error)))
+                    );
+            } else {
+                return EMPTY;
+            }
+        })
     );
 
     @Effect()
