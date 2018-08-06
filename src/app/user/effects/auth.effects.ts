@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, exhaustMap, map, tap } from 'rxjs/operators';
+import { OwlNotifierService } from 'owl-ng';
 
 import { Authenticate } from '../../model';
 import { AuthService } from '../service/auth.service';
@@ -22,6 +23,7 @@ export class AuthEffects {
         exhaustMap(( auth: Authenticate ) => {
             return this.authService.login(auth)
                 .pipe(
+                    tap(() => this.notifier.open('Log in successfully')),
                     map(user => new LoginSuccess({user})),
                     catchError(error => of(new LoginFailure(error)))
                 );
@@ -53,6 +55,7 @@ export class AuthEffects {
 
     constructor( private actions$: Actions,
                  private authService: AuthService,
+                 private notifier: OwlNotifierService,
                  private router: Router ) {
     }
 }

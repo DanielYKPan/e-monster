@@ -7,8 +7,9 @@ import { Router } from '@angular/router';
 import { Action, select, Store } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Database } from '@ngrx/db';
-import { defer, Observable, of, EMPTY } from 'rxjs';
-import { catchError, map, mergeMap, switchMap, toArray, withLatestFrom } from 'rxjs/operators';
+import { defer, EMPTY, Observable, of } from 'rxjs';
+import { catchError, map, mergeMap, switchMap, tap, toArray, withLatestFrom } from 'rxjs/operators';
+import { OwlNotifierService } from 'owl-ng';
 
 import {
     AddMovie,
@@ -63,6 +64,7 @@ export class CollectionEffects {
                 return this.db
                     .insert('movies', [movie])
                     .pipe(
+                        tap(() => this.notifier.open('Movie added into your collection successfully')),
                         map(() => new AddMovieSuccess(movie)),
                         catchError(() => of(new AddMovieFail(movie)))
                     );
@@ -83,6 +85,7 @@ export class CollectionEffects {
                 return this.db
                     .executeWrite('movies', 'delete', [movie.id])
                     .pipe(
+                        tap(() => this.notifier.open('Movie removed from your collection successfully')),
                         map(() => new RemoveMovieSuccess(movie)),
                         catchError(() => of(new RemoveMovieFail(movie)))
                     );
@@ -95,6 +98,7 @@ export class CollectionEffects {
     constructor( private actions$: Actions,
                  private store: Store<fromUser.State>,
                  private router: Router,
+                 private notifier: OwlNotifierService,
                  private db: Database ) {
     }
 }
