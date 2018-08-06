@@ -37,9 +37,18 @@
                      alt="Poster">
             </div>
 
-            <button class="basic-btn collection-button">
-                <i class="icon fas fa-plus"></i> Add to Collection
-            </button>
+            <ng-container *ngIf="inCollection$ | async as inCollection; else addBlock">
+                <button type="button" class="basic-btn collection-button in-collection"
+                        (click)="removeFromCollection(tv)">
+                    Remove from Collection
+                </button>
+            </ng-container>
+            <ng-template #addBlock>
+                <button type="button" class="basic-btn collection-button"
+                        (click)="addToCollection(tv)">
+                    <i class="icon fas fa-plus"></i> Add to Collection
+                </button>
+            </ng-template>
 
             <div class="details-inform">
                 <div class="details-inform-list-wrapper">

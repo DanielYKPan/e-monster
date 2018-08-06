@@ -9,6 +9,8 @@ import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
 import { TvSeasonExistGuard } from './guards/tv-season-exist.guard';
+import { CollectionComponent } from './collection/collection.component';
+import { AuthGuard } from '../user/guards/auth.guard';
 
 const routes: Routes = [
     {
@@ -20,7 +22,8 @@ const routes: Routes = [
             {path: 'list/:query', component: TvListComponent, canActivate: [TvListExistGuard]},
             {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: ':id/details', component: TvDetailsComponent, canActivate: [TvExistGuard]},
-            {path: ':id/season/:number', component: TvSeasonDetailsComponent, canActivate: [TvSeasonExistGuard],},
+            {path: ':id/season/:number', component: TvSeasonDetailsComponent, canActivate: [TvSeasonExistGuard]},
+            {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]}
         ]
     }
 ];

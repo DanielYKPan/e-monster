@@ -13,6 +13,7 @@ import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.comp
 import * as tvActions from '../actions/tv';
 import * as fromTvRoot from '../reducers';
 import { AppService } from '../../app.service';
+import * as collectionAction from '../actions/collection';
 
 @Component({
     selector: 'app-tv-season-details',
@@ -27,6 +28,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
 
     public tvSeasonVideos$: Observable<IVideo[]>;
     public tv_season$: Observable<{tv: ITv, season: ISeason, season_index: number}>;
+    public inCollection$: Observable<boolean>;
     public castProfileWidth = 96;
     public castListSlideDistance = 0;
 
@@ -48,14 +50,15 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.actionsSubscription = this.route.params.pipe(
             map(params => {
-                const tv_id = params.id;
-                const season_number = params.number;
+                const tv_id = +params.id;
+                const season_number = +params.number;
                 return new tvActions.Select({tv_id, season_number});
             })
         ).subscribe(this.store);
 
         this.tvSeasonVideos$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideos));
         this.tv_season$ = this.store.pipe(select(fromTvRoot.getSelectedSeason));
+        this.inCollection$ = this.store.pipe(select(fromTvRoot.isSelectedTvInCollection));
     }
 
     public ngOnDestroy(): void {
@@ -122,5 +125,13 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
                 slideDistance : remainDistance;
         }
         event.preventDefault();
+    }
+
+    public addToCollection( tv: ITv ): void {
+        this.store.dispatch(new collectionAction.AddTV(tv));
+    }
+
+    public removeFromCollection( tv: ITv ): void {
+        this.store.dispatch(new collectionAction.RemoveTV(tv));
     }
 }

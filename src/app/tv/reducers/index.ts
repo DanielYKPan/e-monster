@@ -5,12 +5,14 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromTvs from './tv';
 import * as fromVideos from './video';
 import * as fromSearch from './search';
+import * as fromCollection from './collection';
 import * as fromCoreRoot from '../../core/reducers';
 
 export interface TvsState {
     tvs: fromTvs.State;
     videos: fromVideos.State;
     search: fromSearch.State;
+    collection: fromCollection.State;
 }
 
 export interface State extends fromCoreRoot.State {
@@ -21,6 +23,7 @@ export const reducers: ActionReducerMap<TvsState> = {
     tvs: fromTvs.reducer,
     videos: fromVideos.reducer,
     search: fromSearch.reducer,
+    collection: fromCollection.reducer,
 };
 
 export const getTvsState = createFeatureSelector<TvsState>('tvs');
@@ -168,5 +171,32 @@ export const getSearchNonFeaturedList = createSelector(
     getSearchResults,
     ( results ) => {
         return results.slice(2);
+    }
+);
+
+// collection
+export const getCollectionState = createSelector(
+    getTvsState,
+    ( state: TvsState ) => state.collection
+);
+
+export const getCollectionTvIds = createSelector(
+    getCollectionState,
+    fromCollection.getIds,
+);
+
+export const getTvCollection = createSelector(
+    getTvEntities,
+    getCollectionTvIds,
+    ( entities, ids ) => {
+        return ids.map(id => entities[id]);
+    }
+);
+
+export const isSelectedTvInCollection = createSelector(
+    getCollectionTvIds,
+    getSelectedTvId,
+    ( ids, selected ) => {
+        return ids.indexOf(selected) > -1;
     }
 );

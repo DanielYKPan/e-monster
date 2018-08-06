@@ -38,7 +38,7 @@
 
             <ng-container *ngIf="inCollection$ | async as inCollection; else addBlock">
                 <button type="button" class="basic-btn collection-button in-collection"
-                        (click)="RemoveFromCollection(movie)">
+                        (click)="removeFromCollection(movie)">
                     Remove from Collection
                 </button>
             </ng-container>

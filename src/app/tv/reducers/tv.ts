@@ -4,6 +4,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { ITv } from '../../model';
 import { TvActions, TvActionTypes } from '../actions/tv';
+import { CollectionActions, CollectionActionTypes } from '../actions/collection';
 
 export interface State extends EntityState<ITv> {
     selectedTvId: number | null;
@@ -20,8 +21,15 @@ export const initialState: State = adapter.getInitialState({
     selectedTvSeasonNum: null,
 });
 
-export function reducer( state = initialState, action: TvActions ): State {
+export function reducer( state = initialState, action: TvActions | CollectionActions ): State {
     switch (action.type) {
+
+        case CollectionActionTypes.LoadSuccess:
+            return adapter.addMany(action.payload, {
+                ...state,
+                selectedTvId: state.selectedTvId
+            });
+
         case TvActionTypes.Load:
             return adapter.addOne(action.payload, {
                 ...state,

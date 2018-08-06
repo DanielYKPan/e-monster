@@ -15,6 +15,8 @@ import { TvDetailsComponent } from './tv-details/tv-details.component';
 import { TvSeasonDetailsComponent } from './tv-season-details/tv-season-details.component';
 import { VideoEffect } from './effects/video';
 import { SearchListComponent } from './search-list/search-list.component';
+import { CollectionEffects } from './effects/collection';
+import { CollectionComponent } from './collection/collection.component';
 
 @NgModule({
     imports: [
@@ -28,14 +30,15 @@ import { SearchListComponent } from './search-list/search-list.component';
         OwlChipsModule,
 
         StoreModule.forFeature('tvs', reducers),
-        EffectsModule.forFeature([TvEffect, VideoEffect])
+        EffectsModule.forFeature([TvEffect, VideoEffect, CollectionEffects])
     ],
     declarations: [
         TvComponent,
         TvListComponent,
         TvDetailsComponent,
         TvSeasonDetailsComponent,
-        SearchListComponent
+        SearchListComponent,
+        CollectionComponent
     ],
     providers: [
         TvService,

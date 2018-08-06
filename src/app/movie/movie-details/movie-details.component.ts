@@ -159,7 +159,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.store.dispatch(new collectionAction.AddMovie(movie));
     }
 
-    public RemoveFromCollection( movie: any ) {
+    public removeFromCollection( movie: any ) {
         this.store.dispatch(new collectionAction.RemoveMovie(movie));
     }
 }

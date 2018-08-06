@@ -1,0 +1,30 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'TV Series'" [listPage]="1"
+                           [listTotalPages]="1"
+                           [currentOption]="'collection'"
+                           [navList]="navList"
+                           (clickOption)="handleNavListOptionClick($event)"></app-frame-sidenav>
+    </div>
+
+    <div class="frame-main-wrapper">
+        <ng-container *ngIf="list$ | async as list;else noResultBlock">
+            <ng-container *ngIf="list.length > 0;else noResultBlock">
+                <div class="tv-grid">
+                    <app-audio-card *ngFor="let tv of list" class="tv-card"
+                                    [audio]="tv" [hideCollectionBtn]="true"
+                                    [cardLink]="'/tv/' + tv.id + '/details'"
+                                    [imageLink]="'https://image.tmdb.org/t/p/w780' + tv.backdrop_path"
+                                    [title]="tv.name"
+                                    [date]="tv.first_air_date"
+                                    [vote_average]="tv.vote_average"
+                                    [vote_count]="tv.vote_count"
+                                    (playVideo)="openTvTrailerDialog($event)"></app-audio-card>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No TV In Your Collection</h1>
+        </ng-template>
+    </div>
+</section>

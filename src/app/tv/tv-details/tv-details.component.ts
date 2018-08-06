@@ -10,6 +10,7 @@ import { OwlDialogService } from 'owl-ng';
 import * as fromTvRoot from '../reducers';
 import * as tvActions from '../actions/tv';
 import * as tvVideoActions from '../actions/video';
+import * as collectionAction from '../actions/collection';
 import { ITv, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
@@ -28,6 +29,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
 
     public tv$: Observable<ITv>;
     public tvVideos$: Observable<IVideo[]>;
+    public inCollection$: Observable<boolean>;
     public castProfileWidth = 96;
     public castListSlideDistance = 0;
 
@@ -46,7 +48,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
                  private route: ActivatedRoute ) {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
-                return new tvActions.Select({tv_id: params.id});
+                return new tvActions.Select({tv_id: +params.id});
             }))
             .subscribe(this.store);
     }
@@ -54,6 +56,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.tv$ = this.store.pipe(select(fromTvRoot.getSelectedTv));
         this.tvVideos$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideos));
+        this.inCollection$ = this.store.pipe(select(fromTvRoot.isSelectedTvInCollection));
     }
 
     public ngOnDestroy(): void {
@@ -146,5 +149,13 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
                 slideDistance : remainDistance;
         }
         event.preventDefault();
+    }
+
+    public addToCollection( tv: ITv ): void {
+        this.store.dispatch(new collectionAction.AddTV(tv));
+    }
+
+    public removeFromCollection( tv: ITv ): void {
+        this.store.dispatch(new collectionAction.RemoveTV(tv));
     }
 }
