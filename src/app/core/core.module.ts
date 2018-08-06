@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { DBModule } from '@ngrx/db';
 import { OwlMenuModule, OwlRippleModule } from 'owl-ng';
 
 import { HeaderComponent } from './header/header.component';
@@ -13,6 +14,7 @@ import { FooterSearcherComponent } from './footer-searcher/footer-searcher.compo
 import { reducers } from './reducers';
 import { environment } from '../../environments/environment';
 import { SidenavPanelComponent } from './sidenav-panel/sidenav-panel.component';
+import { schema } from './database-schema';
 
 @NgModule({
     imports: [
@@ -30,7 +32,8 @@ import { SidenavPanelComponent } from './sidenav-panel/sidenav-panel.component';
         StoreDevtoolsModule.instrument({
             maxAge: 25, // Retains last 25 states
             logOnly: environment.production // Restrict extension to log-only mode
-        })
+        }),
+        DBModule.provideDB(schema),
     ],
     exports: [
         HeaderComponent,

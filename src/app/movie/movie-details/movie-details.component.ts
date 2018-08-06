@@ -3,13 +3,14 @@ import { DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BlockScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { select, Store } from '@ngrx/store';
-import { Subscription, Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { OwlDialogService } from 'owl-ng';
 
 import * as fromMoviesRoot from '../reducers';
 import * as movieAction from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
+import * as collectionAction from '../../user/actions/collection';
 import { IAudio, IMovie, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
@@ -29,7 +30,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
     public movie$: Observable<IMovie>;
     public movieVideos$: Observable<IVideo[]>;
-    public mainStaff$: Observable<{directors: any[], writers: any[]}>;
+    public mainStaff$: Observable<{ directors: any[], writers: any[] }>;
+    public inCollection$: Observable<boolean>;
     public castProfileWidth = 96;
     public castListSlideDistance = 0;
 
@@ -50,8 +52,8 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.actionsSubscription = this.route.params
             .pipe(map(params => {
                 this.appService.scrollBackToTop(true);
-                this.movieId = params.id;
-                return new movieAction.Select(params.id);
+                this.movieId = +params.id;
+                return new movieAction.Select(this.movieId);
             }))
             .subscribe(this.store);
     }
@@ -60,6 +62,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.movie$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovie));
         this.movieVideos$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideos));
         this.mainStaff$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieMainStaff));
+        this.inCollection$ = this.store.pipe(select(fromMoviesRoot.isSelectedMovieInCollection));
     }
 
     public ngOnDestroy(): void {
@@ -67,7 +70,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         this.store.dispatch(new movieVideoActions.Select(null));
     }
 
-    public openMovieVideoDialog( title: string, videoKey: string, event: any): void {
+    public openMovieVideoDialog( title: string, videoKey: string, event: any ): void {
         const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
@@ -94,7 +97,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             scrollStrategy: new BlockScrollStrategy(this.viewportRuler, this.document)
         });
 
-        dialogRef.afterClosed().subscribe((result) => {
+        dialogRef.afterClosed().subscribe(( result ) => {
             if (result) {
                 this.router.navigate(['people/actor', result.people.id]);
             }
@@ -150,5 +153,13 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
                 slideDistance : remainDistance;
         }
         event.preventDefault();
+    }
+
+    public addToCollection( movie: IMovie ) {
+        this.store.dispatch(new collectionAction.AddMovie(movie));
+    }
+
+    public RemoveFromCollection( movie: any ) {
+        this.store.dispatch(new collectionAction.RemoveMovie(movie));
     }
 }

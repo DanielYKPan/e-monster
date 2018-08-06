@@ -153,6 +153,10 @@ $margin-top: 150px;
   width: 100%;
   margin-bottom: 1rem;
 
+  &.in-collection {
+    background: #ff5456;
+  }
+
   &:hover,
   &:focus {
     background: #ed1c24;

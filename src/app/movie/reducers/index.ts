@@ -6,6 +6,7 @@ import * as fromMovies from './movie';
 import * as fromVideos from './video';
 import * as fromSearch from './search';
 import * as fromCoreRoot from '../../core/reducers';
+import { getCollectionMovieIds } from '../../user/reducers';
 
 export interface MoviesState {
     movies: fromMovies.State;
@@ -186,5 +187,14 @@ export const getRandomMovieBackdrop = createSelector(
             const random = results[Math.floor(Math.random() * results.length)];
             return random.backdrop_path;
         }
+    }
+);
+
+// collection
+export const isSelectedMovieInCollection = createSelector(
+    getCollectionMovieIds,
+    getSelectedMovieId,
+    ( ids, selected ) => {
+        return ids.indexOf(selected) > -1;
     }
 );
