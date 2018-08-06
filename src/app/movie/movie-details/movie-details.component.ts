@@ -10,7 +10,7 @@ import { OwlDialogService } from 'owl-ng';
 import * as fromMoviesRoot from '../reducers';
 import * as movieAction from '../actions/movie';
 import * as movieVideoActions from '../actions/video';
-import * as collectionAction from '../../user/actions/collection';
+import * as collectionAction from '../actions/collection';
 import { IAudio, IMovie, IVideo } from '../../model';
 import { CreditsDialogComponent } from '../../share/credits-dialog/credits-dialog.component';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';

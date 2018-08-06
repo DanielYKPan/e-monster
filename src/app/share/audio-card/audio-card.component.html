@@ -12,10 +12,11 @@
     </a>
     <div class="card-control">
         <div class="card-actions">
-            <a class="basic-btn card-action collect"
+            <a *ngIf="!hideCollectionBtn"
+               class="basic-btn card-action collect"
                type="button" tabindex="0"
                owlTooltip="Add To Collection"
-               (click)="clickAddCollection($event)">
+               (click)="handleClickOnCollectionBtn($event)">
                 <i class="fas fa-book"></i>
             </a>
             <a *ngIf="!hidePlayBtn"

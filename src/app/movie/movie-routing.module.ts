@@ -8,6 +8,8 @@ import { MovieExistGuard } from './guards/movie-exist.guard';
 import { MovieHomeComponent } from './movie-home/movie-home.component';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
+import { CollectionComponent } from './collection/collection.component';
+import { AuthGuard } from '../user/guards/auth.guard';
 
 const routes: Routes = [
     {
@@ -19,6 +21,7 @@ const routes: Routes = [
             {path: 'list/:query', component: MovieListComponent, canActivate: [MovieListExistGuard]},
             {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: ':id/details', component: MovieDetailsComponent, canActivate: [MovieExistGuard]},
+            {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
         ]
     },
 ];

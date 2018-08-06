@@ -1,0 +1,29 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'Movies'" [listPage]="1"
+                           [listTotalPages]="1"
+                           [currentOption]="'collection'"
+                           [navList]="navList"
+                           (clickOption)="handleNavListOptionClick($event)"></app-frame-sidenav>
+    </div>
+    <div class="frame-main-wrapper">
+        <ng-container *ngIf="list$ | async as list;else noResultBlock">
+            <ng-container *ngIf="list.length > 0;else noResultBlock">
+                <div class="movie-grid">
+                    <app-audio-card *ngFor="let movie of list" class="movie-card"
+                                    [audio]="movie" [hideCollectionBtn]="true"
+                                    [cardLink]="'/movie/' + movie.id + '/details'"
+                                    [imageLink]="'https://image.tmdb.org/t/p/w780' + movie.backdrop_path"
+                                    [title]="movie.title"
+                                    [date]="movie.release_date"
+                                    [vote_average]="movie.vote_average"
+                                    [vote_count]="movie.vote_count"
+                                    (playVideo)="openMovieTrailerDialog($event)"></app-audio-card>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No Movie In Your Collection</h1>
+        </ng-template>
+    </div>
+</section>

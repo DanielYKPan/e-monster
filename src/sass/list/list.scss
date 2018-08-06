@@ -15,7 +15,7 @@ $topbar-height: 3.2rem;
 .frame-main-wrapper {
   position: relative;
   padding: $topbar-height+0.1rem 0 $sidenav-height;
-  min-height: 100vh;
+  min-height: inherit;
   box-sizing: border-box;
   border-bottom: solid 1px #2d2d2d;
   z-index: 1;
@@ -40,12 +40,18 @@ $topbar-height: 3.2rem;
 
 .no-result-msg {
   position: absolute;
+  width: 100%;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
+  text-align: center;
 }
 
 @media #{$medium-up} {
+
+  .frame-wrapper{
+    min-height: calc(100vh - 13rem); // 13rem: the footer-searcher height
+  }
+
   .frame-main-wrapper {
     margin-left: $sidenav-width;
     border-left: solid 1px #2d2d2d;

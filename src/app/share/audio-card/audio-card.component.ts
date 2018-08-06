@@ -25,11 +25,13 @@ export class AudioCardComponent implements OnInit {
 
     @Input() hidePlayBtn: boolean;
 
+    @Input() hideCollectionBtn: boolean;
+
     @Input() vote_average: number;
 
     @Input() vote_count: number;
 
-    @Output() addCollection = new EventEmitter<{ audio: IAudio, event: any }>();
+    @Output() clickCollection = new EventEmitter<{ audio: IAudio, event: any }>();
 
     @Output() playVideo = new EventEmitter<{ audio: IAudio, event: any }>();
 
@@ -43,8 +45,8 @@ export class AudioCardComponent implements OnInit {
     ngOnInit() {
     }
 
-    public clickAddCollection( event: any ): void {
-        this.addCollection.emit({audio: this.audio, event});
+    public handleClickOnCollectionBtn( event: any ): void {
+        this.clickCollection.emit({audio: this.audio, event});
         event.preventDefault();
     }
 

@@ -22,8 +22,8 @@ import {
     RemoveMovieSuccess
 } from '../actions/collection';
 import { IMovie } from '../../model';
-import * as fromUser from '../reducers';
-import * as authActions from '../actions/auth';
+import * as fromUser from '../../user/reducers';
+import * as authActions from '../../user/actions/auth';
 
 @Injectable()
 export class CollectionEffects {
@@ -67,7 +67,7 @@ export class CollectionEffects {
                         catchError(() => of(new AddMovieFail(movie)))
                     );
             } else {
-                return of(new authActions.LoginRedirect());
+                return of(new authActions.LoginRedirect(this.router.url));
             }
         })
     );
@@ -87,7 +87,7 @@ export class CollectionEffects {
                         catchError(() => of(new RemoveMovieFail(movie)))
                     );
             } else {
-                return of(new authActions.LoginRedirect());
+                return of(new authActions.LoginRedirect(this.router.url));
             }
         })
     );

@@ -5,13 +5,14 @@ import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/s
 import * as fromMovies from './movie';
 import * as fromVideos from './video';
 import * as fromSearch from './search';
+import * as fromCollection from './collection';
 import * as fromCoreRoot from '../../core/reducers';
-import { getCollectionMovieIds } from '../../user/reducers';
 
 export interface MoviesState {
     movies: fromMovies.State;
     videos: fromVideos.State;
     search: fromSearch.State;
+    collection: fromCollection.State;
 }
 
 export interface State extends fromCoreRoot.State {
@@ -22,6 +23,7 @@ export const reducers: ActionReducerMap<MoviesState> = {
     movies: fromMovies.reducer,
     videos: fromVideos.reducer,
     search: fromSearch.reducer,
+    collection: fromCollection.reducer,
 };
 
 export const getMoviesState = createFeatureSelector<MoviesState>('movies');
@@ -191,6 +193,24 @@ export const getRandomMovieBackdrop = createSelector(
 );
 
 // collection
+export const getCollectionState = createSelector(
+    getMoviesState,
+    ( state: MoviesState ) => state.collection
+);
+
+export const getCollectionMovieIds = createSelector(
+    getCollectionState,
+    fromCollection.getIds,
+);
+
+export const getMovieCollection = createSelector(
+    getMovieEntities,
+    getCollectionMovieIds,
+    ( entities, ids ) => {
+        return ids.map(id => entities[id]);
+    }
+);
+
 export const isSelectedMovieInCollection = createSelector(
     getCollectionMovieIds,
     getSelectedMovieId,

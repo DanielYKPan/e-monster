@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import { AppService } from '../app.service';
 import * as fromMoviesRoot from './reducers';
-import * as collectionAction from '../user/actions/collection';
+import * as collectionAction from './actions/collection';
 
 @Component({
     selector: 'app-movie',

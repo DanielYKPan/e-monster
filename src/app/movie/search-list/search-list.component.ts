@@ -23,7 +23,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
+    public paginatorData$: Observable<{ page: number, total_pages: number, query: string }>;
 
     private scrollBackTopSub = Subscription.EMPTY;
 

@@ -1,31 +1,25 @@
-import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
-import { skip } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { OwlDialogService } from 'owl-ng';
+import { Observable } from 'rxjs';
 
-import { AppService } from '../../app.service';
-import { IAudio } from '../../model';
+import { IAudio, IMovie } from '../../model';
 import { AudioDialogComponent } from '../../share/audio-dialog/audio-dialog.component';
 import * as fromMovieRoot from '../reducers';
 import * as movieVideoActions from '../actions/video';
 
 @Component({
-    selector: 'app-movie-list',
-    templateUrl: './movie-list.component.html',
-    styleUrls: ['./movie-list.component.scss'],
+    selector: 'app-collection',
+    templateUrl: './collection.component.html',
+    styleUrls: ['./collection.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
+export class CollectionComponent implements OnInit {
 
-    public list$: Observable<IAudio[]>; // Movie List Observable
+    public list$: Observable<IMovie[]>; // Movie List Observable
 
-    public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
-
-    public paginatorData$: Observable<{ page: number, total_pages: number, query: string }>;
-
-    public navList = [
+    public readonly navList = [
         {name: 'Trending', value: 'now_playing', inform: 'The movies currently in theatres'},
         {name: 'Popular', value: 'popular', inform: 'The current popular movies'},
         {name: 'Upcoming', value: 'upcoming', inform: 'The upcoming movies in theatres'},
@@ -34,34 +28,13 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
         {name: 'My Collection', value: 'collection', inform: 'My movie collection'},
     ];
 
-    private scrollBackTopSub = Subscription.EMPTY;
-
-    constructor( private router: Router,
-                 private store: Store<fromMovieRoot.State>,
-                 private appService: AppService,
-                 private dialogService: OwlDialogService ) {
+    constructor( private store: Store<fromMovieRoot.State>,
+                 private dialogService: OwlDialogService,
+                 private router: Router ) {
     }
 
     ngOnInit() {
-        this.list$ = this.store.pipe(select(fromMovieRoot.getSearchNonFeaturedList));
-        this.featuredList$ = this.store.pipe(select(fromMovieRoot.getSearchFeaturedList));
-        this.paginatorData$ = this.store.pipe(select(fromMovieRoot.getPaginatorData));
-    }
-
-    public ngAfterContentInit(): void {
-
-        // Whenever we have new search results,
-        // we scroll back to the top of the page.
-        this.scrollBackTopSub = this.store.pipe(
-            select(fromMovieRoot.getSearchResults),
-            skip(1)
-        ).subscribe(() => {
-            this.appService.scrollBackToTop(true);
-        });
-    }
-
-    public ngOnDestroy(): void {
-        this.scrollBackTopSub.unsubscribe();
+        this.list$ = this.store.pipe(select(fromMovieRoot.getMovieCollection));
     }
 
     public handleNavListOptionClick( option: string ) {
@@ -71,16 +44,9 @@ export class MovieListComponent implements OnInit, AfterContentInit, OnDestroy {
     }
 
     /**
-     * Go a specific page of the list
-     * */
-    public goToPage( page: number, query: string ): void {
-        this.router.navigate(['movie/list', query, {page}]);
-    }
-
-    /**
      * Open a trailer dialog for a specific movie
      * */
-    public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
+    public openMovieTrailerDialog( res: { audio: IAudio | IMovie, event: any } ): void {
         // search the movie videos
         this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
         const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));

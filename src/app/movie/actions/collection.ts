@@ -6,15 +6,15 @@ import { Action } from '@ngrx/store';
 import { IMovie } from '../../model';
 
 export enum CollectionActionTypes {
-    AddMovie = '[Collection] Add Movie',
-    AddMovieSuccess = '[Collection] Add Movie Success',
-    AddMovieFail = '[Collection] Add Movie Fail',
-    RemoveMovie = '[Collection] Remove Movie',
-    RemoveMovieSuccess = '[Collection] Remove Movie Success',
-    RemoveMovieFail = '[Collection] Remove Movie Fail',
-    Load = '[Collection] Load',
-    LoadSuccess = '[Collection] Load Success',
-    LoadFail = '[Collection] Load Fail',
+    AddMovie = '[Movie Collection] Add Movie',
+    AddMovieSuccess = '[Movie Collection] Add Movie Success',
+    AddMovieFail = '[Movie Collection] Add Movie Fail',
+    RemoveMovie = '[Movie Collection] Remove Movie',
+    RemoveMovieSuccess = '[Movie Collection] Remove Movie Success',
+    RemoveMovieFail = '[Movie Collection] Remove Movie Fail',
+    Load = '[Movie Collection] Load',
+    LoadSuccess = '[Movie Collection] Load Success',
+    LoadFail = '[Movie Collection] Load Fail',
 }
 
 /**

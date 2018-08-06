@@ -7,24 +7,6 @@
   padding: 0 .5rem .5rem;
   box-sizing: border-box;
 
-  &.featured {
-    grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
-
-    .movie-card {
-      height: 320px;
-    }
-  }
-
-  @media #{$xsmall-only} {
-    &.featured {
-      grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
-
-      .movie-card {
-        height: 250px;
-      }
-    }
-  }
-
   .movie-card {
     display: block;
     height: 250px;

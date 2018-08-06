@@ -13,7 +13,6 @@ import { LoginFormComponent } from './login/login-form/login-form.component';
 import { AuthService } from './service/auth.service';
 import { AuthEffects } from './effects/auth.effects';
 import { CollectionComponent } from './collection/collection.component';
-import { CollectionEffects } from './effects/collection.effects';
 
 @NgModule({
     imports: [
@@ -28,7 +27,7 @@ import { CollectionEffects } from './effects/collection.effects';
         OwlInputModule,
 
         StoreModule.forFeature('user', reducers),
-        EffectsModule.forFeature([AuthEffects, CollectionEffects]),
+        EffectsModule.forFeature([AuthEffects]),
     ],
     declarations: [LoginComponent, LoginFormComponent, CollectionComponent],
     providers: [AuthService]

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
 
 import { MovieRoutingModule } from './movie-routing.module';
 import { MovieComponent } from './movie.component';
@@ -15,11 +16,11 @@ import { MovieExistGuard } from './guards/movie-exist.guard';
 import { MovieHomeComponent } from './movie-home/movie-home.component';
 import { MovieDetailsComponent } from './movie-details/movie-details.component';
 import { MovieDetailsSimilarComponent } from './movie-details/movie-details-similar/movie-details-similar.component';
-
-import { OwlChipsModule, OwlDialogModule, OwlMenuModule, OwlTooltipModule } from 'owl-ng';
 import { ShareModule } from '../share/share.module';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
+import { CollectionEffects } from './effects/collection.effects';
+import { CollectionComponent } from './collection/collection.component';
 
 @NgModule({
     imports: [
@@ -33,7 +34,7 @@ import { SearchListExistGuard } from './guards/search-list-exist.guard';
         OwlChipsModule,
 
         StoreModule.forFeature('movies', reducers),
-        EffectsModule.forFeature([MovieEffect, VideoEffect])
+        EffectsModule.forFeature([MovieEffect, VideoEffect, CollectionEffects])
     ],
     declarations: [
         MovieComponent,
@@ -42,6 +43,7 @@ import { SearchListExistGuard } from './guards/search-list-exist.guard';
         MovieDetailsSimilarComponent,
         MovieHomeComponent,
         SearchListComponent,
+        CollectionComponent,
     ],
     providers: [
         MovieService,

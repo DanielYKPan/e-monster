@@ -58,7 +58,8 @@ export class FrameSidenavComponent implements OnInit, OnDestroy {
     public ngOnInit() {
         this.breakpointSub = this.breakpointObserver
             .observe([
-                Breakpoints.Small
+                Breakpoints.XSmall,
+                Breakpoints.Small,
             ]).subscribe(result => {
                 this._isSmall = result.matches;
                 this.cdRef.markForCheck();

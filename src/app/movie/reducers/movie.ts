@@ -3,6 +3,7 @@
  */
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { MovieActions, MovieActionTypes } from '../actions/movie';
+import { CollectionActions, CollectionActionTypes } from '../actions/collection';
 import { IMovie } from '../../model';
 
 export interface State extends EntityState<IMovie> {
@@ -18,8 +19,13 @@ export const initialState: State = adapter.getInitialState({
     selectedMovieId: null,
 });
 
-export function reducer( state = initialState, action: MovieActions ): State {
+export function reducer( state = initialState, action: MovieActions | CollectionActions ): State {
     switch (action.type) {
+        case CollectionActionTypes.LoadSuccess:
+            return adapter.addMany(action.payload, {
+                ...state,
+                selectedMovieId: state.selectedMovieId
+            });
 
         case MovieActionTypes.Load:
             return adapter.addOne(action.payload, {

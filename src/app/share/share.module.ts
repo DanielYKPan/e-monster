@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { OwlMenuModule, OwlTooltipModule } from 'owl-ng';
+
 import { AudioCardComponent } from './audio-card/audio-card.component';
 import { LoaderComponent } from './loader/loader.component';
 import { CreditsDialogComponent } from './credits-dialog/credits-dialog.component';
@@ -13,7 +15,6 @@ import { RatingListComponent } from './rating-list/rating-list.component';
 import { AudioDialogComponent } from './audio-dialog/audio-dialog.component';
 import { ListPaginatorComponent } from './list-paginator/list-paginator.component';
 import { FrameSidenavComponent } from './frame-sidenav/frame-sidenav.component';
-import { OwlMenuModule } from 'owl-ng';
 import { SearchListSidenavComponent } from './search-list-sidenav/search-list-sidenav.component';
 import { AddCommasPipe } from './pipe/add-commas.pipe';
 import { MillisToMsPipe } from './pipe/millis-to-ms.pipe';
@@ -30,6 +31,7 @@ import { MediaCardComponent } from './album-card/media-card.component';
 
         // Owl NG
         OwlMenuModule,
+        OwlTooltipModule,
     ],
     exports: [
         LazyLoadImageModule,
