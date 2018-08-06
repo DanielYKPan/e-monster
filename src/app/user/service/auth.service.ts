@@ -7,6 +7,8 @@ import { Observable, of, throwError } from 'rxjs';
 })
 export class AuthService {
 
+    public redirectUrl: string;
+
     constructor() {
     }
 

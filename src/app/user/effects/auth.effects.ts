@@ -31,13 +31,21 @@ export class AuthEffects {
     @Effect({dispatch: false})
     loginSuccess$ = this.actions$.pipe(
         ofType(AuthActionTypes.LoginSuccess),
-        tap(() => this.router.navigate(['/']))
+        tap(() => {
+            if (this.authService.redirectUrl) {
+                this.router.navigateByUrl(this.authService.redirectUrl);
+                this.authService.redirectUrl = null;
+            } else {
+                this.router.navigate(['/']);
+            }
+        })
     );
 
     @Effect({dispatch: false})
     loginRedirect$ = this.actions$.pipe(
         ofType(AuthActionTypes.LoginRedirect, AuthActionTypes.Logout),
         tap(authed => {
+            this.authService.redirectUrl = this.router.url;
             this.router.navigate(['login']);
         })
     );
