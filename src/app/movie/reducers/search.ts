@@ -10,6 +10,7 @@ export interface State {
     total_pages: number;
     total_results: number;
     results: IAudio[];
+    randomIndex: number;
 }
 
 const initialState: State = {
@@ -18,10 +19,22 @@ const initialState: State = {
     total_pages: 0,
     total_results: 0,
     results: [],
+    randomIndex: 0,
 };
 
 export const reducer = ( state = initialState, action: SearchMovieActions ): State => {
     switch (action.type) {
+        case SearchMovieActionTypes.GenerateIndex :
+            let random: number;
+            do {
+                random = Math.floor(Math.random() * state.results.length);
+            } while (random === state.randomIndex);
+
+            return {
+                ...state,
+                randomIndex: random
+            };
+
         case SearchMovieActionTypes.SearchComplete:
             return {
                 query: action.payload.query,
@@ -29,6 +42,7 @@ export const reducer = ( state = initialState, action: SearchMovieActions ): Sta
                 total_results: action.payload.total_results,
                 total_pages: action.payload.total_pages,
                 results: action.payload.results,
+                randomIndex: Math.floor(Math.random() * action.payload.results.length)
             };
 
         default:
@@ -40,3 +54,4 @@ export const getSearchResults = ( state: State ) => state.results;
 export const getSearchQuery = ( state: State ) => state.query;
 export const getPage = ( state: State ) => state.page;
 export const getTotalPage = ( state: State ) => state.total_pages;
+export const getRandomIndex = ( state: State ) => state.randomIndex;

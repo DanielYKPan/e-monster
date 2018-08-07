@@ -168,6 +168,11 @@ export const getSearchResults = createSelector(
     fromSearch.getSearchResults,
 );
 
+export const getRandomIndex = createSelector(
+    getSearchState,
+    fromSearch.getRandomIndex,
+);
+
 export const getSearchFeaturedList = createSelector(
     getSearchResults,
     ( results ) => {
@@ -184,10 +189,10 @@ export const getSearchNonFeaturedList = createSelector(
 
 export const getRandomMovieBackdrop = createSelector(
     getSearchResults,
-    ( results ) => {
+    getRandomIndex,
+    ( results, index ) => {
         if (results && results.length) {
-            const random = results[Math.floor(Math.random() * results.length)];
-            return random.backdrop_path;
+            return results[index].backdrop_path;
         }
     }
 );

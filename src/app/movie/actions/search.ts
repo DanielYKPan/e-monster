@@ -5,9 +5,14 @@
 import { Action } from '@ngrx/store';
 
 export enum SearchMovieActionTypes {
+    GenerateIndex = '[Movies] Generate Random Index',
     Search = '[Movies] Search',
     SearchComplete = '[Movies] Search Complete',
     SearchError = '[Movies] Search Error'
+}
+
+export class GenerateIndex implements Action {
+    readonly type = SearchMovieActionTypes.GenerateIndex;
 }
 
 export class Search implements Action {
@@ -32,6 +37,7 @@ export class SearchError implements Action {
 }
 
 export type SearchMovieActions =
+    GenerateIndex |
     Search |
     SearchComplete |
     SearchError;
