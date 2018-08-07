@@ -11,7 +11,7 @@ import * as fromTvRoot from '../reducers';
 
 
 @Component({
-    selector: 'app-collection',
+    selector: 'app-tv-collection',
     templateUrl: './collection.component.html',
     styleUrls: ['./collection.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

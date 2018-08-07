@@ -6,7 +6,7 @@ import { select, Store } from '@ngrx/store';
 import * as fromBookRoot from '../reducers';
 
 @Component({
-    selector: 'app-collection',
+    selector: 'app-book-collection',
     templateUrl: './collection.component.html',
     styleUrls: ['./collection.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

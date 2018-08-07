@@ -17,6 +17,7 @@ import { OwlDialogService } from 'owl-ng';
 import { IAlbum } from '../../model';
 import * as fromMusicRoot from '../reducers';
 import * as musicActions from '../actions/music';
+import * as collectionAction from '../actions/collection';
 import { TrackDialogComponent } from '../../share/track-dialog/track-dialog.component';
 import { AppService } from '../../app.service';
 
@@ -32,7 +33,7 @@ export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChildren('trackItem') trackItems: QueryList<ElementRef>;
 
     public album$: Observable<IAlbum>;
-
+    public inCollection$: Observable<boolean>;
     private routeParamsSub = Subscription.EMPTY;
 
     private routeQueriesSub = Subscription.EMPTY;
@@ -54,6 +55,7 @@ export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             .subscribe(action => this.store.dispatch(action));
 
         this.album$ = this.store.pipe(select(fromMusicRoot.getSelectedAlbum));
+        this.inCollection$ = this.store.pipe(select(fromMusicRoot.isSelectedAlbumInCollection));
     }
 
     public ngAfterViewInit(): void {
@@ -86,5 +88,13 @@ export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
             transitionY: event.clientY,
         });
         event.preventDefault();
+    }
+
+    public addToCollection( album: IAlbum ) {
+        this.store.dispatch(new collectionAction.AddAlbum(album));
+    }
+
+    public removeFromCollection( album: IAlbum ) {
+        this.store.dispatch(new collectionAction.RemoveAlbum(album));
     }
 }

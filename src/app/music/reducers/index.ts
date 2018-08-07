@@ -6,11 +6,13 @@ import * as fromAlbums from './album';
 import * as fromCoreRoot from '../../core/reducers';
 import * as fromSearchAlbum from './search-album';
 import * as fromSearchTrack from './search-track';
+import * as fromCollection from './collection';
 
 export interface MusicState {
     albums: fromAlbums.State;
     searchAlbum: fromSearchAlbum.State;
     searchTrack: fromSearchTrack.State;
+    collection: fromCollection.State;
 }
 
 export interface State extends fromCoreRoot.State {
@@ -21,6 +23,7 @@ export const reducers: ActionReducerMap<MusicState> = {
     albums: fromAlbums.reducer,
     searchAlbum: fromSearchAlbum.reducer,
     searchTrack: fromSearchTrack.reducer,
+    collection: fromCollection.reducer,
 };
 
 export const getMusicState = createFeatureSelector<MusicState>('music');
@@ -129,5 +132,32 @@ export const getPaginatorData = createSelector(
     getSearchTrackQuery,
     ( album_page, album_total_pages, album_query, track_page, track_total_pages, track_query ) => {
         return {album_page, album_total_pages, album_query, track_page, track_total_pages, track_query};
+    }
+);
+
+// collection
+export const getCollectionState = createSelector(
+    getMusicState,
+    ( state: MusicState ) => state.collection
+);
+
+export const getCollectionAlbumIds = createSelector(
+    getCollectionState,
+    fromCollection.getIds,
+);
+
+export const getAlbumCollection = createSelector(
+    getAlbumEntities,
+    getCollectionAlbumIds,
+    ( entities, ids ) => {
+        return ids.map(id => entities[id]);
+    }
+);
+
+export const isSelectedAlbumInCollection = createSelector(
+    getCollectionAlbumIds,
+    getSelectedAlbumId,
+    ( ids, selected ) => {
+        return ids.indexOf(selected) > -1;
     }
 );

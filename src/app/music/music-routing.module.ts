@@ -8,6 +8,8 @@ import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { AlbumExistGuard } from './guards/album-exist.guard';
 import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
+import { CollectionComponent } from './collection/collection.component';
+import { AuthGuard } from '../user/guards/auth.guard';
 
 const routes: Routes = [
     {
@@ -20,6 +22,7 @@ const routes: Routes = [
             {path: 'list/:query', component: MusicListComponent, canActivate: [MusicListExistGuard]},
             {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: 'album/:id', component: AlbumDetailsComponent, canActivate: [AlbumExistGuard]},
+            {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
         ]
     }
 ];

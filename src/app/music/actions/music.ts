@@ -14,7 +14,7 @@ export enum MusicActionTypes {
 export class Select implements Action {
     readonly type = MusicActionTypes.Select;
 
-    constructor( public payload: number ) {
+    constructor( public payload: string ) {
     }
 }
 

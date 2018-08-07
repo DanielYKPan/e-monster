@@ -1,0 +1,25 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'Music'" [listPage]="1"
+                           [listTotalPages]="1"
+                           [currentOption]="'collection'"
+                           [navList]="navList"
+                           (clickOption)="handleNavListOptionClick($event)"></app-frame-sidenav>
+    </div>
+    <div class="frame-main-wrapper">
+        <ng-container *ngIf="list$ | async as list;else noResultBlock">
+            <ng-container *ngIf="list.length > 0;else noResultBlock">
+                <ul class="album-grid">
+                    <li class="album-grid-item" *ngFor="let album of list">
+                        <app-media-card [imageUrl]="album.images[0]?.url"
+                                        [name]="album.name" [artists]="album.artists"
+                                        (select)="handleSelectAlbum(album.id)"></app-media-card>
+                    </li>
+                </ul>
+            </ng-container>
+        </ng-container>
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No Album In Your Collection</h1>
+        </ng-template>
+    </div>
+</section>

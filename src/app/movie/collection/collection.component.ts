@@ -10,7 +10,7 @@ import * as fromMovieRoot from '../reducers';
 import * as movieVideoActions from '../actions/video';
 
 @Component({
-    selector: 'app-collection',
+    selector: 'app-movie-collection',
     templateUrl: './collection.component.html',
     styleUrls: ['./collection.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

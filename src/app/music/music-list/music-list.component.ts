@@ -27,6 +27,7 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
     public navList = [
         {name: 'New Releases', value: 'new-releases', inform: 'New album releases featured in Spotify'},
         {name: 'Hipster', value: 'tag:hipster', inform: 'Albums with high popularity in Spotify'},
+        {name: 'My Collection', value: 'collection', inform: 'My movie collection'},
     ];
 
     constructor( private store: Store<fromMusicRoot.State>,
@@ -57,7 +58,9 @@ export class MusicListComponent implements OnInit, AfterContentInit, OnDestroy {
     }
 
     public handleNavListOptionClick( option: string ) {
-        this.router.navigate(['music/list', option]);
+        option === 'collection' ?
+            this.router.navigate(['music/collection']) :
+            this.router.navigate(['music/list', option]);
     }
 
     /**
