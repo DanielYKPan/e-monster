@@ -48,10 +48,6 @@ $topbar-height: 3.2rem;
 
 @media #{$medium-up} {
 
-  .frame-wrapper{
-    min-height: calc(100vh - 13rem); // 13rem: the footer-searcher height
-  }
-
   .frame-main-wrapper {
     margin-left: $sidenav-width;
     border-left: solid 1px #2d2d2d;

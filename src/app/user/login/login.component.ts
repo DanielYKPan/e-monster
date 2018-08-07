@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Authenticate } from '../../model';
-import * as fromAdmin from '../reducers';
+import * as fromUser from '../reducers';
 import * as authActions from '../actions/auth';
 
 @Component({
@@ -17,12 +17,12 @@ export class LoginComponent implements OnInit {
     public error$: Observable<string>;
     public pending$: Observable<boolean>;
 
-    constructor( private store: Store<fromAdmin.State> ) {
+    constructor( private store: Store<fromUser.State> ) {
     }
 
     public ngOnInit() {
-        this.error$ = this.store.pipe(select(fromAdmin.getLoginError));
-        this.pending$ = this.store.pipe(select(fromAdmin.getLoginPending));
+        this.error$ = this.store.pipe(select(fromUser.getLoginError));
+        this.pending$ = this.store.pipe(select(fromUser.getLoginPending));
     }
 
     public handleLoginFormSubmit( value: Authenticate ): void {

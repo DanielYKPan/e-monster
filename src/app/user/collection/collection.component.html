@@ -1,3 +1,32 @@
-<p>
-  collection works!
-</p>
+<ng-container *ngIf="user$ | async as user">
+    <div class="app-main">
+        <h1 class="my-collection-header">Welcome, {{user.name}}</h1>
+        <h3 class="my-collection-sub-header">Here is your collection list</h3>
+        <ul class="my-collection-list">
+            <li class="my-collection-item">
+                <a class="my-collection-anchor" routerLink="/movie/collection">
+                    Movie
+                </a>
+            </li>
+            <li class="my-collection-item">
+                <a class="my-collection-anchor" routerLink="/tv/collection">
+                    TV
+                </a>
+            </li>
+            <li class="my-collection-item">
+                <a class="my-collection-anchor" routerLink="/music/collection">
+                    Music
+                </a>
+            </li>
+            <li class="my-collection-item">
+                <a class="my-collection-anchor" routerLink="/book/collection">
+                    Book
+                </a>
+            </li>
+        </ul>
+        <a class="my-collection-anchor logout-anchor"
+           tabindex="0" (click)="handleClickOnLogout($event)">
+            Logout
+        </a>
+    </div>
+</ng-container>

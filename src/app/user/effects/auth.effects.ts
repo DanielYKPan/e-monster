@@ -23,7 +23,7 @@ export class AuthEffects {
         exhaustMap(( auth: Authenticate ) => {
             return this.authService.login(auth)
                 .pipe(
-                    tap(() => this.notifier.open('Log in successfully')),
+                    tap(() => this.notifier.open('Login successfully')),
                     map(user => new LoginSuccess({user})),
                     catchError(error => of(new LoginFailure(error)))
                 );
@@ -40,6 +40,20 @@ export class AuthEffects {
             } else {
                 this.router.navigate(['/']);
             }
+        })
+    );
+
+    @Effect({dispatch: false})
+    logout$ = this.actions$.pipe(
+        ofType(AuthActionTypes.Logout),
+        exhaustMap(() => {
+            return this.authService.logout()
+                .pipe(
+                    tap(() => {
+                        this.notifier.open('Logout successfully');
+                        this.router.navigate(['/']);
+                    }),
+                );
         })
     );
 
