@@ -5,6 +5,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { reducers } from './reducers';
 import { BookRoutingModule } from './book.routing';
@@ -15,6 +16,8 @@ import { SearchListComponent } from './search-list/search-list.component';
 import { BookCardComponent } from './book-card/book-card.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { GoogleBookService } from './book.service';
+import { CollectionEffects } from './effects/collection';
+import { CollectionComponent } from './collection/collection.component';
 
 @NgModule({
     imports: [
@@ -23,6 +26,7 @@ import { GoogleBookService } from './book.service';
         ShareModule,
 
         StoreModule.forFeature('books', reducers),
+        EffectsModule.forFeature([CollectionEffects]),
     ],
     exports: [],
     declarations: [
@@ -30,7 +34,8 @@ import { GoogleBookService } from './book.service';
         BookListComponent,
         SearchListComponent,
         BookCardComponent,
-        BookDetailsComponent
+        BookDetailsComponent,
+        CollectionComponent
     ],
     providers: [
         GoogleBookService,

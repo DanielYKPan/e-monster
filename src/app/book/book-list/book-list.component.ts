@@ -26,6 +26,7 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
             value: 'combined-print-and-e-book-fiction',
             inform: 'The Best Sold Fictions in NYTimes.com(New York Times)'
         },
+        {name: 'My Collection', value: 'collection', inform: 'My movie collection'},
     ];
 
     constructor( private router: Router,
@@ -54,6 +55,12 @@ export class BookListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.scrollBackTopSub.unsubscribe();
+    }
+
+    public handleNavListOptionClick( option: string ) {
+        option === 'collection' ?
+            this.router.navigate(['book/collection']) :
+            this.router.navigate(['book/list', option]);
     }
 
     /**

@@ -4,7 +4,8 @@
             <app-frame-sidenav [title]="'Book'" [listPage]="paginatorData.page"
                                [listTotalPages]="paginatorData.total_pages"
                                [currentOption]="paginatorData.query"
-                               [navList]="navList"></app-frame-sidenav>
+                               [navList]="navList"
+                               (clickOption)="handleNavListOptionClick($event)"></app-frame-sidenav>
         </div>
         <div class="frame-main-wrapper">
             <div class="book-list">

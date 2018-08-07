@@ -13,7 +13,8 @@ import * as collectionAction from './actions/collection';
 })
 export class MovieComponent implements OnInit {
 
-    constructor( private appService: AppService, private store: Store<fromMoviesRoot.State> ) {
+    constructor( private appService: AppService,
+                 private store: Store<fromMoviesRoot.State> ) {
     }
 
     public ngOnInit() {

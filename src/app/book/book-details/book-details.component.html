@@ -51,9 +51,18 @@
                      alt="Poster">
             </div>
 
-            <button class="basic-btn details-button collection-button">
-                <i class="icon fas fa-plus"></i> Add to Collection
-            </button>
+            <ng-container *ngIf="inCollection$ | async as inCollection; else addBlock">
+                <button type="button" class="basic-btn collection-button in-collection"
+                        (click)="removeFromCollection(book)">
+                    Remove from Collection
+                </button>
+            </ng-container>
+            <ng-template #addBlock>
+                <button type="button" class="basic-btn collection-button"
+                        (click)="addToCollection(book)">
+                    <i class="icon fas fa-plus"></i> Add to Collection
+                </button>
+            </ng-template>
 
             <div class="details-inform">
                 <div class="details-inform-list-wrapper">
@@ -117,7 +126,8 @@
                             <span>{{item.identifier}}</span>
                         </li>
 
-                        <li *ngIf="book.volumeInfo.categories && book.volumeInfo.categories.length > 0" class="stats-item categories">
+                        <li *ngIf="book.volumeInfo.categories && book.volumeInfo.categories.length > 0"
+                            class="stats-item categories">
                             <label>Categories:</label>
                             <span *ngFor="let item of book.volumeInfo.categories">{{item}}</span>
                         </li>

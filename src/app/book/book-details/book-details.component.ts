@@ -3,8 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+
 import * as bookActions from '../actions/book';
 import * as fromBookRoot from '../reducers';
+import * as collectionAction from '../actions/collection';
 import { IBook } from '../../model';
 import { AppService } from '../../app.service';
 
@@ -17,7 +19,7 @@ import { AppService } from '../../app.service';
 export class BookDetailsComponent implements OnInit, OnDestroy {
 
     public book$: Observable<IBook>;
-
+    public inCollection$: Observable<boolean>;
     private routeSub = Subscription.EMPTY;
 
     get scrollTarget(): HTMLElement {
@@ -35,9 +37,18 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
             .subscribe(action => this.store.dispatch(action));
 
         this.book$ = this.store.pipe(select(fromBookRoot.getSelectedBook));
+        this.inCollection$ = this.store.pipe(select(fromBookRoot.isSelectedBookInCollection));
     }
 
     public ngOnDestroy(): void {
         this.routeSub.unsubscribe();
+    }
+
+    public addToCollection( book: IBook ) {
+        this.store.dispatch(new collectionAction.AddBook(book));
+    }
+
+    public removeFromCollection( book: IBook ) {
+        this.store.dispatch(new collectionAction.RemoveBook(book));
     }
 }

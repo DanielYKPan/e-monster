@@ -1,0 +1,22 @@
+<section class="frame-wrapper">
+    <div class="frame-sidenav-wrapper">
+        <app-frame-sidenav [title]="'Books'" [listPage]="1"
+                           [listTotalPages]="1"
+                           [currentOption]="'collection'"
+                           [navList]="navList"
+                           (clickOption)="handleNavListOptionClick($event)"></app-frame-sidenav>
+    </div>
+    <div class="frame-main-wrapper">
+        <ng-container *ngIf="list$ | async as list;else noResultBlock">
+            <ng-container *ngIf="list.length > 0;else noResultBlock">
+                <div class="book-list">
+                    <app-book-card *ngFor="let book of list"
+                                   [book]="book"></app-book-card>
+                </div>
+            </ng-container>
+        </ng-container>
+        <ng-template #noResultBlock>
+            <h1 class="no-result-msg">No Book In Your Collection</h1>
+        </ng-template>
+    </div>
+</section>

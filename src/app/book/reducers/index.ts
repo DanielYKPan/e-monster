@@ -4,12 +4,14 @@
 
 import { ActionReducerMap, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromBooks from './book';
+import * as fromCollection from './collection';
 import * as fromCoreRoot from '../../core/reducers';
 import * as fromSearch from './search';
 
 export interface BooksState {
     books: fromBooks.State;
     search: fromSearch.State;
+    collection: fromCollection.State;
 }
 
 export interface State extends fromCoreRoot.State {
@@ -19,6 +21,7 @@ export interface State extends fromCoreRoot.State {
 export const reducers: ActionReducerMap<BooksState> = {
     books: fromBooks.reducer,
     search: fromSearch.reducer,
+    collection: fromCollection.reducer,
 };
 
 export const getBooksState = createFeatureSelector<BooksState>('books');
@@ -81,5 +84,32 @@ export const getPaginatorData = createSelector(
     getSearchQuery,
     ( page, total_pages, query ) => {
         return {page, total_pages, query};
+    }
+);
+
+// collection
+export const getCollectionState = createSelector(
+    getBooksState,
+    ( state: BooksState ) => state.collection
+);
+
+export const getCollectionBookIds = createSelector(
+    getCollectionState,
+    fromCollection.getIds,
+);
+
+export const getBookCollection = createSelector(
+    getBookEntities,
+    getCollectionBookIds,
+    ( entities, ids ) => {
+        return ids.map(id => entities[id]);
+    }
+);
+
+export const isSelectedBookInCollection = createSelector(
+    getCollectionBookIds,
+    getSelectedBookId,
+    ( ids, selected ) => {
+        return ids.indexOf(selected) > -1;
     }
 );

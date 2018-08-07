@@ -11,6 +11,8 @@ import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookExistGuard } from './guards/book-exist.guard';
+import { CollectionComponent } from './collection/collection.component';
+import { AuthGuard } from '../user/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -21,6 +23,7 @@ export const routes: Routes = [
             {path: 'list/:query', component: BookListComponent, canActivate: [BookListExistGuard]},
             {path: 'search', component: SearchListComponent, canActivate: [SearchListExistGuard]},
             {path: ':id/details', component: BookDetailsComponent, canActivate: [BookExistGuard]},
+            {path: 'collection', component: CollectionComponent, canActivate: [AuthGuard]},
         ]
     }
 ];

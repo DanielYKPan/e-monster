@@ -1,0 +1,10 @@
+@import "../../../sass/list/list";
+
+.book-list {
+  display: grid;
+  grid-gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr));
+  padding: 0 .5rem .5rem;
+  box-sizing: border-box;
+  justify-items: center;
+}

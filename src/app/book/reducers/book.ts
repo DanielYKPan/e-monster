@@ -5,6 +5,7 @@ import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IBook } from '../../model';
 import { BookActions, BookActionTypes } from '../actions/book';
 import { SearchBookActions, SearchBookActionTypes } from '../actions/search';
+import { CollectionActions, CollectionActionTypes } from '../actions/collection';
 
 export interface State extends EntityState<IBook> {
     selectedBookId: string | null;
@@ -19,8 +20,14 @@ export const initialState: State = adapter.getInitialState({
     selectedBookId: null,
 });
 
-export function reducer( state = initialState, action: BookActions | SearchBookActions ): State {
+export function reducer( state = initialState, action: BookActions | SearchBookActions | CollectionActions ): State {
     switch (action.type) {
+
+        case CollectionActionTypes.LoadSuccess:
+            return adapter.addMany(action.payload, {
+                ...state,
+                selectedBookId: state.selectedBookId
+            });
 
         case SearchBookActionTypes.SearchComplete:
             return adapter.addMany(action.payload.results, {
