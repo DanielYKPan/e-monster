@@ -58,3 +58,82 @@
     letter-spacing: 4px;
   }
 }
+
+.home-inform {
+  width: 90vw;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 0;
+
+  p {
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin: 0 0 2rem;
+  }
+}
+
+.inform-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  .inform-list-item {
+    width: 17rem;
+    height: 17rem;
+    margin: 0 1rem 1.5rem;
+    box-shadow: 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12);
+
+    &.movie {
+      color: #673ab7;
+    }
+
+    &.tv {
+      color: #00bcd4;
+    }
+
+    &.music {
+      color: #4caf50;
+    }
+
+    &.book {
+      color: #ffc107;
+    }
+  }
+
+  .inform-list-anchor {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    outline: none;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, .03);
+    }
+  }
+
+  .inform-list-item-img {
+    font-size: 5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .inform-list-item-header {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .inform-list-item-description {
+    font-size: 1.1rem;
+    line-height: 1.375rem;
+    color: #2d2d2d;
+  }
+}
