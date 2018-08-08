@@ -21,6 +21,7 @@ import { SearchListComponent } from './search-list/search-list.component';
 import { SearchListExistGuard } from './guards/search-list-exist.guard';
 import { CollectionEffects } from './effects/collection.effects';
 import { CollectionComponent } from './collection/collection.component';
+import { ScrollBtnVisibilityDirective } from './scroll-btn-visibility.directive';
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import { CollectionComponent } from './collection/collection.component';
         MovieHomeComponent,
         SearchListComponent,
         CollectionComponent,
+        ScrollBtnVisibilityDirective,
     ],
     providers: [
         MovieService,

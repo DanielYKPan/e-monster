@@ -1,4 +1,4 @@
-<section class="movie-header">
+<section class="movie-header" #movieHeader>
     <ng-container *ngIf="(backdrop$ | async) as backdrop">
         <div class="movie-header-backdrop"
              [lazyLoad]="'https://image.tmdb.org/t/p/w1280' + backdrop"
@@ -6,8 +6,18 @@
     </ng-container>
     <div class="movie-header-shade"></div>
 
-    <div class="movie-header-info">
+    <div class="movie-header-partial movie-header-info">
         <h1 class="movie-header-info-title">E! Monster</h1>
+    </div>
+
+    <div class="movie-header-partial movie-header-scroll-down">
+        <button type="button" class="basic-btn scroll-down-btn" tabindex="0"
+                appScrollBtnVisibility [scrollTarget]="scrollTarget"
+                (click)="handleClickOnScrollDown($event)">
+            <span class="basic-btn-content" tabindex="-1">
+                <i class="fas fa-chevron-down"></i>
+            </span>
+        </button>
     </div>
 </section>
 <section class="home-inform">

@@ -1,4 +1,12 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from '@angular/core';
 import { Observable, Subscription, timer } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
@@ -13,6 +21,8 @@ import { AppService } from '../../app.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MovieHomeComponent implements OnInit, AfterViewInit, OnDestroy {
+
+    @ViewChild('movieHeader') movieHeaderElm: ElementRef;
 
     public backdrop$: Observable<string>;
 
@@ -40,4 +50,8 @@ export class MovieHomeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.timerSub.unsubscribe();
     }
 
+    public handleClickOnScrollDown( event: any ) {
+        this.scrollTarget.scrollTo({top: this.movieHeaderElm.nativeElement.offsetHeight - 52, left: 0, behavior: 'smooth'});
+        event.preventDefault();
+    }
 }
