@@ -1,5 +1,6 @@
 :host {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -28,4 +29,22 @@
 
 .login-error-msg {
   color: #e91439;
+}
+
+.login-hint {
+  max-width: 320px;
+  width: 95%;
+  margin-top: .5rem;
+  padding: .5rem;
+  background-color: #2c2c2c;
+  color: #aeaeae;
+  box-sizing: border-box;
+
+  h5, p {
+    margin: 0 0 .2rem;
+  }
+
+  p {
+    font-size: .7rem;
+  }
 }
