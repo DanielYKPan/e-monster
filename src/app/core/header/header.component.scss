@@ -99,6 +99,11 @@ $brand-size: 4.5rem;
     display: none;
   }
 
+  .app-header-brand {
+    opacity: 1;
+    visibility: visible;
+  }
+
   .hamburger-btn {
     display: block;
   }
