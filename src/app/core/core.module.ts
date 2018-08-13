@@ -15,12 +15,14 @@ import { reducers } from './reducers';
 import { environment } from '../../environments/environment';
 import { SidenavPanelComponent } from './sidenav-panel/sidenav-panel.component';
 import { schema } from './database-schema';
+import { ShareModule } from '../share/share.module';
 
 @NgModule({
     imports: [
         CommonModule,
         RouterModule,
         FormsModule,
+        ShareModule,
 
         // Owl NG
         OwlMenuModule,

@@ -22,6 +22,7 @@ import { TrackDialogComponent } from './track-dialog/track-dialog.component';
 import { EllipsisPipe } from './pipe/ellipsis.pipe';
 import { TrackBarComponent } from './track-bar/track-bar.component';
 import { MediaCardComponent } from './album-card/media-card.component';
+import { ScrollVisibilityDirective } from './scroll-visibility/scroll-visibility.directive';
 
 @NgModule({
     imports: [
@@ -52,6 +53,7 @@ import { MediaCardComponent } from './album-card/media-card.component';
         TrackDialogComponent,
         TrackBarComponent,
         MediaCardComponent,
+        ScrollVisibilityDirective,
     ],
     declarations: [
         AudioCardComponent,
@@ -72,6 +74,7 @@ import { MediaCardComponent } from './album-card/media-card.component';
         TrackDialogComponent,
         TrackBarComponent,
         MediaCardComponent,
+        ScrollVisibilityDirective,
     ],
     entryComponents: [
         CreditsDialogComponent,

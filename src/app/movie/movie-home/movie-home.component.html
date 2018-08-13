@@ -12,8 +12,11 @@
 
     <div class="movie-header-partial movie-header-scroll-down">
         <button type="button" class="basic-btn scroll-down-btn" tabindex="0"
-                appScrollBtnVisibility [scrollTarget]="scrollTarget"
-                (click)="handleClickOnScrollDown($event)">
+                [class.hidden]="scroll.scrolled"
+                appScrollVisibility
+                [scrollTarget]="scrollTarget"
+                (click)="handleClickOnScrollDown($event)"
+                #scroll="scrollVisibility">
             <span class="basic-btn-content" tabindex="-1">
                 <i class="fas fa-chevron-down"></i>
             </span>

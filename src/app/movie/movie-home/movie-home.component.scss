@@ -84,6 +84,13 @@
   color: #FFFFFF;
   transition: all .3s;
   animation: bounce 2s infinite;
+  opacity: .7;
+  visibility: visible;
+
+  &.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
 
   .basic-btn-content {
     border-radius: inherit;

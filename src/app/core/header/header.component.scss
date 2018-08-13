@@ -26,13 +26,14 @@ $brand-size: 4.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
+  transition: all .5s;
 
-  &.app-header-nav-left {
-    margin-right: $brand-size /2;
+  &.app-header-nav-left.scrolled {
+    margin-right: $brand-size/2;
   }
 
-  &.app-header-nav-right {
-    margin-left: $brand-size /2;
+  &.app-header-nav-right.scrolled {
+    margin-left: $brand-size/2;
   }
 }
 
@@ -82,6 +83,14 @@ $brand-size: 4.5rem;
   width: $brand-size;
   height: $brand-size;
   transform: translateX(-50%);
+  opacity: 0;
+  transition: all .5s;
+  visibility: hidden;
+
+  &.scrolled {
+    opacity: 1;
+    visibility: visible;
+  }
 }
 
 @media #{$xsmall-only} {
