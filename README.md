@@ -1,6 +1,9 @@
-# BookMovie
+# E!Monster
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.7.
+
+## Description
+A responsive web app for searching movies, tv series, music and books.
 
 ## Development server
 
