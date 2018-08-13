@@ -20,7 +20,7 @@ const initialState: State = {
     results: null,
 };
 
-export const reducer = ( state = initialState, action: SearchMusicActions ): State => {
+export function reducer( state = initialState, action: SearchMusicActions ): State {
     switch (action.type) {
         case SearchMusicActionTypes.SearchTrackComplete:
             return {
@@ -34,7 +34,7 @@ export const reducer = ( state = initialState, action: SearchMusicActions ): Sta
         default:
             return state;
     }
-};
+}
 
 export const getSearchResults = ( state: State ) => state.results;
 export const getSearchQuery = ( state: State ) => state.query;

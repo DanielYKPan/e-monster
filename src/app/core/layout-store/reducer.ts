@@ -13,7 +13,7 @@ const initialState: State = {
     showSidenav: false,
 };
 
-export const reducer = ( state = initialState, action: LayoutActions ): State => {
+export function reducer( state = initialState, action: LayoutActions ): State {
     switch (action.type) {
         case LayoutActionTypes.ShowLoader:
             return {
@@ -48,7 +48,7 @@ export const reducer = ( state = initialState, action: LayoutActions ): State =>
         default:
             return state;
     }
-};
+}
 
 export const getShowLoader = ( state: State ) => state.showLoader;
-export const getShowSidenav = (state: State) => state.showSidenav;
+export const getShowSidenav = ( state: State ) => state.showSidenav;

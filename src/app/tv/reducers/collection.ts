@@ -13,7 +13,7 @@ const initialState: State = {
     ids: [],
 };
 
-export const reducer = ( state = initialState, action: CollectionActions ): State => {
+export function reducer( state = initialState, action: CollectionActions ): State {
     switch (action.type) {
         case CollectionActionTypes.Load: {
             return {
@@ -53,7 +53,7 @@ export const reducer = ( state = initialState, action: CollectionActions ): Stat
             return state;
         }
     }
-};
+}
 
 export const getLoading = ( state: State ) => state.loading;
 export const getIds = ( state: State ) => state.ids;

@@ -18,7 +18,7 @@ export const initialState: State = {
     pending: false,
 };
 
-export const reducer = ( state = initialState, action: AuthActions ): State => {
+export function reducer( state = initialState, action: AuthActions ): State {
     switch (action.type) {
         case AuthActionTypes.Login: {
             return {
@@ -52,7 +52,7 @@ export const reducer = ( state = initialState, action: AuthActions ): State => {
             return state;
         }
     }
-};
+}
 
 export const getLoggedIn = ( state: State ) => state.loggedIn;
 export const getUser = ( state: State ) => state.user;

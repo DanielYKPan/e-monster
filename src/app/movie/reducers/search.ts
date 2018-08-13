@@ -22,7 +22,7 @@ const initialState: State = {
     randomIndex: 0,
 };
 
-export const reducer = ( state = initialState, action: SearchMovieActions ): State => {
+export function reducer( state = initialState, action: SearchMovieActions ): State {
     switch (action.type) {
         case SearchMovieActionTypes.GenerateIndex :
             let random: number;
@@ -48,7 +48,7 @@ export const reducer = ( state = initialState, action: SearchMovieActions ): Sta
         default:
             return state;
     }
-};
+}
 
 export const getSearchResults = ( state: State ) => state.results;
 export const getSearchQuery = ( state: State ) => state.query;

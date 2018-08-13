@@ -20,7 +20,7 @@ const initialState: State = {
     results: [],
 };
 
-export const reducer = ( state = initialState, action: SearchBookActions ): State => {
+export function reducer( state = initialState, action: SearchBookActions ): State {
     switch (action.type) {
         case SearchBookActionTypes.SearchComplete:
             return {
@@ -34,7 +34,7 @@ export const reducer = ( state = initialState, action: SearchBookActions ): Stat
         default:
             return state;
     }
-};
+}
 
 export const getSearchResults = ( state: State ) => state.results;
 export const getSearchQuery = ( state: State ) => state.query;

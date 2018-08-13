@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "book-movie": {
+    "e-monster": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -19,7 +19,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/book-movie",
+            "outputPath": "dist/e-monster",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -59,18 +59,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "book-movie:build"
+            "browserTarget": "e-monster:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "book-movie:build:production"
+              "browserTarget": "e-monster:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "book-movie:build"
+            "browserTarget": "e-monster:build"
           }
         },
         "test": {
@@ -107,7 +107,7 @@
         }
       }
     },
-    "book-movie-e2e": {
+    "e-monster-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -115,11 +115,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "book-movie:serve"
+            "devServerTarget": "e-monster:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "book-movie:serve:production"
+              "devServerTarget": "e-monster:serve:production"
             }
           }
         },
@@ -135,5 +135,5 @@
       }
     }
   },
-  "defaultProject": "book-movie"
+  "defaultProject": "e-monster"
 }
