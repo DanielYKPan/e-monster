@@ -31,7 +31,7 @@ export class TokenExistGuard implements CanActivate, CanActivateChild {
             } else {
                 this.document.location.href = 'https://accounts.spotify.com/authorize?' +
                     'client_id=ce67a8a0eb964933a536cca6ffc81848&' +
-                    'redirect_uri=http:%2F%2Flocalhost:4200/music&' +
+                    'redirect_uri=http:%2F%2Fe-monster-yk.firebaseapp.com/music&' +
                     'scope=user-read-private%20user-read-email&' +
                     'response_type=token&state=123';
                 return false;
