@@ -3,9 +3,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SpotifyService } from '../../spotify';
+import { MusicModule } from '../music.module';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: MusicModule
 })
 export class MusicService extends SpotifyService {
 

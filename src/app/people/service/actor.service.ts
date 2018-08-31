@@ -5,9 +5,10 @@ import { catchError, map } from 'rxjs/operators';
 
 import { IActor, IActorDetails } from '../../model';
 import { TMDBService } from '../../tmdb';
+import { PeopleModule } from '../people.module';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: PeopleModule
 })
 export class ActorService extends TMDBService {
 

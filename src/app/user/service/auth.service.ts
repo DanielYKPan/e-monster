@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Authenticate, User } from '../../model';
 import { Observable, of, throwError } from 'rxjs';
+import { UserModule } from '../user.module';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: UserModule
 })
 export class AuthService {
 

@@ -13,6 +13,7 @@ import { reducers } from './reducers';
 import { SearchListComponent } from './search-list/search-list.component';
 import { CollectionEffects } from './effects/collection';
 import { CollectionComponent } from './collection/collection.component';
+import { MusicService } from './service/music.service';
 
 @NgModule({
     imports: [
@@ -27,6 +28,7 @@ import { CollectionComponent } from './collection/collection.component';
         EffectsModule.forFeature([CollectionEffects])
     ],
     declarations: [MusicComponent, MusicListComponent, AlbumDetailsComponent, SearchListComponent, CollectionComponent],
+    providers: [MusicService]
 })
 export class MusicModule {
 }
