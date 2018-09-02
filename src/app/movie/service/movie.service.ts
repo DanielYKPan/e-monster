@@ -7,11 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
 import { IAudio, IGenre, IMovie, IReviews, IVideos } from '../../model';
 import { TMDBService } from '../../tmdb';
-import { MovieModule } from '../movie.module';
 
-@Injectable({
-    providedIn: MovieModule,
-})
+@Injectable()
 export class MovieService extends TMDBService {
 
     constructor( public http: HttpClient ) {

@@ -7,11 +7,8 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IBook } from '../model';
-import { BookModule } from './book.module';
 
-@Injectable({
-    providedIn: BookModule
-})
+@Injectable()
 export class GoogleBookService {
 
     private readonly GOOGLE_API_PATH = 'https://www.googleapis.com/books/v1/volumes';

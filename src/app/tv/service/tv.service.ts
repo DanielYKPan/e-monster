@@ -7,11 +7,8 @@ import { TMDBService } from '../../tmdb';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { IAudio, ISeason, ITv, IVideos } from '../../model';
-import { TvModule } from '../tv.module';
 
-@Injectable({
-    providedIn: TvModule
-})
+@Injectable()
 export class TvService extends TMDBService {
 
     constructor( public http: HttpClient ) {

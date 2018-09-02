@@ -4,11 +4,8 @@ import { forkJoin, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 import { SpotifyService } from '../../spotify';
-import { PeopleModule } from '../people.module';
 
-@Injectable({
-    providedIn: PeopleModule
-})
+@Injectable()
 export class ArtistService extends SpotifyService {
 
     constructor( public http: HttpClient ) {
