@@ -99,7 +99,7 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new tvVideoActions.Select(tv.id));
+            this.store.dispatch(new tvVideoActions.Select({tv_id: tv.id}));
         });
     }
 
@@ -152,10 +152,10 @@ export class TvDetailsComponent implements OnInit, OnDestroy {
     }
 
     public addToCollection( tv: ITv ): void {
-        this.store.dispatch(new collectionAction.AddTV(tv));
+        this.store.dispatch(new collectionAction.AddTV({entity: tv}));
     }
 
     public removeFromCollection( tv: ITv ): void {
-        this.store.dispatch(new collectionAction.RemoveTV(tv));
+        this.store.dispatch(new collectionAction.RemoveTV({entity: tv}));
     }
 }

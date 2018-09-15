@@ -56,7 +56,7 @@ export class TvSeasonExistGuard implements CanActivate {
         return this.tvService.getTvSeason(tv.id, season_number).pipe(
             map(seasonDetails => {
                 const new_seasons = tv.seasons.map(s => +s.id === +seasonDetails.id ? seasonDetails : s);
-                this.store.dispatch(new tvActions.UpdateTV({tv: {id: tv.id, changes: {seasons: new_seasons}}}));
+                this.store.dispatch(new tvActions.UpdateTV({entity: {id: tv.id, changes: {seasons: new_seasons}}}));
                 this.store.dispatch(new layoutActions.HideLoader());
                 return !!seasonDetails;
             }),
@@ -96,7 +96,7 @@ export class TvSeasonExistGuard implements CanActivate {
                     season_id: season.id
                 }));
                 this.store.dispatch(new layoutActions.HideLoader());
-                this.store.dispatch(new tvActions.Load(tv));
+                this.store.dispatch(new tvActions.Load({entity: tv}));
                 return !!tv;
             }),
             catchError(() => {

@@ -25,15 +25,15 @@ export class VideoEffect {
     public search$ = this.actions$.pipe(
         ofType(TvVideosActionTypes.SearchTvVideos),
         withLatestFrom(this.store.pipe(select(fromTvRoot.getTvVideosEntities))),
-        map(( [action, entities]: [SearchTvVideos, any] ) => [action.payload, entities]),
+        map(( [action, entities]: [SearchTvVideos, any] ) => [action.payload.tv_id, entities]),
         switchMap(( [id, entities] ) => {
             const inStore = entities && !!entities[id];
             let obs;
             if (inStore) {
-                obs = of(new Select(id));
+                obs = of(new Select({tv_id: id}));
             } else {
                 obs = this.tvService.getTvVideos(id).pipe(
-                    map(( res ) => new SearchVideosCompleted(res)),
+                    map(( res ) => new SearchVideosCompleted({result: res})),
                     catchError(err => of(new SearchVideosError(err)))
                 );
             }
@@ -50,10 +50,10 @@ export class VideoEffect {
             const inStore = entities && !!entities[inform.season_id];
             let obs;
             if (inStore) {
-                obs = of(new Select(inform.season_id));
+                obs = of(new Select({tv_id: inform.season_id}));
             } else {
                 obs = this.tvService.getTvSeasonVideos(inform.tv_id, inform.season_number).pipe(
-                    map(( res ) => new SearchVideosCompleted(res)),
+                    map(( res ) => new SearchVideosCompleted({result: res})),
                     catchError(err => of(new SearchVideosError(err)))
                 );
             }

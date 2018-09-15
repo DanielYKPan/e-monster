@@ -1,6 +1,6 @@
 import { AfterContentInit, ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { skip } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { OwlDialogService } from 'owl-ng';
@@ -23,7 +23,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public featuredList$: Observable<IAudio[]>;
 
-    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
+    public paginatorData$: Observable<{ page: number, total_pages: number, query: string }>;
 
     public navList = [
         {name: 'Trending', value: 'on_the_air', inform: 'The TV series currently on the air'},
@@ -76,7 +76,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
 
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {
         // search the tv video
-        this.store.dispatch(new videoActions.SearchTvVideos(res.audio.id));
+        this.store.dispatch(new videoActions.SearchTvVideos({tv_id: res.audio.id}));
         const tvVideo$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideo));
         const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
 
@@ -92,7 +92,7 @@ export class TvListComponent implements OnInit, AfterContentInit, OnDestroy {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new videoActions.Select(null));
+            this.store.dispatch(new videoActions.Select({tv_id: null}));
         });
     }
 }

@@ -27,7 +27,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     @ViewChild('castListWrapper') castListWrapperRef: ElementRef;
 
     public tvSeasonVideos$: Observable<IVideo[]>;
-    public tv_season$: Observable<{tv: ITv, season: ISeason, season_index: number}>;
+    public tv_season$: Observable<{ tv: ITv, season: ISeason, season_index: number }>;
     public inCollection$: Observable<boolean>;
     public castProfileWidth = 96;
     public castListSlideDistance = 0;
@@ -65,7 +65,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
         this.actionsSubscription.unsubscribe();
     }
 
-    public openSeasonVideoDialog(tv_season: any, videoKey: string, event: any) {
+    public openSeasonVideoDialog( tv_season: any, videoKey: string, event: any ) {
         const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
         const dialogRef = this.dialogService.open(AudioDialogComponent, {
             data: {
@@ -79,7 +79,7 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
-    public openTvSeasonCreditsDialog( tv_season: any, event: any): void {
+    public openTvSeasonCreditsDialog( tv_season: any, event: any ): void {
         const dialogRef = this.dialogService.open(CreditsDialogComponent, {
             data: {
                 title: tv_season.tv.name + ' -- ' + tv_season.season.name,
@@ -128,10 +128,10 @@ export class TvSeasonDetailsComponent implements OnInit, OnDestroy {
     }
 
     public addToCollection( tv: ITv ): void {
-        this.store.dispatch(new collectionAction.AddTV(tv));
+        this.store.dispatch(new collectionAction.AddTV({entity: tv}));
     }
 
     public removeFromCollection( tv: ITv ): void {
-        this.store.dispatch(new collectionAction.RemoveTV(tv));
+        this.store.dispatch(new collectionAction.RemoveTV({entity: tv}));
     }
 }

@@ -4,7 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
@@ -28,7 +28,7 @@ export class TvExistGuard implements CanActivate {
     private hasTv( id: number ): Observable<boolean> {
         return this.hasTvInStore(id).pipe(
             tap(() => {
-                this.store.dispatch(new videoActions.SearchTvVideos(id));
+                this.store.dispatch(new videoActions.SearchTvVideos({tv_id: id}));
             }),
             switchMap(inStore => {
                 if (inStore) {
@@ -63,7 +63,7 @@ export class TvExistGuard implements CanActivate {
             tap(( tvEntity ) => {
                 this.store.dispatch(new layoutActions.HideLoader());
                 if (tvEntity) {
-                    this.store.dispatch(new tvActions.Load(tvEntity));
+                    this.store.dispatch(new tvActions.Load({entity: tvEntity}));
                 }
             }),
             map(res => !!res),

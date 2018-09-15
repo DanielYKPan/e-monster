@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { TMDBService } from '../../tmdb';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { IAudio, ISeason, ITv, IVideos } from '../../model';
+import { ISearchResult, ISeason, ITv, IVideos } from '../../model';
 
 @Injectable()
 export class TvService extends TMDBService {
@@ -15,7 +15,7 @@ export class TvService extends TMDBService {
         super(http);
     }
 
-    public getTvList( query: string, page: number = 1 ): Observable<IAudio[]> {
+    public getTvList( query: string, page: number = 1 ): Observable<ISearchResult> {
 
         if (query === 'anticipated') {
             return this.getAnticipatedTvList(page);
@@ -31,7 +31,7 @@ export class TvService extends TMDBService {
         );
     }
 
-    public getAnticipatedTvList( page: number ): Observable<IAudio[]> {
+    public getAnticipatedTvList( page: number ): Observable<ISearchResult> {
         const start = new Date();
         const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
         const air_date_gte = start.toISOString().slice(0, 10);
@@ -49,7 +49,7 @@ export class TvService extends TMDBService {
         return this.discoverTvList('anticipated', queries);
     }
 
-    public discoverTvList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
+    public discoverTvList( query: string, queries: Array<{ name: string, value: string }> ): Observable<ISearchResult> {
         const url = this.base_url + 'discover/tv';
 
         return this.getResult(url, queries, true).pipe(
@@ -104,9 +104,9 @@ export class TvService extends TMDBService {
      * Search for tv shows
      * @param {string} query -- a text query to search
      * @param {number} page -- specify which page to query
-     * @return {Observable<IAudio[]>}
+     * @return {Observable<ISearchResult>}
      * */
-    public searchTvs( query: string, page: number ): Observable<IAudio[]> {
+    public searchTvs( query: string, page: number ): Observable<ISearchResult> {
         const url = this.base_url + 'search/tv';
 
         const queries = [

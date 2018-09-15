@@ -23,21 +23,21 @@ export enum CollectionActionTypes {
 export class AddTV implements Action {
     readonly type = CollectionActionTypes.AddTV;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
 export class AddTVSuccess implements Action {
     readonly type = CollectionActionTypes.AddTVSuccess;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
 export class AddTVFail implements Action {
     readonly type = CollectionActionTypes.AddTVFail;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
@@ -47,21 +47,21 @@ export class AddTVFail implements Action {
 export class RemoveTV implements Action {
     readonly type = CollectionActionTypes.RemoveTV;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
 export class RemoveTVSuccess implements Action {
     readonly type = CollectionActionTypes.RemoveTVSuccess;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
 export class RemoveTVFail implements Action {
     readonly type = CollectionActionTypes.RemoveTVFail;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
@@ -75,7 +75,7 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
     readonly type = CollectionActionTypes.LoadSuccess;
 
-    constructor( public payload: ITv[] ) {
+    constructor( public payload: { entities: ITv[] } ) {
     }
 }
 

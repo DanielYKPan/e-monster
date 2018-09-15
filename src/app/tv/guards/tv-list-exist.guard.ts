@@ -55,12 +55,12 @@ export class TvListExistGuard implements CanActivate {
     private hasTvListInApi( name: string, page: number ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
         return this.tvService.getTvList(name, page).pipe(
-            map(res => new searchTvActions.SearchComplete(res)),
+            map(res => new searchTvActions.SearchComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => res.payload.results && res.payload.results.length > 0),
+            map(res => res.payload.search.results && res.payload.search.results.length > 0),
             catchError(() => {
                 this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});

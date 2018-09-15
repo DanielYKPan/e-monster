@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, of, forkJoin } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
@@ -56,7 +56,7 @@ export class SearchListExistGuard implements CanActivate {
             this.tvService.searchTvs(query, page);
 
         return search.pipe(
-            map(res => new searchTvActions.SearchComplete(res)),
+            map(res => new searchTvActions.SearchComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());

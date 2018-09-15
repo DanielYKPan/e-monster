@@ -46,7 +46,7 @@ export class CollectionComponent implements OnInit {
 
     public openTvTrailerDialog( res: { audio: IAudio | ITv; event: any } ): void {
         // search the tv video
-        this.store.dispatch(new videoActions.SearchTvVideos(res.audio.id));
+        this.store.dispatch(new videoActions.SearchTvVideos({tv_id: res.audio.id}));
         const tvVideo$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideo));
         const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
 
@@ -62,7 +62,7 @@ export class CollectionComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new videoActions.Select(null));
+            this.store.dispatch(new videoActions.Select({tv_id: null}));
         });
     }
 }

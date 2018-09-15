@@ -31,17 +31,17 @@ export function reducer( state = initialState, action: TvVideosActions ): State 
         }
 
         case TvVideosActionTypes.SearchVideosCompleted:
-            return adapter.addOne(action.payload, {
+            return adapter.addOne(action.payload.result, {
                 ...state,
                 loading: false,
-                selectedTvId: action.payload.id
+                selectedTvId: action.payload.result.id
             });
 
         case TvVideosActionTypes.Select:
             return {
                 ...state,
                 loading: false,
-                selectedTvId: action.payload
+                selectedTvId: action.payload.tv_id
             };
 
         default:
