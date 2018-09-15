@@ -47,7 +47,7 @@ export class BookExistGuard implements CanActivate {
     private hasBookInApi( id: string ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
         return this.bookService.retrieveBook(id).pipe(
-            map(bookEntity => new bookActions.Load(bookEntity)),
+            map(bookEntity => new bookActions.Load({entity: bookEntity})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());

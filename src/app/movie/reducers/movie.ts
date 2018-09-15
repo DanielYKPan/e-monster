@@ -22,13 +22,13 @@ export const initialState: State = adapter.getInitialState({
 export function reducer( state = initialState, action: MovieActions | CollectionActions ): State {
     switch (action.type) {
         case CollectionActionTypes.LoadSuccess:
-            return adapter.addMany(action.payload, {
+            return adapter.addMany(action.payload.entities, {
                 ...state,
                 selectedMovieId: state.selectedMovieId
             });
 
         case MovieActionTypes.Load:
-            return adapter.addOne(action.payload, {
+            return adapter.addOne(action.payload.entity, {
                 ...state,
                 selectedMovieId: state.selectedMovieId
             });
@@ -36,7 +36,7 @@ export function reducer( state = initialState, action: MovieActions | Collection
         case MovieActionTypes.Select:
             return {
                 ...state,
-                selectedMovieId: action.payload,
+                selectedMovieId: action.payload.id,
             };
 
         default:

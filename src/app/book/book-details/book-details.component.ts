@@ -33,7 +33,7 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
 
     public ngOnInit() {
         this.routeSub = this.route.params
-            .pipe(map(params => new bookActions.Select(params.id)))
+            .pipe(map(params => new bookActions.Select({id: params.id})))
             .subscribe(action => this.store.dispatch(action));
 
         this.book$ = this.store.pipe(select(fromBookRoot.getSelectedBook));
@@ -45,10 +45,10 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
     }
 
     public addToCollection( book: IBook ) {
-        this.store.dispatch(new collectionAction.AddBook(book));
+        this.store.dispatch(new collectionAction.AddBook({entity: book}));
     }
 
     public removeFromCollection( book: IBook ) {
-        this.store.dispatch(new collectionAction.RemoveBook(book));
+        this.store.dispatch(new collectionAction.RemoveBook({entity: book}));
     }
 }

@@ -4,7 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, throwError, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, switchMap, take, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 
@@ -29,7 +29,7 @@ export class MovieExistGuard implements CanActivate {
     private hasMovie( id: number ): Observable<boolean> {
         return this.hasMovieInStore(id).pipe(
             tap(() => {
-                this.store.dispatch(new videoActions.SearchVideos(id));
+                this.store.dispatch(new videoActions.SearchVideos({movie_id: id}));
             }),
             switchMap(inStore => {
                 if (inStore) {
@@ -62,8 +62,8 @@ export class MovieExistGuard implements CanActivate {
             map(movieEntity => {
                 if (movieEntity.id !== id) {
                     throwError('Entity not exists');
-                } else  {
-                    return new movieActions.Load(movieEntity);
+                } else {
+                    return new movieActions.Load({entity: movieEntity});
                 }
             }),
             tap(( action: movieActions.Load ) => {

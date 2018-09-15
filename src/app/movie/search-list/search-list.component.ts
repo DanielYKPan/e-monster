@@ -80,7 +80,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
      * */
     public openMovieTrailerDialog( res: { audio: IAudio, event: any } ): void {
         // search the movie videos
-        this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
+        this.store.dispatch(new movieVideoActions.SearchVideos({movie_id: res.audio.id}));
         const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
         const showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchVideoLoader));
 
@@ -96,7 +96,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new movieVideoActions.Select(null));
+            this.store.dispatch(new movieVideoActions.Select({movie_id: null}));
         });
     }
 }

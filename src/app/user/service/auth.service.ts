@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { Authenticate, User } from '../../model';
 import { Observable, of, throwError } from 'rxjs';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
     public redirectUrl: string;

@@ -23,21 +23,21 @@ export enum CollectionActionTypes {
 export class AddBook implements Action {
     readonly type = CollectionActionTypes.AddBook;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
 export class AddBookSuccess implements Action {
     readonly type = CollectionActionTypes.AddBookSuccess;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
 export class AddBookFail implements Action {
     readonly type = CollectionActionTypes.AddBookFail;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
@@ -47,21 +47,21 @@ export class AddBookFail implements Action {
 export class RemoveBook implements Action {
     readonly type = CollectionActionTypes.RemoveBook;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
 export class RemoveBookSuccess implements Action {
     readonly type = CollectionActionTypes.RemoveBookSuccess;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
 export class RemoveBookFail implements Action {
     readonly type = CollectionActionTypes.RemoveBookFail;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
@@ -75,7 +75,7 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
     readonly type = CollectionActionTypes.LoadSuccess;
 
-    constructor( public payload: IBook[] ) {
+    constructor( public payload: { entities: IBook[] } ) {
     }
 }
 

@@ -3,6 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
+import { ISearchResult } from '../../model';
 
 export enum SearchTvActionTypes {
     Search = '[TV] Search',
@@ -20,7 +21,7 @@ export class Search implements Action {
 export class SearchComplete implements Action {
     readonly type = SearchTvActionTypes.SearchComplete;
 
-    constructor( public payload: any ) {
+    constructor( public payload: { search: ISearchResult } ) {
     }
 }
 

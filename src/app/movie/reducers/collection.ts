@@ -25,19 +25,19 @@ export function reducer( state = initialState, action: CollectionActions ): Stat
         case CollectionActionTypes.LoadSuccess: {
             return {
                 loading: false,
-                ids: action.payload.map(movie => movie.id),
+                ids: action.payload.entities.map(movie => movie.id),
             };
         }
 
         case CollectionActionTypes.AddMovieSuccess:
         case CollectionActionTypes.RemoveMovieFail: {
-            if (state.ids.indexOf(action.payload.id) > -1) {
+            if (state.ids.indexOf(action.payload.entity.id) > -1) {
                 return state;
             }
 
             return {
                 ...state,
-                ids: [...state.ids, action.payload.id],
+                ids: [...state.ids, action.payload.entity.id],
             };
         }
 
@@ -45,7 +45,7 @@ export function reducer( state = initialState, action: CollectionActions ): Stat
         case CollectionActionTypes.AddMovieFail: {
             return {
                 ...state,
-                ids: state.ids.filter(id => id !== action.payload.id),
+                ids: state.ids.filter(id => id !== action.payload.entity.id),
             };
         }
 

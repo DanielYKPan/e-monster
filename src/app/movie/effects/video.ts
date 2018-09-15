@@ -24,15 +24,15 @@ export class VideoEffect {
     public search$ = this.actions$.pipe(
         ofType(MovieVideosActionTypes.SearchVideos),
         withLatestFrom(this.store$.pipe(select(fromMovieRoot.getMovieVideosEntities))),
-        map(( [action, entities]: [SearchVideos, any] ) => [action.payload, entities]),
+        map(( [action, entities]: [SearchVideos, any] ) => [action.payload.movie_id, entities]),
         switchMap(( [id, entities] ) => {
             const inStore = entities && !!entities[id];
             let obs;
             if (inStore) {
-                obs = of(new Select(id));
+                obs = of(new Select({movie_id: id}));
             } else {
                 obs = this.movieService.getMovieVideos(id).pipe(
-                    map(( res ) => new SearchVideosCompleted(res)),
+                    map(( res ) => new SearchVideosCompleted({result: res})),
                     catchError(err => of(new SearchVideosError(err)))
                 );
             }

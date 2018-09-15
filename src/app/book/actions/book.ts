@@ -13,14 +13,14 @@ export enum BookActionTypes {
 export class Load implements Action {
     readonly type = BookActionTypes.Load;
 
-    constructor( public payload: IBook ) {
+    constructor( public payload: { entity: IBook } ) {
     }
 }
 
 export class Select implements Action {
     readonly type = BookActionTypes.Select;
 
-    constructor( public payload: string ) {
+    constructor( public payload: { id: string } ) {
     }
 }
 

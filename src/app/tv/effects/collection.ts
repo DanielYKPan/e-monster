@@ -44,7 +44,7 @@ export class CollectionEffects {
                     .query('tvs')
                     .pipe(
                         toArray(),
-                        map(( tvs: ITv[] ) => new LoadSuccess(tvs)),
+                        map(( tvs: ITv[] ) => new LoadSuccess({entities: tvs})),
                         catchError(error => of(new LoadFail(error)))
                     );
             } else {
@@ -56,7 +56,7 @@ export class CollectionEffects {
     @Effect()
     addTvToCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.AddTV),
-        map(( action: AddTV ) => action.payload),
+        map(( action: AddTV ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [tv, isLoggedIn]: [ITv, boolean] ) => {
             // check loggedIn status before add the tv to database
@@ -65,8 +65,8 @@ export class CollectionEffects {
                     .insert('tvs', [tv])
                     .pipe(
                         tap(() => this.notifier.open('TV added into your collection successfully')),
-                        map(() => new AddTVSuccess(tv)),
-                        catchError(() => of(new AddTVFail(tv)))
+                        map(() => new AddTVSuccess({entity: tv})),
+                        catchError(() => of(new AddTVFail({entity: tv})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));
@@ -77,7 +77,7 @@ export class CollectionEffects {
     @Effect()
     removeTvFromCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.RemoveTV),
-        map(( action: RemoveTV ) => action.payload),
+        map(( action: RemoveTV ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [tv, isLoggedIn]: [ITv, boolean] ) => {
             // check loggedIn status before remove the tv from database
@@ -86,8 +86,8 @@ export class CollectionEffects {
                     .executeWrite('movies', 'delete', [tv.id])
                     .pipe(
                         tap(() => this.notifier.open('TV removed from your collection successfully')),
-                        map(() => new RemoveTVSuccess(tv)),
-                        catchError(() => of(new RemoveTVFail(tv)))
+                        map(() => new RemoveTVSuccess({entity: tv})),
+                        catchError(() => of(new RemoveTVFail({entity: tv})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));

@@ -60,12 +60,12 @@ export class MovieListExistGuard implements CanActivate {
     private hasSearchResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
         return this.movieService.searchList(query, page).pipe(
-            map(res => new searchMovieActions.SearchComplete(res)),
+            map(res => new searchMovieActions.SearchComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => res.payload.results && res.payload.results.length > 0),
+            map(res => res.payload.search.results && res.payload.search.results.length > 0),
             catchError(() => {
                 this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});

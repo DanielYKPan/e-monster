@@ -22,14 +22,14 @@ export class Select implements Action {
 export class Load implements Action {
     readonly type = TvActionTypes.Load;
 
-    constructor( public payload: ITv ) {
+    constructor( public payload: { entity: ITv } ) {
     }
 }
 
 export class UpdateTV implements Action {
     readonly type = TvActionTypes.UpdateTV;
 
-    constructor( public payload: { tv: Update<ITv> } ) {
+    constructor( public payload: { entity: Update<ITv> } ) {
     }
 }
 

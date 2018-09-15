@@ -25,19 +25,19 @@ export function reducer( state = initialState, action: TvActions | CollectionAct
     switch (action.type) {
 
         case CollectionActionTypes.LoadSuccess:
-            return adapter.addMany(action.payload, {
+            return adapter.addMany(action.payload.entities, {
                 ...state,
                 selectedTvId: state.selectedTvId
             });
 
         case TvActionTypes.Load:
-            return adapter.addOne(action.payload, {
+            return adapter.addOne(action.payload.entity, {
                 ...state,
                 selectedTvId: state.selectedTvId
             });
 
         case TvActionTypes.UpdateTV:
-            return adapter.updateOne(action.payload.tv, {
+            return adapter.updateOne(action.payload.entity, {
                 ...state,
                 selectedTvId: state.selectedTvId
             });
@@ -55,4 +55,4 @@ export function reducer( state = initialState, action: TvActions | CollectionAct
 }
 
 export const getSelectedId = ( state: State ) => state.selectedTvId;
-export const getSelectedSeasonNum = (state: State) => state.selectedTvSeasonNum;
+export const getSelectedSeasonNum = ( state: State ) => state.selectedTvSeasonNum;

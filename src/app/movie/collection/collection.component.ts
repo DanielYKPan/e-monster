@@ -48,7 +48,7 @@ export class CollectionComponent implements OnInit {
      * */
     public openMovieTrailerDialog( res: { audio: IAudio | IMovie, event: any } ): void {
         // search the movie videos
-        this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
+        this.store.dispatch(new movieVideoActions.SearchVideos({movie_id: res.audio.id}));
         const movieVideo$ = this.store.pipe(select(fromMovieRoot.getSelectedMovieVideo));
         const showLoader$ = this.store.pipe(select(fromMovieRoot.getSearchVideoLoader));
 
@@ -64,7 +64,7 @@ export class CollectionComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new movieVideoActions.Select(null));
+            this.store.dispatch(new movieVideoActions.Select({movie_id: null}));
         });
     }
 }

@@ -23,7 +23,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public featuredList$: Observable<IAudio[]>; // Featured Movie List Observable
 
-    public paginatorData$: Observable<{page: number, total_pages: number, query: string}>;
+    public paginatorData$: Observable<{ page: number, total_pages: number, query: string }>;
 
     private scrollBackTopSub = Subscription.EMPTY;
 
@@ -78,7 +78,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
 
     public openTvTrailerDialog( res: { audio: IAudio; event: any } ): void {
         // search the tv video
-        this.store.dispatch(new videoActions.SearchTvVideos(res.audio.id));
+        this.store.dispatch(new videoActions.SearchTvVideos({tv_id: res.audio.id}));
         const tvVideo$ = this.store.pipe(select(fromTvRoot.getSelectedTvVideo));
         const showLoader$ = this.store.pipe(select(fromTvRoot.getSearchTvVideoLoader));
 
@@ -94,7 +94,7 @@ export class SearchListComponent implements OnInit, AfterContentInit, OnDestroy 
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new videoActions.Select(null));
+            this.store.dispatch(new videoActions.Select({tv_id: null}));
         });
     }
 }

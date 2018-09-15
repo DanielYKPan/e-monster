@@ -51,7 +51,7 @@ export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     public ngOnInit() {
         this.routeParamsSub = this.route.params
-            .pipe(map(params => new musicActions.Select(params.id)))
+            .pipe(map(params => new musicActions.Select({id: params.id})))
             .subscribe(action => this.store.dispatch(action));
 
         this.album$ = this.store.pipe(select(fromMusicRoot.getSelectedAlbum));
@@ -91,10 +91,10 @@ export class AlbumDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public addToCollection( album: IAlbum ) {
-        this.store.dispatch(new collectionAction.AddAlbum(album));
+        this.store.dispatch(new collectionAction.AddAlbum({entity: album}));
     }
 
     public removeFromCollection( album: IAlbum ) {
-        this.store.dispatch(new collectionAction.RemoveAlbum(album));
+        this.store.dispatch(new collectionAction.RemoveAlbum({entity: album}));
     }
 }

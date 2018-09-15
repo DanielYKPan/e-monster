@@ -4,7 +4,7 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, forkJoin } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { IBook } from '../model';
 
@@ -1060,8 +1060,8 @@ export class GoogleBookService {
                             );
                     }));
                 }),
-                map((books) =>  books.filter((book) => !!book)),
-                map((books) => {
+                map(( books ) => books.filter(( book ) => !!book)),
+                map(( books ) => {
                     return {
                         query,
                         page: 1,

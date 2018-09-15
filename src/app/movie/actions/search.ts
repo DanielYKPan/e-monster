@@ -3,6 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
+import { ISearchResult } from '../../model';
 
 export enum SearchMovieActionTypes {
     GenerateIndex = '[Movies] Generate Random Index',
@@ -25,7 +26,7 @@ export class Search implements Action {
 export class SearchComplete implements Action {
     readonly type = SearchMovieActionTypes.SearchComplete;
 
-    constructor( public payload: any ) {
+    constructor( public payload: { search: ISearchResult } ) {
     }
 }
 

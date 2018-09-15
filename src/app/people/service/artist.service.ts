@@ -5,9 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 
 import { SpotifyService } from '../../spotify';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ArtistService extends SpotifyService {
 
     constructor( public http: HttpClient ) {

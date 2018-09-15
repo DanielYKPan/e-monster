@@ -59,12 +59,12 @@ export class MusicListExistGuard implements CanActivate {
             this.musicService.getNewReleases(page) :
             this.musicService.searchAlbum(query, page);
         return service.pipe(
-            map(res => new searchMusicActions.SearchAlbumComplete(res)),
+            map(res => new searchMusicActions.SearchAlbumComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => res.payload.results && res.payload.results.length > 0),
+            map(res => res.payload.search.results && res.payload.search.results.length > 0),
             catchError(( res ) => {
                 this.store.dispatch(new layoutActions.HideLoader());
 

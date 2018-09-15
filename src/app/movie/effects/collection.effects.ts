@@ -44,7 +44,7 @@ export class CollectionEffects {
                     .query('movies')
                     .pipe(
                         toArray(),
-                        map(( movies: IMovie[] ) => new LoadSuccess(movies)),
+                        map(( movies: IMovie[] ) => new LoadSuccess({entities: movies})),
                         catchError(error => of(new LoadFail(error)))
                     );
             } else {
@@ -56,7 +56,7 @@ export class CollectionEffects {
     @Effect()
     addMovieToCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.AddMovie),
-        map(( action: AddMovie ) => action.payload),
+        map(( action: AddMovie ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [movie, isLoggedIn]: [IMovie, boolean] ) => {
             // check loggedIn status before add the movie to database
@@ -65,8 +65,8 @@ export class CollectionEffects {
                     .insert('movies', [movie])
                     .pipe(
                         tap(() => this.notifier.open('Movie added into your collection successfully')),
-                        map(() => new AddMovieSuccess(movie)),
-                        catchError(() => of(new AddMovieFail(movie)))
+                        map(() => new AddMovieSuccess({entity: movie})),
+                        catchError(() => of(new AddMovieFail({entity: movie})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));
@@ -77,7 +77,7 @@ export class CollectionEffects {
     @Effect()
     removeMovieFromCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.RemoveMovie),
-        map(( action: RemoveMovie ) => action.payload),
+        map(( action: RemoveMovie ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [movie, isLoggedIn]: [IMovie, boolean] ) => {
             // check loggedIn status before remove the movie from database
@@ -86,8 +86,8 @@ export class CollectionEffects {
                     .executeWrite('movies', 'delete', [movie.id])
                     .pipe(
                         tap(() => this.notifier.open('Movie removed from your collection successfully')),
-                        map(() => new RemoveMovieSuccess(movie)),
-                        catchError(() => of(new RemoveMovieFail(movie)))
+                        map(() => new RemoveMovieSuccess({entity: movie})),
+                        catchError(() => of(new RemoveMovieFail({entity: movie})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));

@@ -6,9 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { IActor, IActorDetails } from '../../model';
 import { TMDBService } from '../../tmdb';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ActorService extends TMDBService {
 
     constructor( public http: HttpClient ) {

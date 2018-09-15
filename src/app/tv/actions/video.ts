@@ -3,6 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
+import { IVideos } from '../../model';
 
 export enum TvVideosActionTypes {
     Select = '[Tv Videos] Select',
@@ -15,14 +16,14 @@ export enum TvVideosActionTypes {
 export class Select implements Action {
     readonly type = TvVideosActionTypes.Select;
 
-    constructor( public payload: number ) {
+    constructor( public payload: { tv_id: number } ) {
     }
 }
 
 export class SearchTvVideos implements Action {
     readonly type = TvVideosActionTypes.SearchTvVideos;
 
-    constructor( public payload: number ) {
+    constructor( public payload: { tv_id: number } ) {
     }
 }
 
@@ -36,7 +37,7 @@ export class SearchTvSeasonVideos implements Action {
 export class SearchVideosCompleted implements Action {
     readonly type = TvVideosActionTypes.SearchVideosCompleted;
 
-    constructor( public payload: any ) {
+    constructor( public payload: { result: IVideos } ) {
     }
 }
 

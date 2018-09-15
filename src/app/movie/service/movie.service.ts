@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { catchError, map } from 'rxjs/operators';
-import { IAudio, IGenre, IMovie, IReviews, IVideos } from '../../model';
+import { IGenre, IMovie, IReviews, ISearchResult, IVideos } from '../../model';
 import { TMDBService } from '../../tmdb';
 
 @Injectable()
@@ -19,9 +19,9 @@ export class MovieService extends TMDBService {
      * Search Movie List
      * @param{string} query -- list query valid value: 'now_playing', 'popular', 'upcoming', 'anticipated' and 'top_rated'
      * @param{number} page -- page number
-     * @return {Observable<IAudio[]>}
+     * @return {Observable<ISearchResult>}
      * */
-    public searchList( query: string, page: number = 1 ): Observable<IAudio[]> {
+    public searchList( query: string, page: number = 1 ): Observable<ISearchResult> {
 
         if (query === 'anticipated') {
             return this.getAnticipatedMovieList(page);
@@ -41,9 +41,9 @@ export class MovieService extends TMDBService {
      * Search Anticipated Movies
      * Anticipated movies include those are released between now and two years later.
      * @param{number} page
-     * @return {Observable<IAudio[]>}
+     * @return {Observable<ISearchResult>}
      * */
-    public getAnticipatedMovieList( page: number ): Observable<IAudio[]> {
+    public getAnticipatedMovieList( page: number ): Observable<ISearchResult> {
         const start = new Date();
         const end = new Date(start.getFullYear() + 2, start.getMonth(), start.getDate());
         const release_date_gte = start.toISOString().slice(0, 10);
@@ -67,9 +67,9 @@ export class MovieService extends TMDBService {
      * Discover movies by different types of data like average rating, number of votes, genres and certifications.
      * @param {string} query -- list query
      * @param {Array<any>} queries -- query type
-     * @return {Observable<IAudio[]>}
+     * @return {Observable<ISearchResult>}
      * */
-    public discoverMovieList( query: string, queries: Array<{ name: string, value: string }> ): Observable<IAudio[]> {
+    public discoverMovieList( query: string, queries: Array<{ name: string, value: string }> ): Observable<ISearchResult> {
         const url = this.base_url + 'discover/movie';
 
         return this.getResult(url, queries, true).pipe(
@@ -137,9 +137,9 @@ export class MovieService extends TMDBService {
      * Search for movies
      * @param {string} query -- a text query to search
      * @param {number} page -- specify which page to query
-     * @return {Observable<IAudio[]>}
+     * @return {Observable<ISearchResult>}
      * */
-    public searchMovies( query: string, page: number ): Observable<IAudio[]> {
+    public searchMovies( query: string, page: number ): Observable<ISearchResult> {
         const url = this.base_url + 'search/movie';
 
         const queries = [

@@ -44,7 +44,7 @@ export class CollectionEffects {
                     .query('books')
                     .pipe(
                         toArray(),
-                        map(( books: IBook[] ) => new LoadSuccess(books)),
+                        map(( books: IBook[] ) => new LoadSuccess({entities: books})),
                         catchError(error => of(new LoadFail(error)))
                     );
             } else {
@@ -56,7 +56,7 @@ export class CollectionEffects {
     @Effect()
     addBookToCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.AddBook),
-        map(( action: AddBook ) => action.payload),
+        map(( action: AddBook ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [book, isLoggedIn]: [IBook, boolean] ) => {
             // check loggedIn status before add the book to database
@@ -65,8 +65,8 @@ export class CollectionEffects {
                     .insert('books', [book])
                     .pipe(
                         tap(() => this.notifier.open('Book added into your collection successfully')),
-                        map(() => new AddBookSuccess(book)),
-                        catchError(() => of(new AddBookFail(book)))
+                        map(() => new AddBookSuccess({entity: book})),
+                        catchError(() => of(new AddBookFail({entity: book})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));
@@ -77,7 +77,7 @@ export class CollectionEffects {
     @Effect()
     removeBookFromCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.RemoveBook),
-        map(( action: RemoveBook ) => action.payload),
+        map(( action: RemoveBook ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [book, isLoggedIn]: [IBook, boolean] ) => {
             // check loggedIn status before remove the book from database
@@ -86,8 +86,8 @@ export class CollectionEffects {
                     .executeWrite('books', 'delete', [book.id])
                     .pipe(
                         tap(() => this.notifier.open('Book removed from your collection successfully')),
-                        map(() => new RemoveBookSuccess(book)),
-                        catchError(() => of(new RemoveBookFail(book)))
+                        map(() => new RemoveBookSuccess({entity: book})),
+                        catchError(() => of(new RemoveBookFail({entity: book})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));

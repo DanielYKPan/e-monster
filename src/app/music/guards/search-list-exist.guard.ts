@@ -83,12 +83,12 @@ export class SearchListExistGuard implements CanActivate {
     private hasSearchAlbumResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
         return this.musicService.searchAlbum(query, page).pipe(
-            map(res => new searchMusicActions.SearchAlbumComplete(res)),
+            map(res => new searchMusicActions.SearchAlbumComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => !!res.payload.results),
+            map(res => !!res.payload.search.results),
             catchError(( res ) => {
                 this.store.dispatch(new layoutActions.HideLoader());
 
@@ -129,12 +129,12 @@ export class SearchListExistGuard implements CanActivate {
     private hasSearchTrackResultsInApi( query: string, page: number ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
         return this.musicService.searchTrack(query, page).pipe(
-            map(res => new searchMusicActions.SearchTrackComplete(res)),
+            map(res => new searchMusicActions.SearchTrackComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => !!res.payload.results),
+            map(res => !!res.payload.search.results),
             catchError(( res ) => {
                 this.store.dispatch(new layoutActions.HideLoader());
 
@@ -156,8 +156,8 @@ export class SearchListExistGuard implements CanActivate {
 
         return this.musicService.searchMusic(query, page).pipe(
             map(( res: any ) => {
-                const action1 = new searchMusicActions.SearchAlbumComplete(res.albums);
-                const action2 = new searchMusicActions.SearchTrackComplete(res.tracks);
+                const action1 = new searchMusicActions.SearchAlbumComplete({search: res.albums});
+                const action2 = new searchMusicActions.SearchTrackComplete({search: res.tracks});
                 return [action1, action2];
             }),
             tap(actions => {
@@ -165,7 +165,7 @@ export class SearchListExistGuard implements CanActivate {
                 this.store.dispatch(actions[1]);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(actions => !!actions[0].payload.results && !!actions[1].payload.results),
+            map(actions => !!actions[0].payload.search.results && !!actions[1].payload.search.results),
             catchError(( res ) => {
                 this.store.dispatch(new layoutActions.HideLoader());
 
@@ -186,19 +186,21 @@ export class SearchListExistGuard implements CanActivate {
         this.store.dispatch(new layoutActions.ShowLoader());
 
         return this.musicService.getNewReleases().pipe(
-            map(res => new searchMusicActions.SearchAlbumComplete(res)),
+            map(res => new searchMusicActions.SearchAlbumComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new searchMusicActions.SearchTrackComplete({
-                    query: null,
-                    page: 0,
-                    total_pages: 0,
-                    total_results: 0,
-                    results: null
+                    search: {
+                        query: null,
+                        page: 0,
+                        total_pages: 0,
+                        total_results: 0,
+                        results: null
+                    }
                 }));
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => !!res.payload.results),
+            map(res => !!res.payload.search.results),
             catchError(( res ) => {
                 this.store.dispatch(new layoutActions.HideLoader());
 
