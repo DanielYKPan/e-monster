@@ -44,7 +44,7 @@ export class CollectionEffects {
                     .query('albums')
                     .pipe(
                         toArray(),
-                        map(( albums: IAlbum[] ) => new LoadSuccess(albums)),
+                        map(( albums: IAlbum[] ) => new LoadSuccess({entities: albums})),
                         catchError(error => of(new LoadFail(error)))
                     );
             } else {
@@ -56,7 +56,7 @@ export class CollectionEffects {
     @Effect()
     addAlbumToCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.AddAlbum),
-        map(( action: AddAlbum ) => action.payload),
+        map(( action: AddAlbum ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [album, isLoggedIn]: [IAlbum, boolean] ) => {
             // check loggedIn status before add the movie to database
@@ -65,8 +65,8 @@ export class CollectionEffects {
                     .insert('albums', [album])
                     .pipe(
                         tap(() => this.notifier.open('Album added into your collection successfully')),
-                        map(() => new AddAlbumSuccess(album)),
-                        catchError(() => of(new AddAlbumFail(album)))
+                        map(() => new AddAlbumSuccess({entity: album})),
+                        catchError(() => of(new AddAlbumFail({entity: album})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));
@@ -77,7 +77,7 @@ export class CollectionEffects {
     @Effect()
     removeAlbumFromCollection$: Observable<Action> = this.actions$.pipe(
         ofType(CollectionActionTypes.RemoveAlbum),
-        map(( action: RemoveAlbum ) => action.payload),
+        map(( action: RemoveAlbum ) => action.payload.entity),
         withLatestFrom(this.store.pipe(select(fromUser.getLoggedIn))),
         mergeMap(( [album, isLoggedIn]: [IAlbum, boolean] ) => {
             // check loggedIn status before remove the movie from database
@@ -86,8 +86,8 @@ export class CollectionEffects {
                     .executeWrite('albums', 'delete', [album.id])
                     .pipe(
                         tap(() => this.notifier.open('Album removed from your collection successfully')),
-                        map(() => new RemoveAlbumSuccess(album)),
-                        catchError(() => of(new RemoveAlbumFail(album)))
+                        map(() => new RemoveAlbumSuccess({entity: album})),
+                        catchError(() => of(new RemoveAlbumFail({entity: album})))
                     );
             } else {
                 return of(new authActions.LoginRedirect(this.router.url));

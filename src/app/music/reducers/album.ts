@@ -26,19 +26,19 @@ export function reducer( state = initialState, action: MusicActions | SearchMusi
     switch (action.type) {
 
         case CollectionActionTypes.LoadSuccess:
-            return adapter.addMany(action.payload, {
+            return adapter.addMany(action.payload.entities, {
                 ...state,
                 electedAlbumId: state.selectedAlbumId
             });
 
         case SearchMusicActionTypes.SearchAlbumComplete:
-            return adapter.addMany(action.payload.results, {
+            return adapter.addMany(action.payload.search.results, {
                 ...state,
                 selectedAlbumId: state.selectedAlbumId
             });
 
         case MusicActionTypes.Load:
-            return adapter.upsertOne(action.payload, {
+            return adapter.upsertOne(action.payload.entity, {
                 ...state,
                 selectedAlbumId: state.selectedAlbumId,
                 accessToken: state.accessToken,
@@ -47,13 +47,13 @@ export function reducer( state = initialState, action: MusicActions | SearchMusi
         case MusicActionTypes.Select:
             return {
                 ...state,
-                selectedAlbumId: action.payload
+                selectedAlbumId: action.payload.id
             };
 
         case MusicActionTypes.SetToken:
             return {
                 ...state,
-                accessToken: action.payload
+                accessToken: action.payload.token
             };
 
         default:

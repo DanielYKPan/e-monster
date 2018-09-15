@@ -23,21 +23,21 @@ export enum CollectionActionTypes {
 export class AddAlbum implements Action {
     readonly type = CollectionActionTypes.AddAlbum;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
 export class AddAlbumSuccess implements Action {
     readonly type = CollectionActionTypes.AddAlbumSuccess;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
 export class AddAlbumFail implements Action {
     readonly type = CollectionActionTypes.AddAlbumFail;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
@@ -47,21 +47,21 @@ export class AddAlbumFail implements Action {
 export class RemoveAlbum implements Action {
     readonly type = CollectionActionTypes.RemoveAlbum;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
 export class RemoveAlbumSuccess implements Action {
     readonly type = CollectionActionTypes.RemoveAlbumSuccess;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
 export class RemoveAlbumFail implements Action {
     readonly type = CollectionActionTypes.RemoveAlbumFail;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
@@ -75,7 +75,7 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
     readonly type = CollectionActionTypes.LoadSuccess;
 
-    constructor( public payload: IAlbum[] ) {
+    constructor( public payload: { entities: IAlbum[] } ) {
     }
 }
 

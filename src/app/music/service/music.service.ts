@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { SpotifyService } from '../../spotify';
+import { ISearchResult } from '../../model';
 
 @Injectable()
 export class MusicService extends SpotifyService {
@@ -24,7 +25,7 @@ export class MusicService extends SpotifyService {
         );
     }*/
 
-    public getNewReleases( page: number = 1 ): Observable<any> {
+    public getNewReleases( page: number = 1 ): Observable<ISearchResult> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'browse/new-releases?offset=' + offSet;
         let headers = new HttpHeaders();
@@ -57,7 +58,7 @@ export class MusicService extends SpotifyService {
     /**
      * Search both album and track
      * */
-    public searchMusic( query: string, page: number = 1 ): Observable<any> {
+    public searchMusic( query: string, page: number = 1 ): Observable<{albums: ISearchResult, tracks: ISearchResult}> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'search?type=album,track&market=US&offset=' + offSet + '&q=' + query;
         let headers = new HttpHeaders();
@@ -93,7 +94,7 @@ export class MusicService extends SpotifyService {
     /**
      * Search only album
      * */
-    public searchAlbum( query: string, page: number = 1 ): Observable<any> {
+    public searchAlbum( query: string, page: number = 1 ): Observable<ISearchResult> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'search?type=album&market=US&offset=' + offSet + '&q=' + query;
         let headers = new HttpHeaders();
@@ -117,7 +118,7 @@ export class MusicService extends SpotifyService {
     /**
      * Search only track
      * */
-    public searchTrack( query: string, page: number = 1 ): Observable<any> {
+    public searchTrack( query: string, page: number = 1 ): Observable<ISearchResult> {
         const offSet = (page - 1) * this.limit;
         const url = this.base_url + 'search?type=track&market=US&offset=' + offSet + '&q=' + query;
         let headers = new HttpHeaders();

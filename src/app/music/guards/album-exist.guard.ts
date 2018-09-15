@@ -47,7 +47,7 @@ export class AlbumExistGuard implements CanActivate {
     private hasAlbumInApi( id: string ): Observable<boolean> {
         this.store.dispatch(new layoutActions.ShowLoader());
         return this.musicService.getAlbum(id).pipe(
-            map(albumEntity => new musicActions.Load(albumEntity)),
+            map(albumEntity => new musicActions.Load({entity: albumEntity})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());

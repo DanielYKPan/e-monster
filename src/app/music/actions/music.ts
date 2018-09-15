@@ -14,21 +14,21 @@ export enum MusicActionTypes {
 export class Select implements Action {
     readonly type = MusicActionTypes.Select;
 
-    constructor( public payload: string ) {
+    constructor( public payload: { id: string } ) {
     }
 }
 
 export class Load implements Action {
     readonly type = MusicActionTypes.Load;
 
-    constructor( public payload: IAlbum ) {
+    constructor( public payload: { entity: IAlbum } ) {
     }
 }
 
 export class SetToken implements Action {
     readonly type = MusicActionTypes.SetToken;
 
-    constructor( public payload: string ) {
+    constructor( public payload: { token: string } ) {
     }
 }
 

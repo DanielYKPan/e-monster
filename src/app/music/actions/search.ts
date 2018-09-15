@@ -3,6 +3,7 @@
  */
 
 import { Action } from '@ngrx/store';
+import { ISearchResult } from '../../model';
 
 export enum SearchMusicActionTypes {
     SearchAlbum = '[Album] Search',
@@ -22,7 +23,7 @@ export class SearchAlbum implements Action {
 export class SearchAlbumComplete implements Action {
     readonly type = SearchMusicActionTypes.SearchAlbumComplete;
 
-    constructor( public payload: any ) {
+    constructor( public payload: { search: ISearchResult } ) {
     }
 }
 
@@ -36,7 +37,7 @@ export class SearchTrack implements Action {
 export class SearchTrackComplete implements Action {
     readonly type = SearchMusicActionTypes.SearchTrackComplete;
 
-    constructor( public payload: any ) {
+    constructor( public payload: { search: ISearchResult } ) {
     }
 }
 

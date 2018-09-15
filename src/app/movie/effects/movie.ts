@@ -20,7 +20,7 @@ export class MovieEffect {
         map(( action: Search ) => action.payload),
         switchMap(( payload: any ) => {
             return this.movieService.searchList(payload.query, payload.page).pipe(
-                map(results => new searchMovieActions.SearchComplete(results)),
+                map(results => new searchMovieActions.SearchComplete({search: results})),
                 catchError(err => of(new searchMovieActions.SearchError(err)))
             );
         })
