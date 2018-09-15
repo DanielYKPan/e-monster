@@ -53,7 +53,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
             .pipe(map(params => {
                 this.appService.scrollBackToTop(true);
                 this.movieId = +params.id;
-                return new movieAction.Select(this.movieId);
+                return new movieAction.Select({id: this.movieId});
             }))
             .subscribe(this.store);
     }
@@ -67,7 +67,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
 
     public ngOnDestroy(): void {
         this.actionsSubscription.unsubscribe();
-        this.store.dispatch(new movieVideoActions.Select(null));
+        this.store.dispatch(new movieVideoActions.Select({movie_id: null}));
     }
 
     public openMovieVideoDialog( title: string, videoKey: string, event: any ): void {
@@ -109,7 +109,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     public openSimilarMovieVideoDialog( res: { audio: IAudio, event: any } ): void {
 
         // search the movie videos
-        this.store.dispatch(new movieVideoActions.SearchVideos(res.audio.id));
+        this.store.dispatch(new movieVideoActions.SearchVideos({movie_id: res.audio.id}));
         const movieVideo$ = this.store.pipe(select(fromMoviesRoot.getSelectedMovieVideo));
         const showLoader$ = this.store.pipe(select(fromMoviesRoot.getSearchVideoLoader));
 
@@ -125,7 +125,7 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
         });
 
         dialogRef.afterClosed().subscribe(() => {
-            this.store.dispatch(new movieVideoActions.Select(this.movieId));
+            this.store.dispatch(new movieVideoActions.Select({movie_id: this.movieId}));
         });
     }
 
@@ -156,10 +156,10 @@ export class MovieDetailsComponent implements OnInit, OnDestroy {
     }
 
     public addToCollection( movie: IMovie ) {
-        this.store.dispatch(new collectionAction.AddMovie(movie));
+        this.store.dispatch(new collectionAction.AddMovie({entity: movie}));
     }
 
     public removeFromCollection( movie: any ) {
-        this.store.dispatch(new collectionAction.RemoveMovie(movie));
+        this.store.dispatch(new collectionAction.RemoveMovie({entity: movie}));
     }
 }

@@ -37,12 +37,12 @@ export function reducer( state = initialState, action: SearchMovieActions ): Sta
 
         case SearchMovieActionTypes.SearchComplete:
             return {
-                query: action.payload.query,
-                page: action.payload.page,
-                total_results: action.payload.total_results,
-                total_pages: action.payload.total_pages,
-                results: action.payload.results,
-                randomIndex: Math.floor(Math.random() * action.payload.results.length)
+                query: action.payload.search.query,
+                page: action.payload.search.page,
+                total_results: action.payload.search.total_results,
+                total_pages: action.payload.search.total_pages,
+                results: action.payload.search.results,
+                randomIndex: Math.floor(Math.random() * action.payload.search.results.length)
             };
 
         default:

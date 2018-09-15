@@ -23,19 +23,22 @@ export enum CollectionActionTypes {
 export class AddMovie implements Action {
     readonly type = CollectionActionTypes.AddMovie;
 
-    constructor(public payload: IMovie) {}
+    constructor( public payload: { entity: IMovie } ) {
+    }
 }
 
 export class AddMovieSuccess implements Action {
     readonly type = CollectionActionTypes.AddMovieSuccess;
 
-    constructor(public payload: IMovie) {}
+    constructor( public payload: { entity: IMovie } ) {
+    }
 }
 
 export class AddMovieFail implements Action {
     readonly type = CollectionActionTypes.AddMovieFail;
 
-    constructor(public payload: IMovie) {}
+    constructor( public payload: { entity: IMovie } ) {
+    }
 }
 
 /**
@@ -44,19 +47,22 @@ export class AddMovieFail implements Action {
 export class RemoveMovie implements Action {
     readonly type = CollectionActionTypes.RemoveMovie;
 
-    constructor(public payload: IMovie) {}
+    constructor( public payload: { entity: IMovie } ) {
+    }
 }
 
 export class RemoveMovieSuccess implements Action {
     readonly type = CollectionActionTypes.RemoveMovieSuccess;
 
-    constructor(public payload: IMovie) {}
+    constructor( public payload: { entity: IMovie } ) {
+    }
 }
 
 export class RemoveMovieFail implements Action {
     readonly type = CollectionActionTypes.RemoveMovieFail;
 
-    constructor(public payload: IMovie) {}
+    constructor( public payload: { entity: IMovie } ) {
+    }
 }
 
 /**
@@ -69,13 +75,15 @@ export class Load implements Action {
 export class LoadSuccess implements Action {
     readonly type = CollectionActionTypes.LoadSuccess;
 
-    constructor(public payload: IMovie[]) {}
+    constructor( public payload: { entities: IMovie[] } ) {
+    }
 }
 
 export class LoadFail implements Action {
     readonly type = CollectionActionTypes.LoadFail;
 
-    constructor(public payload: any) {}
+    constructor( public payload: any ) {
+    }
 }
 
 export type CollectionActions =
