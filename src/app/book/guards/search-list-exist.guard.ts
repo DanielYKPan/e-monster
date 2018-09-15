@@ -56,12 +56,12 @@ export class SearchListExistGuard implements CanActivate {
             this.bookService.searchBooks(query, page);
 
         return search.pipe(
-            map(res => new searchBookActions.SearchComplete(res)),
+            map(res => new searchBookActions.SearchComplete({search: res})),
             tap(action => {
                 this.store.dispatch(action);
                 this.store.dispatch(new layoutActions.HideLoader());
             }),
-            map(res => !!res.payload.results),
+            map(res => !!res.payload.search.results),
             catchError(() => {
                 this.store.dispatch(new layoutActions.HideLoader());
                 this.router.navigate(['page-not-found'], {skipLocationChange: true});

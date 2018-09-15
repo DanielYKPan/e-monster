@@ -24,19 +24,19 @@ export function reducer( state = initialState, action: BookActions | SearchBookA
     switch (action.type) {
 
         case CollectionActionTypes.LoadSuccess:
-            return adapter.addMany(action.payload, {
+            return adapter.addMany(action.payload.entities, {
                 ...state,
                 selectedBookId: state.selectedBookId
             });
 
         case SearchBookActionTypes.SearchComplete:
-            return adapter.addMany(action.payload.results, {
+            return adapter.addMany(action.payload.search.results, {
                 ...state,
                 selectedBookId: state.selectedBookId
             });
 
         case BookActionTypes.Load:
-            return adapter.addOne(action.payload, {
+            return adapter.addOne(action.payload.entity, {
                 ...state,
                 selectedBookId: state.selectedBookId
             });
@@ -44,7 +44,7 @@ export function reducer( state = initialState, action: BookActions | SearchBookA
         case BookActionTypes.Select:
             return {
                 ...state,
-                selectedBookId: action.payload,
+                selectedBookId: action.payload.id,
             };
 
         default:
